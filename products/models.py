@@ -10,6 +10,7 @@ class Category(models.Model):
     
     category_name = models.CharField(max_length=100)
     slug = models.SlugField(unique=True, null=True, blank=True)
+    
     def save(self, *args, **kwargs):
         self.slug = slugify(self.category_name)
         super(Category, self).save(*args, **kwargs)
