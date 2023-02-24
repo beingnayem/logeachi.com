@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -14,15 +15,15 @@
   <!--
     - custom css link
   -->
-  <link rel="stylesheet" href="../static/assets/css/style.css">
+  <link rel="stylesheet" href="{% static '../static/assets/css/style.css' %}">
   <!--
     - google font link
   -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+  <link rel="preconnect" href="{% static 'https://fonts.googleapis.com' %}">
+  <link rel="preconnect" href="{% static 'https://fonts.gstatic.com' %}" crossorigin>
+  <link href="{% static 'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap' %}"
     rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="{% static 'stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' %}">
 
 </head>
 
@@ -41,12 +42,15 @@
 
       <div class="container">
         <div class="header-alert-news">
+          {% for news in Alert_news %}
           <p class="alert-text">
             <span>
-              <b class="boold-alert">BUY ONE GET ONE OFFER</b>
-              This Week Order Over - 1000tk
+              <b class="boold-alert">{{news.alertNews}}</b>
+              {{news.alertNewsSubtitle}}
             </span>
           </p>
+          {% endfor %}
+          
         </div>
 
         <div class="header-top-actions">
@@ -73,7 +77,7 @@
 
       <div class="container">
 
-        <a href="#" class="header-logo">
+        <a href="/admin" class="header-logo">
           <img src="../static/assets/images/logo/logo.png" alt="Logeachi's logo" width="200" height="50">
         </a>
 
@@ -247,62 +251,42 @@
     -->
 
     <div class="product-container">
-
       <div class="container">
-
-      <div class="product-box">
-            
-        <div class="product-minimal">
-
-          <div class="product-showcase">
-
-            {% for product in products %}
-              
-              <h2 class="title">{{product.category}}</h2>
-
-              <div class="showcase-wrapper has-scrollbar">
-
-                <div class="showcase-container">
-
-                  <div class="showcase">
-
-                    <a href="#" class="showcase-img-box">
-                        <img src="{{product.image.url}}">
-                    </a>
-
-                    <div class="showcase-content">
-
-                      <a href="{% url 'get_product' product.slug %}">
-                        <h4 class="showcase-title">{{product.product_name}}</h4>
-                      </a>
-
-                      <a href="#" class="showcase-category">{{product.category}}</a>
-
-                      <div class="price-box">
-                        <p class="price">&#2547 {{product.price}}</p>
-                        <!-- <del>&#2547 678</del> -->
+        <div class="product-box">  
+          <div class="product-minimal">
+            {% for category in categories %}
+              <div class="product-showcase">
+                  <h2 class="title">{{category.category_name}}</h2>
+                  <div class="showcase-wrapper has-scrollbar">
+                    {% for product in products %}
+                      <div class="showcase-container">
+                          <div class="showcase">
+                            <a href="#" class="showcase-img-box">
+                              <img src="{{product.image.url}}" style="height: 200px; width: 150px;">
+                            </a>
+                            <div class="showcase-content">
+                              <a href="{% url 'get_product' product.slug %}">
+                                <h4 class="showcase-title">{{product.product_name}}</h4>
+                              </a>
+                              <a href="#"class="showcase-category">  
+                                {{product.category}}
+                              </a>
+                              <div class="price-box">
+                                <p class="price">&#2547 {{product.price}}</p>
+                                <!-- <del>&#2547 678</del> -->
+                              </div>
+                            </div>
+                          </div>
                       </div>
-                    
-                    </div>
-
+                    {% endfor %}
                   </div>
-
-                </div>
-
               </div>
-
             {% endfor %}
-
           </div>
-              
-
-        </div>
-
-      </div>  
-
+        </div>  
       </div>
-
     </div>
+    
 
     <!--
       -CTA & SERVICE
@@ -508,13 +492,13 @@
   <!--
     - custom js link
   -->
-  <script src="./assets/js/script.js"></script>
+  <script src="{% static '../static/assets/js/script.js' %}"></script>
 
   <!--
     - ionicon link
   -->
-  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <script type="module" src="{% static 'https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js' %}"></script>
+  <script nomodule src="{% static 'https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js' %}"></script>
 
 </body>
 
