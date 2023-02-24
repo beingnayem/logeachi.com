@@ -42,12 +42,15 @@
 
       <div class="container">
         <div class="header-alert-news">
+          {% for news in Alert_news %}
           <p class="alert-text">
             <span>
-              <b class="boold-alert">BUY ONE GET ONE OFFER</b>
-              This Week Order Over - 1000tk
+              <b class="boold-alert">{{news.alertNews}}</b>
+              {{news.alertNewsSubtitle}}
             </span>
           </p>
+          {% endfor %}
+          
         </div>
 
         <div class="header-top-actions">
