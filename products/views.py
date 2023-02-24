@@ -1,7 +1,13 @@
 from django.shortcuts import render
+from  products.models import Product
 
 # Create your views here.
 
 
 def get_product(request, slug):
-    return render(request, 'product.html')
+    try:
+        context = {'products': Product.objects.filter(slug=slug)}
+        return render(request, 'product.html', context)
+    except Product.DoesNotExist:
+        # handle the case where there is no product with the given slug
+        return render(request, 'product_not_found.html')
