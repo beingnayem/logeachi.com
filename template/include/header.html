@@ -1,126 +1,16 @@
-<header>
-
-    <div class="header-top">
-
-      <div class="container">
-        <div class="header-alert-news">
-          {% for news in Alert_news %}
-          <p class="alert-text">
-            <span>
-              <b class="boold-alert">{{news.alertNews}}</b>
-              {{news.alertNewsSubtitle}}
-            </span>
-          </p>
-          {% endfor %}
-          
-        </div>
-
-        <div class="header-top-actions">
-
-          <select name="currency">
-
-            <option value="usd">TK &#2547;</option>
-            <option value="eur">USD &dollar;</option>
-
-          </select>
-
-          <select name="language">
-            <option value="en-US">English</option>
-            <option value="বাংলা">বাংলা</option>
-          </select>
-
-        </div>
-
-      </div>
-
+ <header>
+    <a href="#" class="logo">Logeachi</a>
+    <div class="search-container">
+      <input type="text" class="search-input" placeholder="Search...">
+      <button class="search-button">Search</button>
     </div>
-
-    <div class="header-main">
-
-      <div class="container">
-
-        <a href="/admin" class="header-logo">
-          <img src="../static/assets/images/logo/logo.png" alt="Logeachi's logo" width="200" height="50">
-        </a>
-
-        <div class="header-search-container">
-
-          <input type="search" name="search" class="search-field" placeholder="Enter your product name...">
-
-          <button class="search-btn">
-            <ion-icon name="search-outline"></ion-icon>
-          </button>
-
-        </div>
-
-        <div class="header-user-actions">
-
-          <button title="View Profile" class="action-btn">
-            <a href="#">
-              <img style="height: 30px;width: 30px;" src="../static/assets/images/icons/user.png" alt="">
-            </a>
-          </button>
-
-          <button title="Wishlist" class="action-btn">
-            <img style="height: 30px;width: 30px;" src="../static/assets/images/icons/wishlist.png" alt="">
-          </button>
-
-          <button title="Cart" class="action-btn">
-            <img style="height: 30px;width: 30px;" src="../static/assets/images/icons/cart.png" alt="">
-          </button>
-
-        </div>
-
-      </div>
-
-    </div>
-
-    <nav class="desktop-navigation-menu">
-
-      <div class="container">
-
-        <ul class="desktop-menu-category-list">
-
-          <li class="menu-category">
-            <a href="{% url 'home' %}" class="menu-title">Home</a>
-          </li>
-
-          <li class="menu-category">
-            <a href="#" class="menu-title">Cloths</a>
-          </li>
-
-          <li class="menu-category">
-            <a href="#" class="menu-title">Footwear</a>
-          </li>
-
-          <li class="menu-category">
-            <a href="#" class="menu-title">Jewelry</a>
-          </li>
-
-          <li class="menu-category">
-            <a href="#" class="menu-title">Glasses</a>
-          </li>
-
-          <li class="menu-category">
-            <a href="#" class="menu-title">Perfume</a>
-          </li>
-
-          <li class="menu-category">
-            <a href="#" class="menu-title">Bags</a>
-          </li>
-
-          <li class="menu-category">
-            <a href="#" class="menu-title">Cosmetics</a>
-          </li>
-
-          <li class="menu-category">
-            <a href="#" class="menu-title">Hot Offers</a>
-          </li>
-
-        </ul>
-
-      </div>
-
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Sign In</a>
+      <a href="#">Profile</a>
+      <a href="#">Cart</a>
     </nav>
-
   </header>
+  <div class="alert">
+    <p>Important message here</p>
+  </div>
