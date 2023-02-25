@@ -1,0 +1,248 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+  
+
+<main>
+
+    <!--
+      - BANNER
+    -->
+
+    <div class="banner">
+
+      <div class="container">
+
+        <div class="slider-container has-scrollbar">
+
+          <div class="slider-item">
+
+            <img src="../static/assets/images/banner-1.jpg" alt="women's latest fashion sale" class="banner-img">
+
+            <div class="banner-content">
+
+              <p class="banner-subtitle">Trending item</p>
+
+              <h2 class="banner-title">Women's latest fashion sale</h2>
+
+              <p class="banner-text">
+                starting at &#2547; <b>700</b>
+              </p>
+
+              <a href="#" class="banner-btn">Shop now</a>
+
+            </div>
+
+          </div>
+
+          <div class="slider-item">
+
+            <img src="../static/assets/images/banner-2.jpg" alt="modern sunglasses" class="banner-img">
+
+            <div class="banner-content">
+
+              <p class="banner-subtitle">Trending accessories</p>
+
+              <h2 class="banner-title">Modern sunglasses</h2>
+
+              <p class="banner-text">
+                starting at &#2547; <b>400</b>
+              </p>
+
+              <a href="#" class="banner-btn">Shop now</a>
+
+            </div>
+
+          </div>
+
+          <div class="slider-item">
+
+            <img src="../static/assets/images/banner-3.jpg" alt="new fashion summer sale" class="banner-img">
+
+            <div class="banner-content">
+
+              <p class="banner-subtitle">Sale Offer</p>
+
+              <h2 class="banner-title">New fashion summer sale</h2>
+
+              <p class="banner-text">
+                starting at &#2547; <b>800</b>
+              </p>
+
+              <a href="#" class="banner-btn">Shop now</a>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!--
+      - PRODUCT
+    -->
+
+    <div class="product-container">
+      <div class="container">
+        <div class="product-box">  
+          <div class="product-minimal">
+            {% for category in categories %}
+              <div class="product-showcase">
+                  <h2 class="title">{{category.category_name}}</h2>
+                  <div class="showcase-wrapper has-scrollbar">
+                    {% for product in products %}
+                      <div class="showcase-container">
+                          <div class="showcase">
+                            <a href="#" class="showcase-img-box">
+                              <img src="{{product.image.url}}" style="height: 200px; width: 150px;">
+                            </a>
+                            <div class="showcase-content">
+                              <a href="{% url 'get_product' product.slug %}">
+                                <h4 class="showcase-title">{{product.product_name}}</h4>
+                              </a>
+                              <a href="#"class="showcase-category">  
+                                {{product.category}}
+                              </a>
+                              <div class="price-box">
+                                <p class="price">&#2547 {{product.price}}</p>
+                                <!-- <del>&#2547 678</del> -->
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+                    {% endfor %}
+                  </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>  
+      </div>
+    </div>
+    
+
+    <!--
+      -CTA & SERVICE
+    -->
+
+    <div class="cta-service">
+    
+      <!--
+        - CTA
+      -->
+
+      <div class="cta-container">
+
+        <img src="../static/assets/images/cta-banner.jpg" alt="summer collection" class="cta-banner">
+
+        <a href="#" class="cta-content">
+
+          <p class="discount">Upto 25% Discount</p>
+
+          <h2 class="cta-title">Summer collection</h2>
+
+          <p class="cta-text">Starting at &#2547 999</p>
+
+          <button class="cta-btn">Shop now</button>
+
+        </a>
+
+      </div>
+
+      <!--
+        - SERVICE
+      -->
+
+      <div class="service">
+
+        <h2 class="title">Our Services</h2>
+
+        <div class="service-container">
+
+          <a href="#" class="service-item">
+
+            <div class="service-icon">
+              <ion-icon name="boat-outline"></ion-icon>
+            </div>
+
+            <div class="service-content">
+
+            <h3 class="service-title">Free Delivery</h3>
+            <p class="service-desc">For Order Over &#2547 3000</p>
+
+            </div>
+
+          </a>
+
+          <a href="#" class="service-item">
+        
+            <div class="service-icon">
+              <ion-icon name="rocket-outline"></ion-icon>
+            </div>
+        
+            <div class="service-content">
+          
+              <h3 class="service-title">Next Day delivery</h3>
+              <p class="service-desc">Inside Dhaka Only</p>
+          
+            </div>
+        
+          </a>
+
+          <a href="#" class="service-item">
+        
+            <div class="service-icon">
+              <ion-icon name="call-outline"></ion-icon>
+            </div>
+        
+            <div class="service-content">
+          
+              <h3 class="service-title">Best Online Support</h3>
+              <p class="service-desc">Hours: 10AM - 11PM</p>
+          
+            </div>
+        
+          </a>
+
+          <a href="#" class="service-item">
+        
+          <div class="service-icon">
+            <ion-icon name="arrow-undo-outline"></ion-icon>
+          </div>
+        
+            <div class="service-content">
+          
+              <h3 class="service-title">Return Policy</h3>
+              <p class="service-desc">Easy & Free Return</p>
+          
+            </div>
+        
+          </a>
+
+          <a href="#" class="service-item">
+        
+            <div class="service-icon">
+              <ion-icon name="ticket-outline"></ion-icon>
+            </div>
+        
+            <div class="service-content">
+          
+              <h3 class="service-title">Upto 10% cash back</h3>
+              <p class="service-desc">For Order Over &#2547 10000</p>
+          
+            </div>
+          
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+
+{% endblock content %}

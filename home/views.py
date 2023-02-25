@@ -7,4 +7,4 @@ def index(request,):
 
     context = {'products': Product.objects.all(), 'categories': Category.objects.all(), 'Alert_news': AlertNews.objects.all()}
     
-    return render(request, 'home.html' , context)
+    return render(request, 'home/index.html' , context)
