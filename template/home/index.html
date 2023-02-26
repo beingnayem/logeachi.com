@@ -64,7 +64,7 @@
             <div class="category-item">
 
               <div class="category-img-box">
-                {% comment %} <img src="../../static/assets/images/icons/dress.svg" alt="dress & frock" width="30"> {% endcomment %}
+                <img src="{{category.category_image.url}}" alt="dress & frock" width="30"> 
               </div>
 
               <div class="category-content-box">
@@ -118,16 +118,19 @@
             </div>
 
             <ul class="sidebar-menu-category-list">
+                {% for category in categories %}
+                  
+                <li class="sidebar-menu-category">
 
-              <li class="sidebar-menu-category">
+                  <button class="sidebar-accordion-menu" data-accordion-btn>
+                    <div class="menu-title-flex">
+                      <p class="menu-title">{{category.category_name}}</p>
+                    </div>
+                  </button>
+  
+                </li>
 
-                <button class="sidebar-accordion-menu" data-accordion-btn>
-                  <div class="menu-title-flex">
-                    <p class="menu-title">Clothes</p>
-                  </div>
-                </button>
-
-              </li>
+                {% endfor %}
 
             </ul>
 
@@ -146,35 +149,147 @@
 
             <div class="product-showcase">
 
-              <h2 class="title">New Arrivals</h2>
+              <h2 class="title">Female's Collection</h2>
 
               <div class="showcase-wrapper has-scrollbar">
-
+                
                 <div class="showcase-container">
+                  {% for collection in female_collc %}
+                    <div class="showcase">
 
-                  <div class="showcase">
-
-                    <a href="#" class="showcase-img-box">
-                      <img src="../../static/assets/images/products/clothes-1.jpg" alt="relaxed short full sleeve t-shirt" width="70" class="showcase-img">
-                    </a>
-
-                    <div class="showcase-content">
-
-                      <a href="#">
-                        <h4 class="showcase-title">Relaxed Short full Sleeve T-Shirt</h4>
+                      <a href="{% url 'get_product' collection.slug %}" class="showcase-img-box">
+                        <img src="{{collection.image.url}}" alt="{{collection.product_name}}" width="80" class="showcase-img">
                       </a>
 
-                      <a href="#" class="showcase-category">Clothes</a>
+                      <div class="showcase-content">
 
-                      <div class="price-box">
-                        <p class="price">&#2547 800</p>
-                        <del>&#2547 678</del>
+                        <a href="{% url 'get_product' collection.slug %}">
+                          <h4 class="showcase-title">{{collection.product_name}}</h4>
+                        </a>
+
+                        <a href="#" class="showcase-category">{{collection.category}}</a>
+
+                        <div class="price-box">
+                          <p class="price">&#2547 {{collection.price}}</p>
+                          <!-- <del>&#2547 678</del> -->
+                        </div>
+
                       </div>
 
                     </div>
+                  {% endfor %}
+                </div>
 
-                  </div>
+              </div>
 
+            </div>
+
+            <div class="product-showcase">
+
+              <h2 class="title">Male's Collection</h2>
+
+              <div class="showcase-wrapper has-scrollbar">
+                
+                <div class="showcase-container">
+                  {% for collection in male_collc %}
+                    <div class="showcase">
+
+                      <a href="{% url 'get_product' collection.slug %}" class="showcase-img-box">
+                        <img src="{{collection.image.url}}" alt="{{collection.product_name}}" width="80" class="showcase-img">
+                      </a>
+
+                      <div class="showcase-content">
+
+                        <a href="{% url 'get_product' collection.slug %}">
+                          <h4 class="showcase-title">{{collection.product_name}}</h4>
+                        </a>
+
+                        <a href="#" class="showcase-category">{{collection.category}}</a>
+
+                        <div class="price-box">
+                          <p class="price">&#2547 {{collection.price}}</p>
+                          <!-- <del>&#2547 678</del> -->
+                        </div>
+
+                      </div>
+
+                    </div>
+                  {% endfor %}
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="product-showcase">
+
+              <h2 class="title">Kid's Collection</h2>
+
+              <div class="showcase-wrapper has-scrollbar">
+                
+                <div class="showcase-container">
+                  {% for collection in kids_collc %}  
+                    <div class="showcase">
+
+                      <a href="{% url 'get_product' collection.slug %}" class="showcase-img-box">
+                        <img src="{{collection.image.url}}" alt="{{collection.product_name}}" width="80" class="showcase-img">
+                      </a>
+
+                      <div class="showcase-content">
+
+                        <a href="{% url 'get_product' collection.slug %}">
+                          <h4 class="showcase-title">{{collection.product_name}}</h4>
+                        </a>
+
+                        <a href="#" class="showcase-category">{{collection.category}}</a>
+
+                        <div class="price-box">
+                          <p class="price">&#2547 {{collection.price}}</p>
+                          <!-- <del>&#2547 678</del> -->
+                        </div>
+
+                      </div>
+
+                    </div>
+                  {% endfor %}
+                </div>
+
+              </div>
+
+            </div>
+
+            <div class="product-showcase">
+
+              <h2 class="title">Uni-sex Collection</h2>
+
+              <div class="showcase-wrapper has-scrollbar">
+                
+                <div class="showcase-container">
+                  {% for collection in both_collc %}  
+                    
+                    <div class="showcase">
+
+                      <a href="{% url 'get_product' collection.slug %}" class="showcase-img-box">
+                        <img src="{{collection.image.url}}" alt="{{collection.product_name}}" width="80" class="showcase-img">
+                      </a>
+
+                      <div class="showcase-content">
+
+                        <a href="{% url 'get_product' collection.slug %}">
+                          <h4 class="showcase-title">{{collection.product_name}}</h4>
+                        </a>
+
+                        <a href="#" class="showcase-category">{{collection.category}}</a>
+
+                        <div class="price-box">
+                          <p class="price">&#2547 {{collection.price}}</p>
+                          <!-- <del>&#2547 678</del> -->
+                        </div>
+
+                      </div>
+
+                    </div>
+                  {% endfor %}
                 </div>
 
               </div>

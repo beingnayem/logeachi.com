@@ -17,12 +17,12 @@
     --shadow: #949494;
 }
 
-.container{
+.singel-product-container{
     display: flex;
     position: relative;
     align-items: center;
-    /* justify-content: center;
-    height: 100vh; */ 
+    justify-content: center;
+    height: 100vh;
 }
 
 .row{
