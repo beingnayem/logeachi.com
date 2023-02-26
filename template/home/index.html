@@ -14,26 +14,31 @@
       <div class="container">
 
         <div class="slider-container has-scrollbar">
-
+          {% for slide in sliders %}
           <div class="slider-item">
 
-            <img src="../../static/assets/images/banner-1.jpg" alt="women's latest fashion sale" class="banner-img">
+            <img src="{{slide.banner_img.url}}" alt="women's latest fashion sale" class="banner-img">
 
             <div class="banner-content">
 
-              <p class="banner-subtitle">Trending item</p>
+              {% comment %} <p class="banner-subtitle">Tranding Item</p> {% endcomment %}
 
-              <h2 class="banner-title">Women's latest fashion sale</h2>
+              <h2 class="banner-title">{{slide.banner_title}}</h2>
 
               <p class="banner-text">
-                starting at &#2547; <b>700</b>
+               <b>{{slide.banner_subtitle}}</b>
               </p>
 
-              <a href="#" class="banner-btn">Shop now</a>
+              {% comment %} <a href="#" class="banner-btn">Shop now</a> {% endcomment %}
 
             </div>
 
           </div>
+
+
+          {% endfor %}
+
+          
 
         </div>
 
