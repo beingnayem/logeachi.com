@@ -1,0 +1,95 @@
+*{
+  margin: 0px;
+  padding: 0px;
+}
+
+footer{
+  /* / position: fixed;  */
+  background-color: black;
+  width: 100%;
+}
+
+footer .content{
+  max-width: 1250px;
+  margin: auto;
+  padding-top: 0px;
+}
+
+
+footer .content .top{
+  display: flex;
+  justify-content: space-between;
+  margin: 0px;
+  padding: 30px ;
+  width: 100%;
+}
+
+.content .top .logo-details{
+  color: white;
+  font-size: 30px;
+}
+.content .top .media-icons{
+  display: flex;
+}
+.content .top .logo-details img{
+  width: 200px;
+  color: inherit;
+}
+
+.content .top .media-icons a{
+  height: 40px;
+  width: 40px;
+  color: white;
+  margin: 0 8px;
+  line-height: 40px;
+  font-size: 20px;
+}
+
+.content .ss img{
+  width: 100%;
+  padding-bottom: 0px;
+  background-color: white;
+  border-radius: 5px;
+}
+footer a{
+  color: white;
+  font-family:sans-serif;
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.content .top p{
+  font-family:sans-serif;
+  color: orange;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.top li{
+  list-style: none;
+  text-decoration: none;
+}
+.copyright p{
+  padding-bottom: 20px;
+  margin-top: 20px;
+  width: 100%;
+  font-size: 14px;
+  text-align: center;
+  color: white;
+}
+.content .top .help{
+  padding-bottom: 20px;
+}
+
+.sub-btn{
+  margin-top: 10px;
+  border-radius: 2px;
+  background-color: white;
+  color: red;
+  border-radius: 3px;
+}
+
+.sub-btn:hover{
+  color: orange;
+  background-color: red;
+}
