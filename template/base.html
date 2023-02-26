@@ -15,25 +15,40 @@
   <!--
     - custom css link
   -->
+  <!-- footer css -->
+  <link rel="stylesheet" href="{% static '../static/assets/css/footer.css' %}">
+
+  <!-- home css -->
   <link rel="stylesheet" href="{% static '../static/assets/css/style.css' %}">
+
+  <!-- hedaer css -->
+  <link rel="stylesheet" href="{% static '../static/assets/css/header.css' %}">
+
+  <!-- singel product css -->
+  <link rel="stylesheet" href="{% static '../static/assets/css/singel_product.css' %}">
+
+
+
   <!--
     - google font link
   -->
   <link rel="preconnect" href="{% static 'https://fonts.googleapis.com' %}">
+
   <link rel="preconnect" href="{% static 'https://fonts.gstatic.com' %}" crossorigin>
+
   <link href="{% static 'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap' %}"
     rel="stylesheet">
+
   <link rel="{% static 'stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' %}">
 
-  <link rel="stylesheet" href="{% static '../static/assets/css/product.css' %}">
-     
-    <!---Boxicons CDN Setup for icons-->
+
+  <!---Boxicons CDN Setup for icons-->
     <link href="{% static 'https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'> %}">
+  
 
 </head>
 
 <body>
-
 
     {% include "include/header.html" %}
     {% block content %}
@@ -51,10 +66,12 @@
   <!--
     - custom js link
   -->
+
+  <!-- home js -->
   <script src="{% static '../static/assets/js/script.js' %}"></script>
 
-  <!--script-->
-  <script src="{% static '../static/assets/js/product.js' %}"></script>
+  <!--singel product js-->
+  <script src="{% static '../static/assets/js/singel_product.js' %}"></script>
 
   <!--
     - ionicon link

@@ -1,21 +1,9 @@
-<!DOCTYPE html>
+{% extends "base.html" %}
+
 {% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Logeachi online shoping in Bangladesh</title>
-    <!-- Stylesheet -->
-    <link rel="stylesheet" href="{% static '../static/assets/css/product.css' %}">
-     
-    <!---Boxicons CDN Setup for icons-->
-    <link href="{% static 'https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'> %}">
 
-
-</head>
-<body>
-
+{% block content %}
+  
     <div class="container">
         {% for product in products %}
 
@@ -106,8 +94,5 @@
         {% endfor %}
     </div>
 
-    <!--script-->
-    <script src="{% static '../static/assets/js/product.js' %}"></script>
 
-</body>
-</html>
+{% endblock content %}
