@@ -7,7 +7,8 @@ from  products.models import Product
 def get_product(request, slug):
     try:
         context = {'products': Product.objects.filter(slug=slug)}
-        return render(request, 'product.html', context)
+        return render(request, 'products/singel_product.html', context)
+    
     except Product.DoesNotExist:
         # handle the case where there is no product with the given slug
         return render(request, 'product_not_found.html')

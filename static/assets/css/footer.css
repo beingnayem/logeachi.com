@@ -12,7 +12,6 @@ footer{
 footer .content{
   max-width: 1250px;
   margin: auto;
-
   padding-top: 0px;
 }
 
@@ -21,7 +20,7 @@ footer .content .top{
   display: flex;
   justify-content: space-between;
   margin: 0px;
-  padding: 30px;
+  padding: 30px ;
   width: 100%;
 }
 
@@ -93,6 +92,45 @@ footer a{
 .sub-btn:hover{
   color: orange;
   background-color: red;
-  /* size: 30px; */
 }
 
+
+/* Media queries for responsive design */
+
+/* Small screens */
+@media only screen and (max-width: 600px) {
+  .content .top {
+    flex-direction: column;
+    align-items: center;
+  }
+  .content .top .media-icons {
+    margin-top: 10px;
+  }
+}
+
+/* Medium screens */
+@media only screen and (min-width: 601px) and (max-width: 1024px) {
+  .content .top {
+    padding: 20px;
+  }
+  .content .top .logo-details {
+    font-size: 24px;
+  }
+}
+
+/* Large screens */
+@media only screen and (min-width: 1025px) and (max-width: 1440px) {
+  .content .top {
+    padding: 30px;
+  }
+  .content .top .logo-details {
+    font-size: 28px;
+  }
+}
+
+/* Extra large screens */
+@media only screen and (min-width: 1441px) {
+  .content .top .logo-details {
+    font-size: 32px;
+  }
+}
