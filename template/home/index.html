@@ -144,10 +144,6 @@
 
 
         <div class="product-box">
-
-          <!--
-            - PRODUCT MINIMAL
-          -->
           <div class="product-card-container">
             <div class="card-row">
               {% for product in products %}
@@ -159,9 +155,11 @@
                         <h5 class="card-title">{{product.product_name}}</h5>
                       </div>
                     </a>
-                    <a href="#">
-                      <button class="cart-btn">Add to Cart</button>
-                    </a>
+                    <div class="card-btn-container">
+                      <a href="#">
+                        <button class="card-btn">Add to Cart</button>
+                      </a>
+                    </div>
                   </div>
                 </div>
               {% endfor %}

@@ -81,19 +81,43 @@ footer a{
   padding-bottom: 20px;
 }
 
+.hov:hover{
+  opacity: 0.5;
+}
+
+.media-icons a {
+  display: inline-block;
+  margin: auto;
+  padding-top: 10px;
+  display: flex;
+  justify-content: center;
+  font-size: 30px;
+  color: white;
+  transition: color 0.2s ease-in-out;
+}
+
+.media-icons a:hover {
+  transform:  scale(1.05);
+  box-shadow: 0 0 10px rgb(255, 255, 255);
+  opacity: 0.5;
+}
+
+
 .sub-btn{
   margin-top: 10px;
   border-radius: 2px;
-  background-color: white;
-  color: red;
+  background-color: rgb(255, 0, 0);
+  color: rgb(255, 255, 255);
   border-radius: 3px;
+  width: 150px;
 }
 
 .sub-btn:hover{
-  color: orange;
-  background-color: red;
+  transform:  scale(1.05);
+  box-shadow: 0 0 10px rgb(255, 255, 255);
+  color: rgb(255, 0, 0);
+  background-color: rgb(255, 255, 255);
 }
-
 
 
 /* Media queries for responsive design */
