@@ -8,7 +8,7 @@
     <!--
       - BANNER
     -->
-
+    <br>
     <div class="banner">
 
       <div class="container">
@@ -124,7 +124,11 @@
 
                   <button class="sidebar-accordion-menu" data-accordion-btn>
                     <div class="menu-title-flex">
-                      <p class="menu-title">{{category.category_name}}</p>
+                      <a href="?category={{category.id}}">
+                        <p class="menu-title">
+                          {{category.category_name}}
+                        </p>
+                      </a>
                     </div>
                   </button>
   
@@ -144,159 +148,26 @@
           <!--
             - PRODUCT MINIMAL
           -->
-
-          <div class="product-minimal">
-
-            <div class="product-showcase">
-
-              <h2 class="title">Female's Collection</h2>
-
-              <div class="showcase-wrapper has-scrollbar">
-                
-                <div class="showcase-container">
-                  {% for collection in female_collc %}
-                    <div class="showcase">
-
-                      <a href="{% url 'get_product' collection.slug %}" class="showcase-img-box">
-                        <img src="{{collection.image.url}}" alt="{{collection.product_name}}" width="80" class="showcase-img">
-                      </a>
-
-                      <div class="showcase-content">
-
-                        <a href="{% url 'get_product' collection.slug %}">
-                          <h4 class="showcase-title">{{collection.product_name}}</h4>
-                        </a>
-
-                        <a href="#" class="showcase-category">{{collection.category}}</a>
-
-                        <div class="price-box">
-                          <p class="price">&#2547 {{collection.price}}</p>
-                          <!-- <del>&#2547 678</del> -->
-                        </div>
-
+          <div class="product-card-container">
+            <div class="card-row">
+              {% for product in products %}
+                <div class="card-column">
+                  <div class="card" style="width: 12rem; height: 18rem;">
+                    <a href="{% url 'get_product' product.slug %}">
+                      <img src="{{product.image.url}}" class="card-img-top" alt="{{product.product_name}}" style="width: 140px;  height: 150; margin: auto; justify-content: center;">
+                      <div class="card-body">
+                        <h5 class="card-title">{{product.product_name}}</h5>
                       </div>
-
-                    </div>
-                  {% endfor %}
+                    </a>
+                    <a href="#">
+                      <button class="cart-btn">Add to Cart</button>
+                    </a>
+                  </div>
                 </div>
-
-              </div>
-
+              {% endfor %}
             </div>
-
-            <div class="product-showcase">
-
-              <h2 class="title">Male's Collection</h2>
-
-              <div class="showcase-wrapper has-scrollbar">
-                
-                <div class="showcase-container">
-                  {% for collection in male_collc %}
-                    <div class="showcase">
-
-                      <a href="{% url 'get_product' collection.slug %}" class="showcase-img-box">
-                        <img src="{{collection.image.url}}" alt="{{collection.product_name}}" width="80" class="showcase-img">
-                      </a>
-
-                      <div class="showcase-content">
-
-                        <a href="{% url 'get_product' collection.slug %}">
-                          <h4 class="showcase-title">{{collection.product_name}}</h4>
-                        </a>
-
-                        <a href="#" class="showcase-category">{{collection.category}}</a>
-
-                        <div class="price-box">
-                          <p class="price">&#2547 {{collection.price}}</p>
-                          <!-- <del>&#2547 678</del> -->
-                        </div>
-
-                      </div>
-
-                    </div>
-                  {% endfor %}
-                </div>
-
-              </div>
-
-            </div>
-
-            <div class="product-showcase">
-
-              <h2 class="title">Kid's Collection</h2>
-
-              <div class="showcase-wrapper has-scrollbar">
-                
-                <div class="showcase-container">
-                  {% for collection in kids_collc %}  
-                    <div class="showcase">
-
-                      <a href="{% url 'get_product' collection.slug %}" class="showcase-img-box">
-                        <img src="{{collection.image.url}}" alt="{{collection.product_name}}" width="80" class="showcase-img">
-                      </a>
-
-                      <div class="showcase-content">
-
-                        <a href="{% url 'get_product' collection.slug %}">
-                          <h4 class="showcase-title">{{collection.product_name}}</h4>
-                        </a>
-
-                        <a href="#" class="showcase-category">{{collection.category}}</a>
-
-                        <div class="price-box">
-                          <p class="price">&#2547 {{collection.price}}</p>
-                          <!-- <del>&#2547 678</del> -->
-                        </div>
-
-                      </div>
-
-                    </div>
-                  {% endfor %}
-                </div>
-
-              </div>
-
-            </div>
-
-            <div class="product-showcase">
-
-              <h2 class="title">Uni-sex Collection</h2>
-
-              <div class="showcase-wrapper has-scrollbar">
-                
-                <div class="showcase-container">
-                  {% for collection in both_collc %}  
-                    
-                    <div class="showcase">
-
-                      <a href="{% url 'get_product' collection.slug %}" class="showcase-img-box">
-                        <img src="{{collection.image.url}}" alt="{{collection.product_name}}" width="80" class="showcase-img">
-                      </a>
-
-                      <div class="showcase-content">
-
-                        <a href="{% url 'get_product' collection.slug %}">
-                          <h4 class="showcase-title">{{collection.product_name}}</h4>
-                        </a>
-
-                        <a href="#" class="showcase-category">{{collection.category}}</a>
-
-                        <div class="price-box">
-                          <p class="price">&#2547 {{collection.price}}</p>
-                          <!-- <del>&#2547 678</del> -->
-                        </div>
-
-                      </div>
-
-                    </div>
-                  {% endfor %}
-                </div>
-
-              </div>
-
-            </div>
-
           </div>
+ 
 
         </div>
 

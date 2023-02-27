@@ -478,80 +478,86 @@ body::-webkit-scrollbar-thumb:hover { background: hsl(0, 0%, 70%); }
 
 
 
+/* product card cintainer */
 
+.product-card-container{
+	padding-top: 0px;
+	padding-bottom: 20px;
+	padding-left: 0px;
+	padding-right: 20px;
 
-/*-----------------------------------*\
-  #PRODUCT MINIMAL
-\*-----------------------------------*/
-
-.product-minimal { margin-bottom: 30px; }
-
-.product-minimal .product-showcase { margin-bottom: 10px; }
-
-.product-minimal .showcase-wrapper {
-  display: flex;
-  align-items: center;
-  overflow-x: auto;
-  overscroll-behavior-inline: contain;
-  scroll-snap-type: inline mandatory;
 }
 
-.product-minimal .showcase-container {
-  min-width: 100%;
-  padding: 0 5px;
-  scroll-snap-align: start;
-}
 
-.product-minimal .showcase {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 15px;
-  border: 1px solid var(--cultured);
-  padding: 15px;
-  border-radius: var(--border-radius-md);
-}
+* {
+	box-sizing: border-box;
+  }
+  
+  body {
+	font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  /* Float four columns side by side */
+  .card-column {
+	float: left;
+	width: 25%;
+	margin-top: 10px;
+	padding: 0 10px;
+  }
+  
+  /* Remove extra left and right margins, due to padding in columns */
+  .card-row {margin: 0 -5px;}
+  
+  /* Clear floats after the columns */
+  .card-row:after {
+	content: "";
+	display: table;
+	clear: both;
+  }
 
-.product-minimal .showcase:not(:last-child) { margin-bottom: 15px; }
+  .card:hover {
+	transform: scale(1.05);
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  }
 
-.product-minimal .showcase-content { width: calc(100% - 85px); }
+  .card-title{
+    font-size: small;
+    font-family: sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: black;
+  }
+  
+  .cart-btn{
+    background-color: pink;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    padding-bottom: 0px;
+    width: 110px;
+  }
 
-.product-minimal .showcase-title {
-  color: var(--eerie-black);
-  font-size: var(--fs-7);
-  font-weight: var(--weight-600);
-  text-transform: capitalize;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  margin-bottom: 2px;
-}
-
-.product-minimal .showcase-category {
-  width: max-content;
-  color: var(--davys-gray);
-  font-size: var(--fs-8);
-  text-transform: capitalize;
-  margin-bottom: 3px;
-}
-
-.product-minimal .showcase-category:hover { color: var(--salmon-pink); }
-
-.product-minimal .price-box {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.product-minimal .price {
-  font-size: var(--fs-7);
-  font-weight: var(--weight-700);
-  color: var(--salmon-pink);
-}
-
-.product-minimal .price-box del {
-  font-size: var(--fs-9);
-  color: var(--sonic-silver);
+  .cart-btn:hover{
+    transform:  scale(1.05);
+	  box-shadow: 0 0 10px pink;
+  }
+  
+  /* Style the counter cards */
+  .card {
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* this adds the "card" effect */
+	padding: 16px;
+	text-align: center;
+	background-color: #f1f1f1;
+  }
+  
+  /* Responsive columns - one column layout (vertical) on small screens */
+  @media screen and (max-width: 600px) {
+	.column {
+	  width: 100%;
+	  display: block;
+	  margin-bottom: 20px;
+	}
 }
 
 
