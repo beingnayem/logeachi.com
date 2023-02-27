@@ -528,7 +528,7 @@ body::-webkit-scrollbar-thumb:hover { background: hsl(0, 0%, 70%); }
     color: black;
   }
   
-  .cart-btn{
+  .card-btn{
     background-color: pink;
     margin: auto;
     display: flex;
@@ -538,7 +538,7 @@ body::-webkit-scrollbar-thumb:hover { background: hsl(0, 0%, 70%); }
     width: 110px;
   }
 
-  .cart-btn:hover{
+  .card-btn:hover{
     transform:  scale(1.05);
 	  box-shadow: 0 0 10px pink;
   }

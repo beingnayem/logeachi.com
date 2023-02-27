@@ -478,85 +478,92 @@ body::-webkit-scrollbar-thumb:hover { background: hsl(0, 0%, 70%); }
 }
 
 
-/* product card cintainer */
-
-.product-card-container{
+/* product card container */
+.product-card-container {
 	padding-top: 0px;
 	padding-bottom: 20px;
 	padding-left: 0px;
 	padding-right: 20px;
-
 }
 
-
+/* Use border-box for all elements */
 * {
 	box-sizing: border-box;
-  }
-  
-  body {
+}
+
+/* Use a default font family for the body */
+body {
 	font-family: Arial, Helvetica, sans-serif;
-  }
-  
-  /* Float four columns side by side */
-  .card-column {
+}
+
+/* Float four columns side by side */
+.card-column {
 	float: left;
 	width: 25%;
 	margin-top: 10px;
 	padding: 0 10px;
-  }
-  
-  /* Remove extra left and right margins, due to padding in columns */
-  .card-row {margin: 0 -5px;}
-  
-  /* Clear floats after the columns */
-  .card-row:after {
+}
+
+/* Remove extra left and right margins, due to padding in columns */
+.card-row {
+	margin: 0 -5px;
+}
+
+/* Clear floats after the columns */
+.card-row:after {
 	content: "";
 	display: table;
 	clear: both;
-  }
+}
 
-  .card:hover {
+/* Add hover effect to cards */
+.card:hover {
 	transform: scale(1.05);
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  }
-  .card-title{
-    font-size: small;
-    font-family: sans-serif;
-    font-weight: 400;
-    font-style: normal;
-    color: black;
-  }
+}
 
-  .cart-btn{
-    background-color:  pink;
-    margin: auto;
-    display: flex;
-    justify-content: center;
-    margin-top: 30px;
-    padding-bottom: 0px;
-    width: 110px;
-  }
+/* Style the card title */
+.card-title {
+	font-size: small;
+	font-family: sans-serif;
+	font-weight: 400;
+	font-style: normal;
+	color: black;
+}
 
-  .cart-btn:hover{
-    transform:  scale(1.05);
-	  box-shadow: 0 0 10px pink;
-  }
-  
-  
-  /* Style the counter cards */
-  .card {
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* this adds the "card" effect */
+/* Style the card button */
+.card-btn {
+	background-color: pink;
+	margin: auto;
+	display: flex;
+	justify-content: center;
+	margin-top: 30px;
+	padding-bottom: 0px;
+	width: 110px;
+}
+
+/* Add hover effect to card button */
+.card-btn:hover {
+	transform: scale(1.05);
+	box-shadow: 0 0 10px pink;
+}
+
+/* Style the counter cards */
+.card {
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 	padding: 16px;
 	text-align: center;
 	background-color: #f1f1f1;
-  }
-  
-  /* Responsive columns - one column layout (vertical) on small screens */
-  @media screen and (max-width: 600px) {
-	.column {
-	  width: 100%;
-	  display: block;
-	  margin-bottom: 20px;
+}
+
+/* Responsive columns - one column layout (vertical) on small screens */
+@media screen and (max-width: 600px) {
+	.card-column {
+		float: none;
+		width: 100%;
+		display: block;
+		margin-top: 20px;
+		padding: 0;
 	}
 }
 
