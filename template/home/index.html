@@ -1,0 +1,301 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+  
+  <main>
+
+    <!--
+      - BANNER
+    -->
+    <br>
+    <div class="banner">
+
+      <div class="container">
+
+        <div class="slider-container has-scrollbar">
+          {% for slide in sliders %}
+          <div class="slider-item">
+
+            <img src="{{slide.banner_img.url}}" alt="women's latest fashion sale" class="banner-img">
+
+            <div class="banner-content">
+
+              {% comment %} <p class="banner-subtitle">Tranding Item</p> {% endcomment %}
+
+              <h2 class="banner-title">{{slide.banner_title}}</h2>
+
+              <p class="banner-text">
+               <b>{{slide.banner_subtitle}}</b>
+              </p>
+
+              {% comment %} <a href="#" class="banner-btn">Shop now</a> {% endcomment %}
+
+            </div>
+
+          </div>
+
+
+          {% endfor %}
+
+          
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+
+
+    <!--
+      - CATEGORY
+    -->
+
+    <div class="category">
+
+      <div class="container">
+
+        <div class="category-item-container has-scrollbar">
+
+          {% for category in categories  %}
+            <div class="category-item">
+
+              <div class="category-img-box">
+                <img src="{{category.category_image.url}}" alt="dress & frock" width="30"> 
+              </div>
+
+              <div class="category-content-box">
+
+                <div class="category-content-flex">
+                  <h3 class="category-item-title">{{category.category_name}} </h3>
+
+                  {% comment %} <p class="category-item-amount">(53)</p> {% endcomment %}
+                </div>
+
+                <a href="#" class="category-btn">Show all</a>
+
+              </div>
+
+            </div>
+          {% endfor %}
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+
+
+    <!--
+      - PRODUCT
+    -->
+
+    <div class="product-container">
+
+      <div class="container">
+
+
+        <!--
+          - SIDEBAR
+        -->
+
+        <div class="sidebar  has-scrollbar" data-mobile-menu>
+
+          <div class="sidebar-category">
+
+            <div class="sidebar-top">
+              <h2 class="sidebar-title">Category</h2>
+
+              <button class="sidebar-close-btn" data-mobile-menu-close-btn>
+                <ion-icon name="close-outline"></ion-icon>
+              </button>
+            </div>
+
+            <ul class="sidebar-menu-category-list">
+                {% for category in categories %}
+                  
+                <li class="sidebar-menu-category">
+
+                  <button class="sidebar-accordion-menu" data-accordion-btn>
+                    <div class="menu-title-flex">
+                      <a href="?category={{category.id}}">
+                        <p class="menu-title">
+                          {{category.category_name}}
+                        </p>
+                      </a>
+                    </div>
+                  </button>
+  
+                </li>
+
+                {% endfor %}
+
+            </ul>
+
+          </div>
+
+        </div>
+
+
+        <div class="product-box">
+
+          <!--
+            - PRODUCT MINIMAL
+          -->
+          <div class="product-card-container">
+            <div class="card-row">
+              {% for product in products %}
+                <div class="card-column">
+                  <div class="card" style="width: 12rem; height: 18rem;">
+                    <a href="{% url 'get_product' product.slug %}">
+                      <img src="{{product.image.url}}" class="card-img-top" alt="{{product.product_name}}" style="width: 140px;  height: 150; margin: auto; justify-content: center;">
+                      <div class="card-body">
+                        <h5 class="card-title">{{product.product_name}}</h5>
+                      </div>
+                    </a>
+                    <a href="#">
+                      <button class="cart-btn">Add to Cart</button>
+                    </a>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+ 
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <!--
+    -CTA & SERVICE
+    -->
+
+    <div class="cta-service">
+    
+      <!--
+        - CTA
+      -->
+
+      <div class="cta-container">
+
+        <img src="../../static/assets/images/cta-banner.jpg" alt="summer collection" class="cta-banner">
+
+        <a href="#" class="cta-content">
+
+          <p class="discount">Upto 25% Discount</p>
+
+          <h2 class="cta-title">Summer collection</h2>
+
+          <p class="cta-text">Starting at &#2547 999</p>
+
+          <button class="cta-btn">Shop now</button>
+
+        </a>
+
+      </div>
+
+      <!--
+        - SERVICE
+      -->
+
+      <div class="service">
+
+        <h2 class="title">Our Services</h2>
+
+        <div class="service-container">
+
+          <a href="#" class="service-item">
+
+            <div class="service-icon">
+              <ion-icon name="boat-outline"></ion-icon>
+            </div>
+
+            <div class="service-content">
+
+              <h3 class="service-title">Free Delivery</h3>
+              <p class="service-desc">For Order Over &#2547 3000</p>
+
+            </div>
+
+          </a>
+
+          <a href="#" class="service-item">
+          
+            <div class="service-icon">
+              <ion-icon name="rocket-outline"></ion-icon>
+            </div>
+          
+            <div class="service-content">
+          
+              <h3 class="service-title">Next Day delivery</h3>
+              <p class="service-desc">Inside Dhaka Only</p>
+          
+            </div>
+          
+          </a>
+
+          <a href="#" class="service-item">
+          
+            <div class="service-icon">
+              <ion-icon name="call-outline"></ion-icon>
+            </div>
+          
+            <div class="service-content">
+          
+              <h3 class="service-title">Best Online Support</h3>
+              <p class="service-desc">Hours: 10AM - 11PM</p>
+          
+            </div>
+          
+          </a>
+
+          <a href="#" class="service-item">
+          
+            <div class="service-icon">
+              <ion-icon name="arrow-undo-outline"></ion-icon>
+            </div>
+          
+            <div class="service-content">
+          
+              <h3 class="service-title">Return Policy</h3>
+              <p class="service-desc">Easy & Free Return</p>
+          
+            </div>
+          
+          </a>
+
+          <a href="#" class="service-item">
+          
+            <div class="service-icon">
+              <ion-icon name="ticket-outline"></ion-icon>
+            </div>
+          
+            <div class="service-content">
+          
+              <h3 class="service-title">Upto 10% cash back</h3>
+              <p class="service-desc">For Order Over &#2547 10000</p>
+          
+            </div>
+          
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+    
+  </main>
+
+{% endblock content %}

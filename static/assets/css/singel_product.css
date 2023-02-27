@@ -17,7 +17,7 @@
     --shadow: #949494;
 }
 
-.container{
+.singel-product-container{
     display: flex;
     position: relative;
     align-items: center;

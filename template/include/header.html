@@ -1,0 +1,28 @@
+<header>
+  <a href="{% url 'home' %}" class="logo">Logeachi</a>
+  <div class="search-container">
+    <input type="text" class="search-input" placeholder="Search...">
+    <button class="search-button"><i class="fas fa-search"></i></button>
+  </div>
+  <nav>
+    <a href="{% url 'home' %}"><i class="fas fa-home"></i> Home</a>
+    <a href="#"><i class="fas fa-shopping-cart"></i> Cart</a>
+    <a href="#" class="wishlist-link"><i class="fas fa-heart"></i>wishlist</a>
+    <a href="#"><i class="fas fa-user"></i> Profile</a>
+    <a href="#"><i class="fas fa-sign-in-alt"></i> Sign In</a>
+    <a href="#"><i class="fas fa-user-plus"></i> Sign Up</a>
+    
+  </nav>
+</header>
+<div class="header-alert-news">  
+  <p class="alert-text">
+    <b class="alert-title">Offer of the week: </b> 
+    {% for news in Alert_news %}
+      <span>
+        <b class="boold-alert">{{news.alertNews}}</b>
+        {{news.alertNewsSubtitle}}
+      </span>
+    {% endfor %}
+  </p>
+    
+</div>
