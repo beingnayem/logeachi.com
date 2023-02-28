@@ -39,14 +39,14 @@
   }
   
   /* Styles for the sign-up button */
-  .signin-btn{
+  .signup-btn{
 	background-color: #4CAF50;
 	border: none;
 	border-radius: 3px;
 	color: #fff;
 	cursor: pointer;
 	padding: 10px;
-	margin-top: 10px;
+	margin-top: 50px;
   }
   
   signin-btn:hover {
