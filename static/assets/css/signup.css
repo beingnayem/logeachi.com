@@ -1,0 +1,70 @@
+/* Styles for the body and container */
+body {
+	background-color: #f2f2f2;
+	font-family: Arial, sans-serif;
+  }
+  
+  .container {
+	background-color: #fff;
+	border-radius: 5px;
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+	margin: 50px auto;
+	max-width: 400px;
+	padding: 20px;
+  }
+  
+  /* Styles for the form */
+  form {
+	display: flex;
+	flex-direction: column;
+  }
+  
+  h2 {
+	text-align: center;
+  }
+  
+  /* Styles for the input fields and label */
+  label {
+	margin-top: 10px;
+  }
+  
+  input[type="text"],
+  input[type="email"],
+  input[type="password"] {
+	border: none;
+	border-radius: 3px;
+	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+	padding: 10px;
+	margin-top: 5px;
+  }
+  
+  /* Styles for the sign-up button */
+  button[type="submit"] {
+	background-color: #4CAF50;
+	border: none;
+	border-radius: 3px;
+	color: #fff;
+	cursor: pointer;
+	padding: 10px;
+	margin-top: 10px;
+  }
+  
+  button[type="submit"]:hover {
+	background-color: #3e8e41;
+  }
+  
+  /* Styles for the "Log In" option */
+  p {
+	margin-top: 20px;
+	text-align: center;
+  }
+  
+  a {
+	color: #4CAF50;
+	text-decoration: none;
+  }
+  
+  a:hover {
+	text-decoration: underline;
+  }
+  
