@@ -3,6 +3,7 @@
   padding: 0px;
 }
 
+
 footer{
   /* / position: fixed;  */
   background-color: black;
@@ -16,11 +17,13 @@ footer .content{
 }
 
 
+
 footer .content .top{
   display: flex;
   justify-content: space-between;
-  margin: 0px;
-  padding: 30px ;
+  margin: 10px;
+  padding: 70px ;
+  padding-bottom: 20px;
   width: 100%;
 }
 
@@ -158,4 +161,12 @@ footer a{
   .content .top .logo-details {
     font-size: 32px;
   }
+}
+
+.content .top .better li{
+  margin: 15px;
+}
+
+.content .top .with_us li{
+  margin: 15px;
 }
