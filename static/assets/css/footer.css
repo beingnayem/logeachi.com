@@ -84,6 +84,7 @@ footer a{
 .hov:hover{
   opacity: 0.5;
 }
+
 .media-icons a {
   display: inline-block;
   margin: auto;
@@ -117,7 +118,6 @@ footer a{
   color: rgb(255, 0, 0);
   background-color: rgb(255, 255, 255);
 }
-
 
 
 /* Media queries for responsive design */
