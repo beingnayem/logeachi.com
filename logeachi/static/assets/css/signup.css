@@ -1,8 +1,4 @@
 /* Styles for the body and container */
-/* body {
-	background-color: #f2f2f2;
-	font-family: Arial, sans-serif;
-  } */
   
   .signup-container {
 	background-color: #fff;
@@ -11,6 +7,7 @@
 	margin: 50px auto;
 	max-width: 400px;
 	padding: 20px;
+	font-family: sans-serif;
   }
   
   /* Styles for the form */
@@ -26,6 +23,12 @@
   /* Styles for the input fields and label */
   label {
 	margin-top: 10px;
+  }
+
+  .signup-row{
+	display: flex;
+	gap: 20px;
+	padding-top: 10px;
   }
   
   input[type="text"],
@@ -62,6 +65,7 @@
   .rtrn-signin {
 	color: #4CAF50;
 	text-decoration: none;
+	display: inline;
   }
   
   .rtrn-signin:hover {
