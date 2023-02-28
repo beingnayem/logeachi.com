@@ -97,58 +97,44 @@
     -->
 
     <div class="product-container">
-
       <div class="container">
-
-
+  
         <!--
-          - SIDEBAR
+        - SIDEBAR
         -->
-
+  
         <div class="sidebar  has-scrollbar" data-mobile-menu>
-
           <div class="sidebar-category">
-
             <div class="sidebar-top">
               <h2 class="sidebar-title">Category</h2>
-
-              <button class="sidebar-close-btn" data-mobile-menu-close-btn>
-                <ion-icon name="close-outline"></ion-icon>
-              </button>
             </div>
-
             <ul class="sidebar-menu-category-list">
-                {% for category in categories %}
-                  
-                <li class="sidebar-menu-category">
-
-                  <button class="sidebar-accordion-menu" data-accordion-btn>
-                    <div class="menu-title-flex">
-                      <a href="?category={{category.id}}">
-                        <p class="menu-title">
-                          {{category.category_name}}
-                        </p>
-                      </a>
-                    </div>
+              <li class="sidebar-menu-category">
+                <a href="?category=">
+                  <button class="sidebar-accordion-menu">
+                    All Products
                   </button>
-  
+                </a>
+              </li>
+              {% for category in categories %}
+                <li class="sidebar-menu-category">
+                  <a href="?category={{category.id}}">
+                    <button class="sidebar-accordion-menu">
+                      {{category.category_name}}
+                    </button>    
+                  </a>
                 </li>
-
-                {% endfor %}
-
+              {% endfor %}
             </ul>
-
           </div>
-
         </div>
-
-
+  
         <div class="product-box">
           <div class="product-card-container">
             <div class="card-row">
               {% for product in products %}
                 <div class="card-column">
-                  <div class="card" style="width: 12rem; height: 18rem;">
+                  <div class="card" style="width: 12rem; height: 20rem;">
                     <a href="{% url 'get_product' product.slug %}">
                       <img src="{{product.image.url}}" class="card-img-top" alt="{{product.product_name}}" style="width: 140px;  height: 150; margin: auto; justify-content: center;">
                       <div class="card-body">
@@ -156,6 +142,7 @@
                       </div>
                     </a>
                     <div class="card-btn-container">
+                      <p style="font-size: 15px; padding-top: 2px; color: rgb(27, 27, 136);" class="card-price">&#2547 {{product.price}}</p>
                       <a href="#">
                         <button class="card-btn">Add to Cart</button>
                       </a>
@@ -165,12 +152,9 @@
               {% endfor %}
             </div>
           </div>
- 
-
         </div>
-
+  
       </div>
-
     </div>
 
 

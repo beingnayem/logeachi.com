@@ -101,7 +101,6 @@ body { background: var(--white); }
  * scrollbar style
  */
 
-
 body::-webkit-scrollbar { width: 15px; }
 
 body::-webkit-scrollbar-track {
@@ -318,8 +317,8 @@ body::-webkit-scrollbar-thumb:hover { background: hsl(0, 0%, 70%); }
   left: -100%;
   bottom: 0;
   width: 100%;
-  max-width: 320px;
-  padding: 30px;
+  max-width: 100px;
+  padding: 20px;
   overflow-y: scroll;
   overscroll-behavior: contain;
   visibility: hidden;
@@ -327,15 +326,11 @@ body::-webkit-scrollbar-thumb:hover { background: hsl(0, 0%, 70%); }
   z-index: 20;
 }
 
-.sidebar.active {
-  left: 0;
-  visibility: visible;
-}
-
 .sidebar-category {
   margin-bottom: 15px;
   padding-bottom: 15px;
   border-bottom: 1px solid var(--cultured);
+  background-color: silver;
 }
 
 .sidebar-top {
@@ -346,135 +341,29 @@ body::-webkit-scrollbar-thumb:hover { background: hsl(0, 0%, 70%); }
 }
 
 .sidebar-title {
-  color: var(--onyx);
-  font-size: var(--fs-5);
+  color: black;
+  font-size: var(--fs-4);
   text-transform: uppercase;
   letter-spacing: 0.8px;
   font-weight: var(--weight-600);
 }
 
-.sidebar-close-btn {
-  color: var(--eerie-black);
-  font-size: 22px;
-  font-weight: var(--weight-600);
-}
-
-.sidebar-close-btn ion-icon { --ionicon-stroke-width: 50px; }
 
 .sidebar-accordion-menu {
   width: 100%;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 7px 0;
-}
-
-.sidebar .menu-title-flex {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.sidebar .menu-title {
-  font-size: var(--fs-5);
-  color: var(--sonic-silver);
+  justify-content: center;
+  padding: 4px;
+  color: var(--onyx);
+  font-size: var(--fs-6);
+  text-transform: uppercas;
   font-weight: var(--weight-500);
+  border-radius: 10px;
 }
 
-.sidebar-accordion-menu ion-icon {
-  color: var(--sonic-silver);
-  font-size: 14px;
-  --ionicon-stroke-width: 70px;
-}
-
-.sidebar-submenu-category-list {
-  border-top: 1px solid var(--cultured);
-  max-height: 0;
-  overflow: hidden;
-  visibility: hidden;
-  transition: 0.5s ease-in-out;
-}
-
-.sidebar-submenu-category-list.active {
-  padding: 13px 0 8px;
-  max-height: 122px;
-  visibility: visible;
-}
-
-.sidebar-submenu-title {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: var(--sonic-silver);
-  font-size: var(--fs-7);
-  padding: 2px 0;
-}
-
-.sidebar-submenu-title:hover { color: var(--eerie-black); }
-
-.sidebar .product-name { text-transform: capitalize; }
-
-.sidebar-accordion-menu.active .add-icon,
-.sidebar-accordion-menu .remove-icon { display: none; }
-
-.sidebar-accordion-menu .add-icon,
-.sidebar-accordion-menu.active .remove-icon { display: block; }
-
-.sidebar .showcase-heading {
-  font-size: var(--fs-5);
-  font-weight: var(--weight-600);
-  color: var(--onyx);
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-  margin-bottom: 15px;
-}
-
-.sidebar .showcase {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-.sidebar .showcase:not(:last-child) { margin-bottom: 15px; }
-
-.sidebar .showcase-img { border-radius: var(--border-radius-sm); }
-
-.sidebar .showcase-content { width: calc(100% - 90px); }
-
-.sidebar .showcase-title {
-  color: var(--onyx);
-  font-size: var(--fs-7);
-  font-weight: var(--weight-400);
-  text-transform: capitalize;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  letter-spacing: 0.5px;
-}
-
-.sidebar .showcase-rating {
-  display: flex;
-  align-items: center;
-  color: var(--sandy-brown);
-  font-size: 13px;
-  padding: 4px 0;
-}
-
-.sidebar .price-box {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-
-.sidebar .price-box del {
-  color: var(--sonic-silver);
-  font-size: 13px;
-}
-
-.sidebar .price-box .price {
-  font-size: var(--fs-7);
-  font-weight: var(--weight-600);
-  color: var(--davys-gray);
+.sidebar-accordion-menu:hover{
+  color: black;
+  background-color: white;
 }
 
 
@@ -482,88 +371,95 @@ body::-webkit-scrollbar-thumb:hover { background: hsl(0, 0%, 70%); }
 .product-card-container {
 	padding-top: 0px;
 	padding-bottom: 20px;
+  margin-left: 0;
 	padding-left: 0px;
 	padding-right: 20px;
 }
 
-/* Use border-box for all elements */
+
 * {
 	box-sizing: border-box;
-}
-
-/* Use a default font family for the body */
-body {
+  }
+  
+  body {
 	font-family: Arial, Helvetica, sans-serif;
-}
-
-/* Float four columns side by side */
-.card-column {
+  }
+  
+  /* Float four columns side by side */
+  .card-column {
 	float: left;
 	width: 25%;
 	margin-top: 10px;
 	padding: 0 10px;
-}
-
-/* Remove extra left and right margins, due to padding in columns */
-.card-row {
-	margin: 0 -5px;
-}
-
-/* Clear floats after the columns */
-.card-row:after {
+  }
+  
+  /* Remove extra left and right margins, due to padding in columns */
+  .card-row {
+    margin: 0 -5px;
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+  }
+  
+  /* Clear floats after the columns */
+  .card-row:after {
 	content: "";
 	display: table;
 	clear: both;
-}
+  }
 
-/* Add hover effect to cards */
-.card:hover {
+  .card:hover {
 	transform: scale(1.05);
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-}
+  }
 
-/* Style the card title */
-.card-title {
-	font-size: small;
-	font-family: sans-serif;
-	font-weight: 400;
-	font-style: normal;
-	color: black;
-}
+  .card-title{
+    font-size: small;
+    font-family: sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: black;
+  }
 
-/* Style the card button */
-.card-btn {
-	background-color: pink;
-	margin: auto;
-	display: flex;
-	justify-content: center;
-	margin-top: 30px;
-	padding-bottom: 0px;
-	width: 110px;
-}
+ .card-btn-container{
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+ }
+  
+  
+  .card-btn{
+    background-color: pink;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    padding-bottom: 0px;
+    width: 110px;
+    border-radius: 5px;
+  }
 
-/* Add hover effect to card button */
-.card-btn:hover {
-	transform: scale(1.05);
-	box-shadow: 0 0 10px pink;
-}
-
-/* Style the counter cards */
-.card {
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  .card-btn:hover{
+    transform:  scale(1.05);
+	  box-shadow: 0 0 10px pink;
+  }
+  
+  /* Style the counter cards */
+  .card {
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* this adds the "card" effect */
 	padding: 16px;
 	text-align: center;
 	background-color: #f1f1f1;
-}
-
-/* Responsive columns - one column layout (vertical) on small screens */
-@media screen and (max-width: 600px) {
-	.card-column {
-		float: none;
-		width: 100%;
-		display: block;
-		margin-top: 20px;
-		padding: 0;
+  border-radius: 10px;
+  }
+  
+  /* Responsive columns - one column layout (vertical) on small screens */
+  @media screen and (max-width: 600px) {
+	.column {
+	  width: 100%;
+	  display: block;
+	  margin-bottom: 20px;
 	}
 }
 
@@ -799,9 +695,6 @@ body {
    * #PRODUCT
    */
 
-  .product-minimal .showcase-container { min-width: 50%; }
-
-
   /**
    * #CTA
    */
@@ -882,33 +775,6 @@ body {
    */
 
   .category-img-box { padding: 20px; }
-
-
-
-  /**
-   * #PRODUCT 
-   */
-
-  .product-minimal {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-  }
-
-  .product-minimal .product-showcase {
-    min-width: calc(50% - 10px);
-    width: calc(50% - 10px);
-  }
-
-  .product-minimal .showcase-container { min-width: 100%; }
-  
-  .product-featured .showcase {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-  }
 
 }
 
@@ -1014,18 +880,6 @@ body {
   .sidebar-close-btn { display: none; }
 
   .product-box { min-width: calc(75% - 15px); }
-
-  .product-minimal { margin-bottom: 20px; }
-
-  .product-minimal .product-showcase {
-    min-width: calc(33.33% - 14px);
-    width: calc(33.33% - 14px);
-    flex-grow: 1;
-  }
-
-  .product-minimal .showcase-wrapper { gap: 10px; }
-
-  .product-minimal .showcase-container { padding: 2px; }
 
 
   /**
@@ -1166,7 +1020,6 @@ body {
 }
 a{
   text-decoration: none;
-  color: #bbbbbb;
 } 
 
 /* --------------------------------------------------------------------------------------- */
