@@ -27,37 +27,13 @@ from django.conf import settings
 
 # Create your views here.
 
+class EmailThread(threading.Thread):
+    def __init__(self, email_message):
+        self.email_message=email_message
+        threading.Thread.__init__(self)
 
-def signin(request):
-    
-    if request.user.is_authenticated:
-        return redirect('home')
-    
-    else:
-        if request.method=='POST':
-            email= request.POST.get('email')
-            password = request.POST.get('password')
-
-            user = authenticate(request, email=email, password=password)
-            
-            if user is not None:
-                login(request, user)
-                messages.success(request, "Login successful")
-                return redirect('home')
-            
-            else:
-                messages.error(request, "Account not found! Incorrect e-mail or password")
-                return redirect('signin')
-            
-    return render(request, 'signin.html')
-
-# class EmailThread(threading.Thread):
-#     def __init__(self, email_message):
-#         self.email_message=email_message
-#         threading.Thread.__init__(self)
-
-#     def run(self):
-#         self.email_message.send()
+    def run(self):
+        self.email_message.send()
 
 
 def signup(request):
@@ -82,23 +58,25 @@ def signup(request):
             
             if not email_exist:
                 user = User.objects.create_user(first_name=first_name, last_name=last_name, email=email, password=password)
-                user.is_active = True
+                user.is_active = False
                 user.save()
                 
-                # current_site = get_current_site(request)
-                # email_sub = "Active your Logeachi Account"
-                # message = render_to_string('activate.html', {
-                #     'user': user,
-                #     'domain':'127.0.0.1:8000/',
-                #     'uid':urlsafe_base64_encode(force_bytes(user.pk)),
-                #     'token': generate_token.make_token(user)
-                # })
+                current_site = get_current_site(request)
+                email_sub = "Active your Logeachi Account"
+                message = render_to_string('activate.html', {
+                    'user': user,
+                    'domain':'127.0.0.1:8000/',
+                    'uid':urlsafe_base64_encode(force_bytes(user.pk)),
+                    'token': generate_token.make_token(user)
+                })
 
-                # email_message= EmailMessage(email_sub, message, settings.EMAIL_HOST_USER, [email],)
-                # EmailThread(email_message).start()
-                messages.info(request, "Your Account Created successfully")
-                # messages.success(request, "An e-mail has been sent to your account, active your account throw the link in e-mail")
-                return redirect('signin')
+                email_message= EmailMessage(email_sub, message, settings.EMAIL_HOST_USER, [email],)
+                EmailThread(email_message).start()
+                
+                # messages.info(request, "Your Account Created successfully")
+                
+                messages.success(request, "An e-mail has been sent to your account, active your account throw the link in e-mail")
+                return render(request, 'signin.html')
             
             else:
                 messages.error(request, "This e-mail is already taken")
@@ -106,21 +84,47 @@ def signup(request):
             
     return render(request, 'signup.html')   
 
-# class ActivateAccountView(View):
-#     def get(self, request, uidb64, token):
-#         try:
-#             uid = force_str(urlsafe_base64_decode(uidb64))
-#             user = User.objects.get(pk=uid)
-#         except Exception as identifier:
-#             user = None
+
+class ActivateAccountView(View):
+    def get(self, request, uidb64, token):
+        try:
+            uid = force_str(urlsafe_base64_decode(uidb64))
+            user = User.objects.get(pk=uid)
+        except Exception as identifier:
+            user = None
         
-#         if user is not None and generate_token.check_token(user, token):
-#             user.is_active = True
-#             user.save()
-#             messages.info(request, "Your Account Acctivated successfully")
-#             return redirect('signin')
+        if user is not None and generate_token.check_token(user, token):
+            user.is_active = True
+            user.save()
+            messages.info(request, "Your Account Acctivated successfully")
+            return redirect('signin')
         
-#         return render(request, 'activatefail.html')
+        return render(request, 'activatefail.html')
+
+
+def signin(request):
+    
+    if request.user.is_authenticated:
+        return redirect('home')
+    
+    else:
+        if request.method=='POST':
+            email= request.POST.get('email')
+            password = request.POST.get('password')
+
+            user = authenticate(request, email=email, password=password)
+            
+            if user is not None:
+                login(request, user)
+                messages.success(request, "Login successful")
+                return redirect('home')
+            
+            else:
+                messages.error(request, "Account not found! Incorrect e-mail or password")
+                return redirect('signin')
+            
+    return render(request, 'signin.html')
+
 
 @login_required
 def signout(request):
