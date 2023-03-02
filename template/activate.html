@@ -1,6 +1,6 @@
 {% autoescape off %}
   
-    Hi, {{user.first_naame}}
+    Hi, {{user.email}}
     Please click this link below to verify your account
     http://{{domain}}{% url 'activate' uidb64=uid token=token %}
 
