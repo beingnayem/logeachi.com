@@ -25,7 +25,7 @@
     <label for="password">Password</label>
     <input type="password" id="password" name="password" required>
     <div class="options">
-      <a class="frgt-pass" href="#">Forgot Password?</a>
+      <a class="frgt-pass" href="{% url 'reset-pass-request' %}">Forgot Password?</a>
       <span> | </span>
       <a class="rtrn-singup" href="{% url 'signup' %}">Sign Up</a>
     </div>
