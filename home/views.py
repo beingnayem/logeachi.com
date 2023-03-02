@@ -4,7 +4,7 @@ from home.models import AlertNews , BannerSlider
 
 # Create your views here.
 
-def index(request):
+def home(request):
     
     # female_collection = Product.objects.filter(tergeted_buyer=       'Only Female')
     # male_collection = Product.objects.filter(tergeted_buyer = 'Only Male')

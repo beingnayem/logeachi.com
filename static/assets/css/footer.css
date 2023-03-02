@@ -3,6 +3,7 @@
   padding: 0px;
 }
 
+
 footer{
   /* / position: fixed;  */
   background-color: black;
@@ -19,8 +20,9 @@ footer .content{
 footer .content .top{
   display: flex;
   justify-content: space-between;
-  margin: 0px;
-  padding: 30px ;
+  margin: 10px;
+  padding: 70px ;
+  padding-bottom: 20px;
   width: 100%;
 }
 
@@ -84,6 +86,7 @@ footer a{
 .hov:hover{
   opacity: 0.5;
 }
+
 .media-icons a {
   display: inline-block;
   margin: auto;
@@ -117,7 +120,6 @@ footer a{
   color: rgb(255, 0, 0);
   background-color: rgb(255, 255, 255);
 }
-
 
 
 /* Media queries for responsive design */
@@ -158,4 +160,12 @@ footer a{
   .content .top .logo-details {
     font-size: 32px;
   }
+}
+
+.content .top .better li{
+  margin: 15px;
+}
+
+.content .top .with_us li{
+  margin: 15px;
 }
