@@ -2,12 +2,15 @@
 
     <div class="header-container">
       <a href="{% url 'home' %}" class="header-logo">Logeachi</a>
-      <div class="search-button-container">
-        <input type="text" class="search-input" placeholder="Search...">
-        <button class="search-button">
-          <i class="fas fa-search"></i>
-        </button>
-      </div>
+      <form action="{% url 'search' %}" method="GET">
+        <div class="search-button-container">
+          <input type="text" class="search-input" placeholder="Search..." name="keywords">
+          <button class="search-button" type="submit">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </form>
+
       <div class="header-nav-container">
         <ul>
           <li>
