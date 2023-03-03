@@ -1,5 +1,5 @@
 from django.contrib import admin
-from home.models import AlertNews, BannerSlider
+from home.models import BannerSlider
 
 # Register your models here.
 
