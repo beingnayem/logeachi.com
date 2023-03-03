@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block content %}
+  
+
+    <div class="product-container">
+        <div class="container">
+
+        <!--
+        - SIDEBAR
+        -->
+
+        <!-- <div class="sidebar  has-scrollbar" data-mobile-menu>
+            <div class="sidebar-category">
+            <div class="sidebar-top">
+                <h2 class="sidebar-title">Category</h2>
+            </div>
+            <ul class="sidebar-menu-category-list">
+                <li class="sidebar-menu-category">
+                <a href="?category=">
+                    <button class="sidebar-accordion-menu">
+                    All Products
+                    </button>
+                </a>
+                </li>
+                {% for category in categories %}
+                <li class="sidebar-menu-category">
+                    <a href="?category={{category.id}}">
+                    <button class="sidebar-accordion-menu">
+                        {{category.category_name}}
+                    </button>    
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+            </div>
+        </div> -->
+
+        <div class="product-box">
+            <div class="product-card-container">
+            <div class="card-row">
+                {% if products %}
+                    {% for product in products %}
+                        <div class="card-column">
+                            <div class="card" style="width: 12rem; height: 20rem;">
+                                <a href="{% url 'get_product' product.slug %}">
+                                    <img src="{{product.image.url}}" class="card-img-top" alt="{{product.product_name}}" style="width: 140px;  height: 150; margin: auto; justify-content: center;">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{product.product_name}}</h5>
+                                    </div>
+                                </a>
+                                <div class="card-btn-container">
+                                    <p style="font-size: 15px; padding-top: 2px; color: rgb(27, 27, 136);" class="card-price">&#2547 {{product.price}}</p>
+                                    <a href="#">
+                                        <button class="card-btn">Add to Cart</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                    {% else %}
+                        <h2>No products match </h2>
+                  
+                {% endif %}
+            </div>
+            </div>
+        </div>
+
+        </div>
+    </div>
+
+
+{% endblock content %}
