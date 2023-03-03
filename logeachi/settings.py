@@ -148,10 +148,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # naim vai id : mdnaim01303202218@gmail.com pass : yajdslpwwlehfgfq
 # nayem vai id: nayemsarwar12345@gmail.com pass : sylgphsbhsxdxwso
 # bishad vi id: b.bishadsarwar@gmail.com pass: awilfasfrjeduisd
+# antarvai id: antarnathbd@gmailcom pass: kzigdvatschmqyje
 
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'b.bishadsarwar@gmail.com'
-EMAIL_HOST_PASSWORD = 'awilfasfrjeduisd'
+EMAIL_HOST_USER = 'antarnathbd@gmail.com'
+EMAIL_HOST_PASSWORD = 'kzigdvatschmqyje'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
