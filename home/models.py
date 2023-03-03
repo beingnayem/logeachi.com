@@ -2,10 +2,6 @@ from django.db import models
 
 # Create your models here.
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 8258119982bf0986f3488cc85de52e95f97944f0
     
 class BannerSlider(models.Model):
     banner_img=models.ImageField(upload_to='banner')
