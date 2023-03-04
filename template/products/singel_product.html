@@ -25,6 +25,8 @@
             </div>
             {% if product.quantity %}
                 <p class="product-page-availability">In stock</p>
+                {% else %}
+                <p class="product-page-availability" style="color: red;">Out stock</p>
             {% endif %}
             <div class="product-page-quantity-container">
                 <button class="product-page-quantity-button product-page-quantity-decrease">&#8722;</button>
@@ -36,9 +38,10 @@
             <h2 class="product-page-info-heading">Product Info</h2>
             <p class="product-page-info-text">{{product.product_description}}</p>
             <h2 class="product-page-description-heading">Product Description</h2>
-            {% comment %} <p class="product-page-description-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed
+            <!-- <p class="product-page-description-text">Lorem ipsum    dolor sit amet, consectetur adipiscing elit. Sed sed
                 mauris nec nisi rutrum laoreet. Duis euismod euismod dolor, non bibendum nibh bibendum sit amet. Vivamus
-                a dapibus odio, eget vehicula augue. Morbi porta sollicitudin quam, eu iaculis urna faucibus nec.</p> {% endcomment %}
+                a dapibus odio, eget vehicula augue. Morbi porta sollicitudin quam, eu iaculis urna faucibus nec.
+            </p>   -->
             <h2 class="product-page-size-heading">Size</h2>
             <p class="product-page-size-text">Small, Medium, Large</p>
             <h2 class="product-page-customer-review-heading">Customer Reviews</h2>
