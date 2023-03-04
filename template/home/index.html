@@ -146,9 +146,11 @@
               {% for product in products %}
                 <div class="card-column">
                   <div class="product-card">
-                    <img src="{{product.image.url}}" alt="Product Image">
-                    <!-- <h3 class="product-title">{{product.product_name}}</h3> -->
-                    <p class="product-title-particular">{{product.product_name}}</p>
+                    <a href="{% url 'get_product' product.slug %}">
+                      <img  src="{{product.image.url}}" alt="Product Image">
+                      <!-- <h3 class="product-title">{{product.product_name}}</h3> -->
+                      <p class="product-title-particular">{{product.product_name}}</p>
+                    </a>
                     <p class="product-price">&#2547 {{product.price}}</p>
                     <button class="add-to-cart-btn">Add to Cart</button>
                     <button class="add-to-wishlist-btn">Add to Wishlist</button>
