@@ -4,4 +4,9 @@ from django.contrib import admin
 from . models import *
 
 admin.site.register(Category)
-admin.site.register(Product)
+
+@admin.register(Product)
+class ProductModelAdmin(admin.ModelAdmin):
+    list_display=['pk','product_name', 'category', 'added_date', 'price', 'quantity', 'image']
+
+# admin.site.register(Product)
