@@ -17,7 +17,13 @@
                     <input type="hidden" name="pk" value="{{item.product.pk}}">
                     <button pid="{{item.product.pk}}" style="width: 120px; background-color: rgb(0, 194, 0);" class="wishlist-remove-btn">Add to Cart</button>
                 </form>
-                <button class="remove-btn" pid="{{item.product.pk}}">Remove</button>
+                <form action="{% url 'remove-wishlist' %}">
+                    <input type="hidden" name="pk" value="{{item.product.pk}}">
+                    <button pid="{{item.product.pk}}" class="remove-btn" >
+                        Remove
+                    </button>
+                </form>
+                
             </div>
             {% endfor %}
         </div>

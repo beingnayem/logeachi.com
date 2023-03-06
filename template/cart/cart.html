@@ -25,9 +25,12 @@
                 </button>
               </div>
             </div>
-            <button pid="{{item.product.pk}}"  class="remove-btn">
-              Remove
-            </button>
+            <form action="{% url 'removecart' %}">
+              <input type="hidden" name="pk" value="{{item.product.pk}}">
+              <button pid="{{item.product.pk}}" class="remove-btn" >
+                Remove
+              </button>
+            </form>
           </div>
           {% endfor %}
         </div>
