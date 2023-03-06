@@ -1,10 +1,9 @@
 from django.shortcuts import render
 from accounts.models import User
-from products.models import Category, Cart, Product, Wishlist
-from django.shortcuts import redirect
+from products.models import Cart, Product, Wishlist
+from django.shortcuts import redirect, get_object_or_404
 from django.db.models import Q
 from django.http import JsonResponse, HttpResponseRedirect
-from django.contrib.auth.decorators import login_required
 
 
 
@@ -111,24 +110,8 @@ def removecart(request):
     if request.method == 'GET':
         pk = request.GET['pk']
         c= Cart.objects.get(Q(product=pk) & Q(user=request.user))
-        c.delete()
-        
-        user = request.user
-        cart = Cart.objects.filter(user=user)
-        
-        total_ammount=0
-        shipping_cost = 50
-        for p in cart:
-            total_ammount += (p.quantity*p.product.price)
-        
-        total_cost = total_ammount+shipping_cost
-
-        data = {
-            'total_ammount': total_ammount,
-            'total_cost': total_cost
-        }
-
-        return JsonResponse(data)
+        c.delete()        
+        return redirect(request.META.get('HTTP_REFERER'))
         
 
 def addTOwishlist(request):
@@ -141,10 +124,25 @@ def addTOwishlist(request):
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
-
 def ShowWishlist(request):
+    if not request.user.is_authenticated:
+        return redirect('signin') 
+    
     user = request.user
     wishlist = Wishlist.objects.filter(user=user)
-    return render(request, 'wishlist/wishlist.html', locals())
+    if not wishlist:
+        return render(request, 'wishlist/empty_wishlist.html')
+    else:
+        return render(request, 'wishlist/wishlist.html', locals())
 
 
+def RemoveWishlist(request):
+    user = request.user
+    product_id = request.GET.get('pk')
+    product = get_object_or_404(Product, pk=product_id)
+    wishlist = get_object_or_404(Wishlist, user=user, product=product)
+    
+    if wishlist:
+        wishlist.delete()
+    
+    return redirect(request.META.get('HTTP_REFERER'))

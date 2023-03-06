@@ -9,4 +9,5 @@ urlpatterns = [
     path('removecart/', views.removecart, name='removecart'),
     path('add-to-wishlist/', views.addTOwishlist, name='addTOwishlist'),
     path('show-wishlist/', views.ShowWishlist, name='show-wishlist'),
+    path('remove-wishlist/', views.RemoveWishlist, name='remove-wishlist'),
 ]
