@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -39,14 +40,15 @@
 
   <link rel="stylesheet" href="{% static '../static/assets/css/alert.css' %}">
 
+  <!-- cart css -->
+  <link rel="stylesheet" href="{% static '../static/assets/css/cart.css' %}">
+
 
 
 
   <!--
     - google font link
   -->
-
-  <!-- home link -->
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   
@@ -57,7 +59,6 @@
   
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-sV7eEVILhX9V7+e5zd5v6cGg5DF5F5nHk6n90f6/Z4MgATugn6qo+PfLbg7HlzS1wU5p5DZ+fvHGP1a4Ql6U0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
  
-
   <!---Boxicons CDN Setup for icons-->
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
@@ -85,9 +86,10 @@
   <!--
     - custom js link
   -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-  <!--singel product js-->
-  <script src="{% static '../static/assets/js/singel_product.js' %}"></script>
+  <!-- cart js -->
+  <script src="{% static '../static/assets/js/cart.js' %}"></script>
 
 
 
@@ -97,9 +99,9 @@
 
   <!-- home  -->
 
-  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <!-- <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   
-  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script> -->
 
 </body>
 

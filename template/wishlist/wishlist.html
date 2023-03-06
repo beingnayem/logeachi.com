@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="shoppin-cart">
+    <h2 style="display: flex; margin: auto; justify-content: center; padding-bottom: 20px;">Wishlist</h2>
+    <div class="cart-container">
+        <div class="cart-left">
+            {% for item in wishlist %}
+            <div class="cart-product-item wishlist-item">
+                <img src="{{item.product.image.url}}" alt="Product 1">
+                <div class="cart-product-details">
+                    <h5>{{item.product.product_name}}</h5>
+                    <p class="cart-product-price">{{item.product.price}}</p>
+                </div>
+                <form action="{% url 'addTOcart' %}">
+                    <input type="hidden" name="pk" value="{{item.product.pk}}">
+                    <button pid="{{item.product.pk}}" style="width: 120px; background-color: rgb(0, 194, 0);" class="wishlist-remove-btn">Add to Cart</button>
+                </form>
+                <button class="remove-btn" pid="{{item.product.pk}}">Remove</button>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

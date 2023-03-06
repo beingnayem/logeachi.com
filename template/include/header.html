@@ -17,10 +17,10 @@
             <a href="{% url 'home' %}" class="fas fa-home">Home</a>
           </li>
           <li>
-            <a href="#" class="fas fa-shopping-cart">Cart</a>
+            <a href="{% url 'show-cart' %}" class="fas fa-shopping-cart">Cart</a>
           </li>
           <li>
-            <a href="#" class="fas fa-heart">wishlist</a>
+            <a href="{% url 'show-wishlist' %}" class="fas fa-heart">wishlist</a>
           </li>
           {% if user.is_authenticated %}
             <li>

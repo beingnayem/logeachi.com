@@ -1,98 +1,67 @@
 {% extends "base.html" %}
-
 {% load static %}
 
 {% block content %}
-  
-    <div class="singel-product-container">
-        {% for product in products %}
 
-        <div class="single-product">
-            <div class="row">
-                <div class="col-6">
-                    <div class="product-image">
-                        <div class="product-image-main">
-                            <img src="{{product.image.url}}" alt="" id="product-main-image">
-                        </div>
-                        <!-- <div class="product-image-slider">
-                            <img src="img/tshirt-1.png" alt=""  class="image-list">
-                            <img src="img/tshirt-2.png" alt=""  class="image-list">
-                            <img src="img/tshirt-3.png" alt=""  class="image-list">
-                            <img src="img/tshirt-group.png" alt=""  class="image-list">
-                        </div> -->
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="breadcrumb">
-                        <span><a href="{% url 'home' %}">Home</a></span>
-                        <span><a href="#">{{product.category}}</a></span>
-                        <span class="active">{{product.product_name}}</span>
-                    </div>
-
-                    <div class="product">
-                        <div class="product-title">
-                            <h2>{{product.product_name}}</h2>
-                        </div>
-                        <!-- <div class="product-rating">
-                            <span><i class="bx bxs-star"></i></span>
-                            <span><i class="bx bxs-star"></i></span>
-                            <span><i class="bx bxs-star"></i></span>
-                            <span><i class="bx bxs-star"></i></span>
-                            <span><i class="bx bxs-star"></i></span>
-                            <span class="review">(47 Review)</span>
-                        </div> -->
-                        <div class="product-price">
-                            <!-- <span class="offer-price">$99.00</span> -->
-                            <span class="product-price">&#2547 {{product.price}}</span>
-                        </div>
-
-                        <div class="product-details">
-                            <h3>{{product.product_description}}</p>
-                        </div>
-                        <div class="product-size">
-                            <h4>Size</h4>
-                            <div class="size-layout">
-                                <input type="radio" name="size" value="S" id="1" class="size-input">
-                                <label for="1" class="size">S</label>
-
-                                <input type="radio" name="size" value="M" id="2" class="size-input">
-                                <label for="2" class="size">M</label>
-
-                                <input type="radio" name="size" value="L" id="3" class="size-input">
-                                <label for="3" class="size">L</label>
-
-                                <input type="radio" name="size" value="XL" id="4" class="size-input">
-                                <label for="4" class="size">XL</label>
-
-                                <input type="radio" name="size" value="XXL" id="5" class="size-input">
-                                <label for="5" class="size">XXL</label>
-                            </div>
-                        </div>
-                        <div class="product-color">
-                            <h4>Color</h4>
-                            <div class="color-layout">
-                                <input type="radio" name="color"  value="black" class="color-input">
-                                <label for="black" class="black"></label>
-                                <input type="radio" name="color"  value="red" class="color-input">
-                                <label for="red" class="red"></label>
-
-                                <input type="radio" name="color"  value="blue" class="color-input">
-                                <label for="blue" class="blue"></label>
-                            </div>
-                        </div>
-                        <span class="divider"></span>
-
-                        <div class="product-btn-group">
-                            <div class="button buy-now"><i class='bx bxs-zap' ></i> Buy Now</div>
-                            <div class="button add-cart"><i class='bx bxs-cart' ></i> Add to Cart</div>
-                            <div class="button heart"><i class='bx bxs-heart' ></i> Add to Wishlist</div>
-                        </div>
-                    </div>
-                </div>
+<div class="product-page-container">
+    {% for product in products %}
+        <div class="product-page-images">
+            <img class="product-page-image product-page-image-large" src="{{product.image.url}}" alt="{{product.slug}}">
+            <div class="product-page-image-thumbnails">
+                <img class="product-page-image-thumbnail" src="{{product.image.url}}" alt="{{product.slug}}"
+                    data-image="large-image.jpg">
+                <img class="product-page-image-thumbnail" src="{{product.image.url}}" alt="{{product.slug}}"
+                    data-image="large-image2.jpg">
+                <img class="product-page-image-thumbnail" src="{{product.image.url}}" alt="{{product.slug}}"
+                    data-image="large-image3.jpg">
             </div>
         </div>
-        {% endfor %}
-    </div>
+        <div class="product-page-details">
+            <h1 class="product-page-name">{{product.product_name}}</h1>
+            <div class="product-page-rating">
+                <div class="product-page-star">&#9733;</div>
+                <div class="product-page-rating-text">4.5 (25 reviews)</div>
+            </div>
+            {% if product.quantity %}
+                <p class="product-page-availability">In stock</p>
+                {% else %}
+                <p class="product-page-availability" style="color: red;">Out stock</p>
+            {% endif %}
+            <div class="product-page-quantity-container">
+                <button class="product-page-quantity-button product-page-quantity-decrease">&#8722;</button>
+                <input class="product-page-quantity" type="text" value="1" readonly>
+                <button class="product-page-quantity-button product-page-quantity-increase">&#43;</button>
+            </div>
+            <button class="product-page-buy-now-button">Buy Now</button>
+            <form action="{% url 'addTOcart' %}">
+                <input type="hidden" name="pk" value="{{product.pk}}">
+                <button type="submit" class="product-page-add-to-cart-button">    
+                    Add to Cart
+                </button>
+            </form>
+            <form action="{% url 'addTOwishlist' %}">
+                <input type="hidden" name="pk" value="{{product.pk}}">
+                <button type="submit" class="product-page-add-to-cart-button">    
+                    Add to Wishlist
+                </button>
+            </form>
+            <h2 class="product-page-info-heading">Product Info</h2>
+            <p class="product-page-info-text">{{product.product_description}}</p>
+            <h2 class="product-page-description-heading">Product Description</h2>
+            <!-- <p class="product-page-description-text">Lorem ipsum    dolor sit amet, consectetur adipiscing elit. Sed sed
+                mauris nec nisi rutrum laoreet. Duis euismod euismod dolor, non bibendum nibh bibendum sit amet. Vivamus
+                a dapibus odio, eget vehicula augue. Morbi porta sollicitudin quam, eu iaculis urna faucibus nec.
+            </p>   -->
+            <h2 class="product-page-size-heading">Size</h2>
+            <p class="product-page-size-text">Small, Medium, Large</p>
+            <h2 class="product-page-customer-review-heading">Customer Reviews</h2>
+            <p class="product-page-customer-review-text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+                sed mauris nec nisi rutrum laoreet. Duis euismod euismod dolor, non bibendum nibh bibendum sit amet."
+            </p>
+        </div>
+    {% endfor %}
+    
+</div>
 
 
 {% endblock content %}
