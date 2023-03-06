@@ -18,11 +18,15 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
 
+admin.site.site_header = 'LOGEACHI'
+admin.site.site_title = 'LOGEACHI ADMIN'
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('home.urls')),
     path('products/', include('products.urls')),
     path('accounts/', include('accounts.urls')),
+    path('cart/', include('cart.urls')),
 ]
 
 if settings.DEBUG:

@@ -86,7 +86,7 @@
                   {% comment %} <p class="category-item-amount">(53)</p> {% endcomment %}
                 </div>
 
-                <a href="#" class="category-btn">Show all</a>
+                <a href="{% url 'category-products' category.pk %}" class="category-btn">Show all</a>
 
               </div>
 
@@ -145,19 +145,25 @@
             <div class="card-row">
               {% for product in products %}
                 <div class="card-column">
-                  <div class="card" style="width: 12rem; height: 20rem;">
+                  <div class="product-card">
                     <a href="{% url 'get_product' product.slug %}">
-                      <img src="{{product.image.url}}" class="card-img-top" alt="{{product.product_name}}" style="width: 140px;  height: 150; margin: auto; justify-content: center;">
-                      <div class="card-body">
-                        <h5 class="card-title">{{product.product_name}}</h5>
-                      </div>
+                      <img  src="{{product.image.url}}" alt="Product Image">
+                      <!-- <h3 class="product-title">{{product.product_name}}</h3> -->
+                      <p class="product-title-particular">{{product.product_name}}</p>
                     </a>
-                    <div class="card-btn-container">
-                      <p style="font-size: 15px; padding-top: 2px; color: rgb(27, 27, 136);" class="card-price">&#2547 {{product.price}}</p>
-                      <a href="#">
-                        <button class="card-btn">Add to Cart</button>
-                      </a>
-                    </div>
+                    <p class="product-price">&#2547 {{product.price}}</p>
+                    <form action="{% url 'addTOcart' %}">
+                      <input type="hidden" name="pk" value="{{product.pk}}">
+                      <button class="add-to-cart-btn">
+                        Add to Cart
+                      </button>
+                    </form>
+                    <form action="{% url 'addTOwishlist' %}">
+                      <input type="hidden" name="pk" value="{{product.pk}}">
+                      <button class="add-to-wishlist-btn">
+                        Add to Wishlist                      
+                      </button>
+                    </form>  
                   </div>
                 </div>
               {% endfor %}

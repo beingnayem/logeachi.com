@@ -409,50 +409,95 @@ body::-webkit-scrollbar-thumb:hover { background: hsl(0, 0%, 70%); }
 	clear: both;
   }
 
-  .card:hover {
+  .product-card {
+    width: 12rem;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .product-card img {
+    display: block;
+    margin: 0 auto;
+    width: 150px;
+    height: 170px;
+    object-fit: cover;
+  }
+  
+  .product-card .product-title {
+    font-size: 18px;
+    margin: 10px 0 5px 0;
+    text-align: center;
+    height: 40px;
+    overflow: hidden;
+  }
+  
+  .product-card .product-title-particular {
+    font-size: 14px;
+    text-align: center;
+    height: 20px;
+    overflow: hidden;
+  }
+  
+  .product-card .product-price {
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  
+  .add-to-cart-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 5px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    border: 1px solid #333;
+    cursor: pointer;
+  }
+  
+  .add-to-wishlist-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 5px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    border: 1px solid #333;
+    cursor: pointer;
+  }
+
+  .product-card:hover {
 	transform: scale(1.05);
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   }
 
-  .card-title{
-    font-size: small;
-    font-family: sans-serif;
-    font-weight: 400;
-    font-style: normal;
-    color: black;
+  .add-to-cart-btn:hover {
+    background-color: #ffffff;
+    color: #333;
+    border: 1px solid #333;
   }
 
- .card-btn-container{
-  margin: auto;
-  display: flex;
-  justify-content: space-between;
- }
-  
-  
-  .card-btn{
-    background-color: pink;
-    margin: auto;
-    display: flex;
-    justify-content: center;
-    margin-top: 30px;
-    padding-bottom: 0px;
-    width: 110px;
-    border-radius: 5px;
-  }
-
-  .card-btn:hover{
-    transform:  scale(1.05);
-	  box-shadow: 0 0 10px pink;
+  .add-to-wishlist-btn:hover {
+    background-color: #ffffff;
+    color: #333;
+    border: 1px solid #333;
   }
   
   /* Style the counter cards */
-  .card {
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* this adds the "card" effect */
+
+  .product-card {
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); 
 	padding: 16px;
 	text-align: center;
 	background-color: #f1f1f1;
   border-radius: 10px;
   }
+
   
   /* Responsive columns - one column layout (vertical) on small screens */
   @media screen and (max-width: 600px) {
