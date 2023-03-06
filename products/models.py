@@ -1,7 +1,7 @@
 from django.db import models
-
+from accounts.models import User
 # Create your models here.
-# from base.models import BaseModel
+
 from django.utils.text import slugify
 
 
@@ -31,6 +31,9 @@ class Product(models.Model):
     price = models.IntegerField()
     product_description = models.TextField()
     quantity = models.IntegerField(null=True)
+
+    class Meta:
+        ordering = ['-added_date']
     
     def save(self, *args, **kwargs):
         self.slug = slugify(self.product_name)
@@ -38,3 +41,19 @@ class Product(models.Model):
     
     def __str__(self) -> str:
         return self.product_name
+
+
+
+class Cart(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+
+    @property
+    def total_cost(self):
+        return self.quantity*self.product.price
+    
+
+class Wishlist(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)

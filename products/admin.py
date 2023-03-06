@@ -9,4 +9,10 @@ admin.site.register(Category)
 class ProductModelAdmin(admin.ModelAdmin):
     list_display=['pk','product_name', 'category', 'added_date', 'price', 'quantity', 'image']
 
-# admin.site.register(Product)
+@admin.register(Cart)
+class CartAdminModel(admin.ModelAdmin):
+    list_display=['pk', 'user', 'product', 'quantity']
+
+@admin.register(Wishlist)
+class WishlistAdminModel(admin.ModelAdmin):
+    list_display=['pk', 'user', 'product']

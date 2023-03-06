@@ -152,8 +152,18 @@
                       <p class="product-title-particular">{{product.product_name}}</p>
                     </a>
                     <p class="product-price">&#2547 {{product.price}}</p>
-                    <button class="add-to-cart-btn">Add to Cart</button>
-                    <button class="add-to-wishlist-btn">Add to Wishlist</button>
+                    <form action="{% url 'addTOcart' %}">
+                      <input type="hidden" name="pk" value="{{product.pk}}">
+                      <button class="add-to-cart-btn">
+                        Add to Cart
+                      </button>
+                    </form>
+                    <form action="{% url 'addTOwishlist' %}">
+                      <input type="hidden" name="pk" value="{{product.pk}}">
+                      <button class="add-to-wishlist-btn">
+                        Add to Wishlist                      
+                      </button>
+                    </form>  
                   </div>
                 </div>
               {% endfor %}
