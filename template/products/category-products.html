@@ -16,19 +16,50 @@
                                         <!-- <h3 class="product-title">{{product.product_name}}</h3> -->
                                         <p class="product-title-particular">{{product.product_name}}</p>
                                     </a>
-                                    <p class="product-price">&#2547 {{product.price}}
+                                    <p class="product-price">
+                                        &#2547 {{product.price}}
                                     </p>
-                                    <button class="add-to-cart-btn">Add to Cart           
-                                    </button>
-                                    <button class="add-to-wishlist-btn">Add to Wishlist
-                                    </button>
+                                    <form action="{% url 'addTOcart' %}">
+                                        <input type="hidden" name="pk" value="{{product.pk}}">
+                                        <button type="submit" class="add-to-cart-btn">
+                                            Add to Cart           
+                                        </button>
+                                    </form>
+                                    <form action="{% url 'addTOwishlist' %}">
+                                        <input type="hidden" name="pk" value="{{product.pk}}">
+                                        <button type="submit" class="add-to-wishlist-btn">
+                                            Add to Wishlist
+                                        </button>
+                                    </form>                          
                                 </div>
                             </div>
+                        {% empty %}
+                            <p>No products found.</p>
                         {% endfor %}
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    
+    {% if products.has_other_pages %}
+        <div class="pagination">
+            <span class="step-links">
+                {% if products.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ products.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current-page">
+                    Page {{ products.number }} of {{ products.paginator.num_pages }}.
+                </span>
+
+                {% if products.has_next %}
+                    <a href="?page={{ products.next_page_number }}">next</a>
+                    <a href="?page={{ products.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    {% endif %}
 
 {% endblock content %}

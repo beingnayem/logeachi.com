@@ -24,7 +24,7 @@
           </li>
           {% if user.is_authenticated %}
             <li>
-              <a href="#" class="fas fa-user">Profile</a>
+              <a href="{% url 'show-profile' %}" class="fas fa-user">Profile</a>
             </li>
             <li>
               <a href="{% url 'signout' %}" class="fas fa-sign-out-alt">Sign Out</a>

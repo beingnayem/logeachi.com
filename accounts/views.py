@@ -1,21 +1,26 @@
 from django.shortcuts import render, HttpResponse, redirect
-from .models import User
+from .models import User, Address
 from django.views.generic import View
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+
 # Reset password token
 from django.contrib.auth.tokens  import PasswordResetTokenGenerator
+
 # to activate account
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.urls import NoReverseMatch, reverse
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_str, DjangoUnicodeDecodeError
+
 # Generate token
 from .utils import TokenGenerator, generate_token
+
 # threading
 import threading
+
 # emails
 from django.core.mail import send_mail, EmailMultiAlternatives, EmailMessage
 from django.core.mail import BadHeaderError, send_mail
@@ -23,6 +28,7 @@ from django.core import mail
 from django.conf import settings
 
 # Create your views here.
+
 class EmailThread(threading.Thread):
     def __init__(self, email_message):
         self.email_message=email_message
@@ -76,7 +82,6 @@ def signup(request):
                 return redirect('signup')
             
     return render(request, 'accounts/signup.html')   
-
 
 class ActivateAccountView(View):
     def get(self, request, uidb64, token):
@@ -197,3 +202,23 @@ class SetNewPasswordView(View):
             return render(request, 'accounts/reset-pass.html', context)
         
         return render(request, 'accounts/reset-pass.html', context)
+    
+
+def showProfile(request):
+    user = request.user
+    customer_info = User.objects.filter(email=user)
+    context = {
+        'customer'  : customer_info
+    }
+    return render(request, 'accounts/profile.html', context)
+
+def showAddress(request):
+    user = request.user
+    address_info = Address.objects.filter(customer=user)
+    customer_info = User.objects.filter(email=user)
+
+    context = {
+        'address' : address_info,
+        'customer'  : customer_info
+    }
+    return render(request, 'accounts/address.html', context)
