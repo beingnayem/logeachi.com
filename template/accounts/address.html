@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+    <div class="profile-container">
+        {% for customerInfo in customer %}
+            <div class="profile-left-sidebar">
+                <h4 class="profile-header">Wellcome, {{customerInfo.first_name}}</h4>
+                <div class="profile-menu-item-list">
+                    <ul>
+                        <li class="profile-menu-item">
+                            <i class="fas fa-circle">
+                                <a class="profile-menu-item-link" href="{% url 'show-profile' %}">Profile</a>
+                            </i>
+                        </li>
+                        <li class="profile-menu-item">
+                            <i class="fas fa-circle">
+                                <a class="profile-menu-item-link" href="{% url 'show-address' %}">Address Book</a>
+                            </i>
+                        </li>
+                        <li class="profile-menu-item">
+                            <i class="fas fa-circle">
+                                <a class="profile-menu-item-link" href="#">Order History</a>
+                            </i>
+                        </li>
+                        <li class="profile-menu-item">
+                            <i class="fas fa-circle">
+                                <a class="profile-menu-item-link" href="#">Payment History</a>
+                            </i>
+                        </li>
+                        <li class="profile-menu-item">
+                            <i class="fas fa-circle">
+                                <a class="profile-menu-item-link" href="{% url 'show-cart' %}">Shopping Cart</a>
+                            </i>
+                        </li>
+                        <li class="profile-menu-item">
+                            <i class="fas fa-circle">
+                                <a class="profile-menu-item-link" href="{% url 'show-wishlist' %}">Wish List</a>
+                            </i>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        {% endfor %}
+        
+        <div class="profile-right-sidebar">
+            {% if address %}
+
+                <h2 class="profile-menu-header">Address Book</h2>
+                <div class="address-card-container">
+                    <div class="address-card-row">
+                        {% for addressInfo in address %}
+                            <div class="address-card-column">
+                                <div class="address-card">
+                                    <h4 class="address-card-name">Name: {{addressInfo.full_name}}</h4>
+                                    <p class="address-card-email-phone">Phone: {{addressInfo.phone}}</p>
+                                    <p class="address-card-email-phone">Email: {{addressInfo.customer.email}} </p>
+                                    <p class="address-card-address">Address:  {{addressInfo.detail_address}}, {{addressInfo.thana}}, {{addressInfo.city}}, {{addressInfo.postal_code}} </p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div> 
+
+                {% else %}
+                    <div style="display: flex; margin: auto; justify-content: center;">
+                        <ul>
+                            <li>
+                                <h3>You did't add any address yet</h3>
+                            </li>
+                            <li style="display: flex; margin: auto; justify-content: center; margin-top: 50px; margin-bottom: 50px; background-color: silver; border-radius: 5px; border: 1px solid; width: 110px; height: 30px;">
+                                <a style=" display: flex; align-items: center;" href="#">Add address</a>
+                            </li>
+                        </ul>
+                    </div>
+            {% endif %}     
+        </div>
+    </div>     
+  
+{% endblock content %}
+
