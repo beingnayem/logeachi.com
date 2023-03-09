@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+    <form action="{% url 'edit-address' address.pk %}" class="address-registration-form" method="POST">
+        {% csrf_token %}
+
+        <h2 class="address-registration-form-header">Edit Address</h2>
+        <label for="fullname">Full Name:</label>
+        <input type="text" id="fullname" name="full_name" class="form-input" value="{{ address.full_name }}" required>
+        
+        <label for="phone">Phone:</label>
+        <input type="tel" id="phone" name="phone" class="form-input" pattern="[0-9]{10}" value="{{ address.phone }}" required>
+        
+        <label for="city">City:</label>
+        <input type="text" id="city" name="city" class="form-input" value="{{ address.city }}" required>
+        
+        <label for="thana">Thana:</label>
+        <input type="text" id="thana" name="thana" class="form-input" value="{{ address.thana }}" required>
+        
+        <label for="address">Detail Address:</label>
+        <textarea id="address" name="detail_address" class="form-input" required>{{ address.detail_address }}</textarea>
+        
+        <label for="postalcode">Postal Code:</label>
+        <input type="text" id="postalcode" name="postal_code" class="form-input" value="{{ address.postal_code }}" required>
+        
+        <div class="form-buttons">
+        <input type="submit" value="Submit" class="form-submit-button">
+        <button type="button" class="form-cancel-button">Cancel</button>
+        </div>
+    </form>
+
+
+{% endblock content %}
+

@@ -58,9 +58,9 @@ class User(AbstractUser):
 
 class Address(models.Model):
     customer = models.ForeignKey(User, on_delete=models.CASCADE)
-    full_name = models.CharField(max_length=30)
-    phone = models.CharField(max_length=11)
-    city = models.CharField(max_length=20)
-    thana = models.CharField(max_length=20)
-    postal_code = models.CharField(max_length=20)
-    detail_address = models.TextField(max_length=100)
+    full_name = models.CharField(max_length=30, null=True, blank=True)
+    phone = models.CharField(max_length=11, null=True, blank=True)
+    city = models.CharField(max_length=20, null=True, blank=True)
+    thana = models.CharField(max_length=20, null=True, blank=True)
+    postal_code = models.CharField(max_length=20, null=True, blank=True)
+    detail_address = models.TextField(max_length=100, null=True, blank=True)
