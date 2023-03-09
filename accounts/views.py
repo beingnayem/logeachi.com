@@ -1,21 +1,26 @@
-from django.shortcuts import render, HttpResponse, redirect
-from .models import User
+from django.shortcuts import render, HttpResponse, redirect, get_object_or_404
+from .models import User, Address
 from django.views.generic import View
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+
 # Reset password token
 from django.contrib.auth.tokens  import PasswordResetTokenGenerator
+
 # to activate account
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from django.urls import NoReverseMatch, reverse
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_str, DjangoUnicodeDecodeError
+
 # Generate token
 from .utils import TokenGenerator, generate_token
+
 # threading
 import threading
+
 # emails
 from django.core.mail import send_mail, EmailMultiAlternatives, EmailMessage
 from django.core.mail import BadHeaderError, send_mail
@@ -23,6 +28,7 @@ from django.core import mail
 from django.conf import settings
 
 # Create your views here.
+
 class EmailThread(threading.Thread):
     def __init__(self, email_message):
         self.email_message=email_message
@@ -76,7 +82,6 @@ def signup(request):
                 return redirect('signup')
             
     return render(request, 'accounts/signup.html')   
-
 
 class ActivateAccountView(View):
     def get(self, request, uidb64, token):
@@ -197,3 +202,83 @@ class SetNewPasswordView(View):
             return render(request, 'accounts/reset-pass.html', context)
         
         return render(request, 'accounts/reset-pass.html', context)
+    
+
+def showProfile(request):
+    user = request.user
+    customer_info = User.objects.filter(email=user)
+    context = {
+        'customer'  : customer_info
+    }
+    return render(request, 'accounts/profile.html', context)
+
+
+def showAddress(request):
+    user = request.user
+    address_info = Address.objects.filter(customer=user)
+    customer_info = User.objects.filter(email=user)
+
+    context = {
+        'address' : address_info,
+        'customer'  : customer_info
+    }
+    return render(request, 'accounts/address.html', context)
+
+
+def addAddress(request):
+    if request.method == 'POST':
+        full_name = request.POST['fullname']
+        phone = request.POST['phone']
+        city = request.POST['city']
+        thana = request.POST['thana']
+        address = request.POST['address']
+        postal_code = request.POST['postalcode']
+        
+        # Get the current user
+        user = request.user
+        
+        # Create a new Address object
+        new_address = Address(customer=user, full_name=full_name, phone=phone, city=city, thana=thana, postal_code=postal_code, detail_address=address)
+        new_address.save()
+        messages.success(request, "Your Address has been added")
+        # Redirect the user to the address list page
+        return redirect('show-address')
+    
+    else:
+        return render(request, 'accounts/addAddress.html')
+
+
+def editAddress(request, address_id):
+    # Get the Address object to be edited
+    address = get_object_or_404(Address, pk=address_id)
+
+    if request.method == 'POST':
+        # Update the address with the new data from the form
+        address.full_name = request.POST.get('full_name')
+        address.phone = request.POST.get('phone')
+        address.city = request.POST.get('city')
+        address.thana = request.POST.get('thana')
+        address.detail_address = request.POST.get('detail_address')
+        address.postal_code = request.POST.get('postal_code')
+        address.save()
+        messages.success(request, "Your Address has been Updated")
+        # Redirect the user to the address list page
+        return redirect('show-address')
+
+    # Render the edit address form with the current data from the address object
+    return render(request, 'accounts/editAddress.html', {'address': address})
+
+
+
+def deleteAddress(request, address_id):
+    address = get_object_or_404(Address, pk=address_id)
+    if address:
+        address.delete()
+        messages.success(request, "Your Address has been Deleted")
+        return redirect('show-address')
+    
+    else:
+        messages.error(request, "No Address")
+        return redirect('show-address')
+
+    

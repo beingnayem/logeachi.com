@@ -4,18 +4,26 @@ from home.models import BannerSlider
 
 # Create your views here.
 
+from django.core.paginator import Paginator
+from django.shortcuts import render
+
 def home(request):
-
-    categoryID = request.GET.get('category')
-
-    if categoryID:
-        product = Product.objects.filter(category=categoryID)
-
+    category_id = request.GET.get('category')
+    if category_id:
+        products = Product.objects.filter(category=category_id)
     else:
-        product = Product.objects.all()
-    
-    context = {'products': product, 'categories': Category.objects.all(), 'sliders':BannerSlider.objects.all(), }
-    return render(request, 'home/index.html' , context)
+        products = Product.objects.all()
+
+    paginator = Paginator(products, 20) # Show 10 products per page.
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+        'products': page_obj,
+        'categories': Category.objects.all(),
+        'sliders': BannerSlider.objects.all(),
+    }
+    return render(request, 'home/index.html', context)
 
 
 

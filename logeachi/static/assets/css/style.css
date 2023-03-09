@@ -78,7 +78,7 @@ button {
   cursor: pointer;
 }
 
-img, ion-icon, button, a { display: block; }
+/* img, ion-icon, button, a { display: block; } */
 
 span { display: inline-block; }
 
@@ -376,14 +376,7 @@ body::-webkit-scrollbar-thumb:hover { background: hsl(0, 0%, 70%); }
 	padding-right: 20px;
 }
 
-
-* {
-	box-sizing: border-box;
-  }
-  
-  body {
-	font-family: Arial, Helvetica, sans-serif;
-  }
+ 
   
   /* Float four columns side by side */
   .card-column {
