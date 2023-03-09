@@ -116,6 +116,19 @@ body {
   height: 200px;
 }
 
+.address-card-add{
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+  width: 400px;
+  height: 200px;
+  display: flex;
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+}
+
 .address-card-name {
   margin-top: 5px;
 }
@@ -126,4 +139,17 @@ body {
 
 .address-card-address {
   margin-bottom: 5px;
+}
+
+.address-edit-delete-icon{
+  display: flex;
+  margin-top: 15px;
+  justify-content: center;
+  width: 50%;
+
+}
+ 
+.address-delete-icon{
+  
+   margin-left: 10px;
 }
