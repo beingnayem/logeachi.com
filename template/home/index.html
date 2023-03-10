@@ -2,313 +2,320 @@
 {% load static %}
 
 {% block content %}
-  
-  <main>
-    {% if messages %}
-      <ul class="messages">
-        {% for message in messages %}
-          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}> 
-            <div style="width: 30%; margin-left: 70%;" class="form-alert">
-              <span class="alert-closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-              {{message}}
-            </div>
-          </li>
-        {% endfor %}
-      </ul>
-    {% endif %}
-    <!--
+
+<main>
+  {% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+      <div style="width: 30%; margin-left: 70%;" class="form-alert">
+        <span class="alert-closebtn"
+          onclick="this.parentElement.style.display='none';">&times;</span>
+        {{message}}
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+  <!--
       - BANNER
     -->
-    <br>
-    <div class="banner">
+  <br>
+  <div class="banner">
 
-      <div class="container">
+    <div class="container">
 
-        <div class="slider-container has-scrollbar">
-          {% for slide in sliders %}
-          <div class="slider-item">
+      <div class="slider-container has-scrollbar">
+        {% for slide in sliders %}
+        <div class="slider-item">
 
-            <img src="{{slide.banner_img.url}}" alt="women's latest fashion sale" class="banner-img">
+          <img src="{{slide.banner_img.url}}" alt="women's latest fashion sale"
+            class="banner-img">
 
-            <div class="banner-content">
+          <div class="banner-content">
 
-              {% comment %} <p class="banner-subtitle">Tranding Item</p> {% endcomment %}
+            {% comment %} <p class="banner-subtitle">Tranding Item</p> {%
+            endcomment %}
 
-              <h2 class="banner-title">{{slide.banner_title}}</h2>
+            <h2 class="banner-title">{{slide.banner_title}}</h2>
 
-              <p class="banner-text">
-               <b>{{slide.banner_subtitle}}</b>
-              </p>
+            <p class="banner-text">
+              <b>{{slide.banner_subtitle}}</b>
+            </p>
 
-              {% comment %} <a href="#" class="banner-btn">Shop now</a> {% endcomment %}
-
-            </div>
+            {% comment %} <a href="#" class="banner-btn">Shop now</a> {%
+            endcomment %}
 
           </div>
 
-
-          {% endfor %}
-
-          
-
         </div>
+
+
+        {% endfor %}
+
+
 
       </div>
 
     </div>
 
+  </div>
 
 
 
 
-    <!--
+
+  <!--
       - CATEGORY
     -->
 
-    <div class="category">
+  <div class="category">
 
-      <div class="container">
+    <div class="container">
 
-        <div class="category-item-container has-scrollbar">
+      <div class="category-item-container has-scrollbar">
 
-          {% for category in categories  %}
-            <div class="category-item">
+        {% for category in categories %}
+        <div class="category-item">
 
-              <div class="category-img-box">
-                <img src="{{category.category_image.url}}" alt="dress & frock" width="30"> 
-              </div>
+          <div class="category-img-box">
+            <img src="{{category.category_image.url}}" alt="dress & frock"
+              width="30">
+          </div>
 
-              <div class="category-content-box">
+          <div class="category-content-box">
 
-                <div class="category-content-flex">
-                  <h3 class="category-item-title">{{category.category_name}} </h3>
-
-                  {% comment %} <p class="category-item-amount">(53)</p> {% endcomment %}
-                </div>
-
-                <a href="{% url 'category-products' category.pk 1 %}" class="category-btn">Show all</a>
-
-              </div>
-
+            <div class="category-content-flex">
+              <h3 class="category-item-title">{{category.category_name}} </h3>
+              {% comment %} <p class="category-item-amount">(53)</p> {%
+              endcomment %}
             </div>
-          {% endfor %}
+
+            <a href="{% url 'category-products' category.pk 1 %}"
+              class="category-btn">Show all</a>
+
+          </div>
 
         </div>
+        {% endfor %}
 
       </div>
 
     </div>
 
+  </div>
 
 
 
 
-    <!--
+
+  <!--
       - PRODUCT
     -->
 
-    <div class="product-container">
-      <div class="container">
-  
-        <!--
+  <div class="product-container">
+    <div class="container">
+
+      <!--
         - SIDEBAR
         -->
-  
-        <div class="sidebar  has-scrollbar" data-mobile-menu>
-          <div class="sidebar-category">
-            <div class="sidebar-top">
-              <h2 class="sidebar-title">Category</h2>
-            </div>
-            <ul class="sidebar-menu-category-list">
-              <li class="sidebar-menu-category">
-                <a href="?category=">
-                  <button class="sidebar-accordion-menu">
-                    All Products
-                  </button>
+
+      <div class="sidebar has-scrollbar" data-mobile-menu>
+        <div class="sidebar-category">
+          <div class="sidebar-top">
+            <h2 class="sidebar-title">Category</h2>
+          </div>
+          <ul class="sidebar-menu-category-list">
+            <li class="sidebar-menu-category">
+              <a href="?category=">
+                <button class="sidebar-accordion-menu">
+                  All Products
+                </button>
+              </a>
+            </li>
+            {% for category in categories %}
+            <li class="sidebar-menu-category">
+              <a href="?category={{category.id}}">
+                <button class="sidebar-accordion-menu">
+                  {{category.category_name}}
+                </button>
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+
+      <div class="product-box">
+        <div class="product-card-container">
+          <div class="card-row">
+            {% for product in products %}
+            <div class="card-column">
+              <div class="product-card">
+                <a href="{% url 'get_product' product.slug %}">
+                  <img src="{{product.image.url}}" alt="Product Image">
+                  <!-- <h3 class="product-title">{{product.product_name}}</h3> -->
+                  <p class="product-title-particular">{{product.product_name}}</p>
                 </a>
-              </li>
-              {% for category in categories %}
-                <li class="sidebar-menu-category">
-                  <a href="?category={{category.id}}">
-                    <button class="sidebar-accordion-menu">
-                      {{category.category_name}}
-                    </button>    
-                  </a>
-                </li>
-              {% endfor %}
-            </ul>
-          </div>
-        </div>
-  
-        <div class="product-box">
-          <div class="product-card-container">
-            <div class="card-row">
-              {% for product in products %}
-                <div class="card-column">
-                  <div class="product-card">
-                    <a href="{% url 'get_product' product.slug %}">
-                      <img  src="{{product.image.url}}" alt="Product Image">
-                      <!-- <h3 class="product-title">{{product.product_name}}</h3> -->
-                      <p class="product-title-particular">{{product.product_name}}</p>
-                    </a>
-                    <p class="product-price">&#2547 {{product.price}}</p>
-                    <form action="{% url 'addTOcart' %}">
-                      <input type="hidden" name="pk" value="{{product.pk}}">
-                      <button class="add-to-cart-btn">
-                        Add to Cart
-                      </button>
-                    </form>
-                    <form action="{% url 'addTOwishlist' %}">
-                      <input type="hidden" name="pk" value="{{product.pk}}">
-                      <button class="add-to-wishlist-btn">
-                        Add to Wishlist                      
-                      </button>
-                    </form>  
-                  </div>
-                </div>
-              {% endfor %}
+                <p class="product-price">&#2547 {{product.price}}</p>
+                <form action="{% url 'addTOcart' %}">
+                  <input type="hidden" name="pk" value="{{product.pk}}">
+                  <button class="add-to-cart-btn">
+                    Add to Cart
+                  </button>
+                </form>
+                <form action="{% url 'addTOwishlist' %}">
+                  <input type="hidden" name="pk" value="{{product.pk}}">
+                  <button class="add-to-wishlist-btn">
+                    Add to Wishlist
+                  </button>
+                </form>
+              </div>
             </div>
+            {% endfor %}
           </div>
         </div>
-  
       </div>
+
     </div>
-    {% if products.has_other_pages %}
-      <div class="pagination">
-        <span class="step-links">
-          {% if products.has_previous %}
-            <a href="?page=1">&laquo; first</a>
-             <a href="?page={{ products.previous_page_number }}">previous</a>
-          {% endif %}
+  </div>
+  {% if products.has_other_pages %}
+  <div class="pagination">
+    <span class="step-links">
+      {% if products.has_previous %}
+      <a href="?page=1">&laquo; first</a>
+      <a href="?page={{ products.previous_page_number }}">previous</a>
+      {% endif %}
 
-          <span class="current-page">
-            Page {{ products.number }} of {{ products.paginator.num_pages }}.
-          </span>
+      <span class="current-page">
+        Page {{ products.number }} of {{ products.paginator.num_pages }}.
+      </span>
 
-          {% if products.has_next %}
-            <a href="?page={{ products.next_page_number }}">next</a>
-            <a href="?page={{ products.paginator.num_pages }}">last &raquo;</a>
-          {% endif %}
-        </span>
-      </div>
-    {% endif %}
+      {% if products.has_next %}
+      <a href="?page={{ products.next_page_number }}">next</a>
+      <a href="?page={{ products.paginator.num_pages }}">last &raquo;</a>
+      {% endif %}
+    </span>
+  </div>
+  {% endif %}
 
 
 
-    <!--
+  <!--
     -CTA & SERVICE
     -->
 
-    <div class="cta-service">
-    
-      <!--
+  <div class="cta-service">
+
+    <!--
         - CTA
       -->
 
-      <div class="cta-container">
+    <div class="cta-container">
 
-        <img src="../../static/assets/images/cta-banner.jpg" alt="summer collection" class="cta-banner">
+      <img src="../../static/assets/images/cta-banner.jpg" alt="summer
+        collection" class="cta-banner">
 
-        <a href="#" class="cta-content">
+      <a href="#" class="cta-content">
 
-          <p class="discount">Upto 25% Discount</p>
+        <p class="discount">Upto 25% Discount</p>
 
-          <h2 class="cta-title">Summer collection</h2>
+        <h2 class="cta-title">Summer collection</h2>
 
-          <p class="cta-text">Starting at &#2547 999</p>
+        <p class="cta-text">Starting at &#2547 999</p>
 
-          <button class="cta-btn">Shop now</button>
+        <button class="cta-btn">Shop now</button>
 
-        </a>
+      </a>
 
-      </div>
+    </div>
 
-      <!--
+    <!--
         - SERVICE
       -->
 
-      <div class="service">
+    <div class="service">
 
-        <h2 class="title">Our Services</h2>
+      <h2 class="title">Our Services</h2>
 
-        <div class="service-container">
+      <div class="service-container">
 
-          <a href="#" class="service-item">
+        <a href="#" class="service-item">
 
-            <div class="service-icon">
-              <ion-icon name="boat-outline"></ion-icon>
-            </div>
+          <div class="service-icon">
+            <ion-icon name="boat-outline"></ion-icon>
+          </div>
 
-            <div class="service-content">
+          <div class="service-content">
 
-              <h3 class="service-title">Free Delivery</h3>
-              <p class="service-desc">For Order Over &#2547 3000</p>
+            <h3 class="service-title">Free Delivery</h3>
+            <p class="service-desc">For Order Over &#2547 3000</p>
 
-            </div>
+          </div>
 
-          </a>
+        </a>
 
-          <a href="#" class="service-item">
-          
-            <div class="service-icon">
-              <ion-icon name="rocket-outline"></ion-icon>
-            </div>
-          
-            <div class="service-content">
-          
-              <h3 class="service-title">Next Day delivery</h3>
-              <p class="service-desc">Inside Dhaka Only</p>
-          
-            </div>
-          
-          </a>
+        <a href="#" class="service-item">
 
-          <a href="#" class="service-item">
-          
-            <div class="service-icon">
-              <ion-icon name="call-outline"></ion-icon>
-            </div>
-          
-            <div class="service-content">
-          
-              <h3 class="service-title">Best Online Support</h3>
-              <p class="service-desc">Hours: 10AM - 11PM</p>
-          
-            </div>
-          
-          </a>
+          <div class="service-icon">
+            <ion-icon name="rocket-outline"></ion-icon>
+          </div>
 
-          <a href="#" class="service-item">
-          
-            <div class="service-icon">
-              <ion-icon name="arrow-undo-outline"></ion-icon>
-            </div>
-          
-            <div class="service-content">
-          
-              <h3 class="service-title">Return Policy</h3>
-              <p class="service-desc">Easy & Free Return</p>
-          
-            </div>
-          
-          </a>
+          <div class="service-content">
 
-          <a href="#" class="service-item">
-          
-            <div class="service-icon">
-              <ion-icon name="ticket-outline"></ion-icon>
-            </div>
-          
-            <div class="service-content">
-          
-              <h3 class="service-title">Upto 10% cash back</h3>
-              <p class="service-desc">For Order Over &#2547 10000</p>
-          
-            </div>
-          </a>
-        </div>
+            <h3 class="service-title">Next Day delivery</h3>
+            <p class="service-desc">Inside Dhaka Only</p>
+
+          </div>
+
+        </a>
+
+        <a href="#" class="service-item">
+
+          <div class="service-icon">
+            <ion-icon name="call-outline"></ion-icon>
+          </div>
+
+          <div class="service-content">
+
+            <h3 class="service-title">Best Online Support</h3>
+            <p class="service-desc">Hours: 10AM - 11PM</p>
+
+          </div>
+
+        </a>
+
+        <a href="#" class="service-item">
+
+          <div class="service-icon">
+            <ion-icon name="arrow-undo-outline"></ion-icon>
+          </div>
+
+          <div class="service-content">
+
+            <h3 class="service-title">Return Policy</h3>
+            <p class="service-desc">Easy & Free Return</p>
+
+          </div>
+
+        </a>
+
+        <a href="#" class="service-item">
+
+          <div class="service-icon">
+            <ion-icon name="ticket-outline"></ion-icon>
+          </div>
+
+          <div class="service-content">
+
+            <h3 class="service-title">Upto 10% cash back</h3>
+            <p class="service-desc">For Order Over &#2547 10000</p>
+
+          </div>
+        </a>
       </div>
     </div>
-  </main>
+  </div>
+</main>
 
 {% endblock content %}

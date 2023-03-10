@@ -4,23 +4,25 @@
 {% block content %}
 
 <div class="signin-container">
-  <form action="{% url 'reset-pass-request' %}" method="POST" class="signin-form">
+  <form action="{% url 'reset-pass-request' %}" method="POST"
+    class="signin-form">
     {% csrf_token %}
 
     {% if messages %}
     <ul class="messages">
       {% for message in messages %}
-        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}> 
-          <div class="form-alert">
-            <span class="alert-closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-            {{message}}
-          </div>
-        </li>
+      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+        <div class="form-alert">
+          <span class="alert-closebtn"
+            onclick="this.parentElement.style.display='none';">&times;</span>
+          {{message}}
+        </div>
+      </li>
       {% endfor %}
     </ul>
     {% endif %}
 
-    <h2  class="signin-title">Password Reset Request</h2>
+    <h2 class="signin-title">Password Reset Request</h2>
     <label for="username">Enter your e-mail</label>
     <input type="email" id="email" name="email" required>
     <div class="options">

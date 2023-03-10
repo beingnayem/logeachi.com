@@ -43,13 +43,14 @@ class User(AbstractUser):
     """User model."""
 
     username = None
-    
+
     last_name = models.CharField(max_length=35)
     email = models.EmailField(_('email address'), unique=True)
-    phone = None #models.CharField(max_length=35)
-    first_name= models.CharField(max_length=35)
-    image = None #models.ImageField(upload_to='seller_profile_image', blank=True, null=True)
-    address = None #models.CharField(max_length=255,blank=True, null=True)
+    phone = None  # models.CharField(max_length=35)
+    first_name = models.CharField(max_length=35)
+    # models.ImageField(upload_to='seller_profile_image', blank=True, null=True)
+    image = None
+    address = None  # models.CharField(max_length=255,blank=True, null=True)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
