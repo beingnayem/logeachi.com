@@ -41,17 +41,15 @@
             <h2 class="checkout-header">Shipping Address</h2>
             <form method="POST">
                 {% csrf_token %}
-                <!-- {% if shipping_addresses %} -->
+
                 {% for address in shipping_addresses %}
                 <label>
-                    <input type="radio" name="shipping_address" value="{{ address.pk}}">
+                    <input type="radio" name="shipping_address" value="{{
+                        address.pk}}">
                     {{ address.full_name }} - {{ address.detail_address }}
                 </label><br>
                 {% endfor %}
-                <button class="shipping-address-select-btn" type="submit">Select
-                <!-- {% endif %} -->
-                
-                
+                <button class="shipping-address-select-btn" type="submit">Select</button>
             </form>
         </div>
 
@@ -65,8 +63,8 @@
                 {{ selected_address.detail_address }}
             </p>
             <p class="selected-address-info">
-                {{ selected_address.city }} 
-                {{ selected_address.thana }} 
+                {{ selected_address.city }}
+                {{ selected_address.thana }}
                 {{ selected_address.postal_code }}</p>
             {% endif %}
         </div>
@@ -77,14 +75,15 @@
             <p class="order-summary-info">Total Cost: {{ total_cost }}</p>
         </div>
     </div>
-            <div class="place-order">
-                <form method="POST" action="{% url 'place-order' %}">
-                    {% csrf_token %}
-                    <input type="hidden" name="shipping_address_id" value="{{selected_address.pk}}">
-                    <button type="submit" class="place-order-btn">Place Order</button>
-                </form>
-                
-             
-            </div>
+    <div class="place-order">
+        <form method="POST" action="{% url 'place-order' %}">
+            {% csrf_token %}
+            <input type="hidden" name="shipping_address_id"
+                value="{{selected_address.pk}}">
+            <button type="submit" class="place-order-btn">Place Order</button>
+        </form>
+
+
+    </div>
 </div>
 {% endblock %}
