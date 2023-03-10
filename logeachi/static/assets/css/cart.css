@@ -165,7 +165,7 @@
     transition: 0.5s;
 }
 
-.place-order {
+.checkout-btn {
     display: block;
     width: 100%;
     margin-top: 20px;
@@ -179,7 +179,7 @@
     border-radius: 5px;
 }
 
-.place-order:hover {
+.checkout-btn:hover {
     background-color: #004a09;
     transition: 0.5s;
 }

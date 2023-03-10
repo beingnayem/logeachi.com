@@ -1,0 +1,148 @@
+/* Main checkout container */
+.checkout-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px;
+  }
+  
+  /* Products container */
+  .products-container {
+    flex: 1;
+  }
+  
+  /* Products list */
+  .products-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  /* Product list item */
+  .product-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+  }
+  
+  /* Product image */
+  .product-image {
+    max-width: 100px;
+    max-height: 100px;
+    margin-right: 10px;
+  }
+  
+  /* Product info */
+  .product-info {
+    flex: 1;
+  }
+  
+  /* Product title */
+  .product-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  /* Product price */
+  .product-price {
+    font-size: 16px;
+    margin: 0;
+  }
+  
+  /* Shipping address container */
+  .shipping-address-container {
+    flex: 1;
+    margin-left: 20px;
+  }
+  
+  /* Shipping address title */
+  .shipping-address-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  /* Address list */
+  .address-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  /* Address list item */
+  .address-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  /* Address checkbox */
+  .address-checkbox {
+    margin-right: 10px;
+  }
+  
+  /* Order summary container */
+  .order-summary-container {
+    width: 30%;
+  }
+  
+  /* Order summary title */
+  .order-summary-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  /* Order summary table */
+  .order-summary-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  /* Order summary table header */
+  .order-summary-table th {
+    text-align: left;
+    padding: 5px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  /* Order summary table cell */
+  .order-summary-table td {
+    text-align: right;
+    padding: 5px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  /* Order summary total row */
+  .order-summary-total {
+    font-weight: bold;
+  }
+  
+  /* Checkout button */
+  .checkout-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  /* Checkout button hover effect */
+  .checkout-button:hover {
+    background-color: #0062cc;
+  }
+  

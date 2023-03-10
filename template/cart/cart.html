@@ -54,7 +54,9 @@
                     <p>Total</p>
                     <p id="total_cost" class="cart-amount">&#2547  {{total_cost}}</p>
                 </div>
-                <button class="place-order">Place Order</button>
+                <a href="{% url 'checkout' %}">
+                  <button class="checkout-btn">Checkout</button>
+                </a>
             </div>
         </div>
     </div>
