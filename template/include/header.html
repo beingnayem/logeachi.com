@@ -1,43 +1,44 @@
 <header>
 
-    <div class="header-container">
-      <a href="{% url 'home' %}" class="header-logo">Logeachi</a>
-      <form action="{% url 'search' %}" method="GET">
-        <div class="search-button-container">
-          <input type="text" class="search-input" placeholder="Search..." name="keywords">
-          <button class="search-button" type="submit">
-            <i class="fas fa-search"></i>
-          </button>
-        </div>
-      </form>
-
-      <div class="header-nav-container">
-        <ul>
-          <li>
-            <a href="{% url 'home' %}" class="fas fa-home">Home</a>
-          </li>
-          <li>
-            <a href="{% url 'show-cart' %}" class="fas fa-shopping-cart">Cart</a>
-          </li>
-          <li>
-            <a href="{% url 'show-wishlist' %}" class="fas fa-heart">wishlist</a>
-          </li>
-          {% if user.is_authenticated %}
-            <li>
-              <a href="{% url 'show-profile' %}" class="fas fa-user">Profile</a>
-            </li>
-            <li>
-              <a href="{% url 'signout' %}" class="fas fa-sign-out-alt">Sign Out</a>
-            </li>
-            {% else %}
-              <li>
-                <a href="{% url 'signin' %}" class="fas fa-sign-in-alt">Sign In</a>
-              </li>
-              <li>
-                <a href="{% url 'signup' %}" class="fas fa-sign-up-alt">Sign Up</a>
-              </li>
-          {% endif %}
-        </ul>
+  <div class="header-container">
+    <a href="{% url 'home' %}" class="header-logo">Logeachi</a>
+    <form action="{% url 'search' %}" method="GET">
+      <div class="search-button-container">
+        <input type="text" class="search-input" placeholder="Search..."
+          name="keywords">
+        <button class="search-button" type="submit">
+          <i class="fas fa-search"></i>
+        </button>
       </div>
+    </form>
+
+    <div class="header-nav-container">
+      <ul>
+        <li>
+          <a href="{% url 'home' %}" class="fas fa-home">Home</a>
+        </li>
+        <li>
+          <a href="{% url 'show-cart' %}" class="fas fa-shopping-cart">Cart</a>
+        </li>
+        <li>
+          <a href="{% url 'show-wishlist' %}" class="fas fa-heart">wishlist</a>
+        </li>
+        {% if user.is_authenticated %}
+        <li>
+          <a href="{% url 'show-profile' %}" class="fas fa-user">Profile</a>
+        </li>
+        <li>
+          <a href="{% url 'signout' %}" class="fas fa-sign-out-alt">Sign Out</a>
+        </li>
+        {% else %}
+        <li>
+          <a href="{% url 'signin' %}" class="fas fa-sign-in-alt">Sign In</a>
+        </li>
+        <li>
+          <a href="{% url 'signup' %}" class="fas fa-sign-up-alt">Sign Up</a>
+        </li>
+        {% endif %}
+      </ul>
     </div>
+  </div>
 </header>
