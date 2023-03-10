@@ -10,4 +10,7 @@ urlpatterns = [
     path('add-to-wishlist/', views.addTOwishlist, name='addTOwishlist'),
     path('show-wishlist/', views.ShowWishlist, name='show-wishlist'),
     path('remove-wishlist/', views.RemoveWishlist, name='remove-wishlist'),
+    path('checkout/', views.checkout, name='checkout'),
+    path('place-order/', views.place_order, name='place-order'),
+
 ]
