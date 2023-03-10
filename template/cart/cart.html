@@ -28,7 +28,7 @@
             <form action="{% url 'removecart' %}">
               <input type="hidden" name="pk" value="{{item.product.pk}}">
               <button pid="{{item.product.pk}}" class="remove-btn" >
-                Remove
+                <i class="fa fa-trash" aria-hidden="true"></i>
               </button>
             </form>
           </div>
@@ -45,11 +45,11 @@
                     <p>Shipping</p>
                     <p class="shipping-amount">&#2547 {{shipping_cost}}</p>
                 </div>
-                <div class="coupon">
+                <!-- <div class="coupon">
                     <label for="coupon-code">Apply Coupon</label>
                     <input type="text" id="coupon-code">
                     <button>Apply</button>
-                </div>
+                </div> -->
                 <div class="cart-total-amount">
                     <p>Total</p>
                     <p id="total_cost" class="cart-amount">&#2547  {{total_cost}}</p>

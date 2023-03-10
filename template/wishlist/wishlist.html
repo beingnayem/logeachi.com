@@ -20,7 +20,7 @@
                     <form action="{% url 'remove-wishlist' %}">
                         <input type="hidden" name="pk" value="{{item.product.pk}}">
                         <button pid="{{item.product.pk}}" class="remove-btn" >
-                            Remove
+                            <i class="fa fa-trash" aria-hidden="true"></i>
                         </button>
                     </form>
                 </div>
