@@ -64,3 +64,6 @@ class Address(models.Model):
     thana = models.CharField(max_length=20, null=True, blank=True)
     postal_code = models.CharField(max_length=20, null=True, blank=True)
     detail_address = models.TextField(max_length=100, null=True, blank=True)
+
+    def __str__(self) -> str:
+        return self.detail_address

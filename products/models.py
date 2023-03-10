@@ -1,9 +1,9 @@
 from django.db import models
-from accounts.models import User
+from accounts.models import User, Address
 # Create your models here.
 
 from django.utils.text import slugify
-
+import uuid
 
 
 class Category(models.Model):
@@ -57,3 +57,21 @@ class Cart(models.Model):
 class Wishlist(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
+
+
+class Order(models.Model):
+    customer = models.ForeignKey(User, on_delete=models.CASCADE)
+    shipping_address = models.ForeignKey(Address, on_delete=models.SET_NULL, null=True, blank=True)
+    shipping_cost = models.PositiveIntegerField(default=50)
+    order_date = models.DateTimeField(auto_now_add=True)
+    total_cost = models.PositiveIntegerField(default=0)
+
+class OrderLineItem(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+
+
+
+
+

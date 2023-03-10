@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="checkout-container">
+    <h1 class="checkout-title">Checkout</h1>
+    <div class="checkout-container-items">
+        <div class="checkout-cart-items">
+            <h2 class="checkout-header">Cart Items</h2>
+            <table class="checkout-cart-items-table">
+                <thead>
+                    <tr class="checkout-cart-items-table-row">
+                        <th class="checkout-cart-items-table-header">Product
+                            Name</th>
+                        <th class="checkout-cart-items-table-header">Price</th>
+                        <th class="checkout-cart-items-table-header">Quantity</th>
+                        <th class="checkout-cart-items-table-header">Total Cost</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart_items %}
+                    <tr class="checkout-cart-items-table-row">
+                        <td class="checkout-cart-items-table-data">
+                            {{ item.product.product_name }}
+                        </td>
+                        <td class="checkout-cart-items-table-data">
+                            {{ item.product.price }}
+                        </td>
+                        <td class="checkout-cart-items-table-data">
+                            {{ item.quantity }}
+                        </td>
+                        <td class="checkout-cart-items-table-data">
+                            {{ item.total_cost }}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="shipping-address">
+            <h2 class="checkout-header">Shipping Address</h2>
+            <form method="POST">
+                {% csrf_token %}
+                <!-- {% if shipping_addresses %} -->
+                {% for address in shipping_addresses %}
+                <label>
+                    <input type="radio" name="shipping_address" value="{{ address.pk}}">
+                    {{ address.full_name }} - {{ address.detail_address }}
+                </label><br>
+                {% endfor %}
+                <button class="shipping-address-select-btn" type="submit">Select
+                <!-- {% endif %} -->
+                
+                
+            </form>
+        </div>
+
+        <div class="selected-address">
+            {% if selected_address %}
+            <h2 class="checkout-header">Selected Address</h2>
+            <p class="selected-address-info">
+                {{ selected_address.full_name }}
+            </p>
+            <p class="selected-address-info">
+                {{ selected_address.detail_address }}
+            </p>
+            <p class="selected-address-info">
+                {{ selected_address.city }} 
+                {{ selected_address.thana }} 
+                {{ selected_address.postal_code }}</p>
+            {% endif %}
+        </div>
+
+        <div class="order-summary">
+            <h2 class="checkout-header">Order Summary</h2>
+            <p class="order-summary-info">Shipping Cost: {{ shipping_cost }}</p>
+            <p class="order-summary-info">Total Cost: {{ total_cost }}</p>
+        </div>
+    </div>
+            <div class="place-order">
+                <form method="POST" action="{% url 'place-order' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="shipping_address_id" value="{{selected_address.pk}}">
+                    <button type="submit" class="place-order-btn">Place Order</button>
+                </form>
+                
+             
+            </div>
+</div>
+{% endblock %}
