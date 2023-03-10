@@ -16,3 +16,19 @@ class CartAdminModel(admin.ModelAdmin):
 @admin.register(Wishlist)
 class WishlistAdminModel(admin.ModelAdmin):
     list_display=['pk', 'user', 'product']
+
+class OrderItemInline(admin.TabularInline):
+    model = OrderLineItem
+
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ('pk', 'customer', 'order_date', 'total_cost', 'shipping_address')
+    inlines = [OrderItemInline]
+
+class OrderItemAdmin(admin.ModelAdmin):
+    list_display = ('pk', 'order', 'product', 'quantity', 'cost')
+
+    def cost(self, obj):
+        return obj.quantity * obj.product.price
+
+admin.site.register(Order, OrderAdmin)
+admin.site.register(OrderLineItem, OrderItemAdmin)
