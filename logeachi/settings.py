@@ -49,8 +49,8 @@ INSTALLED_APPS = [
     'cart',
 ]
 
-SITE_ID =1
-AUTH_USER_MODEL='accounts.User'
+SITE_ID = 1
+AUTH_USER_MODEL = 'accounts.User'
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_EMAIL_REQUIRED = True
@@ -157,5 +157,3 @@ EMAIL_HOST_PASSWORD = 'kzigdvatschmqyje'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-
-

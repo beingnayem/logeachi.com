@@ -8,13 +8,14 @@
   <form action="{% url 'signup' %}" method="POST" class="signup-form">
     {% csrf_token %}
     {% if messages %}
-      {% for message in messages %}
+    {% for message in messages %}
 
-      <div class="form-alert">
-        <span class="alert-closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-        {{message}}
-      </div>
-      {% endfor %}
+    <div class="form-alert">
+      <span class="alert-closebtn"
+        onclick="this.parentElement.style.display='none';">&times;</span>
+      {{message}}
+    </div>
+    {% endfor %}
     {% endif %}
     <br>
     <h2 class="signup-title">Sign Up</h2>
@@ -33,18 +34,20 @@
       <input type="email" id="email" name="email" required>
     </div>
     <div class="signup-row">
-      <div  class="signup-col">
+      <div class="signup-col">
         <label for="password">Password</label>
         <input type="password" id="password" name="password" required>
       </div>
       <div class="signup-col">
         <label for="password">Confirm Password</label>
-        <input type="password" id="confirmpassword" name="confirmpassword" required>
+        <input type="password" id="confirmpassword" name="confirmpassword"
+          required>
       </div>
     </div>
-    
+
     <button class="signin-btn" type="submit">Sign Up</button>
-    <p class="rmdr">Already have an account? <a class="rtrn-signin" href="{% url 'signin' %}">Sign In</a></p>
+    <p class="rmdr">Already have an account? <a class="rtrn-signin" href="{% url
+        'signin' %}">Sign In</a></p>
   </form>
 </div>
 

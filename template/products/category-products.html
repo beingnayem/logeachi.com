@@ -2,64 +2,68 @@
 {% load static %}
 
 {% block content %}
-  
-    <div class="product-container">
-        <div class="container">
-            <div class="product-box">
-                <div class="product-card-container">
-                    <div class="card-row">
-                        {% for product in products %}
-                            <div class="card-column">
-                                <div class="product-card">
-                                    <a href="{% url 'get_product' product.slug %}">
-                                        <img  src="{{product.image.url}}" alt="Product Image">
-                                        <!-- <h3 class="product-title">{{product.product_name}}</h3> -->
-                                        <p class="product-title-particular">{{product.product_name}}</p>
-                                    </a>
-                                    <p class="product-price">
-                                        &#2547 {{product.price}}
-                                    </p>
-                                    <form action="{% url 'addTOcart' %}">
-                                        <input type="hidden" name="pk" value="{{product.pk}}">
-                                        <button type="submit" class="add-to-cart-btn">
-                                            Add to Cart           
-                                        </button>
-                                    </form>
-                                    <form action="{% url 'addTOwishlist' %}">
-                                        <input type="hidden" name="pk" value="{{product.pk}}">
-                                        <button type="submit" class="add-to-wishlist-btn">
-                                            Add to Wishlist
-                                        </button>
-                                    </form>                          
-                                </div>
-                            </div>
-                        {% empty %}
-                            <p>No products found.</p>
-                        {% endfor %}
+
+<div class="product-container">
+    <div class="container">
+        <div class="product-box">
+            <div class="product-card-container">
+                <div class="card-row">
+                    {% for product in products %}
+                    <div class="card-column">
+                        <div class="product-card">
+                            <a href="{% url 'get_product' product.slug %}">
+                                <img src="{{product.image.url}}" alt="Product
+                                    Image">
+                                <!-- <h3 class="product-title">{{product.product_name}}</h3> -->
+                                <p class="product-title-particular">{{product.product_name}}</p>
+                            </a>
+                            <p class="product-price">
+                                &#2547 {{product.price}}
+                            </p>
+                            <form action="{% url 'addTOcart' %}">
+                                <input type="hidden" name="pk"
+                                    value="{{product.pk}}">
+                                <button type="submit" class="add-to-cart-btn">
+                                    Add to Cart
+                                </button>
+                            </form>
+                            <form action="{% url 'addTOwishlist' %}">
+                                <input type="hidden" name="pk"
+                                    value="{{product.pk}}">
+                                <button type="submit"
+                                    class="add-to-wishlist-btn">
+                                    Add to Wishlist
+                                </button>
+                            </form>
+                        </div>
                     </div>
+                    {% empty %}
+                    <p>No products found.</p>
+                    {% endfor %}
                 </div>
             </div>
         </div>
     </div>
-    
-    {% if products.has_other_pages %}
-        <div class="pagination">
-            <span class="step-links">
-                {% if products.has_previous %}
-                    <a href="?page=1">&laquo; first</a>
-                    <a href="?page={{ products.previous_page_number }}">previous</a>
-                {% endif %}
+</div>
 
-                <span class="current-page">
-                    Page {{ products.number }} of {{ products.paginator.num_pages }}.
-                </span>
+{% if products.has_other_pages %}
+<div class="pagination">
+    <span class="step-links">
+        {% if products.has_previous %}
+        <a href="?page=1">&laquo; first</a>
+        <a href="?page={{ products.previous_page_number }}">previous</a>
+        {% endif %}
 
-                {% if products.has_next %}
-                    <a href="?page={{ products.next_page_number }}">next</a>
-                    <a href="?page={{ products.paginator.num_pages }}">last &raquo;</a>
-                {% endif %}
-            </span>
-        </div>
-    {% endif %}
+        <span class="current-page">
+            Page {{ products.number }} of {{ products.paginator.num_pages }}.
+        </span>
+
+        {% if products.has_next %}
+        <a href="?page={{ products.next_page_number }}">next</a>
+        <a href="?page={{ products.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+{% endif %}
 
 {% endblock content %}
