@@ -2,131 +2,118 @@
 {% load static %}
 
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Logeachi online shoping in Bangladesh</title>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Logeachi online shoping in Bangladesh</title>
 
-    <!--
+  <!--
     - favicon
   -->
-    <link rel="shortcut icon" href="../static/assets/images/logo/favicon.jpeg"
-      type="image/x-icon">
+  <link rel="shortcut icon" href="../static/assets/images/logo/favicon.jpeg" type="image/x-icon">
 
-    <!--
+  <!--
     - custom css link
   -->
 
-    <!-- footer css -->
-    <link rel="stylesheet" href="{% static '../static/assets/css/footer.css'
-      %}">
+  <!-- footer css -->
+  <link rel="stylesheet" href="{% static '../static/assets/css/footer.css' %}">
 
-    <!-- home css -->
-    <link rel="stylesheet" href="{% static '../static/assets/css/style.css' %}">
-    <!-- hedaer css -->
-    <link rel="stylesheet" href="{% static '../static/assets/css/header.css'
-      %}">
+  <!-- home css -->
+  <link rel="stylesheet" href="{% static '../static/assets/css/style.css' %}">
 
-    <!-- singel product css -->
-    <link rel="stylesheet" href="{% static
-      '../static/assets/css/singel_product.css' %}">
+  <!-- hedaer css -->
+  <link rel="stylesheet" href="{% static '../static/assets/css/header.css' %}">
 
-    <!-- signin -->
-    <link rel="stylesheet" href="{% static '../static/assets/css/signin.css'
-      %}">
+  <!-- singel product css -->
+  <link rel="stylesheet" href="{% static '../static/assets/css/singel_product.css' %}">
 
-    <!-- signup -->
+  <!-- signin -->
+  <link rel="stylesheet" href="{% static '../static/assets/css/signin.css' %}">
 
-    <link rel="stylesheet" href="{% static '../static/assets/css/signup.css'
-      %}">
+  <!-- signup -->
 
-    <!-- alert -->
+  <link rel="stylesheet" href="{% static '../static/assets/css/signup.css' %}">
 
-    <link rel="stylesheet" href="{% static '../static/assets/css/alert.css' %}">
-    <!-- cart css -->
-    <link rel="stylesheet" href="{% static '../static/assets/css/cart.css' %}">
-    <!-- pagination css -->
-    <link rel="stylesheet" href="{% static '../static/assets/css/pagination.css'
-      %}">
+  <!-- alert -->
 
-    <!-- profile css -->
-    <link rel="stylesheet" href="{% static '../static/assets/css/profile.css'
-      %}">
+  <link rel="stylesheet" href="{% static '../static/assets/css/alert.css' %}">
 
-    <!-- address css -->
-    <link rel="stylesheet" href="{% static '../static/assets/css/address.css'
-      %}">
+  <!-- cart css -->
+  <link rel="stylesheet" href="{% static '../static/assets/css/cart.css' %}">
 
-    <!-- whatsapp css -->
-    <link rel="stylesheet" href="{% static '../static/assets/css/whatsapp.css'
-      %}">
+  <!-- pagination css -->
+  <link rel="stylesheet" href="{% static '../static/assets/css/pagination.css' %}">
 
-    <!-- checkout css -->
-    <link rel="stylesheet" href="{% static '../static/assets/css/checkout.css'
-      %}">
+  <!-- profile css -->
+  <link rel="stylesheet" href="{% static '../static/assets/css/profile.css' %}">
 
+  <!-- address css -->
+  <link rel="stylesheet" href="{% static '../static/assets/css/address.css' %}">
 
-    <!--
+  <!-- whatsapp css -->
+  <link rel="stylesheet" href="{% static '../static/assets/css/whatsapp.css' %}">
+
+  <!-- checkout css -->
+  <link rel="stylesheet" href="{% static '../static/assets/css/checkout.css' %}">
+
+  
+  <!--
     - google font link
   -->
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"  integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" /> 
+ 
+  <!---Boxicons CDN Setup for icons-->
+  
+  <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet">
+  
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+</head>
 
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<body>
 
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
-      rel="stylesheet">
+  {% include "include/header.html" %}
+  {% block content %}
+      
 
-    <link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-      integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
-      crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-    <!---Boxicons CDN Setup for icons-->
-
-    <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css"
-      rel="stylesheet">
-
-
-  </head>
-
-  <body>
-
-    {% include "include/header.html" %}
-    {% block content %}
-
-
-
-    {% endblock content %}
-    {% include "include/footer.html" %}
+    
+  {% endblock content %}
+  {% include "include/footer.html" %}
 
 
 
 
 
 
-    <!--
+  <!--
     - custom js link
   -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <!-- cart js -->
-    <script src="{% static '../static/assets/js/cart.js' %}"></script>
+  <!-- cart js -->
+  <script src="{% static '../static/assets/js/cart.js' %}"></script>
 
 
 
-    <!--
+  <!--
     - ionicon link
   -->
 
-    <!-- home  -->
+  <!-- home  -->
 
-    <script type="module"
-      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule
-      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-  </body>
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
 
 </html>
