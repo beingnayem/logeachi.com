@@ -4,25 +4,23 @@
 {% block content %}
 
 <div class="signin-container">
-  <form action="{% url 'reset-pass' uidb64=uidb64 token=token %}" method="POST"
-    class="signin-form">
+  <form action="{% url 'reset-pass' uidb64=uidb64 token=token %}" method="POST" class="signin-form">
     {% csrf_token %}
 
     {% if messages %}
     <ul class="messages">
       {% for message in messages %}
-      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
-        <div class="form-alert">
-          <span class="alert-closebtn"
-            onclick="this.parentElement.style.display='none';">&times;</span>
-          {{message}}
-        </div>
-      </li>
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}> 
+          <div class="form-alert">
+            <span class="alert-closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            {{message}}
+          </div>
+        </li>
       {% endfor %}
     </ul>
     {% endif %}
 
-    <h2 class="signin-title">Set your new Password</h2>
+    <h2  class="signin-title">Set your new Password</h2>
     <label for="password">Password</label>
     <input type="password" id="email" name="password" required>
     <label for="password">Confrim Password</label>
