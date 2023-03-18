@@ -80,10 +80,11 @@
     border-radius: 5px;
 }
 
-.qty-minus:hover{
+.qty-minus:hover {
     background-color: #ff0000;
     transition: 0.5s;
 }
+
 .qty-plus:hover {
     background-color: #00d40b;
     transition: 0.5s;
@@ -182,4 +183,10 @@
 .checkout-btn:hover {
     background-color: #004a09;
     transition: 0.5s;
+}
+
+
+.empty-cart-container {
+    margin-top: 50px;
+    margin-bottom: 50px;
 }

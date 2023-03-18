@@ -5,7 +5,8 @@ from django.shortcuts import redirect, get_object_or_404
 from django.db.models import Q
 from django.http import JsonResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-
+from django.contrib import messages
+from django.utils import timezone
 
 
 # Create your views here.
@@ -179,13 +180,7 @@ def checkout(request):
 
     return render(request, 'cart/checkout.html', context)
 
-
-
-
-
-from django.contrib import messages
-from django.utils import timezone
-
+@login_required
 def place_order(request):
     if request.method == 'POST':
         address_id = request.POST.get('shipping_address_id')
