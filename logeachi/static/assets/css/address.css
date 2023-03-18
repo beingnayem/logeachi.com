@@ -1,61 +1,56 @@
 .address-registration-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin: 0 auto;
+  padding: 20px;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+}
 
-  .address-registration-form-header{
-    font-size: 20px;
-    padding-top: 30px;
-    margin-bottom: 10px;
-    color: blue;
-  }
-  
-  .address-registration-form label {
-    margin-top: 10px;
-    font-weight: bold;
-  }
-  
-  .address-registration-form .form-input {
-    margin-bottom: 10px;
-    padding: 5px;
-    border-radius: 5px;
-    border: 1px solid gray;
-    width: 300px;
-  }
-  
-  .address-registration-form .form-submit-button {
-    background-color: blue;
-    color: white;
-    font-weight: bold;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-right: 10px;
-  }
-  
-  .address-registration-form .form-cancel-button {
-    background-color: lightgray;
-    color: black;
-    font-weight: bold;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .address-registration-form .form-submit-button:hover {
-    background-color: darkblue;
-  }
-  
-  .address-registration-form .form-cancel-button:hover {
-    background-color: gray;
-  }
-  
-  .address-registration-form .form-buttons {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+.address-registration-form-header {
+  margin-top: 0;
+}
+
+label {
+  font-weight: bold;
+}
+
+.form-input {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #4a90e2;
+}
+
+.form-submit-button,
+.form-cancel-button {
+  margin-top: 10px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.form-submit-button {
+  background-color: #4a90e2;
+}
+
+.form-submit-button:hover {
+  background-color: #3177b2;
+}
+
+.form-cancel-button {
+  background-color: #aaa;
+}
+
+.form-cancel-button:hover {
+  background-color: #999;
+}
   
