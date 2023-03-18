@@ -3,63 +3,58 @@
 
 {% block content %}
 
-{% for customerInfo in customer %}
-
-<div class="profile-container">
-    <div class="profile-left-sidebar">
-        <h4 class="profile-header">Wellcome {{customerInfo.first_name}},</h4>
-        <div class="profile-menu-item-list">
-            <ul>
-                <li class="profile-menu-item">
-                    <i class="fas fa-circle">
-                        <a class="profile-menu-item-link" href="{% url
-                            'show-profile' %}">Profile</a>
-                    </i>
-                </li>
-                <li class="profile-menu-item">
-                    <i class="fas fa-circle">
-                        <a class="profile-menu-item-link" href="{% url
-                            'show-address' %}">Address Book</a>
-                    </i>
-                </li>
-                <li class="profile-menu-item">
-                    <i class="fas fa-circle">
-                        <a class="profile-menu-item-link" href="#">Order History</a>
-                    </i>
-                </li>
-                <li class="profile-menu-item">
-                    <i class="fas fa-circle">
-                        <a class="profile-menu-item-link" href="#">Payment
-                            History</a>
-                    </i>
-                </li>
-                <li class="profile-menu-item">
-                    <i class="fas fa-circle">
-                        <a class="profile-menu-item-link" href="{% url
-                            'show-cart' %}">Shopping Cart</a>
-                    </i>
-                </li>
-                <li class="profile-menu-item">
-                    <i class="fas fa-circle">
-                        <a class="profile-menu-item-link" href="{% url
-                            'show-wishlist' %}">Wish List</a>
-                    </i>
-                </li>
-            </ul>
+    {% for customerInfo in customer %}
+    
+    <div class="profile-container">
+        <div class="profile-left-sidebar">
+            <h4 class="profile-header">Wellcome  {{customerInfo.first_name}},</h4>
+            <div class="profile-menu-item-list">
+                <ul>
+                    <li class="profile-menu-item">
+                        <i class="fas fa-circle">
+                            <a class="profile-menu-item-link" href="{% url 'show-profile' %}">Profile</a>
+                        </i>
+                    </li>
+                    <li class="profile-menu-item">
+                        <i class="fas fa-circle">
+                            <a class="profile-menu-item-link" href="{% url 'show-address' %}">Address Book</a>
+                        </i>
+                    </li>
+                    <li class="profile-menu-item">
+                        <i class="fas fa-circle">
+                            <a class="profile-menu-item-link" href="#">Order History</a>
+                        </i>
+                    </li>
+                    <li class="profile-menu-item">
+                        <i class="fas fa-circle">
+                            <a class="profile-menu-item-link" href="#">Payment History</a>
+                        </i>
+                    </li>
+                    <li class="profile-menu-item">
+                        <i class="fas fa-circle">
+                            <a class="profile-menu-item-link" href="{% url 'show-cart' %}">Shopping Cart</a>
+                        </i>
+                    </li>
+                    <li class="profile-menu-item">
+                        <i class="fas fa-circle">
+                            <a class="profile-menu-item-link" href="{% url 'show-wishlist' %}">Wish List</a>
+                        </i>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
-    <div class="profile-right-sidebar">
-        <h2 class="profile-menu-header">Profile Information</h2>
-        <p class="profile-menu-info">Full Name: {{customerInfo.first_name}}
-            {{customerInfo.last_name}}</p>
-        <p class="profile-menu-info">Email: {{customerInfo.email}}</p>
-        <!-- <p class="profile-menu-info">Address: 123 Main St, Anytown USA</p>
+        <div class="profile-right-sidebar">
+            <h2 class="profile-menu-header">Profile Information</h2>
+            <p class="profile-menu-info">Full Name: {{customerInfo.first_name}} {{customerInfo.last_name}}</p>
+            <p class="profile-menu-info">Email:  {{customerInfo.email}}</p>
+            <p class="profile-menu-info">Address: 123 Main St, Anytown USA</p>
             <p class="profile-menu-info">Order History: 0 orders</p>
             <p class="profile-menu-info">Payment : 0</p>
             <p class="profile-menu-info">Shopping Cart: 0 items</p>
-            <p class="profile-menu-info">Wish List: 0 items</p> -->
+            <p class="profile-menu-info">Wish List: 0 items</p>
+        </div>
     </div>
-</div>
-{% endfor %}
-
+    {% endfor %}
+  
 {% endblock content %}
+

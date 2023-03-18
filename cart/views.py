@@ -1,12 +1,11 @@
 from django.shortcuts import render
 from accounts.models import User, Address
-from products.models import *
+from products.models import * 
 from django.shortcuts import redirect, get_object_or_404
 from django.db.models import Q
 from django.http import JsonResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-from django.contrib import messages
-from django.utils import timezone
+
 
 
 # Create your views here.
@@ -15,11 +14,12 @@ from django.utils import timezone
 @login_required
 def addTOcart(request):
     if not request.user.is_authenticated:
-        return redirect('signin')
+        return redirect('signin') 
 
     product_id = request.GET.get('pk')
     product = Product.objects.get(pk=product_id)
 
+    # Check if the product is already in the user's cart
     cart_item = Cart.objects.filter(user=request.user, product=product).first()
     if cart_item:
         cart_item.quantity += 1
@@ -33,11 +33,11 @@ def addTOcart(request):
 @login_required
 def Showcart(request):
     if not request.user.is_authenticated:
-        return redirect('signin')
-
+        return redirect('signin') 
+    
     user = request.user
     cart = Cart.objects.filter(user=user)
-    total_ammount = 0
+    total_ammount=0
     shipping_cost = 50
     if not cart:
         return render(request, 'cart/empty_cart.html')
@@ -53,26 +53,26 @@ def pluscart(request):
     if request.method == 'GET':
         pk = request.GET['pk']
         c = Cart.objects.get(Q(product=pk) & Q(user=request.user))
-
+        
         if c.quantity >= c.product.quantity:
-
+            # Return a message indicating that the product quantity cannot be increased further
             data = {
                 'message': 'The product quantity cannot be increased further.'
             }
         else:
             c.quantity += 1
             c.save()
-
+            
             user = request.user
             cart = Cart.objects.filter(user=user)
             total_ammount = 0
             shipping_cost = 50
-
+            
             for p in cart:
                 total_ammount += (p.quantity * p.product.price)
-
+                
             total_cost = total_ammount + shipping_cost
-
+            
             data = {
                 'quantity': c.quantity,
                 'total_ammount': total_ammount,
@@ -115,10 +115,10 @@ def minuscart(request):
 def removecart(request):
     if request.method == 'GET':
         pk = request.GET['pk']
-        c = Cart.objects.get(Q(product=pk) & Q(user=request.user))
-        c.delete()
+        c= Cart.objects.get(Q(product=pk) & Q(user=request.user))
+        c.delete()        
         return redirect(request.META.get('HTTP_REFERER'))
-
+        
 
 @login_required
 def addTOwishlist(request):
@@ -134,8 +134,8 @@ def addTOwishlist(request):
 @login_required
 def ShowWishlist(request):
     if not request.user.is_authenticated:
-        return redirect('signin')
-
+        return redirect('signin') 
+    
     user = request.user
     wishlist = Wishlist.objects.filter(user=user)
     if not wishlist:
@@ -150,10 +150,10 @@ def RemoveWishlist(request):
     product_id = request.GET.get('pk')
     product = get_object_or_404(Product, pk=product_id)
     wishlist = get_object_or_404(Wishlist, user=user, product=product)
-
+    
     if wishlist:
         wishlist.delete()
-
+    
     return redirect(request.META.get('HTTP_REFERER'))
 
 
@@ -165,7 +165,7 @@ def checkout(request):
     context = {
         'cart_items': cart_items,
         'shipping_addresses': shipping_addresses,
-        'shipping_cost': shipping_cost
+        'shipping_cost' : shipping_cost
     }
 
     total_cost = sum(item.total_cost for item in cart_items)
@@ -180,7 +180,12 @@ def checkout(request):
     return render(request, 'cart/checkout.html', context)
 
 
-@login_required
+
+
+
+from django.contrib import messages
+from django.utils import timezone
+
 def place_order(request):
     if request.method == 'POST':
         address_id = request.POST.get('shipping_address_id')
@@ -194,6 +199,7 @@ def place_order(request):
             messages.error(request, 'Your cart is empty.')
             return redirect('checkout')
 
+        # Create the order
         shipping_cost = 50
         order = Order.objects.create(
             customer=request.user,
@@ -202,6 +208,7 @@ def place_order(request):
             order_date=timezone.now(),
         )
 
+        # Add each cart item to the order
         total_cost = 0
         for cart_item in cart_items:
             order_line_item = OrderLineItem.objects.create(
@@ -211,10 +218,17 @@ def place_order(request):
             )
             total_cost += order_line_item.quantity * order_line_item.product.price
 
+        # Update the order's total cost
         order.total_cost = total_cost + shipping_cost
         order.save()
 
+        # Clear the user's cart
         cart_items.delete()
 
         messages.success(request, 'Your order has been placed successfully.')
         return redirect('home')
+
+
+
+
+
