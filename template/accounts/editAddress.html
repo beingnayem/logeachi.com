@@ -26,8 +26,11 @@
         <input type="text" id="postalcode" name="postal_code" class="form-input" value="{{ address.postal_code }}" required>
         
         <div class="form-buttons">
-        <input type="submit" value="Submit" class="form-submit-button">
-        <button type="button" class="form-cancel-button">Cancel</button>
+        <button type="submit" class="form-submit-button">Submit</button>
+        <a href="{% url 'show-address' %}">
+            <button type="button" class="form-cancel-button">Cancel</button>
+        </a>
+        
         </div>
     </form>
 

@@ -83,6 +83,7 @@ def signup(request):
             
     return render(request, 'accounts/signup.html')   
 
+
 class ActivateAccountView(View):
     def get(self, request, uidb64, token):
         try:
@@ -269,7 +270,6 @@ def editAddress(request, address_id):
     return render(request, 'accounts/editAddress.html', {'address': address})
 
 
-
 def deleteAddress(request, address_id):
     address = get_object_or_404(Address, pk=address_id)
     if address:
@@ -281,4 +281,3 @@ def deleteAddress(request, address_id):
         messages.error(request, "No Address")
         return redirect('show-address')
 
-    
