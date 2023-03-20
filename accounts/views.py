@@ -67,7 +67,7 @@ def signup(request):
                 email_sub = "Active your Logeachi Account"
                 message = render_to_string('accounts/activate.html', {
                     'user': user,
-                    'domain':'127.0.0.1:8000',
+                    'domain':'beingnayem.pythonanywhere.com',
                     'uid':urlsafe_base64_encode(force_bytes(user.pk)),
                     'token': generate_token.make_token(user)
                 })
