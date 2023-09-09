@@ -1,41 +1,41 @@
 from django.shortcuts import render
-from products.models import Product, Category
-from home.models import BannerSlider
+# from products.models import Product, Category
+# from home.models import BannerSlider
 from django.core.paginator import Paginator
 from django.shortcuts import render
 
 # show the banner, product and category 
 def home(request):
-    category_id = request.GET.get('category')
-    if category_id:
-        products = Product.objects.filter(category=category_id)
-    else:
-        products = Product.objects.all()
+    # category_id = request.GET.get('category')
+    # if category_id:
+    #     products = Product.objects.filter(category=category_id)
+    # else:
+    #     products = Product.objects.all()
 
-    paginator = Paginator(products, 20) # Show 10 products per page.
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
+    # paginator = Paginator(products, 20) # Show 10 products per page.
+    # page_number = request.GET.get('page')
+    # page_obj = paginator.get_page(page_number)
 
-    context = {
-        'products': page_obj,
-        'categories': Category.objects.all(),
-        'sliders': BannerSlider.objects.all(),
-    }
-    return render(request, 'home/index.html', context)
+    # context = {
+    #     'products': page_obj,
+    #     'categories': Category.objects.all(),
+    #     'sliders': BannerSlider.objects.all(),
+    # }
+    return render(request, 'home/index.html')
 
 
 # Search options for keywords
-def search(request):
-    get_method =  request.GET.copy()
-    key_words = get_method.get('keywords') or None
-    product = Product.objects.all()
-    product_list = []  # Initialize product_list to an empty list
+# def search(request):
+#     get_method =  request.GET.copy()
+#     key_words = get_method.get('keywords') or None
+#     product = Product.objects.all()
+#     product_list = []  # Initialize product_list to an empty list
 
-    if key_words:
-        key_word = get_method.get('keywords')
-        product_list = product.filter(product_description__icontains=key_word)
+#     if key_words:
+#         key_word = get_method.get('keywords')
+#         product_list = product.filter(product_description__icontains=key_word)
 
-    context= {'categories': Category.objects.all(),'products': product_list}
+#     context= {'categories': Category.objects.all(),'products': product_list}
 
-    return render(request, 'products/search-result.html', context)
+#     return render(request, 'products/search-result.html', context)
 
