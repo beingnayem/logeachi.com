@@ -3,13 +3,13 @@ from .models import *
 # Register your models here.
 
 @admin.register(User)
-class  UserModelAdmin(admin.ModelAdmin):
-    list_display=['pk', 'first_name', 'email']
-
-
-@admin.register(Address)
-class  AddressModelAdmin(admin.ModelAdmin):
-    list_display=[
-        'pk', 'full_name', 'customer', 'phone', 'city', 'thana', 'postal_code', 'detail_address' 
-        ]
+class UserAdmin(admin.ModelAdmin):
+    list_display = [
+        'id',
+        'first_name',
+        'email',
+        'gender',
+        'is_active',
+        'is_admin'
+    ]
 
