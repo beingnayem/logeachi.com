@@ -1,6 +1,6 @@
 from django.contrib import admin
-from home.models import BannerSlider
+# from home.models import BannerSlider
 
 # Register your models here.
 
-admin.site.register(BannerSlider)
+# admin.site.register(BannerSlider)

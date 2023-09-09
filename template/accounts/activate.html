@@ -1,7 +1,12 @@
 {% autoescape off %}
   
     Hi, {{user.email}}
-    Please click this link below to verify your account
+    Thank you for signing up for Logeachi dot com. Click on the link below to verify your email:
     http://{{domain}}{% url 'activate' uidb64=uid token=token %}
+    This link will expire in 24 hours. If you did not sign up for a legeachi dot com account,
+    you can safely ignore this email.
 
+    Best,
+
+    The Logeachi Team
 {% endautoescape %}
