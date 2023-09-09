@@ -1,12 +1,10 @@
 from django.shortcuts import render
 from products.models import Product, Category
 from home.models import BannerSlider
-
-# Create your views here.
-
 from django.core.paginator import Paginator
 from django.shortcuts import render
 
+# show the banner, product and category 
 def home(request):
     category_id = request.GET.get('category')
     if category_id:
@@ -26,7 +24,7 @@ def home(request):
     return render(request, 'home/index.html', context)
 
 
-
+# Search options for keywords
 def search(request):
     get_method =  request.GET.copy()
     key_words = get_method.get('keywords') or None
