@@ -1,63 +1,54 @@
-# from django.db import models
-# from accounts.models import User, Address
-# # Create your models here.
+from django.db import models
 
-# from django.utils.text import slugify
-# import uuid
+class MainCategory(models.Model):
+    name = models.CharField(max_length=255)
 
+    def __str__(self):
+        return self.name
 
-# class Category(models.Model):
+    class Meta:
+        verbose_name_plural = "1. Main Categories"
+
+class Category(models.Model):
+    name = models.CharField(max_length=255)
+    main_category = models.ForeignKey(MainCategory, on_delete=models.CASCADE, related_name='category')
+
+    def __str__(self):
+        return self.name + '--' + self.main_category.name
+
+    class Meta:
+        verbose_name_plural = "2. Categories"
+
+class Subcategory(models.Model):
+    name = models.CharField(max_length=255)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='category')
     
-#     category_name = models.CharField(max_length=100)
-#     category_image = models.ImageField(upload_to='product', null=True)
-#     slug = models.SlugField(unique=True, null=True, blank=True)
+    def __str__(self):
+        return self.name + '--' + self.category.name
     
+    class Meta:
+        verbose_name_plural = "3. Sub Categories"
+
+# Product Model 
+class Product(models.Model):
+    product_name  = models.CharField(max_length=100)
+    product_image  = models.ImageField(upload_to='product')
+    product_brand  = models.CharField(max_length=100, default="No Brand")
+    product_category = models.ForeignKey(Subcategory, on_delete=models.CASCADE, related_name='products')
+    product_slug = models.SlugField(unique=True, null=True, blank=True)
+    product_price = models.IntegerField()
+    product_description = models.TextField()
+    product_quantity = models.IntegerField(null=True)
+    product_location = models.CharField(max_length=100)
+    product_warrenty = models.BooleanField(default=False)
+    product_cash_payment = models.BooleanField(default=False)
+    product_online_payment = models.BooleanField(default=False)
+    product_return = models.BooleanField(default=False)
+    product_added_date = models.DateTimeField(auto_now_add=True, null=True)
+    product_stock_data = models.DateTimeField(auto_now=True, null=True)  
     
-#     def save(self, *args, **kwargs):
-#         self.slug = slugify(self.category_name)
-#         super(Category, self).save(*args, **kwargs)
-    
-#     def __str__(self) -> str:
-#         return self.category_name
-
-
-# class Product(models.Model):
-
-#     product_name = models.CharField(max_length=100)
-#     image = models.ImageField(upload_to='product')
-#     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')
-#     added_date = models.DateTimeField(auto_now_add=True, null=True)
-#     slug = models.SlugField(unique=True, null=True, blank=True)
-#     price = models.IntegerField()
-#     product_description = models.TextField()
-#     quantity = models.IntegerField(null=True)
-
-#     class Meta:
-#         ordering = ['-added_date']
-    
-#     def save(self, *args, **kwargs):
-#         self.slug = slugify(self.product_name)
-#         super(Product, self).save(*args, **kwargs)
-    
-#     def __str__(self) -> str:
-#         return self.product_name
-
-
-
-# class Cart(models.Model):
-#     user = models.ForeignKey(User, on_delete=models.CASCADE)
-#     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-#     quantity = models.PositiveIntegerField(default=1)
-
-#     @property
-#     def total_cost(self):
-#         return self.quantity*self.product.price
-    
-
-# class Wishlist(models.Model):
-#     user = models.ForeignKey(User, on_delete=models.CASCADE)
-#     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-
+    class Meta:
+        verbose_name_plural = "4. Products"
 
 # class Order(models.Model):
 #     customer = models.ForeignKey(User, on_delete=models.CASCADE)

@@ -1,13 +1,10 @@
 {% autoescape off %}
   
     Hi there,
-    Thank you for using Logeachi
-    Please click to the link to reset your Logeachi account password:
+    Thank you for using Logeachi. Please click to the link to reset your Logeachi account password
     http://{{domain}}{% url 'reset-pass' uidb64=uid token=token %}
-    This link will expire in 24 hours. If you did not sign up for a legeachi dot com account,
-    you can safely ignore this email.
+    This link will expire in 24 hours. If you did not sign up for a legeachi dot com account, you can safely ignore this email.
 
     Best,
-
     The Logeachi Team
 {% endautoescape %}
