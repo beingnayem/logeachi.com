@@ -9,7 +9,7 @@
     border: 1px solid #9b0000;
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    max-width: 300px;
+    max-width: 500px;
     text-align: center;
   }
   
@@ -22,7 +22,7 @@
     font-size: 20px;
     color: #ffffff;
   }
-  
+
   /* Hover effect for the close button */
   .alert-closebtn:hover {
     color: #f800ba;
