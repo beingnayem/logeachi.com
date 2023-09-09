@@ -1,27 +1,20 @@
 from django.shortcuts import render
 # from products.models import Product, Category
-# from home.models import BannerSlider
+from home.models import Banner
 from django.core.paginator import Paginator
 from django.shortcuts import render
 
-# show the banner, product and category 
+
 def home(request):
-    # category_id = request.GET.get('category')
-    # if category_id:
-    #     products = Product.objects.filter(category=category_id)
-    # else:
-    #     products = Product.objects.all()
-
-    # paginator = Paginator(products, 20) # Show 10 products per page.
-    # page_number = request.GET.get('page')
-    # page_obj = paginator.get_page(page_number)
-
-    # context = {
-    #     'products': page_obj,
-    #     'categories': Category.objects.all(),
-    #     'sliders': BannerSlider.objects.all(),
-    # }
-    return render(request, 'home/index.html')
+    sliders= Banner.objects.filter(banner_type='slider')
+    newslatters= Banner.objects.filter(banner_type='newslatter')
+    # print('===================================================================================')
+    # print(newslatters[0].banner_name)
+    context = {
+    'sliders': sliders,
+    'newslatters': newslatters
+    }
+    return render(request, 'home/home.html', context)
 
 
 # Search options for keywords
