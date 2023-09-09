@@ -1,6 +1,12 @@
 from django.contrib import admin
-# from home.models import BannerSlider
+from home.models import Banner
 
 # Register your models here.
 
-# admin.site.register(BannerSlider)
+@admin.register(Banner)
+class BannerAdmin(admin.ModelAdmin):
+    list_display = [
+        'pk',
+        'banner_name',
+        'banner_type'
+    ]

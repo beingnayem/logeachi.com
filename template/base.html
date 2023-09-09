@@ -18,7 +18,7 @@
   <!--
     - custom css link
   -->
-
+  <!-- style css -->
   <link rel="stylesheet" href="{% static '../static/assets/css/style.css' %}">
   <link rel="stylesheet" href="{% static '../static/assets/css/style-prefix.css' %}">
 
@@ -49,10 +49,13 @@
   <!--
     - google font link
   -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
   <!---Boxicons CDN Setup for icons-->
-  
-  {% comment %} <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet"> {% endcomment %}
+  <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet">
   
 
 </head>
@@ -66,10 +69,6 @@
     
   {% endblock content %}
   {% include "include/footer.html" %}
-
-
-
-
 
 
   <!--
