@@ -1,0 +1,29 @@
+/* Style for the message box */
+.form-alert {
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 15px;
+    background-color: #ff530f;
+    border: 1px solid #9b0000;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 300px;
+    text-align: center;
+  }
+  
+  /* Style for the close button */
+  .alert-closebtn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+    font-size: 20px;
+    color: #ffffff;
+  }
+  
+  /* Hover effect for the close button */
+  .alert-closebtn:hover {
+    color: #f800ba;
+  }
