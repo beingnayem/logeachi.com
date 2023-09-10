@@ -2,14 +2,6 @@
   #style.css
 \*-----------------------------------*/
 
-/**
- * copyright 2022 @codewithsadee 
- */
-
-
-
-
-
 /*-----------------------------------*\
   #CUSTOM PROPERTY
 \*-----------------------------------*/
@@ -3315,11 +3307,11 @@ footer {
   }
 
   .product-grid {
-    -ms-grid-columns: (1fr)[3];
+    -ms-grid-columns: 1fr 1fr 1fr;
+    /* Three columns with equal width for Internet Explorer */
     grid-template-columns: repeat(3, 1fr);
-}
-
-
+    /* Three columns with equal width for modern browsers */
+  }
 
   /**
    * #TESTIMONIALS, CTA & SERVICE 
@@ -3479,11 +3471,9 @@ footer {
   }
 
   .product-grid {
-    -ms-grid-columns: (1fr)[4];
+    -ms-grid-columns: 1fr 1fr 1fr 1fr;
     grid-template-columns: repeat(4, 1fr);
   }
-
-
 
   /**
    * #TESTIMONIALS, CTA, SERVICE
