@@ -1,23 +1,14 @@
 from django.db import models
 
-class MainCategory(models.Model):
-    name = models.CharField(max_length=255)
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name_plural = "1. Main Categories"
 
 class Category(models.Model):
     name = models.CharField(max_length=255)
-    main_category = models.ForeignKey(MainCategory, on_delete=models.CASCADE, related_name='category')
 
     def __str__(self):
         return self.name + '--' + self.main_category.name
 
     class Meta:
-        verbose_name_plural = "2. Categories"
+        verbose_name_plural = "1. Categories"
 
 class Subcategory(models.Model):
     name = models.CharField(max_length=255)
@@ -27,7 +18,7 @@ class Subcategory(models.Model):
         return self.name + '--' + self.category.name
     
     class Meta:
-        verbose_name_plural = "3. Sub Categories"
+        verbose_name_plural = "2. Sub Categories"
 
 # Product Model 
 class Product(models.Model):
@@ -48,7 +39,7 @@ class Product(models.Model):
     product_stock_data = models.DateTimeField(auto_now=True, null=True)  
     
     class Meta:
-        verbose_name_plural = "4. Products"
+        verbose_name_plural ="3. Products"
 
 # class Order(models.Model):
 #     customer = models.ForeignKey(User, on_delete=models.CASCADE)
