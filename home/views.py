@@ -8,11 +8,13 @@ from django.shortcuts import render
 def home(request):
     sliders= Banner.objects.filter(banner_type='slider')
     newslatters= Banner.objects.filter(banner_type='newslatter')
+    tosters = Banner.objects.filter(banner_type='toster')
     # print('===================================================================================')
     # print(newslatters[0].banner_name)
     context = {
     'sliders': sliders,
-    'newslatters': newslatters
+    'newslatters': newslatters,
+    'tosters': tosters
     }
     return render(request, 'home/home.html', context)
 
