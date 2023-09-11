@@ -14,7 +14,8 @@
                 <img src="{{newslatters.0.banner_image.url}}" alt="subscribe newsletter" width="400" height="400">
             </div>
             <div class="newsletter">
-                <form action="#">
+                <form action="{% url 'register_sunbscriber' %}" method="POST">
+                    {% csrf_token %}
                     <div class="newsletter-header">
                         <h3 class="newsletter-title">Subscribe Newsletter.</h3>
                         <p class="newsletter-desc">

@@ -71,4 +71,33 @@
   .rtrn-signin:hover {
 	text-decoration: underline;
   }
-  
+
+
+
+/* Styles for the newsletter subscription div */
+.signup-newsletter {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Adjust spacing between elements */
+    margin-top: 10px; /* Adjust top margin as needed */
+    font-size: 14px; /* Adjust font size as needed */
+    color: #333; /* Adjust text color as needed */
+}
+
+.signup-newsletter label {
+    margin: 0; /* Reset margin to 0 for the label */
+}
+
+.signup-newsletter input[type="checkbox"] {
+    /* Add any custom styles for the checkbox here */
+    /* Example styles: */
+    width: 20px;
+    height: 20px;
+}
+
+/* Optional: Style the checkbox when checked */
+.signup-newsletter input[type="checkbox"]:checked + label::before {
+    content: "✔"; /* Unicode checkmark character or custom checkmark */
+    color: #4CAF50; /* Adjust color for checked checkbox */
+    font-weight: bold;
+}
