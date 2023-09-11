@@ -5,7 +5,7 @@ class Category(models.Model):
     name = models.CharField(max_length=255)
 
     def __str__(self):
-        return self.name + '--' + self.main_category.name
+        return self.name
 
     class Meta:
         verbose_name_plural = "1. Categories"
@@ -30,6 +30,7 @@ class Product(models.Model):
     product_price = models.IntegerField()
     product_description = models.TextField()
     product_quantity = models.IntegerField(null=True)
+    product_sold_quantity = models.IntegerField(null=True)
     product_location = models.CharField(max_length=100)
     product_warrenty = models.BooleanField(default=False)
     product_cash_payment = models.BooleanField(default=False)
@@ -37,9 +38,14 @@ class Product(models.Model):
     product_return = models.BooleanField(default=False)
     product_added_date = models.DateTimeField(auto_now_add=True, null=True)
     product_stock_data = models.DateTimeField(auto_now=True, null=True)  
+
+    def str(self) -> str:
+        return self.product_name
     
     class Meta:
         verbose_name_plural ="3. Products"
+        ordering = ['-product_added_date']
+        
 
 # class Order(models.Model):
 #     customer = models.ForeignKey(User, on_delete=models.CASCADE)

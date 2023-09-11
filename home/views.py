@@ -1,10 +1,10 @@
 from django.shortcuts import render
-# from products.models import Product, Category
 from home.models import Banner, Subscribers
 from accounts.models import User
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from products.models import Category, Subcategory, Product
 
 
 
@@ -12,12 +12,13 @@ def home(request):
     sliders= Banner.objects.filter(banner_type='slider')
     newslatters= Banner.objects.filter(banner_type='newslatter')
     tosters = Banner.objects.filter(banner_type='toster')
-    # print('===================================================================================')
-    # print(newslatters[0].banner_name)
+    categories = Category.objects.all()
+    
     context = {
     'sliders': sliders,
     'newslatters': newslatters,
-    'tosters': tosters
+    'tosters': tosters,
+    'categories': categories
     }
     return render(request, 'home/home.html', context)
 
