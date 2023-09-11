@@ -2,12 +2,7 @@
 {% load static %}
 
 {% block content %}
-
-<div class="signin-container">
-  <form action="{% url 'signin' %}" method="POST" class="signin-form">
-    {% csrf_token %}
-
-    {% if messages %}
+  {% if messages %}
     <ul class="messages">
       {% for message in messages %}
         <li{% if message.tags %} class="{{ message.tags }}"{% endif %}> 
@@ -18,20 +13,21 @@
         </li>
       {% endfor %}
     </ul>
-    {% endif %}
-
-    <h2  class="signin-title">Sign In</h2>
-    <label for="username">E-mail</label>
-    <input type="email" id="email" name="email" required>
-    <label for="password">Password</label>
-    <input type="password" id="password" name="password" required>
-    <div class="options">
-      <a class="frgt-pass" href="{% url 'reset-pass-request' %}">Forgot Password?</a>
-      <span> | </span>
-      <a class="rtrn-singup" href="{% url 'signup' %}">Sign Up</a>
-    </div>
-    <button class="signin-btn" type="submit">Sign In</button>
-  </form>
-</div>
+  {% endif %}
+  <div class="signin-container">
+    <form action="{% url 'signin' %}" method="POST" class="signin-form">
+      {% csrf_token %}
+      <h2  class="signin-title">Sign In</h2>
+      <label for="username">E-mail</label>
+      <input type="email" id="email" name="email" required>
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" required>
+      <div class="options">
+        <a class="frgt-pass" href="{% url 'reset-pass-request' %}">Forgot Password?</a>
+        <a class="rtrn-singup" href="{% url 'signup' %}">Sign Up</a>
+      </div>
+      <button class="signin-btn" type="submit">Sign In</button>
+    </form>
+  </div>
 
 {% endblock content %}
