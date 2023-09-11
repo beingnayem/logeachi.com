@@ -50,7 +50,10 @@
         <input type="password" id="confirmpassword" name="confirmpassword" required>
       </div>
     </div>
-    
+    <div class="signup-newsletter">
+      <input type="checkbox" id="subscribe_newsletter" name="subscribe_newsletter" value="1">
+      <label for="subscribe_newsletter">Subscribe to Newsletter: Receive newsletters and updates</label>
+    </div>
     <button class="signin-btn" type="submit">Sign Up</button>
     <p class="rmdr">Already have an account? <a class="rtrn-signin" href="{% url 'signin' %}">Sign In</a></p>
   </form>

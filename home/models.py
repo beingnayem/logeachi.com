@@ -18,3 +18,5 @@ class Banner(models.Model):
     def __str__(self) -> str:
         return self.banner_name
 
+class Subscribers(models.Model):
+    email= models.EmailField(max_length=155)

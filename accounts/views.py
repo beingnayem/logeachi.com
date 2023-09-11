@@ -4,6 +4,7 @@ from django.views.generic import View
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from home.models import Subscribers
 # Reset password token
 from django.contrib.auth.tokens  import PasswordResetTokenGenerator
 # to activate account
@@ -53,9 +54,18 @@ def signup(request):
             email_exist = User.objects.filter(email=email)
             
             if not email_exist:
+                # Create a new user and postpone to activate the email confirmation
                 user = User.objects.create_user(first_name=first_name, last_name=last_name, email=email, gender=gender, password=password)
                 user.is_active = False
                 user.save()
+                
+                # Check if the user has subscribed to the newsletter
+                if request.POST.get('subscribe_newsletter'):
+                    SubscriberExist= Subscribers.objects.filter(email=email).exists()
+                    if not SubscriberExist:
+                        Subscribers.objects.create(email=email)
+                
+                # Send Activation link email
                 current_site = get_current_site(request)
                 email_sub = "Active your Logeachi Account"
                 message = render_to_string('accounts/activate.html', {
@@ -86,6 +96,17 @@ class ActivateAccountView(View):
         if user is not None and generate_token.check_token(user, token):
             user.is_active = True
             user.save()
+            
+            # Send Welcome email
+            current_site = get_current_site(request)
+            email=user.email
+            email_sub = "Welcome to Logeachi.com - Your Ultimate Shopping Destination!"
+            message = render_to_string('accounts/welcome_email.html', {
+                'user': user,
+            })
+            email_message= EmailMessage(email_sub, message, settings.EMAIL_HOST_USER, [email],)
+            EmailThread(email_message).start()
+            
             messages.info(request, "Your account Acctivated successfully")
             return redirect('signin')
         
