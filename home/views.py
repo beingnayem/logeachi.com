@@ -1,8 +1,11 @@
 from django.shortcuts import render
 # from products.models import Product, Category
-from home.models import Banner
+from home.models import Banner, Subscribers
+from accounts.models import User
 from django.core.paginator import Paginator
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
+
 
 
 def home(request):
@@ -18,6 +21,25 @@ def home(request):
     }
     return render(request, 'home/home.html', context)
 
+def registerSunbscriberView(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        print('===================================================================================')
+        print(email)
+        
+        # Check if a user with the given email exists
+        user_exists = Subscribers.objects.filter(email=email).exists()
+        
+        if not user_exists:
+            # If the user does not exist, create a new Subscriber
+            Subscribers.objects.create(email=email)
+            messages.error(request, "You have successfully subscribed to Logeachi Dot Com newslatter.")
+            return redirect('home')
+        else:
+            messages.error(request, "This e-mail is already subscribed")
+            return redirect('home')
+    
+    return redirect('home')
 
 # Search options for keywords
 # def search(request):
