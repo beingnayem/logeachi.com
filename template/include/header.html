@@ -6,6 +6,16 @@
 <header>
   <div class="header-top">
     <div class="container">
+      
+      
+      {% if user.is_authenticated %}
+        {% if user.admin_request != "approved" and user.admin_request != "requested" %}
+          <a href="{% url 'admin_request' %}" >be an admin</a>
+        {% endif %}
+      {% endif %}
+        
+        
+      
       <ul class="header-social-container">
         <li>
           <a href="https://www.facebook.com/antarnath20/" class="social-link">
@@ -80,22 +90,36 @@
 
       <div class="header-user-actions">
         {% if user.is_authenticated %}
-            <a href="#" class="fas fa-user">Profile</a>
+          
+          {% if user.is_admin %}
             <a href="{% url 'signout' %}" class="fas fa-sign-out-alt">Sign Out</a>
-        {% else %}
-            <a href="{% url 'signup' %}" class="fas fa-sign-up-alt">Sign Up</a>
-            <a href="{% url 'signin' %}" class="fas fa-sign-in-alt">Sign In</a>
+            <a href="{% url 'admin_panel_dashboard' %}" class="fas fa-sign-in-alt">Admin Panel</a>
+            
+            {% else %}
+              <a href="#" class="fas fa-user">Profile</a>
+              <a href="{% url 'signout' %}" class="fas fa-sign-out-alt">Sign Out</a>
           {% endif %}
 
-        <button class="action-btn">
-          <ion-icon name="heart-outline"></ion-icon>
-          <span class="count">0</span>
-        </button>
+          {% else %}
+            <a href="{% url 'signup' %}" class="fas fa-sign-up-alt">Sign Up</a>
+            <a href="{% url 'signin' %}" class="fas fa-sign-in-alt">Sign In</a>
+        {% endif %}
 
-        <button class="action-btn">
-          <ion-icon name="bag-handle-outline"></ion-icon>
-          <span class="count">0</span>
-        </button>
+        
+        {% if not user.is_admin %}
+
+          <button class="action-btn">
+            <ion-icon name="heart-outline"></ion-icon>
+            <span class="count">0</span>
+          </button>
+
+          <button class="action-btn">
+            <ion-icon name="bag-handle-outline"></ion-icon>
+            <span class="count">0</span>
+          </button>
+          
+        {% endif %}
+          
       </div>
     </div>
   </div>
@@ -104,42 +128,45 @@
     <div class="container">
       <ul class="desktop-menu-category-list">
         <li class="menu-category">
-          <a href="#" class="menu-title">Home</a>
+          <a href="{% url 'home' %}" class="menu-title">Home</a>
         </li>
+        
+        {% if categories %}
+          <li class="menu-category">
+            <a href="#" class="menu-title">Categories</a>
 
-        <li class="menu-category">
-          <a href="#" class="menu-title">Categories</a>
+            <div class="dropdown-panel">
+              {% for category in categories %}
+                <ul class="dropdown-panel-list">
+                  <li class="menu-title">
+                    <a href="#"> {{category.name}} </a>
+                  </li>
+                  {% for sub_category in category.category.all %} 
+                    <li class="panel-list-item">
+                      <a href="#"> {{sub_category.name}} </a>
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% endfor %}
+              
+            </div>
+          </li>
 
-          <div class="dropdown-panel">
-            {% for category in categories %}
-              <ul class="dropdown-panel-list">
-                <li class="menu-title">
-                  <a href="#"> {{category.name}} </a>
-                </li>
-                {% for sub_category in category.category.all %} 
-                  <li class="panel-list-item">
+          {% for category in categories %}
+            <li class="menu-category">
+              <a href="#" class="menu-title">{{category.name}}</a>
+
+              <ul class="dropdown-list">
+                {% for sub_category in category.category.all %}
+                  <li class="dropdown-item">
                     <a href="#"> {{sub_category.name}} </a>
                   </li>
                 {% endfor %}
               </ul>
-            {% endfor %}
-            
-          </div>
-        </li>
+            </li>
+          {% endfor %}
+        {% endif %}
 
-        {% for category in categories %}
-          <li class="menu-category">
-            <a href="#" class="menu-title">{{category.name}}</a>
-
-            <ul class="dropdown-list">
-              {% for sub_category in category.category.all %}
-                <li class="dropdown-item">
-                  <a href="#"> {{sub_category.name}} </a>
-                </li>
-              {% endfor %}
-            </ul>
-          </li>
-        {% endfor %}
       </ul>
     </div>
   </nav>

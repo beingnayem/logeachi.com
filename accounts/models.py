@@ -4,6 +4,10 @@ from .manager import UserManager
 
 # Create your models here.
 class User(AbstractBaseUser):
+    admin_request_choiche=(
+        ('requested', 'Requested'),
+        ('approved', 'Approved'),
+    )
     email = models.EmailField(
         verbose_name="Email",
         max_length=255,
@@ -15,6 +19,7 @@ class User(AbstractBaseUser):
     gender = models.CharField(max_length=255)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
+    admin_request=models.CharField(max_length=255, null=True, blank=True, choices=admin_request_choiche)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
