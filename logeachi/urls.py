@@ -9,7 +9,7 @@ admin.site.site_title = 'LOGEACHI ADMIN'
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('home.urls')),
-    # path('products/', include('products.urls')),
+    path('products/', include('products.urls')),
     path('accounts/', include('accounts.urls')),
     path('admin-panel/', include('adminpanel.urls')),
 ]

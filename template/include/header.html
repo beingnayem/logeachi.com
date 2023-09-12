@@ -143,7 +143,7 @@
                   </li>
                   {% for sub_category in category.category.all %} 
                     <li class="panel-list-item">
-                      <a href="#"> {{sub_category.name}} </a>
+                      <a href="{% url 'category-products' sub_category.pk %}"> {{sub_category.name}} </a>
                     </li>
                   {% endfor %}
                 </ul>
@@ -159,7 +159,7 @@
               <ul class="dropdown-list">
                 {% for sub_category in category.category.all %}
                   <li class="dropdown-item">
-                    <a href="#"> {{sub_category.name}} </a>
+                    <a href="{% url 'category-products' sub_category.pk %}"> {{sub_category.name}} </a>
                   </li>
                 {% endfor %}
               </ul>

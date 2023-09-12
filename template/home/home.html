@@ -45,7 +45,7 @@
                       <h3 class="category-item-title"> {{sub_category.name}} </h3>
                       <p class="category-item-amount">(53)</p>
                     </div>
-                    <a href="#" class="category-btn">Show all</a>
+                    <a href="{% url 'category-products' sub_category.pk %}" class="category-btn">Show all</a>
                   </div>
                 </div>
               {% endfor %}
@@ -105,7 +105,7 @@
                     <ul class="sidebar-submenu-category-list" data-accordion>
                       {% for sub_category in category.category.all %}
                         <li class="sidebar-submenu-category">
-                          <a href="#" class="sidebar-submenu-title">
+                          <a href="{% url 'category-products' sub_category.pk %}" class="sidebar-submenu-title">
                             <p class="product-name"> {{sub_category.name}} </p>
                             <data value="300" class="stock" title="Available Stock">300</data>
                           </a>
