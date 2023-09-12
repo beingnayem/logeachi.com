@@ -5,6 +5,7 @@ from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from products.models import Category, Subcategory, Product
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -41,6 +42,10 @@ def registerSunbscriberView(request):
             return redirect('home')
     
     return redirect('home')
+
+
+
+
 
 # Search options for keywords
 # def search(request):

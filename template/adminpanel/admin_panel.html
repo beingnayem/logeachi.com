@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+  
+  <div class='admin-panel'>
+    {% if messages %}
+      {% for message in messages %}
+        <div class="form-alert">
+          <span class="alert-closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+          {{message}}
+        </div>
+      {% endfor %}
+    {% endif %}
+    <div class="adminPanelsidebar">
+      <div class="adminPanellogo-details">
+        <i class='bx bxs-bank'></i>
+        <span class="adminPanellogo_name"> Admin </span>
+      </div>
+        <ul class="adminpanelnav-links">
+          <li>
+            <a href="{% url 'admin_panel_dashboard' %}" class="active">
+              <i class='bx bx-grid-alt' ></i>
+              <span class="adminPanellinks_name">Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class='bx bx-box' ></i>
+              <span class="adminPanellinks_name">Product</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class='bx bx-list-ul' ></i>
+              <span class="adminPanellinks_name">Order list</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class='bx bx-coin-stack'></i>
+              <span class="adminPanellinks_name">Stock</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="#">
+              <i class='bx bx-book-alt' ></i>
+              <span class="adminPanellinks_name">Total order</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class='bx bx-user' ></i>
+              <span class="adminPanellinks_name">Customer</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'team_member' %}">
+              <i class='bx bx-user' ></i>
+              <span class="adminPanellinks_name">Team</span>
+            </a>
+          </li>
+          <li class="log_out">
+            <a href="{% url 'signout' %}">
+              <i class='bx bx-log-out'></i>
+              <span class="adminPanellinks_name">Sign Out</span>
+            </a>
+          </li>
+        </ul>
+    </div>
+    
+    <section class="adminpanelhome-section">
+      <nav>
+        <div class="AdminPanelsidebar-button">
+          <i class='bx bx-menu AdminPanelsidebarBtn'></i>
+          <span class="adminPaneldashboard"><a href="{% url 'admin_panel_dashboard' %}">Logeachi Admin Dashboard</a></span>
+        </div>
+        {% comment %} <div class="adminpanelsearch-box">
+          <input type="text" placeholder="Search...">
+          <i class='bx bx-search' ></i>
+        </div> {% endcomment %}
+        <div class="adminpanelprofile-details">
+          {% comment %} <img src="images/profile.jpg" alt=""> {% endcomment %}
+          <span class="admin_name">{{user.first_name}} {{user.last_name}}</span>
+          <!-- <i class='bx bx-chevron-down' ></i> -->
+        </div>
+      </nav>
+
+      
+      {% block admin-panel-main-content %}
+        
+        
+
+      {% endblock admin-panel-main-content %}
+        
+    </section>
+  </div>
+
+{% endblock content %}
+  

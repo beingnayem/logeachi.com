@@ -54,10 +54,21 @@ def signup(request):
             email_exist = User.objects.filter(email=email)
             
             if not email_exist:
+                
+                # Create a new admin and postpone to approve by an admin
+                if request.POST.get('admin_request'):
+                    user = User.objects.create_user(first_name=first_name, last_name=last_name, email=email, gender=gender, password=password)
+                    user.is_active = False
+                    user.admin_request='requested'
+                    user.save()
+                    messages.success(request, "Account has been created and pending for approve by admin.")
+                    return render(request, 'accounts/signin.html')
+                
                 # Create a new user and postpone to activate the email confirmation
-                user = User.objects.create_user(first_name=first_name, last_name=last_name, email=email, gender=gender, password=password)
-                user.is_active = False
-                user.save()
+                else:
+                    user = User.objects.create_user(first_name=first_name, last_name=last_name, email=email, gender=gender, password=password)
+                    user.is_active = False
+                    user.save()
                 
                 # Check if the user has subscribed to the newsletter
                 if request.POST.get('subscribe_newsletter'):
@@ -125,15 +136,20 @@ def signin(request):
             user = authenticate(request, email=email, password=password)
 
             if user is not None:
-                login(request, user)
-                messages.success(request, "Signgin successful")
-                return redirect('home')
-
+                if user.is_admin:
+                    login(request, user)
+                    messages.success(request, "Admin Signgin successful")
+                    return redirect('admin_panel_dashboard')
+                else:
+                    login(request, user)
+                    messages.success(request, "Signgin successful")
+                    return redirect('home')
             else:
                 messages.error(request, "Account not found! Incorrect e-mail or password")
                 return redirect('signin')
 
     return render(request, 'accounts/signin.html')
+
 
 @login_required
 def signout(request):
