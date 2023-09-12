@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
 
+
 {% block content %}
+  {% include "include/header.html" %}
+
   {% if messages %}
     <ul class="messages">
       {% for message in messages %}
@@ -29,5 +32,5 @@
       <button class="signin-btn" type="submit">Sign In</button>
     </form>
   </div>
-
+  {% include "include/footer.html" %}
 {% endblock content %}

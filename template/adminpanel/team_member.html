@@ -1,0 +1,65 @@
+{% extends 'adminpanel/admin_panel.html' %}
+{% load static %}
+
+{% block admin-panel-main-content %}
+    <div class="adminpanelhome-content">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="form-alert">
+                    <span class="alert-closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    {{message}}
+                </div>
+            {% endfor %}
+        {% endif %}
+        <div class="team-member-list-container">
+            <h1>Team Member User</h1>
+            <div class="team-member-list-button-container">
+                <a href="{% url 'admin_request_list' %}">
+                    <button class="admin-request-approve-button">Approve Admin Request</button>
+                </a>
+            </div>
+            <div class="team-member-list-table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Gender</th>
+                            <th>Admin Request</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        {% for team_member in team_members %}
+                            <tr>
+                                <td>{{team_member.id}}</td>
+                                <td>{{team_member.first_name}} {{team_member.last_name}}</td>
+                                <td>{{team_member.email}}</td>
+                                <td>{{team_member.gender}}</td>
+                                <td>{{team_member.admin_request}}</td>
+                                <td class="team-member-action-buttons">
+                                    <form action="{% url 'remove_user' %}" method="POST">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="id" value="{{ team_member.id }}">
+                                        <button class="team-member-remove-button"><i class="fa fa-user-times"></i>Remove User</button>
+                                    </form>
+                                    
+                                    <form action="{% url 'remove_admin' %}" method="POST">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="id" value="{{ team_member.id }}">
+                                        <button class="team-member-remove-button"><i class="fa fa-user-times"></i>Remove Admin</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                            
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock admin-panel-main-content %}

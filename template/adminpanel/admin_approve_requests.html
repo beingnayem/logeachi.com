@@ -1,0 +1,67 @@
+{% extends 'adminpanel/admin_panel.html' %}
+{% load static %}
+
+{% block admin-panel-main-content %}
+    <div class="adminpanelhome-content">
+        {% if messages %}
+            {% for message in messages %}
+            <div class="form-alert">
+                <span class="alert-closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                {{message}}
+            </div>
+            {% endfor %}
+        {% endif %}
+        <div class="team-member-list-container">
+            {% if approve_requests %}
+                <h1>Admin Aprove Request</h1>
+                <div class="team-member-list-table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Gender</th>
+                                <th>Admin Request</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            {% for approve_request in approve_requests %}
+                                <tr>
+                                    <td>{{approve_request.id}}</td>
+                                    <td>{{approve_request.first_name}} {{approve_request.last_name}}</td>
+                                    <td>{{approve_request.email}}</td>
+                                    <td>{{approve_request.gender}}</td>
+                                    <td>{{approve_request.admin_request}}</td>
+                                    <td class="team-member-action-buttons">
+                                        <form action="{% url 'admin_request_approve' %}" method="POST">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="id" value="{{ approve_request.id }}">
+                                            <button type="submit" class="team-member-remove-button" style="background-color: rgb(59, 99, 19);">
+                                                <i class="fa fa-check"></i>Approve
+                                            </button>
+                                        </form>
+
+                                        <a href="{% url 'admin_request_decline' approve_request.id %}"">
+                                            <button class="team-member-remove-button" style="background-color: rgb(255, 48, 48);">
+                                                <i class="fa fa-times"></i>Decline
+                                            </button>
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                                
+                            
+                        </tbody>
+                    </table> 
+                </div>
+                {% else %}
+                    <h2 style="text-align: center; color:rgb(101, 168, 33) ">There is no admin aproval request penting.</h2>
+
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock admin-panel-main-content %}
