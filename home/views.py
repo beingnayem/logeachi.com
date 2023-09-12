@@ -14,12 +14,14 @@ def home(request):
     newslatters= Banner.objects.filter(banner_type='newslatter')
     tosters = Banner.objects.filter(banner_type='toster')
     categories = Category.objects.all()
+    products = Product.objects.all()
     
     context = {
     'sliders': sliders,
     'newslatters': newslatters,
     'tosters': tosters,
-    'categories': categories
+    'categories': categories,
+    'products': products
     }
     return render(request, 'home/home.html', context)
 
