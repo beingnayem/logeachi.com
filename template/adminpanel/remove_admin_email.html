@@ -1,0 +1,27 @@
+
+{% autoescape off %}
+Dear {{user.first_name}},
+
+I hope this email finds you well. I regret to inform you that your employment with Logeachi.com 
+will be terminated, effective {{ effective_date|date:"F j, Y" }}.
+
+This decision has been made after a careful review of your performance and other relevant factors. We 
+understand that this news may come as a surprise, and we want to assure you that this decision was not taken lightly.
+
+You will receive your final paycheck, including any accrued vacation days, in accordance 
+with company policy. Additionally, we will provide information on the return of company property 
+and the process for turning in your access badges, keys, and any other relevant items.
+
+We understand that this transition may be challenging, and we are here to support you during this period. 
+If you have any questions or require assistance with any aspect of this process, please do not hesitate to 
+reach out to our HR department.
+
+We would like to express our appreciation for your contributions during your time at 
+Logeachi.com, and we wish you success in your future endeavors.
+
+Sincerely,
+
+Mr. Logeachi
+HR Admin
+Logeachi.com
+{% endautoescape %}

@@ -43,12 +43,14 @@
                                     <form action="{% url 'remove_user' %}" method="POST">
                                         {% csrf_token %}
                                         <input type="hidden" name="id" value="{{ team_member.id }}">
+                                        <input type="hidden" name="email" value="{{ team_member.email }}">
                                         <button class="team-member-remove-button"><i class="fa fa-user-times"></i>Remove User</button>
                                     </form>
                                     
                                     <form action="{% url 'remove_admin' %}" method="POST">
                                         {% csrf_token %}
                                         <input type="hidden" name="id" value="{{ team_member.id }}">
+                                        <input type="hidden" name="email" value="{{ team_member.email }}">
                                         <button class="team-member-remove-button"><i class="fa fa-user-times"></i>Remove Admin</button>
                                     </form>
                                 </td>
