@@ -1,6 +1,5 @@
 from django.db import models
 
-
 class Category(models.Model):
     name = models.CharField(max_length=255)
 
@@ -15,7 +14,7 @@ class Subcategory(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='category')
     
     def __str__(self):
-        return self.name 
+        return self.name
     
     class Meta:
         verbose_name_plural = "2. Sub Categories"
@@ -30,14 +29,14 @@ class Product(models.Model):
     product_price = models.IntegerField()
     product_description = models.TextField()
     product_quantity = models.IntegerField(null=True)
-    product_sold_quantity = models.IntegerField(null=True)
+    product_sold_quantity = models.IntegerField(default=0)
     product_location = models.CharField(max_length=100)
-    product_warrenty = models.BooleanField(default=False)
-    product_cash_payment = models.BooleanField(default=False)
-    product_online_payment = models.BooleanField(default=False)
-    product_return = models.BooleanField(default=False)
+    product_warrenty = models.BooleanField(null=True)
+    product_cash_payment = models.BooleanField(null=True)
+    product_online_payment = models.BooleanField(null=True)
+    product_return = models.BooleanField(null=True)
     product_added_date = models.DateTimeField(auto_now_add=True, null=True)
-    product_stock_data = models.DateTimeField(auto_now=True, null=True)  
+    product_stock_date = models.DateTimeField(auto_now=True, null=True)  
 
     def str(self) -> str:
         return self.product_name

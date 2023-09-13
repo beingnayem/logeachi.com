@@ -1,9 +1,9 @@
-let sidebar = document.querySelector(".sidebar");
-let sidebarBtn = document.querySelector(".sidebarBtn");
-sidebarBtn.onclick = function() {
-  sidebar.classList.toggle("active");
-  if(sidebar.classList.contains("active")){
-  sidebarBtn.classList.replace("bx-menu" ,"bx-menu-alt-right");
+let adminPanelsidebar = document.querySelector(".adminPanelsidebar");
+let AdminPanelsidebarBtn = document.querySelector(".AdminPanelsidebarBtn");
+AdminPanelsidebarBtn.onclick = function() {
+  adminPanelsidebar.classList.toggle("active");
+  if(adminPanelsidebar.classList.contains("active")){
+    AdminPanelsidebarBtn.classList.replace("bx-menu" ,"bx-menu-alt-right");
 }else
-  sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
+AdminPanelsidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
 }

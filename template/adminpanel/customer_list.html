@@ -1,0 +1,64 @@
+{% extends 'adminpanel/admin_panel.html' %}
+{% load static %}
+
+{% block admin-panel-main-content %}
+    <div class="adminpanelhome-content">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="form-alert">
+                    <span class="alert-closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    {{message}}
+                </div>
+            {% endfor %}
+        {% endif %}
+        <div class="team-member-list-container">
+            {% if customers %}
+                <h1>Customer List</h1>
+                <div class="admin-request-approve-container">
+                <!-- <a href="{% url 'admin_request_list' %}">
+                        <button class="admin-request-approve-button">Approve Admin Request</button>
+                </a>  -->
+                </div>
+                <div class="team-member-list-table-container">
+                    <table class="team-member-list-table-container-table">
+                        <thead>
+                            <tr class="team-member-list-table-container-table-row">
+                                <th class="team-member-info-head">ID</th>
+                                <th class="team-member-info-head">Name</th>
+                                <th class="team-member-info-head">Email</th>
+                                <th class="team-member-info-head">Gender</th>
+                                <th class="team-member-info-head">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            {% for customer in customers %}
+                                <tr class="team-member-list-table-container-table-row">
+                                    <td class="team-member-info">{{customer.id}}</td>
+                                    <td class="team-member-info">{{customer.first_name}}</td>
+                                    <td class="team-member-info">{{customer.email}}</td>
+                                    <td class="team-member-info">{{customer.gender}}</td>
+                                    <td class="team-member-action-buttons">
+                                        <form action="{% url 'remove_user' %}" method="POST">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="id" value="{{ customer.id }}">
+                                            <input type="hidden" name="email" value="{{ customer.email }}">
+                                            <button class="team-member-remove-button" title="Delete User"><i class="fa fa-user-times"></i></button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                                
+                            
+                        </tbody>
+                    </table>
+                </div> 
+                
+                {% else %}
+                    <h2 style="text-align: center; color:rgb(101, 168, 33) ">There is no customer yet.</h2>
+            {% endif %}
+            
+        </div>
+    </div>
+
+{% endblock admin-panel-main-content %}
