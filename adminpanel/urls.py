@@ -10,5 +10,9 @@ urlpatterns = [
     path('admin-request-decline/', views.admin_request_decline, name='admin_request_decline'),
     path('remove-admin/', views.remove_admin, name='remove_admin'),
     path('remove-user/', views.remove_user, name='remove_user'),
-
+    path('customers/', views.customerView, name='customer_list'),
+    path('products/', views.productView, name='product_list'),
+    path('add-product/', views.add_product, name='add_product'),
+    path('edit-product/', views.edit_product, name='edit_product'),
+    path('delete-product/', views.delete_product, name='delete_product'),
 ]

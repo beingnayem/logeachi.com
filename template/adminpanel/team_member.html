@@ -12,46 +12,46 @@
             {% endfor %}
         {% endif %}
         <div class="team-member-list-container">
-            <h1>Team Member User</h1>
-            <div class="team-member-list-button-container">
+            <h1>Team Member List</h1>
+            <div class="admin-request-approve-button-container">
                 <a href="{% url 'admin_request_list' %}">
                     <button class="admin-request-approve-button">Approve Admin Request</button>
                 </a>
             </div>
             <div class="team-member-list-table-container">
-                <table>
+                <table class="team-member-list-table-container-table">
                     <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Gender</th>
-                            <th>Admin Request</th>
-                            <th>Action</th>
+                        <tr class="team-member-list-table-container-table-row">
+                            <th class="team-member-info-head">ID</th>
+                            <th class="team-member-info-head">Name</th>
+                            <th class="team-member-info-head">Email</th>
+                            <th class="team-member-info-head">Gender</th>
+                            <th class="team-member-info-head">Admin Request</th>
+                            <th class="team-member-info-head">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         
                         {% for team_member in team_members %}
-                            <tr>
-                                <td>{{team_member.id}}</td>
-                                <td>{{team_member.first_name}} {{team_member.last_name}}</td>
-                                <td>{{team_member.email}}</td>
-                                <td>{{team_member.gender}}</td>
-                                <td>{{team_member.admin_request}}</td>
+                            <tr class="team-member-list-table-container-table-row">
+                                <td class="team-member-info">{{team_member.id}}</td>
+                                <td class="team-member-info">{{team_member.first_name}}</td>
+                                <td class="team-member-info">{{team_member.email}}</td>
+                                <td class="team-member-info">{{team_member.gender}}</td>
+                                <td class="team-member-info">{{team_member.admin_request}}</td>
                                 <td class="team-member-action-buttons">
                                     <form action="{% url 'remove_user' %}" method="POST">
                                         {% csrf_token %}
                                         <input type="hidden" name="id" value="{{ team_member.id }}">
                                         <input type="hidden" name="email" value="{{ team_member.email }}">
-                                        <button class="team-member-remove-button"><i class="fa fa-user-times"></i>Remove User</button>
+                                        <button class="team-member-remove-button" title="Delete User"><i class="fas fa-trash"></i></button>
                                     </form>
                                     
                                     <form action="{% url 'remove_admin' %}" method="POST">
                                         {% csrf_token %}
                                         <input type="hidden" name="id" value="{{ team_member.id }}">
                                         <input type="hidden" name="email" value="{{ team_member.email }}">
-                                        <button class="team-member-remove-button"><i class="fa fa-user-times"></i>Remove Admin</button>
+                                        <button class="team-member-remove-button" title="Remove admin"><i class="fa fa-user-times"></i></button>
                                     </form>
                                 </td>
                             </tr>
