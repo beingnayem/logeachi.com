@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from  products.models import Product
+from  products.models import Product, Category
 from django.core.paginator import Paginator
 
 
@@ -20,9 +20,9 @@ def category_products(request, pk):
     # page = request.GET.get('page')
     # products = paginator.get_page(page)
     products = Product.objects.filter(product_category=pk)
-    print('============================================================================>>>>>>>>>>', products)
-    print('============================================================================>>>>>>>>>>', pk)
+    categories = Category.objects.all()
     context = {
+        'categories': categories,
         'products': products
     }
     return render(request, 'products/category-products.html', context)
