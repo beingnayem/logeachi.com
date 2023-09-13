@@ -11,13 +11,13 @@
     margin: 0 auto;
     padding: 20px;
     background-color: #f2f2f2;
-    border: 1px solid #ccc;
+    border: 1px solid #ffffff;
     border-radius: 5px;
     text-align: center;
     font-family: Arial, sans-serif;
 }
 
-.product-add-page-container h1 {
+.product-add-page-container-title{
     color: #333;
 }
 
@@ -27,15 +27,15 @@
     text-align: left;
 }
 
-.product-add-page-form-group label {
+.product-add-page-form-label {
     font-weight: bold;
 }
 
-.product-add-page-form-group input[type="text"],
-.product-add-page-form-group input[type="number"],
-.product-add-page-form-group input[type="file"],
-.product-add-page-form-group textarea,
-.product-add-page-form-group select {
+.product-add-page-form-input[type="text"],
+.product-add-page-form-input[type="number"],
+.product-add-page-form-input[type="file"],
+.product-add-page-form-textarea,
+.product-add-page-form-select {
     width: 100%;
     padding: 10px;
     margin-top: 5px;
@@ -45,12 +45,12 @@
 }
 
 /* Style for checkboxes */
-.product-add-page-form-group input[type="checkbox"] {
+.product-add-page-form-input[type="checkbox"] {
     margin-top: 10px;
 }
 
 /* Style for the submit button */
-.product-add-page-form-group button[type="submit"] {
+.product-add-page-form-add-product-btn[type="submit"] {
     background-color: #007BFF;
     color: #fff;
     padding: 10px 20px;
@@ -61,6 +61,28 @@
 }
 
 /* Hover effect on the submit button */
-.product-add-page-form-group button[type="submit"]:hover {
+.product-add-page-form-add-product-btn[type="submit"]:hover {
     background-color: #0056b3;
+}
+
+
+
+
+/* edit product image css */
+
+/* Apply styling to the image */
+.edit-product-page-product-current-img {
+    max-width: 200px; /* Adjust the maximum width as needed */
+    height: auto; /* Maintain aspect ratio */
+    margin-bottom: 10px; /* Add spacing below the image */
+}
+
+/* Style for the file input */
+.product-add-page-form-input[type="file"] {
+    margin-top: 5px; /* Add spacing above the input */
+}
+
+.edit-product-page-product-current-img:hover {
+    border: 1px solid #333; /* Change border color on hover */
+    transform: scale(1.05); /* Scale the image slightly on hover */
 }
