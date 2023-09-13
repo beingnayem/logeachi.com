@@ -294,6 +294,12 @@ def edit_product(request):
             product_id = request.POST.get('id')
             product = Product.objects.get(id=product_id)
             
+            current_product_warrenty = product.product_warrenty
+            current_product_cash_payment = product.product_cash_payment
+            current_product_online_payment = product.product_online_payment
+            current_product_return = product.product_return
+            
+            
             # Retrieve product data from the request
             product_name = request.POST.get('product_name')
             product_image = request.FILES.get('product_image')
@@ -307,29 +313,38 @@ def edit_product(request):
             product_cash_payment = request.POST.get('product_cash_payment')
             product_online_payment = request.POST.get('product_online_payment')
             product_return = request.POST.get('product_return')
-            
-            # Get the Subcategory instance by ID
-            product_category = get_object_or_404(Subcategory, id=product_category_id)
-            print("before Updating the produc=========================", product.product_warrenty)
-            print("after edit in html =================================", product_warrenty)
+
+            # print("before Updating the produc=========================", product.product_warrenty)
+            # print("after edit in html =================================", product_warrenty)
             
             # Update product details and save the object in the database
             product.product_name = product_name
             if product_image:
                 product.product_image = product_image
             product.product_brand = product_brand
-            product.product_category = product_category
+            if product_category_id:
+                product_category = get_object_or_404(Subcategory, id=product_category_id)
+                product.product_category = product_category
             product.product_price = product_price
             product.product_description = product_description
             product.product_quantity = product_quantity
             product.product_location = product_location
-            product.product_warrenty = product_warrenty
-            product.product_cash_payment = product_cash_payment
-            product.product_online_payment = product_online_payment
-            product.product_return = product_return
+            # if product_warrenty:
+            if current_product_warrenty != product_warrenty:
+                product.product_warrenty = product_warrenty
+            # if product_cash_payment:
+            if current_product_cash_payment != product_cash_payment:
+                product.product_cash_payment = product_cash_payment
+            # if product_online_payment:
+            if current_product_online_payment != product_online_payment:
+                product.product_online_payment = product_online_payment
+            # if product_return:
+            if current_product_return != product_return:
+                product.product_return = product_return
+
             product.save()
             
-            print("After Updateing the product ========================", product.product_warrenty)
+            # print("After Updateing the product ========================", product.product_warrenty)
             
             messages.success(request, 'Product edited successfully.')
             return redirect('product_list')

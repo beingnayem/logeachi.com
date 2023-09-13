@@ -21,11 +21,19 @@
     color: #333;
 }
 
+.add-product-form{
+    margin: 20px;
+}
+
 /* Style for form fields */
 .product-add-page-form-group {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
     margin-bottom: 15px;
     text-align: left;
 }
+
 
 .product-add-page-form-label {
     font-weight: bold;
@@ -42,12 +50,34 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
+    height: 100%;
 }
 
-/* Style for checkboxes */
-.product-add-page-form-input[type="checkbox"] {
-    margin-top: 10px;
+.product_add_checkbox_row {
+    display: flex;
+    flex-direction: row;
+    align-items: left;
+    width: 50%;
 }
+
+.product-add-page-form-label{
+    font-size: 15px;
+    width: 100%;
+}
+.product-add-page-form-input{
+    margin-top: 20px;
+    height: 15px;
+    width: 100%;
+}
+
+
+.product-add-page-form-group-submit-btn{
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    margin: 20px;
+}
+
 
 /* Style for the submit button */
 .product-add-page-form-add-product-btn[type="submit"] {
@@ -72,9 +102,12 @@
 
 /* Apply styling to the image */
 .edit-product-page-product-current-img {
-    max-width: 200px; /* Adjust the maximum width as needed */
-    height: auto; /* Maintain aspect ratio */
-    margin-bottom: 10px; /* Add spacing below the image */
+    max-width: 150px; 
+    max-width: 100px;
+    max-height: 150px;
+    max-height: 100px;
+    margin-bottom: 10px;
+    margin: 3px;
 }
 
 /* Style for the file input */
@@ -85,4 +118,30 @@
 .edit-product-page-product-current-img:hover {
     border: 1px solid #333; /* Change border color on hover */
     transform: scale(1.05); /* Scale the image slightly on hover */
+}
+
+
+.product-edit-page-form-group {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.product_edit_checkbox_row {
+    display: flex;
+    flex-direction: row;
+    align-items: left;
+    width: 50%;
+}
+
+.product-edit-page-form-label{
+    font-size: 15px;
+    width: 100%;
+}
+.product-edit-page-form-input{
+    margin-top: 20px;
+    height: 15px;
+    width: 100%;
 }
