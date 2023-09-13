@@ -14,7 +14,7 @@
     {% endif %}
     <div class="product-add-page-container">
         <h1 class="product-add-page-container-title">Add Product</h1>
-        <form id="product-form" enctype="multipart/form-data" action="{% url 'add_product' %}" method="POST">
+        <form class="add-product-form" id="product-form" enctype="multipart/form-data" action="{% url 'add_product' %}" method="POST">
             {% csrf_token %}
             <div class="product-add-page-form-group">
                 <label class="product-add-page-form-label" for="product-name">Product Name</label>
@@ -54,22 +54,30 @@
                 <input class="product-add-page-form-input" type="text" id="product-location" name="product_location" required>
             </div>
             <div class="product-add-page-form-group">
-                <label class="product-add-page-form-label" >Product Warranty</label>
-                <input class="product-add-page-form-input" type="checkbox" id="product-warrenty" name="product_warrenty" value="True">
+                <div class="product_add_checkbox_row">
+                    <label class="product-add-page-form-label" >Product Warranty</label>
+                    <input class="product-add-page-form-input" type="checkbox" id="product-warrenty" name="product_warrenty" value=1>
+                </div>
             </div>
             <div class="product-add-page-form-group">
-                <label class="product-add-page-form-label">Cash Payment</label>
-                <input class="product-add-page-form-input" type="checkbox" id="product-cash-payment" name="product_cash_payment" value="True">
+                <div class="product_add_checkbox_row">
+                    <label class="product-add-page-form-label">Cash Payment</label>
+                    <input class="product-add-page-form-input" type="checkbox" id="product-cash-payment" name="product_cash_payment" value=1>
+                </div>
             </div>
             <div class="product-add-page-form-group">
-                <label class="product-add-page-form-label">Online Payment</label>
-                <input class="product-add-page-form-input" type="checkbox" id="product-online-payment" name="product_online_payment" value="True">
+                <div class="product_add_checkbox_row">
+                    <label class="product-add-page-form-label">Online Payment</label>
+                    <input class="product-add-page-form-input" type="checkbox" id="product-online-payment" name="product_online_payment" value=1>
+                </div>
             </div>
             <div class="product-add-page-form-group">
-                <label class="product-add-page-form-label">Return Policy</label>
-                <input class="product-add-page-form-input" type="checkbox" id="product-return" name="product_return" value="True" required>
+                <div class="product_add_checkbox_row">
+                    <label class="product-add-page-form-label">Return Policy</label>
+                    <input class="product-add-page-form-input" type="checkbox" id="product-return" name="product_return" value=1 required>
+                </div>
             </div>
-            <div class="product-add-page-form-group">
+            <div class="product-add-page-form-group-submit-btn">
                 <button class="product-add-page-form-add-product-btn" type="submit">Add Product</button>
             </div>
         </form>
