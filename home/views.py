@@ -15,22 +15,22 @@ def home(request):
     tosters = Banner.objects.filter(banner_type='toster')
     categories = Category.objects.all()
     products = Product.objects.all()
+    best_solds = Product.objects.order_by('-product_sold_quantity')[:5]
+    
     
     context = {
     'sliders': sliders,
     'newslatters': newslatters,
     'tosters': tosters,
     'categories': categories,
-    'products': products
+    'products': products,
+    'best_solds': best_solds,
     }
     return render(request, 'home/home.html', context)
 
 def registerSunbscriberView(request):
     if request.method == 'POST':
         email = request.POST.get('email')
-        print('===================================================================================')
-        print(email)
-        
         # Check if a user with the given email exists
         user_exists = Subscribers.objects.filter(email=email).exists()
         
@@ -50,17 +50,21 @@ def registerSunbscriberView(request):
 
 
 # Search options for keywords
-# def search(request):
-#     get_method =  request.GET.copy()
-#     key_words = get_method.get('keywords') or None
-#     product = Product.objects.all()
-#     product_list = []  # Initialize product_list to an empty list
+def search(request):
+    get_method =  request.GET.copy()
+    key_words = get_method.get('keywords') or None
+    product = Product.objects.all()
+    products = []  
+    print(key_words)
+    if key_words:
+        key_word = get_method.get('keywords')
+        products = product.filter(product_description__icontains=key_word)
+    
 
-#     if key_words:
-#         key_word = get_method.get('keywords')
-#         product_list = product.filter(product_description__icontains=key_word)
+    context= {
+        'categories': Category.objects.all(),
+        'products': products
+    }
 
-#     context= {'categories': Category.objects.all(),'products': product_list}
-
-#     return render(request, 'products/search-result.html', context)
+    return render(request, 'products/category-products.html', context)
 
