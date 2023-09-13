@@ -73,17 +73,20 @@
         />
       </a>
 
+      
       <div class="header-search-container">
-        <input
-          type="search"
-          name="search"
-          class="search-field"
-          placeholder="Enter your product name..."
-        />
+        <form action="{% url "search" %}" method="GET">
+          <input
+            type="text"
+            name="keywords"
+            class="search-input"
+            placeholder="Enter your product name..."
+          />
 
-        <button class="search-btn">
-          <ion-icon name="search-outline"></ion-icon>
-        </button>
+          <button class="search-btn">
+            <ion-icon name="search-outline"></ion-icon>
+          </button>
+        </form>
       </div>
 
       <div class="header-user-actions">

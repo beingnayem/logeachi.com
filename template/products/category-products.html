@@ -3,69 +3,73 @@
 
 {% block content %}
     {% include 'include/header.html' %}
+        <div class="container">
+            <div class="product-main">
 
-        <div class="product-main">
+                <div class="product-grid">
+                {% for product in products %}
+                    <div class="showcase">
 
-            <div class="product-grid">
-            {% for product in products %}
-                <div class="showcase">
+                    <div class="showcase-banner">
 
-                <div class="showcase-banner">
+                        <img src="{{product.product_image.url}}" alt="Mens Winter Leathers Jackets" width="300" class="product-img default">
+                        <img src="{{product.product_image.url}}" alt="Mens Winter Leathers Jackets" width="300" class="product-img hover">
 
-                    <img src="{{product.product_image.url}}" alt="Mens Winter Leathers Jackets" width="300" class="product-img default">
-                    <img src="{{product.product_image.url}}" alt="Mens Winter Leathers Jackets" width="300" class="product-img hover">
+                        <div class="showcase-actions">
+                        <form action="{% url "add_wishlist" %} method="GET">
+                            {% csrf_token %}
+                            <input type="hidden" name="pk" value={{product.pk}}>
+                            <button class="btn-action">
+                                <ion-icon name="heart-outline"></ion-icon>
+                            </button>
+                        </form>
+                        
 
-                    <div class="showcase-actions">
+                        <button class="btn-action">
+                            <ion-icon name="eye-outline"></ion-icon>
+                        </button>
 
-                    <button class="btn-action">
-                        <ion-icon name="heart-outline"></ion-icon>
-                    </button>
+                        <button class="btn-action">
+                            <ion-icon name="repeat-outline"></ion-icon>
+                        </button>
 
-                    <button class="btn-action">
-                        <ion-icon name="eye-outline"></ion-icon>
-                    </button>
+                        <button class="btn-action">
+                            <ion-icon name="bag-add-outline"></ion-icon>
+                        </button>
 
-                    <button class="btn-action">
-                        <ion-icon name="repeat-outline"></ion-icon>
-                    </button>
-
-                    <button class="btn-action">
-                        <ion-icon name="bag-add-outline"></ion-icon>
-                    </button>
+                        </div>
 
                     </div>
 
-                </div>
+                    <div class="showcase-content">
 
-                <div class="showcase-content">
+                        <a href="#" class="showcase-category"> {{product.product_category}} </a>
 
-                    <a href="#" class="showcase-category"> {{product.product_category}} </a>
+                        <a href="#">
+                        <h3 class="showcase-title"> {{product.product_name}} </h3>
+                        </a>
 
-                    <a href="#">
-                    <h3 class="showcase-title"> {{product.product_name}} </h3>
-                    </a>
+                        <div class="showcase-rating">
+                        <ion-icon name="star"></ion-icon>
+                        <ion-icon name="star"></ion-icon>
+                        <ion-icon name="star"></ion-icon>
+                        <ion-icon name="star-outline"></ion-icon>
+                        <ion-icon name="star-outline"></ion-icon>
+                        </div>
 
-                    <div class="showcase-rating">
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star"></ion-icon>
-                    <ion-icon name="star-outline"></ion-icon>
-                    <ion-icon name="star-outline"></ion-icon>
+                        <div class="price-box">
+                        <p class="price">${{product.product_price}} </p>
+                        </div>
+
                     </div>
 
-                    <div class="price-box">
-                    <p class="price">${{product.product_price}} </p>
                     </div>
+                {% endfor %}
 
                 </div>
-
-                </div>
-            {% endfor %}
 
             </div>
-
         </div>
-  
 
 
     {% include 'include/footer.html' %}
