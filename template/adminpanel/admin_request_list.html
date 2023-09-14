@@ -15,33 +15,33 @@
             {% if admin_requests %}
                 <h1>Admin Aprove Request</h1>
                 <div class="team-member-list-table-container">
-                    <table>
+                    <table class="team-member-list-table-container-table">
                         <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Gender</th>
-                                <th>Admin Request</th>
-                                <th>Action</th>
+                            <tr class="team-member-list-table-container-table-row">
+                                <th class="team-member-info-head">ID</th>
+                                <th class="team-member-info-head">Name</th>
+                                <th class="team-member-info-head">Email</th>
+                                <th class="team-member-info-head" >Gender</th>
+                                <th class="team-member-info-head">Request Status</th>
+                                <th class="team-member-info-head">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             
                             {% for admin_request in admin_requests %}
-                                <tr>
-                                    <td>{{admin_request.id}}</td>
-                                    <td>{{admin_request.first_name}} {{admin_requests.last_name}}</td>
-                                    <td>{{admin_request.email}}</td>
-                                    <td>{{admin_request.gender}}</td>
-                                    <td>{{admin_request.admin_request}}</td>
+                                <tr class="team-member-list-table-container-table-row">
+                                    <td class="team-member-info">{{admin_request.id}}</td>
+                                    <td class="team-member-info">{{admin_request.first_name}} {{admin_requests.last_name}}</td>
+                                    <td class="team-member-info">{{admin_request.email}}</td>
+                                    <td class="team-member-info">{{admin_request.gender}}</td>
+                                    <td class="team-member-info">{{admin_request.admin_request}}</td>
                                     <td class="team-member-action-buttons">
                                         <form action="{% url 'admin_request_approve' %}" method="POST">
                                             {% csrf_token %}
                                             <input type="hidden" name="id" value="{{ admin_request.id }}">
                                             <input type="hidden" name="email" value="{{ admin_request.email }}">
-                                            <button type="submit" class="team-member-remove-button" style="background-color: rgb(59, 99, 19);">
-                                                <i class="fa fa-check"></i>Approve
+                                            <button type="submit" class="admin-request-approve-button">
+                                                <i class="fa fa-check"></i>
                                             </button>
                                         </form>
 
@@ -49,8 +49,8 @@
                                             {% csrf_token %}
                                             <input type="hidden" name="id" value="{{ admin_request.id }}">
                                             <input type="hidden" name="email" value="{{ admin_request.email }}">
-                                            <button type="submit" class="team-member-remove-button" style="background-color: rgb(255, 48, 48);">
-                                                <i class="fa fa-times"></i>Decline
+                                            <button type="submit" class="admin-request-decline-button">
+                                                <i class="fa fa-times"></i>
                                             </button>
                                         </form>
                                     </td>

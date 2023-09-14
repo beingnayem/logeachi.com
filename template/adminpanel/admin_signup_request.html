@@ -1,0 +1,30 @@
+{% extends 'adminpanel/admin_panel.html' %}
+{% load static %}
+
+{% block admin-panel-main-content %}
+    <div class="adminpanelhome-content">
+        <div class="signin-container">
+            <form action="{% url 'admin_signup_request' %}" method="POST" class="signin-form">
+              {% csrf_token %}
+        
+                {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}> 
+                                <div class="form-alert">
+                                    <span class="alert-closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                                        {{message}}
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+        
+              <h2  class="signin-title">Add New Admin</h2>
+              <label for="username">Enter e-mail</label>
+              <input type="email" id="email" name="email" required>
+              <button class="signin-btn" type="submit">Send E-mial</button>
+            </form>
+        </div>
+    </div>
+{% endblock admin-panel-main-content %}

@@ -54,21 +54,9 @@ def signup(request):
             email_exist = User.objects.filter(email=email)
             
             if not email_exist:
-                
-                # Create a new admin and postpone to approve by an admin
-                if request.POST.get('admin_request'):
-                    user = User.objects.create_user(first_name=first_name, last_name=last_name, email=email, gender=gender, password=password)
-                    user.is_active = False
-                    user.admin_request='requested'
-                    user.save()
-                    messages.success(request, "Account has been created and pending for approve by admin.")
-                    return render(request, 'accounts/signin.html')
-                
-                # Create a new user and postpone to activate the email confirmation
-                else:
-                    user = User.objects.create_user(first_name=first_name, last_name=last_name, email=email, gender=gender, password=password)
-                    user.is_active = False
-                    user.save()
+                user = User.objects.create_user(first_name=first_name, last_name=last_name, email=email, gender=gender, password=password)
+                user.is_active = False
+                user.save()
                 
                 # Check if the user has subscribed to the newsletter
                 if request.POST.get('subscribe_newsletter'):

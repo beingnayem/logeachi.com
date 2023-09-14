@@ -73,14 +73,23 @@
 
 .product-add-page-form-group-submit-btn{
     display: flex;
+    flex-direction: row;
     justify-content: center;
+    padding: 20px;
+    margin: 20px;
+}
+
+.product-edit-page-form-group-submit-btn{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     padding: 20px;
     margin: 20px;
 }
 
 
 /* Style for the submit button */
-.product-add-page-form-add-product-btn[type="submit"] {
+.product-add-page-form-add-product-btn {
     background-color: #007BFF;
     color: #fff;
     padding: 10px 20px;
@@ -91,8 +100,42 @@
 }
 
 /* Hover effect on the submit button */
-.product-add-page-form-add-product-btn[type="submit"]:hover {
+.product-add-page-form-add-product-btn:hover {
     background-color: #0056b3;
+}
+
+
+/* Style for the submit button */
+.product-add-page-form-cancel-btn {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Hover effect on the submit button */
+.product-add-page-form-cancel-btn:hover {
+    background-color: #8f000c;
+}
+
+
+
+.go-back-btn {
+    background-color: #00c954;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Hover effect on the submit button */
+.go-back-btn:hover {
+    background-color: #067e02;
 }
 
 

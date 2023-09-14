@@ -13,7 +13,7 @@
             {% endfor %}
         {% endif %}
         <div class="product-add-page-container">
-            <h1 class="product-add-page-container-title">Add Product</h1>
+            <h1 class="product-add-page-container-title">Edit Product Details</h1>
             <form id="product-form" enctype="multipart/form-data" action="{% url 'edit_product' %}" method="POST">
                 {% csrf_token %}
                 <input type="hidden" name="id" value="{{ product.id }}">
@@ -95,8 +95,9 @@
                         <input class="product-edit-page-form-input" type="checkbox" id="product-return" name="product_return" value=1>
                     </div>
                 </div>
-                <div class="product-add-page-form-group-submit-btn">
+                <div class="product-edit-page-form-group-submit-btn">
                     <button class="product-add-page-form-add-product-btn" type="submit">Update Product</button>
+                    <button class="product-add-page-form-cancel-btn" name="cancel">Cancel</button>
                 </div>
             </form>
         </div>

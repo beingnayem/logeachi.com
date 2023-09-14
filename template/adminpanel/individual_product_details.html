@@ -1,0 +1,104 @@
+{% extends 'adminpanel/admin_panel.html' %}
+{% load static %}
+
+{% block admin-panel-main-content %}
+    <div class="adminpanelhome-content">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="form-alert">
+                    <span class="alert-closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    {{message}}
+                </div>
+            {% endfor %}
+        {% endif %}
+        <div class="individual-product-details-container">
+            <h1 class="individual-product-details-container-title">Individual Product Details</h1>
+            <div class="individual-product-image-container">
+                <img class="individual-product-image" src="{{ product.product_image.url }}" alt="Product Image">
+                <p class="image-caption">{{product.product_brand}}</p>
+            </div>
+            <div class="individual-product-info">
+                <p class="individual-product-info-data"><strong class="product-data-title">Name: </strong>{{product.product_name}}</p>
+                <div class="individual-product-info-data-row">
+                    <p class="individual-product-info-data"><strong class="product-data-title">Brand: </strong>{{product.product_brand}}</p>
+                    <p class="individual-product-info-data"><strong class="product-data-title">Category: </strong>{{product.product_category}}</p>
+                </div>
+                <div class="individual-product-info-data-row">
+                    <p class="individual-product-info-data"><strong class="product-data-title">Price: </strong>{{product.product_price}}</p>
+                    <p class="individual-product-info-data"><strong class="product-data-title">Location: </strong>{{product.product_location}}</p>
+                </div>
+                <div class="individual-product-info-data-row">
+                    <p class="individual-product-info-data"><strong class="product-data-title">Quantity: </strong>{{product.product_quantity}}</p>
+                    <p class="individual-product-info-data"><strong class="product-data-title">Sold Quantity: </strong>{{product.product_sold_quantity}}</p>
+                </div>
+                <div class="individual-product-info-data-row">
+                    <p class="individual-product-info-data"><strong class="product-data-title">Return Policy: </strong>
+                        {% if product.product_return  %}
+                            Yes
+                            {% else %}
+                                No
+                        {% endif %}
+                    </p>
+                    <p class="individual-product-info-data"><strong class="product-data-title">Warranty: </strong>
+                        {% if product.product_warrenty  %}
+                            Yes
+                            {% else %}
+                                No
+                        {% endif %}
+                    </p>
+                </div>
+                <div class="individual-product-info-data-row">
+                    <p class="individual-product-info-data">
+                        <strong class="product-data-title">Added Date: </strong>
+                        {{ product.product_added_date|date}}
+                    </p>
+                    <p class="individual-product-info-data">
+                        <strong class="product-data-title">Last Stocked: </strong>
+                        {{ product.product_stock_date|date}}
+                    </p>                    
+                </div>
+                <div class="individual-product-info-data-row">
+                    <div class="individual-product-info-data">
+                        <p class="individual-product-payment"><strong class="product-data-title">Payment Options: </strong></p>
+                        <ul class="individual-product-payment-list">
+                            
+                            {% if product.product_cash_payment %}
+                                <li class="individual-product-payment-list-data">
+                                    <p class="individual-product-info-data">Cash Payment</p>
+                                </li>
+                            {% endif %}
+                            {% if product.product_online_payment %}
+                                <li class="individual-product-payment-list-data">
+                                    <p class="individual-product-info-data">Online Payment</p>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                    <p class="individual-product-info-data">
+                        <strong class="product-data-title">Description: </strong>
+                        {{ product.product_description|slice:"4" }}
+                    </p>
+                </div>
+            </div>
+            <div class="product-edit-pencil-btn-container">
+                <form action="{% url 'edit_product' %}" method="GET">
+                    {% csrf_token %}
+                    <input type="hidden" name="id" value="{{ product.id }}">
+                    <button type="submit" title="Edit Product" class="product-edit-pencil-btn"><i class="fas fa-pencil-alt"></i></button>
+                </form>
+            </div>
+            <button class="go-back-btn" onclick="goBack()">Back</button>
+            
+            <div class="individual-product-details">
+                <h2 class="individual-product-details-title">Product Details</h2>
+                <p class="individual-product-details-info">
+                    {{product.product_description}}
+                </p>
+            </div>
+            <div class="product-edit-pencil-btn-container">
+                <button class="toggle-button" onclick="toggleDetails()">Toggle Details</button>
+            </div>
+           
+        </div>
+    </div>
+{% endblock admin-panel-main-content %}
