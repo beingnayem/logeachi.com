@@ -6,14 +6,7 @@
 <header>
   <div class="header-top">
     <div class="container">
-      
-      
-      {% if user.is_authenticated %}
-        {% if user.admin_request != "approved" and user.admin_request != "requested" %}
-          <a href="{% url 'admin_request' %}" >be an admin</a>
-        {% endif %}
-      {% endif %}
-        
+
       <ul class="header-social-container">
         <li>
           <a href="https://www.facebook.com/antarnath20/" class="social-link">

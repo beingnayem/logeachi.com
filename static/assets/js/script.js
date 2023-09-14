@@ -86,3 +86,24 @@ for (let i = 0; i < accordionBtn.length; i++) {
   });
 
 }
+
+
+function goBack() {
+  window.history.back();
+}
+
+// JavaScript function for cancel action (you can customize this)
+function cancel() {
+  alert("Cancelled!");
+}
+
+
+
+function toggleDetails() {
+  var details = document.querySelector('.individual-product-details');
+  if (details.style.display === 'none' || details.style.display === '') {
+      details.style.display = 'block';
+  } else {
+      details.style.display = 'none';
+  }
+}

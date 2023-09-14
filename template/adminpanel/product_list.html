@@ -54,12 +54,12 @@
                                             <input type="hidden" name="pk" value="{{ product.pk }}">
                                             <button class="team-member-remove-button"  title="Delete"><i class="fas fa-trash"></i></button>
                                         </form>
-                                        <form action="#" method="POST">
+                                        <form action="{% url 'individual_product_details' %}" method="POST">
                                             {% csrf_token %}
                                             <input type="hidden" name="id" value="{{ product.id }}">
                                             <button class="team-member-remove-button"  title="View"><i class="fas fa-eye"></i></button>
                                         </form>
-                                        <form action="#" method="GET">
+                                        <form action="{% url 'restock_product' %}" method="GET">
                                             {% csrf_token %}
                                             <input type="hidden" name="id" value="{{ product.id }}">
                                             <button class="team-member-remove-button" title="Re-stock"><i class="fas fa-arrow-up"></i></button>
@@ -80,5 +80,4 @@
             
         </div>
     </div>
-
 {% endblock admin-panel-main-content %}

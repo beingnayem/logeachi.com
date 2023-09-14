@@ -11,9 +11,10 @@
   }
   
   /* Container for the admin request approve button */
-  .admin-request-approve-container {
+  .admin-request-approve-button-container{
     display: flex;
-    justify-content: flex-start; /* Align button to the left */
+    flex-direction: row;
+    justify-content: left; /* Align button to the left */
     margin-bottom: 10px;
   }
   
@@ -27,6 +28,7 @@
     text-decoration: none;
     font-size: 16px;
     cursor: pointer;
+    margin: 10px;
   }
   
   .admin-request-approve-button:hover {
@@ -86,4 +88,38 @@
   .team-member-remove-button:hover {
     background-color: #ff3b3b;
   }
-  
+
+  .admin-request-approve-button{
+    background-color: #42c010;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    text-decoration: none;
+    margin: 0 5px; /* Add margin between buttons */
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 7px;
+  }
+
+.admin-request-decline-button{
+  background-color: #ff6b6b;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  text-decoration: none;
+  margin: 0 5px; /* Add margin between buttons */
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 7px;
+
+}
+
+.admin-request-approve-button:hover{
+  background-color: #1a5503;
+}
+
+.admin-request-decline-button:hover{
+  background-color: #812002;
+}
