@@ -18,7 +18,9 @@ class ProductAdmin(admin.ModelAdmin):
         'product_name', 
         'product_category', 
         'product_price', 
-        'product_quantity'
+        'product_quantity',
+        'product_added_date',
+        'product_stock_date'
     ]
 
 

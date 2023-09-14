@@ -39,6 +39,11 @@
                                     <td class="team-member-info">{{customer.email}}</td>
                                     <td class="team-member-info">{{customer.gender}}</td>
                                     <td class="team-member-action-buttons">
+                                        <form action="#" method="POST">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="id" value="{{ product.id }}">
+                                            <button class="team-member-remove-button"  title="View"><i class="fas fa-eye"></i></button>
+                                        </form>
                                         <form action="{% url 'remove_user' %}" method="POST">
                                             {% csrf_token %}
                                             <input type="hidden" name="id" value="{{ customer.id }}">
