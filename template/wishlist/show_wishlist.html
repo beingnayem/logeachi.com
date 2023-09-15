@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+{% include 'include/header.html' %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="py-3 py-md-5 bg-light">
+        <div class="container">
+    
+          <div class="wishlist-header-container">
+            <i class="fas fa-heart"></i>
+            <h1 class="wishlist-header">Wishlist</h1>
+          </div>
+    
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="wishlist-shopping-cart">
+    
+                        <div class="wishlist-cart-headerd-none d-sm-none d-mb-block d-lg-block">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h4>Products</h4>
+                                </div>
+                                <div class="col-md-2">
+                                    <h4>Price</h4>
+                                </div>
+                                <div class="col-md-2">
+                                    <h4>Stock Status</h4>
+                                </div>
+                            </div>
+                        </div>
+                        {% for wishlist in wishlists %} 
+                            <div class="wishlist-cart-item ">
+                                <div class="row">
+                                    <div class="col-md-6 my-auto">
+                                        <a href="">
+                                            <label class="wishlist-product-name">
+                                                <img class="wishlist-image" src="{{wishlist.product.product_image.url}}" style="width:50px; height: 50px" alt="">
+                                                {{wishlist.product.product_name}}
+                                            </label>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-2 my-auto">
+                                        <label class="wishlist-price">${{wishlist.product.product_price}} </label>
+                                    </div>
+                                    <div class="col-md-2 my-auto">
+                                        {% if wishlist.product.product_quantity > 0%}
+                                        <label class="wishlist-quantity"> Instock</label>
+                                        {% else %}
+                                        <label class="wishlist-quantity"> Outstock</label>
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-2 col-5 my-auto">
+                                        <div class="wishlist-action-btn-continer">
+                                        <form action="{% url "delete_wishlist" %}" method="GET">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="pk" value="{{wishlist.product.pk}}">
+                                            <button class="wishlist-delete-item-btn">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                        <a href="#" class="wishlist-add-cart-btn">
+                                            <i class="fas fa-shopping-cart"></i>
+                                        </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                                
+                    </div>
+                </div>
+            </div>
+    
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+  
+</body>
+</html>
+{% include 'include/footer.html' %}
+{% endblock content %}
