@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from products.models import Category, Subcategory, Product
 from django.contrib.auth.decorators import login_required
-
+from cart.models import Wishlist
 
 
 def home(request):
@@ -16,7 +16,9 @@ def home(request):
     categories = Category.objects.all()
     products = Product.objects.all()
     best_solds = Product.objects.order_by('-product_sold_quantity')[:5]
-    
+    wishlist_count = 0
+    if request.user.is_authenticated:
+        wishlist_count = Wishlist.objects.filter(user=request.user).count()
     
     context = {
     'sliders': sliders,
@@ -25,6 +27,7 @@ def home(request):
     'categories': categories,
     'products': products,
     'best_solds': best_solds,
+    'wishlist_count': wishlist_count,
     }
     return render(request, 'home/home.html', context)
 
