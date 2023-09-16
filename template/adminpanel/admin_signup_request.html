@@ -1,30 +1,48 @@
 {% extends 'adminpanel/admin_panel.html' %}
 {% load static %}
 
+{% block message_content %}
+    {% include 'include/message.html' %}
+{% endblock message_content %}
+
 {% block admin-panel-main-content %}
     <div class="adminpanelhome-content">
-        <div class="signin-container">
-            <form action="{% url 'admin_signup_request' %}" method="POST" class="signin-form">
-              {% csrf_token %}
-        
-                {% if messages %}
-                    <ul class="messages">
-                        {% for message in messages %}
-                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}> 
-                                <div class="form-alert">
-                                    <span class="alert-closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-                                        {{message}}
+        <div class="app-content">
+            <!--====== Section 2 ======-->
+            <div class="u-s-p-b-60">
+
+                <!--====== Section Content ======-->
+                <div class="section__content">
+                    <div class="container">
+                        <div class="row row--center">
+                            <div class="col-lg-6 col-md-8 u-s-m-b-30">
+                                <div class="l-f-o">
+                                    <div class="l-f-o__pad-box">
+                                        <h1 class="gl-h1">Admin Request</h1>
+
+                                        <span class="gl-text u-s-m-b-30">Enter an email below and we will send a link to signup for admin.</span>
+                                        <form class="l-f-o__form" method="POST" action="{% url 'admin_signup_request' %}">
+                                            {% csrf_token %}
+                                            <div class="u-s-m-b-30">
+                                                <label class="gl-label" for="reset-email">E-MAIL *</label>
+                                                <input class="input-text input-text--primary-style" name="email" type="email" id="reset-email" placeholder="Enter E-mail" required>
+                                            </div>
+                                            <div class="u-s-m-b-30">
+                                                <button class="btn btn--e-transparent-brand-b-2" type="submit">SUBMIT</button>
+                                            </div>
+                                            <div class="u-s-m-b-30">
+                                                <a class="gl-link" href="{% url 'team_member' %}">Back to Team</a>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
-        
-              <h2  class="signin-title">Add New Admin</h2>
-              <label for="username">Enter e-mail</label>
-              <input type="email" id="email" name="email" required>
-              <button class="signin-btn" type="submit">Send E-mial</button>
-            </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--====== End - Section Content ======-->
+            </div>
+            <!--====== End - Section 2 ======-->
         </div>
     </div>
 {% endblock admin-panel-main-content %}

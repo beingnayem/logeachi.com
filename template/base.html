@@ -11,14 +11,11 @@
   <!--
     - favicon
   -->
-  <link rel="shortcut icon" href="../static/assets/images/logo/favicon.jpeg" type="image/x-icon">
-
-
+  <link rel="shortcut icon" href="../static/assets/images/favicon.png" type="image/x-icon">
 
   <!--
     - custom css link
   -->
-
 
   <!-- message css -->
   <link rel="stylesheet" href="{% static '../static/assets/css/message.css' %}">
@@ -33,23 +30,43 @@
   <link rel="stylesheet" href="{% static '../static/assets/css/app.css' %}">
   <link rel="stylesheet" href="{% static '../static/assets/css/utility.css' %}">
   <link rel="stylesheet" href="{% static '../static/assets/css/vendor.css' %}">
-  <!--
-    - google font link
-  -->
-<!--====== Google Font ======-->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet">
+  
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <!--====== Font Link ======-->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.0.7/css/boxicons.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
 
 </head>
 
 <body>
-  <div id="app">
-    {% block main_app %}
 
+  
+  {% block admin_content %}
+    
+  {% endblock admin_content %}
+    
+
+  
+  {% block message_content %}
+    
+  {% endblock message_content %}
+    
+
+
+  <div id="app">
+
+    <div class="preloader is-active">
+      <div class="preloader__wrap">
+        <img class="preloader__img" src="{% static '../static/assets/images/preloader.png' %}" alt="">
+      </div>
+    </div>
+
+    {% block main_app %}
 
     
     {% endblock main_app %}
+
   </div>
   
   <!-- cart js -->
