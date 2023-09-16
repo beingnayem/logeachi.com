@@ -41,26 +41,22 @@
 
 <body>
 
+
+  {% block message_content %}
+    
+  {% endblock message_content %}
   
   {% block admin_content %}
     
   {% endblock admin_content %}
-    
 
-  
-  {% block message_content %}
-    
-  {% endblock message_content %}
-    
-
+  <div class="preloader is-active">
+    <div class="preloader__wrap">
+      <img class="preloader__img" src="{% static '../static/assets/images/preloader.png' %}" alt="">
+    </div>
+  </div>
 
   <div id="app">
-
-    <div class="preloader is-active">
-      <div class="preloader__wrap">
-        <img class="preloader__img" src="{% static '../static/assets/images/preloader.png' %}" alt="">
-      </div>
-    </div>
 
     {% block main_app %}
 
@@ -69,49 +65,54 @@
 
   </div>
   
+
+
+
   <!-- cart js -->
   <script src="{% static '../static/assets/js/cart.js' %}"></script>
   
   <!-- Admin Panel js -->
-  {% comment %} <script src="{% static '../static/assets/js/admin_panel.js' %}"></script> {% endcomment %}
+  <script src="{% static '../static/assets/js/admin_panel.js' %}"></script>
 
-    <script>
-      window.ga = function() {
-          ga.q.push(arguments)
-      };
-      ga.q = [];
-      ga.l = +new Date;
-      ga('create', 'UA-XXXXX-Y', 'auto');
-      ga('send', 'pageview')
-    </script>
-    <script src="https://www.google-analytics.com/analytics.js" async defer></script>
 
-    <!--====== Vendor Js ======-->
-    <script src="{% static '../static/assets/js/vendor.js' %}"></script>
+  <!--====== Google Analytics: change UA-XXXXX-Y to be your site's ID ======-->
+  <script>
+    window.ga = function() {
+      ga.q.push(arguments)
+    };
+    ga.q = [];
+    ga.l = +new Date;
+    ga('create', 'UA-XXXXX-Y', 'auto');
+    ga('send', 'pageview')
+  </script>
 
-    <!--====== jQuery Shopnav plugin ======-->
-    <script src="{% static '../static/assets/js/jquery.shopnav.js' %}"></script>
-    <!--====== App ======-->
-
-    <script src="{% static '../static/assets/js/app.js' %}"></script>
-    <!--====== Noscript ======-->
-    <noscript>
-        <div class="app-setting">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="app-setting__wrap">
-                            <h1 class="app-setting__h1">JavaScript is disabled in your browser.</h1>
-
-                            <span class="app-setting__text">Please enable JavaScript in your browser or upgrade to a JavaScript-capable browser.</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </noscript>
-
+  <script src="https://www.google-analytics.com/analytics.js" async defer></script>
   
+  <!--====== Vendor Js ======-->
+  <script src="{% static '../static/assets/js/vendor.js' %}"></script>
+
+  <!--====== jQuery Shopnav plugin ======-->
+  <script src="{% static '../static/assets/js/jquery.shopnav.js' %}"></script>
+
+  <!--====== App ======-->
+  <script src="{% static '../static/assets//js/app.js' %}"></script>
+
+  <!--====== Noscript ======-->
+  <noscript>
+    <div class="app-setting">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="app-setting__wrap">
+              <h1 class="app-setting__h1">JavaScript is disabled in your browser.</h1>
+              <span class="app-setting__text">Please enable JavaScript in your browser or upgrade to a JavaScript-capable browser.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </noscript>
+
 </body>
 
 </html>

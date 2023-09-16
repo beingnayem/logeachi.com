@@ -1,13 +1,14 @@
 {% load static %}
+
 {% if messages %}
     <ul class="messages">
-      {% for message in messages %}
-        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}> 
-          <div class="form-alert">
-            <span class="alert-closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-           <p class="message-data">{{message}}</p>
-          </div>
-        </li>
-      {% endfor %}
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                <div class="form-alert {{ message.tags }}">
+                    <span class="alert-closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    <p class="message-data">{{ message }}</p>
+                </div>
+            </li>
+        {% endfor %}
     </ul>
 {% endif %}
