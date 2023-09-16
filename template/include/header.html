@@ -10,23 +10,15 @@
             <div class="primary-nav">
 
                 <!--====== Main Logo ======-->
-
-                <a class="main-logo" href="index.html">
-
-                    <h2>
-                        LOGEACHI
-                    </h2>
+                <a class="main-logo" href="{% url 'home' %}">
+                    <h2>LOGEACHI</h2>
                 </a>
                 <!--====== End - Main Logo ======-->
 
-
                 <!--====== Search Form ======-->
                 <form class="main-form">
-
                     <label for="main-search"></label>
-
                     <input class="input-text input-text--border-radius input-text--style-1" type="text" id="main-search" placeholder="Search">
-
                     <button class="btn btn--icon fas fa-search main-search-button" type="submit"></button></form>
                 <!--====== End - Search Form ======-->
 
@@ -51,45 +43,50 @@
                                 <span class="js-menu-toggle"></span>
                                 <ul style="width:120px">
                                     {% if user.is_authenticated %}
-                                    <li>
-
-                                        <a href="dashboard.html"><i class="fas fa-user-circle u-s-m-r-6"></i>
-
-                                            <span>Account</span>
-                                        </a>
-                                    </li>
-                                    <li>
-
-                                        <a href="{% url "signout" %}"><i class="fas fa-lock-open u-s-m-r-6"></i>
-
-                                            <span>Signout</span>
-                                        </a>
-                                    </li>
-                                    {% else %}
-                                    <li>
-
-                                        <a href="{% url "signup" %}"><i class="fas fa-user-plus u-s-m-r-6"></i>
-
-                                            <span>Signup</span>
-                                        </a>
-                                    </li>
-                                    <li>
-
-                                        <a href="{% url "signin" %}"><i class="fas fa-lock u-s-m-r-6"></i>
-
-                                            <span>Signin</span>
-                                        </a>
-                                    </li>
+                                    
+                                        {% if user.is_admin %}
+                                            <li>
+                                                <a href="{% url 'admin_panel_dashboard' %}"><i class="fas fa-user-circle u-s-m-r-6"></i>
+                                                    <span>Admin</span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="{% url "signout" %}"><i class="fas fa-lock-open u-s-m-r-6"></i>
+                                                    <span>Signout</span>
+                                                </a>
+                                            </li>
+                                            {% else %}
+                                                <li>
+                                                    <a href="dashboard.html"><i class="fas fa-user-circle u-s-m-r-6"></i>
+                                                        <span>Account</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="{% url "signout" %}"><i class="fas fa-lock-open u-s-m-r-6"></i>
+                                                        <span>Signout</span>
+                                                    </a>
+                                                </li>
+                                        {% endif %}
+                
+                                        {% else %}
+                                        <li>
+                                            <a href="{% url "signup" %}"><i class="fas fa-user-plus u-s-m-r-6"></i>
+                                                <span>Signup</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url "signin" %}"><i class="fas fa-lock u-s-m-r-6"></i>
+                                                <span>Signin</span>
+                                            </a>
+                                        </li>
                                     {% endif %}
                                 </ul>
                                 <!--====== End - Dropdown ======-->
                             </li>
                             <li class="has-dropdown" data-tooltip="tooltip" data-placement="left" title="Settings">
-
                                 <a><i class="fas fa-user-cog"></i></a>
 
                                 <!--====== Dropdown ======-->
-
                                 <span class="js-menu-toggle"></span>
                                 <ul style="width:120px">
                                     <li class="has-dropdown has-dropdown--ul-right-100">
@@ -104,13 +101,10 @@
 
                                                 <a class="u-c-brand">ENGLISH</a></li>
                                             <li>
-
                                                 <a>ARABIC</a></li>
                                             <li>
-
                                                 <a>FRANCAIS</a></li>
                                             <li>
-
                                                 <a>ESPANOL</a></li>
                                         </ul>
                                         <!--====== End - Dropdown ======-->
@@ -142,7 +136,6 @@
 
                                 <a href="tel:+0900901904"><i class="fas fa-phone-volume"></i></a></li>
                             <li data-tooltip="tooltip" data-placement="left" title="Mail">
-
                                 <a href="mailto:contact@domain.com"><i class="far fa-envelope"></i></a></li>
                         </ul>
                         <!--====== End - List ======-->
@@ -954,156 +947,158 @@
                         <!--====== List ======-->
                         <ul class="ah-list ah-list--design1 ah-list--link-color-secondary">
                             <li>
-
-                                <a href="index.html"><i class="fas fa-home u-c-brand"></i></a></li>
-                            <li>
-
-                                <a href="wishlist.html"><i class="far fa-heart"></i></a></li>
-                            <li class="has-dropdown">
-
-                                <a class="mini-cart-shop-link"><i class="fas fa-shopping-bag"></i>
-
-                                    <span class="total-item-round">2</span></a>
-
-                                <!--====== Dropdown ======-->
-
-                                <span class="js-menu-toggle"></span>
-                                <div class="mini-cart">
-
-                                    <!--====== Mini Product Container ======-->
-                                    <div class="mini-product-container gl-scroll u-s-m-b-15">
-
-                                        <!--====== Card for mini cart ======-->
-                                        <div class="card-mini-product">
-                                            <div class="mini-product">
-                                                <div class="mini-product__image-wrapper">
-
-                                                    <a class="mini-product__link" href="product-detail.html">
-
-                                                        <img class="u-img-fluid" src="images/product/electronic/product3.jpg" alt=""></a></div>
-                                                <div class="mini-product__info-wrapper">
-
-                                                    <span class="mini-product__category">
-
-                                                        <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                                    <span class="mini-product__name">
-
-                                                        <a href="product-detail.html">Yellow Wireless Headphone</a></span>
-
-                                                    <span class="mini-product__quantity">1 x</span>
-
-                                                    <span class="mini-product__price">$8</span></div>
-                                            </div>
-
-                                            <a class="mini-product__delete-link far fa-trash-alt"></a>
-                                        </div>
-                                        <!--====== End - Card for mini cart ======-->
-
-
-                                        <!--====== Card for mini cart ======-->
-                                        <div class="card-mini-product">
-                                            <div class="mini-product">
-                                                <div class="mini-product__image-wrapper">
-
-                                                    <a class="mini-product__link" href="product-detail.html">
-
-                                                        <img class="u-img-fluid" src="images/product/electronic/product18.jpg" alt=""></a></div>
-                                                <div class="mini-product__info-wrapper">
-
-                                                    <span class="mini-product__category">
-
-                                                        <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                                    <span class="mini-product__name">
-
-                                                        <a href="product-detail.html">Nikon DSLR Camera 4k</a></span>
-
-                                                    <span class="mini-product__quantity">1 x</span>
-
-                                                    <span class="mini-product__price">$8</span></div>
-                                            </div>
-
-                                            <a class="mini-product__delete-link far fa-trash-alt"></a>
-                                        </div>
-                                        <!--====== End - Card for mini cart ======-->
-
-
-                                        <!--====== Card for mini cart ======-->
-                                        <div class="card-mini-product">
-                                            <div class="mini-product">
-                                                <div class="mini-product__image-wrapper">
-
-                                                    <a class="mini-product__link" href="product-detail.html">
-
-                                                        <img class="u-img-fluid" src="images/product/women/product8.jpg" alt=""></a></div>
-                                                <div class="mini-product__info-wrapper">
-
-                                                    <span class="mini-product__category">
-
-                                                        <a href="shop-side-version-2.html">Women Clothing</a></span>
-
-                                                    <span class="mini-product__name">
-
-                                                        <a href="product-detail.html">New Dress D Nice Elegant</a></span>
-
-                                                    <span class="mini-product__quantity">1 x</span>
-
-                                                    <span class="mini-product__price">$8</span></div>
-                                            </div>
-
-                                            <a class="mini-product__delete-link far fa-trash-alt"></a>
-                                        </div>
-                                        <!--====== End - Card for mini cart ======-->
-
-
-                                        <!--====== Card for mini cart ======-->
-                                        <div class="card-mini-product">
-                                            <div class="mini-product">
-                                                <div class="mini-product__image-wrapper">
-
-                                                    <a class="mini-product__link" href="product-detail.html">
-
-                                                        <img class="u-img-fluid" src="images/product/men/product8.jpg" alt=""></a></div>
-                                                <div class="mini-product__info-wrapper">
-
-                                                    <span class="mini-product__category">
-
-                                                        <a href="shop-side-version-2.html">Men Clothing</a></span>
-
-                                                    <span class="mini-product__name">
-
-                                                        <a href="product-detail.html">New Fashion D Nice Elegant</a></span>
-
-                                                    <span class="mini-product__quantity">1 x</span>
-
-                                                    <span class="mini-product__price">$8</span></div>
-                                            </div>
-
-                                            <a class="mini-product__delete-link far fa-trash-alt"></a>
-                                        </div>
-                                        <!--====== End - Card for mini cart ======-->
-                                    </div>
-                                    <!--====== End - Mini Product Container ======-->
-
-
-                                    <!--====== Mini Product Statistics ======-->
-                                    <div class="mini-product-stat">
-                                        <div class="mini-total">
-
-                                            <span class="subtotal-text">SUBTOTAL</span>
-
-                                            <span class="subtotal-value">$16</span></div>
-                                        <div class="mini-action">
-
-                                            <a class="mini-link btn--e-brand-b-2" href="checkout.html">PROCEED TO CHECKOUT</a>
-
-                                            <a class="mini-link btn--e-transparent-secondary-b-2" href="cart.html">VIEW CART</a></div>
-                                    </div>
-                                    <!--====== End - Mini Product Statistics ======-->
-                                </div>
-                                <!--====== End - Dropdown ======-->
+                                <a href="{% url 'home' %}"><i class="fas fa-home u-c-brand"></i></a>
                             </li>
+                            {% if not user.is_admin %}
+                                <li>
+                                    <a href="{% url 'wishlist' %}"><i class="far fa-heart"></i></a>
+                                </li>
+                                <li class="has-dropdown">
+
+                                    <a class="mini-cart-shop-link"><i class="fas fa-shopping-bag"></i>
+
+                                        <span class="total-item-round">2</span></a>
+
+                                    <!--====== Dropdown ======-->
+
+                                    <span class="js-menu-toggle"></span>
+                                    <div class="mini-cart">
+
+                                        <!--====== Mini Product Container ======-->
+                                        <div class="mini-product-container gl-scroll u-s-m-b-15">
+
+                                            <!--====== Card for mini cart ======-->
+                                            <div class="card-mini-product">
+                                                <div class="mini-product">
+                                                    <div class="mini-product__image-wrapper">
+
+                                                        <a class="mini-product__link" href="product-detail.html">
+
+                                                            <img class="u-img-fluid" src="images/product/electronic/product3.jpg" alt=""></a></div>
+                                                    <div class="mini-product__info-wrapper">
+
+                                                        <span class="mini-product__category">
+
+                                                            <a href="shop-side-version-2.html">Electronics</a></span>
+
+                                                        <span class="mini-product__name">
+
+                                                            <a href="product-detail.html">Yellow Wireless Headphone</a></span>
+
+                                                        <span class="mini-product__quantity">1 x</span>
+
+                                                        <span class="mini-product__price">$8</span></div>
+                                                </div>
+
+                                                <a class="mini-product__delete-link far fa-trash-alt"></a>
+                                            </div>
+                                            <!--====== End - Card for mini cart ======-->
+
+
+                                            <!--====== Card for mini cart ======-->
+                                            <div class="card-mini-product">
+                                                <div class="mini-product">
+                                                    <div class="mini-product__image-wrapper">
+
+                                                        <a class="mini-product__link" href="product-detail.html">
+
+                                                            <img class="u-img-fluid" src="images/product/electronic/product18.jpg" alt=""></a></div>
+                                                    <div class="mini-product__info-wrapper">
+
+                                                        <span class="mini-product__category">
+
+                                                            <a href="shop-side-version-2.html">Electronics</a></span>
+
+                                                        <span class="mini-product__name">
+
+                                                            <a href="product-detail.html">Nikon DSLR Camera 4k</a></span>
+
+                                                        <span class="mini-product__quantity">1 x</span>
+
+                                                        <span class="mini-product__price">$8</span></div>
+                                                </div>
+
+                                                <a class="mini-product__delete-link far fa-trash-alt"></a>
+                                            </div>
+                                            <!--====== End - Card for mini cart ======-->
+
+
+                                            <!--====== Card for mini cart ======-->
+                                            <div class="card-mini-product">
+                                                <div class="mini-product">
+                                                    <div class="mini-product__image-wrapper">
+
+                                                        <a class="mini-product__link" href="product-detail.html">
+
+                                                            <img class="u-img-fluid" src="images/product/women/product8.jpg" alt=""></a></div>
+                                                    <div class="mini-product__info-wrapper">
+
+                                                        <span class="mini-product__category">
+
+                                                            <a href="shop-side-version-2.html">Women Clothing</a></span>
+
+                                                        <span class="mini-product__name">
+
+                                                            <a href="product-detail.html">New Dress D Nice Elegant</a></span>
+
+                                                        <span class="mini-product__quantity">1 x</span>
+
+                                                        <span class="mini-product__price">$8</span></div>
+                                                </div>
+
+                                                <a class="mini-product__delete-link far fa-trash-alt"></a>
+                                            </div>
+                                            <!--====== End - Card for mini cart ======-->
+
+
+                                            <!--====== Card for mini cart ======-->
+                                            <div class="card-mini-product">
+                                                <div class="mini-product">
+                                                    <div class="mini-product__image-wrapper">
+
+                                                        <a class="mini-product__link" href="product-detail.html">
+
+                                                            <img class="u-img-fluid" src="images/product/men/product8.jpg" alt=""></a></div>
+                                                    <div class="mini-product__info-wrapper">
+
+                                                        <span class="mini-product__category">
+
+                                                            <a href="shop-side-version-2.html">Men Clothing</a></span>
+
+                                                        <span class="mini-product__name">
+
+                                                            <a href="product-detail.html">New Fashion D Nice Elegant</a></span>
+
+                                                        <span class="mini-product__quantity">1 x</span>
+
+                                                        <span class="mini-product__price">$8</span></div>
+                                                </div>
+
+                                                <a class="mini-product__delete-link far fa-trash-alt"></a>
+                                            </div>
+                                            <!--====== End - Card for mini cart ======-->
+                                        </div>
+                                        <!--====== End - Mini Product Container ======-->
+
+
+                                        <!--====== Mini Product Statistics ======-->
+                                        <div class="mini-product-stat">
+                                            <div class="mini-total">
+
+                                                <span class="subtotal-text">SUBTOTAL</span>
+
+                                                <span class="subtotal-value">$16</span></div>
+                                            <div class="mini-action">
+
+                                                <a class="mini-link btn--e-brand-b-2" href="checkout.html">PROCEED TO CHECKOUT</a>
+
+                                                <a class="mini-link btn--e-transparent-secondary-b-2" href="cart.html">VIEW CART</a></div>
+                                        </div>
+                                        <!--====== End - Mini Product Statistics ======-->
+                                    </div>
+                                    <!--====== End - Dropdown ======-->
+                                </li>
+                            {% endif %}
                         </ul>
                         <!--====== End - List ======-->
                     </div>

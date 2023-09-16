@@ -1,8 +1,15 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block message_content %}
+    {% include 'include/message.html' %}
+{% endblock message_content %}
+
+
 {% block main_app %}
+
     {% include "include/header.html" %}
+    
         <!--====== App Content ======-->
         <div class="app-content">
 
@@ -121,7 +128,7 @@
 
                                                     <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
 
-                                                        <img class="aspect__img" src="images/product/electronic/product2.jpg" alt=""></a>
+                                                        <img class="aspect__img" src="{{products.0.product_image.url}}" alt=""></a>
                                                     <div class="product-o__action-wrap">
                                                         <ul class="product-o__action-list">
                                                             <li>
@@ -132,7 +139,7 @@
                                                                 <a data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a></li>
                                                             <li>
 
-                                                                <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
+                                                                <a href="{% url 'add_wishlist_item' products.0.id %}" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
                                                             <li>
 
                                                                 <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Email me When the price drops"><i class="fas fa-envelope"></i></a></li>
@@ -142,18 +149,18 @@
 
                                                 <span class="product-o__category">
 
-                                                    <a href="shop-side-version-2.html">Electronics</a></span>
+                                                    <a href="shop-side-version-2.html">{{products.0.product_category}}</a></span>
 
                                                 <span class="product-o__name">
 
-                                                    <a href="product-detail.html">Red Wireless Headphone</a></span>
+                                                    <a href="product-detail.html">{{products.0.product_name}}</a></span>
                                                 <div class="product-o__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
 
                                                     <span class="product-o__review">(23)</span></div>
 
-                                                <span class="product-o__price">$125.00
+                                                <span class="product-o__price">{{products.0.product_price}}
 
-                                                    <span class="product-o__discount">$160.00</span></span>
+                                                    <!-- <span class="product-o__discount">$160.00</span></span> -->
                                             </div>
                                         </div>
                                         <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 u-s-m-b-30 filter__item headphone">
@@ -1832,5 +1839,7 @@
             <!--====== End - Section 12 ======-->
         </div>
         <!--====== End - App Content ======-->
+
     {% include "include/footer.html" %}
+
 {% endblock main_app %}

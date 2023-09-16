@@ -46,7 +46,7 @@ def signup(request):
             email = request.POST['email']
             gender = request.POST['gender']
             password = request.POST['password']
-            confirm_password = request.POST['confirmpassword']
+            confirm_password = request.POST['confrimpassword']
             # print(gender)
             if password != confirm_password:
                 messages.error(request, "Password is not matching")
@@ -155,7 +155,7 @@ class RequestResetEmailView(View):
 
         if user.exists():
             current_site = get_current_site(request)
-            email_sub = '[Reset your Logeachi Password]'
+            email_sub = 'Reset your Logeachi account Password'
             message = render_to_string('accounts/reset-pass-link.html', {
                     'domain': '127.0.0.1:8000',
                     'uid': urlsafe_base64_encode(force_bytes(user[0].pk)),
@@ -165,7 +165,7 @@ class RequestResetEmailView(View):
             email_message = EmailMessage(email_sub, message, settings.EMAIL_HOST_USER, [email],)
             EmailThread(email_message).start()
             messages.info(request, "We have sent an e-mail to reset your password")
-            return render(request, 'accounts/reset-pass-request.html')
+            return redirect('signin')
 
 class SetNewPasswordView(View):
     def get(self, request, uidb64, token):
@@ -180,12 +180,13 @@ class SetNewPasswordView(View):
             user = User.objects.get(pk=user_id)
             # print(f"user type: {type(user)}, value: {user}")
             if not PasswordResetTokenGenerator().check_token(user, token):
-                messages.warning(request, "Password reset e-mail link is invalid")
-                return render(request, 'accounts/not_valid_link.html', context)
+                return render(request, 'accounts/not_valid_link.html')
+            
+            return render(request, 'accounts/reset-pass.html', context)
  
         except (DjangoUnicodeDecodeError, User.DoesNotExist):
             messages.error(request, "Invalid user")
-            return render(request, 'accounts/reset-pass-request.html', context)
+            return redirect('reset-pass-request')
             
         return render(request, 'accounts/reset-pass.html', context)
 
@@ -200,7 +201,7 @@ class SetNewPasswordView(View):
         confirm_password = request.POST['confrimpassword']
         
         if password != confirm_password:
-            messages.error(request, "Password is not matching")
+            messages.error(request, "Password and Confrim Password is not matching")
             return render(request, 'accounts/reset-pass.html', context)
         
         try:

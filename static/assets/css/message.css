@@ -1,29 +1,40 @@
 /* Style for the message box */
 .form-alert {
     position: fixed;
-    top: 30%;
+    top: 20%;
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 15px;
-    background-color: #ff530f;
+    background-color: #b3b2b2;
     border: 1px solid #9b0000;
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     max-width: 500px;
     text-align: center;
   }
+  .message-data{
+    color: #ffffff;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    align-content: center;
+    margin: 3px;
+  }
   
   /* Style for the close button */
   .alert-closebtn {
     position: absolute;
-    top: 5px;
+    top: 1px;
     right: 5px;
     cursor: pointer;
     font-size: 20px;
-    color: #ffffff;
+    color: #000000;
+    text-align: right;
   }
 
   /* Hover effect for the close button */
   .alert-closebtn:hover {
-    color: #f800ba;
+    color: #ff0000;
   }
