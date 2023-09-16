@@ -34,11 +34,12 @@ class EmailThread(threading.Thread):
         self.email_message.send()
 
 def signup(request):
-
+    
     if request.user.is_authenticated:
         return redirect('home')
 
     else:
+        
         if request.method=='POST':
             first_name = request.POST['first_name']
             last_name = request.POST['last_name']
