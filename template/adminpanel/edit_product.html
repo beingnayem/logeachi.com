@@ -50,45 +50,67 @@
                     <label class="product-add-page-form-label" for="product-location">Product Location</label>
                     <input class="product-add-page-form-input" value="{{product.product_location}}" type="text" id="product-location" name="product_location">
                 </div>
-                <div class="product-edit-page-form-group">
-                    <div class="product_edit_checkbox_row">
-                        <label class="product-edit-page-form-label" style="color: rgb(76, 151, 0);">Warrenty Status</label>
-                        <input class="product-edit-page-form-input" disabled type="checkbox" id="product-warrenty-current" name="product_warrenty_current" {% if product.product_warrenty %} value=1 checked {% else %} value=0 {% endif %}>
-                    </div>
-                    <div class="product_edit_checkbox_row">
-                        <label class="product-edit-page-form-label" style="color: rgb(255, 0, 21);">Edit Warrenty Status</label>
-                        <input class="product-edit-page-form-input" type="checkbox" id="product-warrenty" name="product_warrenty" value=1>
-                    </div>
+                <div class="product-add-page-form-group">
+                    <label class="product-add-page-form-label" for="product_warrenty">Product Warrenty</label>
+                    <select class="product-add-page-form-select" id="product-warrenty" name="product_warrenty">
+                        <option value="" disabled selected>
+                            {% if product.product_warrenty %}
+                                Yes
+                                {% else %}
+                                    No
+                            {% endif %}
+                        </option>
+                        <option value="True"  >Yes</option>
+                        <option value="False"  >No</option>
+                    </select>
                 </div>
-                <div class="product-edit-page-form-group">
-                    <div class="product_edit_checkbox_row">
-                        <label class="product-edit-page-form-label" style="color: rgb(76, 151, 0);">Cash Payment Status</label>
-                        <input class="product-edit-page-form-input" disabled type="checkbox" id="product-cash-payment-current" name="product_cash_payment_current" {% if product.product_cash_payment %} value=1 checked {% else %} value=0 {% endif %}>
-                    </div>
-                    <div class="product_edit_checkbox_row">
-                        <label class="product-edit-page-form-label" style="color: rgb(255, 0, 21);">Edit Cash Payment Status</label>
-                        <input class="product-edit-page-form-input" type="checkbox" id="product-cash-payment" name="product_cash_payment" value=1>
-                    </div>
+                <div class="product-add-page-form-group">
+                    <label class="product-add-page-form-label" for="product_cash_payment">Cash Payment</label>
+                    <select class="product-add-page-form-select" id=product-cash-payment" name="product_cash_payment">
+                        <option value="" disabled selected>
+                            <option value="" disabled selected>
+                                {% if product.product_cash_payment %}
+                                    Yes
+                                    {% else %}
+                                        No
+                                {% endif %}
+                            </option>
+                        </option>
+                        <option value="True"  >Yes</option>
+                        <option value="False"  >No</option>
+                    </select>
                 </div>
-                <div class="product-edit-page-form-group">
-                    <div class="product_edit_checkbox_row">
-                        <label class="product-edit-page-form-label" style="color: rgb(76, 151, 0);">Online Payment Status</label>
-                        <input class="product-edit-page-form-input" disabled type="checkbox" id="product-online-payment-current" name="product_online_payment_current" {% if product.product_online_payment %} value=1 checked {% else %} value=0 {% endif %}>
-                    </div>
-                    <div class="product_edit_checkbox_row">
-                        <label class="product-edit-page-form-label" style="color: rgb(255, 0, 21);">Edit Online Payment Status</label>
-                        <input class="product-edit-page-form-input" type="checkbox" id="product-online-payment" name="product_online_payment" value=1>
-                    </div>
+                <div class="product-add-page-form-group">
+                    <label class="product-add-page-form-label" for="product_online_payment">Online Payment</label>
+                    <select class="product-add-page-form-select" id="product-warrenty-payment" name="product_online_payment">
+                        <option value="" disabled selected>
+                            <option value="" disabled selected>
+                                {% if product.product_online_payment %}
+                                    Yes
+                                    {% else %}
+                                        No
+                                {% endif %}
+                            </option>
+                        </option>
+                        <option value="True"  >Yes</option>
+                        <option value="False"  >No</option>
+                    </select>
                 </div>
-                <div class="product-edit-page-form-group">
-                    <div class="product_edit_checkbox_row" style="color: rgb(76, 151, 0);">
-                        <label class="product-edit-page-form-label">Return Policy Status</label>
-                        <input class="product-edit-page-form-input" disabled type="checkbox" id="product-return-current" name="product_return_current" {% if product.product_return %} value=1 checked {% else %} value=0 {% endif %}>
-                    </div>
-                    <div class="product_edit_checkbox_row" style="color: rgb(255, 0, 21);">
-                        <label class="product-edit-page-form-label">Edit Return Policy Status</label>
-                        <input class="product-edit-page-form-input" type="checkbox" id="product-return" name="product_return" value=1>
-                    </div>
+                <div class="product-add-page-form-group">
+                    <label class="product-add-page-form-label" for="product_return">Return Policy</label>
+                    <select class="product-add-page-form-select" id="product-return" name="product_return">
+                        <option value="" disabled selected>
+                            <option value="" disabled selected>
+                                {% if product.product_return %}
+                                    Yes
+                                    {% else %}
+                                        No
+                                {% endif %}
+                            </option>
+                        </option>
+                        <option value="True"  >Yes</option>
+                        <option value="False"  >No</option>
+                    </select>
                 </div>
                 <div class="product-edit-page-form-group-submit-btn">
                     <button class="product-add-page-form-add-product-btn" type="submit">Update Product</button>

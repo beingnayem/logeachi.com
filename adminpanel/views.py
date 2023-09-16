@@ -284,10 +284,10 @@ def edit_product(request):
             product_id = request.POST.get('id')
             product = Product.objects.get(id=product_id)
             
-            current_product_warrenty = product.product_warrenty
-            current_product_cash_payment = product.product_cash_payment
-            current_product_online_payment = product.product_online_payment
-            current_product_return = product.product_return
+            # current_product_warrenty = product.product_warrenty
+            # current_product_cash_payment = product.product_cash_payment
+            # current_product_online_payment = product.product_online_payment
+            # current_product_return = product.product_return
             
             
             # Retrieve product data from the request
@@ -316,17 +316,17 @@ def edit_product(request):
             product.product_description = product_description
             product.product_quantity = product_quantity
             product.product_location = product_location
-            # if product_warrenty:
-            if current_product_warrenty != product_warrenty:
+            if product_warrenty:
+            # if current_product_warrenty != product_warrenty:
                     product.product_warrenty = product_warrenty
-            # if product_cash_payment:
-            if current_product_cash_payment != product_cash_payment:
+            if product_cash_payment:
+            # if current_product_cash_payment != product_cash_payment:
                     product.product_cash_payment = product_cash_payment
-            # if product_online_payment:
-            if current_product_online_payment != product_online_payment:
+            if product_online_payment:
+            # if current_product_online_payment != product_online_payment:
                     product.product_online_payment = product_online_payment
-            # if product_return:
-            if current_product_return != product_return:
+            if product_return:
+            # if current_product_return != product_return:
                     product.product_return = product_return
 
             product.save()

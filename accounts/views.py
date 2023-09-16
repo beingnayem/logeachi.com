@@ -127,11 +127,11 @@ def signin(request):
             if user is not None:
                 if user.is_admin:
                     login(request, user)
-                    messages.success(request, "Admin Signgin successful")
+                    messages.success(request, "Admin Sign in successful")
                     return redirect('admin_panel_dashboard')
                 else:
                     login(request, user)
-                    messages.success(request, "Signgin successful")
+                    messages.success(request, "Sign in successful")
                     return redirect('home')
             else:
                 messages.error(request, "Account not found! Incorrect e-mail or password")
