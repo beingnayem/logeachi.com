@@ -19,90 +19,81 @@
     - custom css link
   -->
 
-  <!-- style css -->
-  <!-- <link rel="stylesheet" href="{% static '../static/assets/css/style.css' %}"> -->
-  <link rel="stylesheet" href="{% static '../static/assets/css/style-prefix.css' %}">
 
   <!-- message css -->
   <link rel="stylesheet" href="{% static '../static/assets/css/message.css' %}">
 
   <!-- Admin Panel CSS -->
-  <link rel="stylesheet" href="{% static '../static/assets/css/admin_panel.css' %}">
-  <link rel="stylesheet" href="{% static '../static/assets/css/team_member.css' %}">
+  <link rel="stylesheet" href="{% static '../static/assets/css/admin panel/admin_panel.css' %}">
+  <link rel="stylesheet" href="{% static '../static/assets/css/admin panel/team_member.css' %}">
+  <link rel="stylesheet" href="{% static '../static/assets/css/admin panel/add_product.css' %}">
+  <link rel="stylesheet" href="{% static '../static/assets/css/admin panel/individual_product_details.css' %}">
 
-  <!-- Signin CSS -->
-  <link rel="stylesheet" href="{% static '../static/assets/css/signin.css' %}">
-
-  <!-- Signup CSS -->
-  <link rel="stylesheet" href="{% static '../static/assets/css/signup.css' %}">
-
-  <!-- Add Prodect CSS -->
-  <link rel="stylesheet" href="{% static '../static/assets/css/add_product.css' %}">
-
-  <!-- Individual Product CSS -->
-  <link rel="stylesheet" href="{% static '../static/assets/css/individual_product_details.css' %}">
-
-  <!-- Show Wishlist CSS -->
-  <link rel="stylesheet" href="{% static '../static/assets/css/show_wishlist.css' %}">
-
-  <!-- pagination css -->
-
-
-  <!-- profile css -->
-
-
-  <!-- address css -->
-
-
-  <!-- whatsapp css -->
-
-
-  <!-- checkout css -->
-
-
-  
+  <!-- General CSS -->
+  <link rel="stylesheet" href="{% static '../static/assets/css/app.css' %}">
+  <link rel="stylesheet" href="{% static '../static/assets/css/utility.css' %}">
+  <link rel="stylesheet" href="{% static '../static/assets/css/vendor.css' %}">
   <!--
     - google font link
   -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<!--====== Google Font ======-->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet">
 
-  <!---Boxicons CDN Setup for icons-->
-  <!-- <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet"> -->
-  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
 </head>
 
 <body>
+  <div id="app">
+    {% block main_app %}
 
-  {% block content %}
-      
 
     
-  {% endblock content %}
-
-
-
-  <!--
-    - custom js link
-  -->
-  <script src="{% static '../static/assets/js/script.js' %}"></script>
-
+    {% endblock main_app %}
+  </div>
+  
   <!-- cart js -->
   <script src="{% static '../static/assets/js/cart.js' %}"></script>
   
   <!-- Admin Panel js -->
-  <script src="{% static '../static/assets/js/admin_panel.js' %}"></script>
+  {% comment %} <script src="{% static '../static/assets/js/admin_panel.js' %}"></script> {% endcomment %}
 
-  <!--
-    - ionicon link
-  -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script>
+      window.ga = function() {
+          ga.q.push(arguments)
+      };
+      ga.q = [];
+      ga.l = +new Date;
+      ga('create', 'UA-XXXXX-Y', 'auto');
+      ga('send', 'pageview')
+    </script>
+    <script src="https://www.google-analytics.com/analytics.js" async defer></script>
+
+    <!--====== Vendor Js ======-->
+    <script src="{% static '../static/assets/js/vendor.js' %}"></script>
+
+    <!--====== jQuery Shopnav plugin ======-->
+    <script src="{% static '../static/assets/js/jquery.shopnav.js' %}"></script>
+    <!--====== App ======-->
+
+    <script src="{% static '../static/assets/js/app.js' %}"></script>
+    <!--====== Noscript ======-->
+    <noscript>
+        <div class="app-setting">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="app-setting__wrap">
+                            <h1 class="app-setting__h1">JavaScript is disabled in your browser.</h1>
+
+                            <span class="app-setting__text">Please enable JavaScript in your browser or upgrade to a JavaScript-capable browser.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </noscript>
+
   
 </body>
 
