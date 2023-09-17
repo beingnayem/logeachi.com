@@ -1,13 +1,24 @@
 from django.db import models
 
+class Main_Category(models.Model):
+    name = models.CharField(max_length=255)
+    
+    def __str__(self):
+        return self.name
+    
+    
+    class Meta:
+        verbose_name = '1. Main Category'
+
 class Category(models.Model):
     name = models.CharField(max_length=255)
+    main_category = models.ForeignKey(Main_Category, on_delete=models.CASCADE, related_name='main_category', null=True)
 
     def __str__(self):
         return self.name
 
     class Meta:
-        verbose_name_plural = "1. Categories"
+        verbose_name_plural = "2. Categories"
 
 class Subcategory(models.Model):
     name = models.CharField(max_length=255)
@@ -17,7 +28,7 @@ class Subcategory(models.Model):
         return self.name
     
     class Meta:
-        verbose_name_plural = "2. Sub Categories"
+        verbose_name_plural = "3. Sub Categories"
 
 # Product Model 
 class Product(models.Model):
@@ -42,7 +53,7 @@ class Product(models.Model):
         return self.product_name
     
     class Meta:
-        verbose_name_plural ="3. Products"
+        verbose_name_plural ="4. Products"
         ordering = ['-product_added_date']
         
 
