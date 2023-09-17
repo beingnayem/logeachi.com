@@ -28,9 +28,10 @@ def ShowWishlist(request):
     
     categories = Category.objects.all()
     wishlist = Wishlist.objects.filter(user=request.user)
-    if not wishlist:
-        return render(request, 'wishlist/empty-wishlist.html')
     wishlist_count = 0
+    if not wishlist:
+        return render(request, 'wishlist/empty-wishlist.html', {'wishlist_count': wishlist_count})
+    
     wishlist_count = Wishlist.objects.filter(user=request.user).count()
         
     context = {
@@ -57,8 +58,8 @@ def clear_wishlist(request):
     if not request.user.is_authenticated:
         return redirect('signin')
     user = request.user
-    wishlist =Wishlist.objects.get(user=user)
-    if wishlist:
-        wishlist.delete()
+    wishlist =Wishlist.objects.filter(user=user)
+    for item in wishlist:
+        item.delete()
     return redirect(request.META.get('HTTP_REFERER'))
 

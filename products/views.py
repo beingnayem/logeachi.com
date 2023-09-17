@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from  products.models import Product, Category
 from django.core.paginator import Paginator
-
+from cart.models import Wishlist
 
 # Create your views here.
 # def get_product(request, slug):
@@ -26,3 +26,15 @@ def category_products(request, pk):
         'products': products
     }
     return render(request, 'products/category-products.html', context)
+
+
+def single_product_page(request, pk):
+    product = Product.objects.get(id=pk)
+    wishlist_count = 0
+    if request.user.is_authenticated:
+        wishlist_count = Wishlist.objects.filter(user=request.user).count()
+    context = {
+        'product': product,
+        'wishlist_count': wishlist_count
+    }
+    return render(request, 'products/single_product_page.html', context)
