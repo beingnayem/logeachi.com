@@ -17,5 +17,8 @@ urlpatterns = [
     path('edit-product/', views.edit_product, name='edit_product'),
     path('delete-product/', views.delete_product, name='delete_product'),
     path('restock-product/', views.restock_product, name='restock_product'),
-    path('individual-product-details/', views.individual_product_details, name='individual_product_details'), 
+    path('individual-product-details/', views.individual_product_details, name='individual_product_details'),
+    path('queries/', views.queries, name='queries'), 
+    path('view-query/', views.view_query, name='view_query'), 
+    path('reply-query/', views.reply_query, name='reply_query'), 
 ]

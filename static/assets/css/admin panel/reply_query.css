@@ -1,0 +1,112 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+}
+
+.query-reply-container {
+    margin-top: 50px;
+    max-width: 50%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.query-reply-container-title{
+    text-align: center;
+    font-size: 35px;
+    font-weight: 600;
+}
+
+.query-reply-form{
+    max-width: 90%;
+}
+
+.query-reply-form-row {
+    margin-bottom: 30px;
+}
+
+.query-form-date-status-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.query-form-col {
+    width: 48%;
+}
+
+.query-reply-form-textarea-row {
+    margin-bottom: 30px;
+}
+
+.query-reply-form-input {
+    width: 82%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    color: #333;
+    font-size: 16px;
+    outline: none;
+    text-align: left;
+    
+}
+
+.query-reply-form-input-extra{
+    width: 50%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    color: #333;
+    font-size: 16px;
+    outline: none;
+    text-align: left;
+}
+
+.query-reply-form-input-textarea{
+    width: 100%;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    color: #333;
+    font-size: 16px;
+    outline: none;
+    text-align: left;
+}
+
+.query-reply-form-input[disabled] {
+    background-color: #eee;
+}
+
+.query-reply-form-label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.query-reply-form-btn-container {
+    text-align: center;
+}
+
+.query-reply-form-submit-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.query-reply-form-submit-button:hover {
+    background-color: #0056b3;
+}
+
+.reply-note {
+    font-size: 14px;
+    color: #888;
+}

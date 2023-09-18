@@ -1,5 +1,5 @@
 from django.contrib import admin
-from home.models import Banner, Subscribers
+from home.models import Banner, Newsletter, Queries
 
 # Register your models here.
 
@@ -11,9 +11,20 @@ class BannerAdmin(admin.ModelAdmin):
         'banner_type'
     ]
     
-@admin.register(Subscribers)
-class SubscribersAdmin(admin.ModelAdmin):
+@admin.register(Newsletter)
+class NewsletterAdmin(admin.ModelAdmin):
     list_display = [
         'pk',
+        'email'
+    ]
+    
+@admin.register(Queries)
+class QueriesAdmin(admin.ModelAdmin):
+    list_display = [
+        'id',
+        'name',
         'email',
+        'subject',
+        'query_date',
+        'query_status'
     ]

@@ -13,6 +13,8 @@ from django.utils.encoding import force_bytes, force_str, DjangoUnicodeDecodeErr
 from django.utils import timezone
 from datetime import timedelta
 from accounts.utils import TokenGenerator, generate_token
+from home.models import Queries
+
 # emails
 from django.core.mail import send_mail, EmailMultiAlternatives, EmailMessage, BadHeaderError
 from django.core import mail
@@ -520,5 +522,82 @@ class admin_signupView(View):
             return redirect('home')
         
         return render(request, 'adminpanel/admin_signup.html', context)   
-
     
+    
+@login_required
+def queries(request):
+    if not request.user.is_admin:
+        return render(request, 'accounts/wrong_path.html')
+    
+    queries = Queries.objects.all()
+    return render(request, 'adminpanel/queries.html', {'queries': queries})
+
+
+@login_required
+def view_query(request):
+    if not request.user.is_admin:
+        return render(request, 'accounts/wrong_path.html')
+    
+    query_id = request.GET.get('id')
+    query = Queries.objects.get(id=query_id)
+    formatted_query_date = query.query_date.strftime('%Y-%m-%d')
+    formatted_reply_date = query.reply_date.strftime('%Y-%m-%d')
+    context = {
+        'query': query, 
+        'formatted_query_date': formatted_query_date, 
+        'formatted_reply_date': formatted_reply_date
+    }
+    return render(request, 'adminpanel/view_query.html', context)
+
+
+@login_required
+def reply_query(request):
+    if not request.user.is_admin:
+        return render(request, 'accounts/wrong_path.html')
+    
+    if request.method == 'POST':
+        query_id = request.POST.get('id')
+        query_reply = request.POST.get('query_reply')
+        
+        query = Queries.objects.get(id=query_id)
+        email = query.email
+        name = query.name
+        subject = query.subject
+
+        try:
+            # Send Query Reply email
+            current_site = get_current_site(request)
+            email_sub = "Query Reply"
+            message = render_to_string('adminpanel/query_replyed_email.html', {
+                'name': name,
+                'subject': subject,
+                'query_reply': query_reply
+            })
+            email_message= EmailMessage(email_sub, message, settings.EMAIL_HOST_USER, [email],)
+            EmailThread(email_message).start()
+
+        except Exception as e:
+            print(f"Error Sending Email: {e}")
+            messages.error(request, 'An error occurred while sending email.')
+            return redirect('queries')
+        
+        query.query_status = 'replyed'
+        query.query_reply = query_reply
+        query.reply_date = timezone.now()
+        query.save()
+        
+        messages.success(request, 'Query reply succesfull')
+        return redirect('queries')
+
+    # If the request method is GET
+    query_id = request.GET.get('id')
+    query = Queries.objects.get(id=query_id)
+    formatted_query_date = query.query_date.strftime('%Y-%m-%d')
+    context = {
+        'query': query, 
+        'formatted_query_date': formatted_query_date, 
+    }
+    
+    return render(request, 'adminpanel/query_reply.html', context)
+
+
