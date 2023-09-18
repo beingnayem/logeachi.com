@@ -1,14 +1,13 @@
 from django.contrib import admin
-from home.models import Banner, Newsletter, Queries
+from home.models import Newsletter, Queries, Home_Slider
 
 # Register your models here.
 
-@admin.register(Banner)
-class BannerAdmin(admin.ModelAdmin):
+@admin.register(Home_Slider)
+class Home_SliderAdmin(admin.ModelAdmin):
     list_display = [
         'pk',
-        'banner_name',
-        'banner_type'
+        'slider_offer'
     ]
     
 @admin.register(Newsletter)

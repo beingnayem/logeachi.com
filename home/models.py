@@ -2,21 +2,12 @@ from django.db import models
 
 # Create your models here.
 
-    
-class Banner(models.Model):
-    TypeChoice=(
-    ('slider','Slider'),
-    ('newslatter', 'Newslatter'), 
-    ('promotion', 'Promotion'), 
-    ('toster', 'Toster'),
-    )
-    banner_name=models.CharField(max_length=200)
-    banner_type=models.CharField(max_length=200, choices=TypeChoice)
-    banner_image=models.ImageField(upload_to='banner')
-    
-
-    def __str__(self) -> str:
-        return self.banner_name
+class Home_Slider(models.Model):
+    slider_banner = models.ImageField(upload_to='slider')
+    slider_offer_title = models.CharField(max_length=155)
+    slider_offer = models.CharField(max_length=155)
+    slider_offer_description = models.CharField(max_length=155)
+    slider_offer_starting_price = models.DecimalField(max_digits=15, decimal_places=2)
 
 class Newsletter(models.Model):
     GenderChoiche=(

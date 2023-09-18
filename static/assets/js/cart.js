@@ -16,3 +16,6 @@ $('.qty-plus').click(function(){
         }
     });
 });
+
+
+
