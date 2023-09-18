@@ -93,7 +93,8 @@
                 <div class="col-lg-4 col-md-12">
                     <div class="outer-footer__content">
                         <span class="outer-footer__content-title">Join our Newsletter</span>
-                        <form class="newsletter">
+                        <form class="newsletter" action="{% url 'join_newsletter' %}" method="POST">
+                            {% csrf_token %}
                             <div class="u-s-m-b-15">
                                 <div class="radio-box newsletter__radio">
                                     <input type="radio" id="male" name="gender">
@@ -110,7 +111,7 @@
                             </div>
                             <div class="newsletter__group">
                                 <label for="newsletter"></label>
-                                <input class="input-text input-text--only-white" type="text" id="newsletter" placeholder="Enter your Email">
+                                <input class="input-text input-text--only-white" name="email" type="email" id="newsletter-email" placeholder="Enter your Email">
                                 <button class="btn btn--e-brand newsletter__btn" type="submit">SUBSCRIBE</button>
                             </div>
                             <span class="newsletter__text">Subscribe to the mailing list to receive updates on promotions, new arrivals, discount and coupons.</span>
