@@ -1,0 +1,27 @@
+{% extends 'adminpanel/admin_panel.html' %}
+
+{% block message_content %}
+    {% include 'include/message.html' %}
+{% endblock message_content %}
+
+{% block admin-panel-main-content %}
+<div class="adminpanelhome-content">
+    <div class="product-add-page-container">
+        <h1 class="product-add-page-container-title">Edit Main Category</h1>
+        <form class="add-product-form" id="product-form" enctype="multipart/form-data" action="{% url 'edit_main_category' %}" method="POST">
+            {% csrf_token %}
+            <div class="product-add-page-form-group">
+                <input type="hidden" name="main_category_id" value="{{ main_category.id }}">
+                <label class="product-add-page-form-label" for="product-name">Name</label>
+                <input value="{{main_category.name}}" class="product-add-page-form-input" type="text" id="product-name" name="name" required>
+            </div>
+            <div class="product-add-page-form-group-submit-btn">
+                <button class="product-add-page-form-add-product-btn" type="submit">Update</button>
+                <button class="product-add-page-form-cancel-btn" name="cancel" style="margin-left: 10px;">Cancel</button>
+            </div>
+        </form>
+        <button class="go-back-btn" onclick="goBack()">Back</button>
+
+    </div>
+</div>
+{% endblock admin-panel-main-content %}

@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from home.models import Banner, Newsletter, Queries
+from home.models import Home_Slider, Newsletter, Queries
 from accounts.models import User
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
@@ -18,9 +18,7 @@ from accounts.views import EmailThread
 
 
 def home(request):
-    sliders= Banner.objects.filter(banner_type='slider')
-    newslatters= Banner.objects.filter(banner_type='newslatter')
-    tosters = Banner.objects.filter(banner_type='toster')
+    sliders= Home_Slider.objects.all()
     main_categories = Main_Category.objects.all()
     products = Product.objects.all()
     # best_solds = Product.objects.order_by('-product_sold_quantity')[:5]
@@ -31,14 +29,13 @@ def home(request):
                 
     context = {
     'sliders': sliders,
-    'newslatters': newslatters,
-    'tosters': tosters,
     'main_categories': main_categories,
     'products': products,
     # 'best_solds': best_solds,
     'wishlist_count': wishlist_count,
     }
     return render(request, 'home/home.html', context)
+
 
 def join_newsletter(request):
     if request.method == 'POST':
@@ -73,18 +70,45 @@ def search(request):
         'categories': Category.objects.all(),
         'products': products
     }
+    
 
     return render(request, 'products/category-products.html', context)
 
 
 def about_us(request):
-    return render(request, 'home/about_us.html')
+    main_categories = Main_Category.objects.all()
+    wishlist_count = 0
+    if request.user.is_authenticated:
+        wishlist_count = Wishlist.objects.filter(user=request.user).count()
+    context = {
+    'main_categories': main_categories,
+    'wishlist_count': wishlist_count,
+    }
+    return render(request, 'home/about_us.html', context=context)
+
 
 def FAQ(request):
-    return render(request, 'home/FAQ.html')
+    main_categories = Main_Category.objects.all()
+    wishlist_count = 0
+    if request.user.is_authenticated:
+        wishlist_count = Wishlist.objects.filter(user=request.user).count()
+    context = {
+    'main_categories': main_categories,
+    'wishlist_count': wishlist_count,
+    }
+    return render(request, 'home/FAQ.html', context=context)
+
 
 def contact_us(request):
-    return render(request, 'home/contact_us.html')
+    main_categories = Main_Category.objects.all()
+    wishlist_count = 0
+    if request.user.is_authenticated:
+        wishlist_count = Wishlist.objects.filter(user=request.user).count()
+    context = {
+    'main_categories': main_categories,
+    'wishlist_count': wishlist_count,
+    }
+    return render(request, 'home/contact_us.html', context=context)
 
 
 def send_query(request):

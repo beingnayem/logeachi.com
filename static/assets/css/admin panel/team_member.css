@@ -16,6 +16,7 @@
     flex-direction: row;
     justify-content: left; /* Align button to the left */
     margin-bottom: 10px;
+    margin-left: 5px;
   }
   
   /* Style for the admin request approve button */
