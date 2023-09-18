@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'adminBase.html' %}
 {% load static %}
 
 {% block message_content %}
@@ -7,7 +7,6 @@
 
 {% block admin_content %}
   <div class='admin-panel'>
-    {% include 'include/message.html' %}
     <div class="adminPanelsidebar">
       <div class="adminPanellogo-details">
         <i class='bx bxs-bank'></i>
@@ -40,9 +39,9 @@
           </li>
 
           <li>
-            <a href="#">
-              <i class='bx bx-book-alt' ></i>
-              <span class="adminPanellinks_name">Total order</span>
+            <a href="{% url 'queries' %}">
+              <i class='bx bx-book-alt'></i>
+              <span class="adminPanellinks_name">Query</span>
             </a>
           </li>
           <li>
@@ -76,7 +75,7 @@
       <nav>
         <div class="AdminPanelsidebar-button">
           <i class='bx bx-menu AdminPanelsidebarBtn'></i>
-          <span class="adminPaneldashboard"><a href="{% url 'admin_panel_dashboard' %}">Logeachi Admin Dashboard</a></span>
+          <a href="{% url 'admin_panel_dashboard' %}"><span class="adminPaneldashboard">Logeachi Admin Dashboard</span></a>
         </div>
         <!-- <div class="adminpanelsearch-box">
           <input type="text" placeholder="Search...">

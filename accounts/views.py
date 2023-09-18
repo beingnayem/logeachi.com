@@ -4,7 +4,7 @@ from django.views.generic import View
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from home.models import Subscribers
+from home.models import Newsletter
 # Reset password token
 from django.contrib.auth.tokens  import PasswordResetTokenGenerator
 # to activate account
@@ -63,7 +63,7 @@ def signup(request):
                 if request.POST.get('subscribe_newsletter'):
                     SubscriberExist= Subscribers.objects.filter(email=email).exists()
                     if not SubscriberExist:
-                        Subscribers.objects.create(email=email)
+                        Subscribers.objects.create(email=email, gender=gender)
                 
                 # Send Activation link email
                 current_site = get_current_site(request)

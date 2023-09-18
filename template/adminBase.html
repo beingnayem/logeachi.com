@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Logeachi Admin</title>
+
+  <!--
+    - favicon
+  -->
+  <link rel="shortcut icon" href="../static/assets/images/favicon.png" type="image/x-icon">
+
+  <!--
+    - custom css link
+  -->
+
+  <!-- message css -->
+  <link rel="stylesheet" href="{% static '../static/assets/css/message.css' %}">
+
+  <!-- Admin Panel CSS -->
+  <link rel="stylesheet" href="{% static '../static/assets/css/admin panel/admin_panel.css' %}">
+  <link rel="stylesheet" href="{% static '../static/assets/css/admin panel/team_member.css' %}">
+  <link rel="stylesheet" href="{% static '../static/assets/css/admin panel/add_product.css' %}">
+  <link rel="stylesheet" href="{% static '../static/assets/css/admin panel/individual_product_details.css' %}">
+  <link rel="stylesheet" href="{% static '../static/assets/css/admin panel/reply_query.css' %}">
+
+  <!--====== Font Link ======-->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.0.7/css/boxicons.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
+
+</head>
+
+<body>
+
+
+    {% block message_content %}
+        
+    {% endblock message_content %}
+    
+    {% block admin_content %}
+        
+    {% endblock admin_content %}
+
+    <div class="preloader is-active">
+        <div class="preloader__wrap">
+            <img class="preloader__img" src="{% static '../static/assets/images/preloader.png' %}" alt="">
+        </div>
+    </div>
+
+
+
+  <!-- Admin Panel js -->
+  <script src="{% static '../static/assets/js/admin_panel.js' %}"></script>
+
+
+
+  <!--====== Noscript ======-->
+  <noscript>
+    <div class="app-setting">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="app-setting__wrap">
+              <h1 class="app-setting__h1">JavaScript is disabled in your browser.</h1>
+              <span class="app-setting__text">Please enable JavaScript in your browser or upgrade to a JavaScript-capable browser.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </noscript>
+
+</body>
+
+</html>

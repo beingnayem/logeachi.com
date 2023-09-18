@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from home.models import Banner, Subscribers
+from home.models import Banner, Newsletter, Queries
 from accounts.models import User
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
@@ -7,6 +7,14 @@ from django.contrib import messages
 from products.models import Category, Subcategory, Product, Main_Category
 from django.contrib.auth.decorators import login_required
 from cart.models import Wishlist
+
+# emails
+from django.contrib.sites.shortcuts import get_current_site
+from django.template.loader import render_to_string
+from django.core.mail import send_mail, EmailMultiAlternatives, EmailMessage, BadHeaderError
+from django.core import mail
+from django.conf import settings
+from accounts.views import EmailThread
 
 
 def home(request):
@@ -32,25 +40,21 @@ def home(request):
     }
     return render(request, 'home/home.html', context)
 
-def registerSunbscriberView(request):
+def join_newsletter(request):
     if request.method == 'POST':
         email = request.POST.get('email')
+        gender = request.POST.get('gender')
         # Check if a user with the given email exists
-        user_exists = Subscribers.objects.filter(email=email).exists()
+        user_exists = Newsletter.objects.filter(email=email).exists()
         
         if not user_exists:
             # If the user does not exist, create a new Subscriber
-            Subscribers.objects.create(email=email)
-            messages.error(request, "You have successfully subscribed to Logeachi Dot Com newslatter.")
-            return redirect('home')
+            Newsletter.objects.create(email=email, gender=gender)
+            messages.error(request, "You have successfully subscribed to Logeachi Newsletter.")
+            return redirect(request.META.get('HTTP_REFERER'))
         else:
             messages.error(request, "This e-mail is already subscribed")
-            return redirect('home')
-    
-    return redirect('home')
-
-
-
+            return redirect(request.META.get('HTTP_REFERER'))
 
 
 # Search options for keywords
@@ -72,3 +76,36 @@ def search(request):
 
     return render(request, 'products/category-products.html', context)
 
+
+def about_us(request):
+    return render(request, 'home/about_us.html')
+
+def FAQ(request):
+    return render(request, 'home/FAQ.html')
+
+def contact_us(request):
+    return render(request, 'home/contact_us.html')
+
+
+def send_query(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        subject = request.POST.get('subject')
+        query_message = request.POST.get('query_message')
+        
+        Queries.objects.create(name=name, email=email, subject=subject, query_message=query_message)
+        
+        # Send Query accepted confirmation email
+        current_site = get_current_site(request)
+        email_sub = "Query recived confirmation"
+        message = render_to_string('adminpanel/query_recived.html', {
+            'name': name,
+            'subject': subject
+        })
+        email_message= EmailMessage(email_sub, message, settings.EMAIL_HOST_USER, [email],)
+        EmailThread(email_message).start()
+        
+        messages.error(request, "Your querie has sent. We will reply to you soon.")
+        return redirect(request.META.get('HTTP_REFERER'))
+    
