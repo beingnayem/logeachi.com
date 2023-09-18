@@ -1,10 +1,13 @@
 from django.contrib import admin
 from .models import *
 # # Register your models here.
-    
+@admin.register(Main_Category)
+class MainCategory(admin.ModelAdmin):
+    list_display = ['id', 'name']
+
 @admin.register(Category)
 class CategoryAdminModel(admin.ModelAdmin):
-    list_display = ['id', 'name']
+    list_display = ['id', 'name', 'main_category']
     
 @admin.register(Subcategory)
 class SubcategoryAdminModel(admin.ModelAdmin):
