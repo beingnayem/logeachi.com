@@ -190,7 +190,7 @@
                                                 {% for main_category in main_categories %}
                                                 <li class="js-active">
 
-                                                    <a href="shop-side-version-2.html">
+                                                    <a href="{% url "main_category_products" main_category.pk %}">
 
                                                         <span> {{main_category.name}} </span></a>
 
@@ -206,11 +206,11 @@
                                                         <div class="col-lg-3">
                                                             <ul>
                                                                 <li class="mega-list-title">
-                                                                    <a href="shop-side-version-2.html">{{ category.name }}</a>
+                                                                    <a href="{% url "category_products" category.pk %}">{{ category.name }}</a>
                                                                 </li>
                                                                 {% for sub_category in category.category.all %}
                                                                     <li>
-                                                                        <a href="shop-side-version-2.html">{{ sub_category.name }}</a>
+                                                                        <a href="{% url "sub_category_products" sub_category.pk %}">{{ sub_category.name }}</a>
                                                                     </li>
                                                                 {% endfor %}
                                                             </ul>
