@@ -1,4 +1,5 @@
 from django.db import models
+from accounts.models import User
 
 class Main_Category(models.Model):
     name = models.CharField(max_length=255)
@@ -57,8 +58,18 @@ class Product(models.Model):
         ordering = ['-product_added_date']
         
         
-class product_reviews(models.Model):
-        
+class Product_Reviews(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    user_name = models.CharField(max_length=255)
+    user_email = models.EmailField(max_length=255)
+    review = models.TextField(max_length=255)
+    review_date = models.DateTimeField(auto_now_add=True, null=True)
+    def __str__(self):
+        return self.product.product_name
+    
+
+    class Meta:
+        verbose_name_plural ="5. ProductReview"
 
 # class Order(models.Model):
 #     customer = models.ForeignKey(User, on_delete=models.CASCADE)

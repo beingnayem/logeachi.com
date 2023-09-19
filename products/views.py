@@ -1,7 +1,8 @@
 from django.shortcuts import render
-from  products.models import Product, Category, Main_Category, Subcategory
+from  products.models import Product, Category, Main_Category, Subcategory, Product_Reviews
 from django.core.paginator import Paginator
 from cart.models import Wishlist
+from django.http import HttpResponseRedirect
 
 # Create your views here.    
 
@@ -88,8 +89,23 @@ def single_product_page(request, pk):
     wishlist_count = 0
     if request.user.is_authenticated:
         wishlist_count = Wishlist.objects.filter(user=request.user).count()
+    review_count = None
+    reviews = Product_Reviews.objects.filter(product=product)
+    review_count = reviews.count()
     context = {
         'product': product,
+        'reviews': reviews,
+        'review_count': review_count,
         'wishlist_count': wishlist_count
     }
     return render(request, 'products/single_product_page.html', context)
+
+def add_review(request, pk):
+    get_method =  request.GET.copy()
+    review = get_method.get('review')
+    name = get_method.get('name')
+    email = get_method.get('email')
+    product = Product.objects.get(id=pk)
+    if review is not None and name is not None and email is not None and product is not None:
+        Product_Reviews.objects.create(product=product, user_name=name, user_email=email, review=review)
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
