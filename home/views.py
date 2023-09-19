@@ -25,14 +25,15 @@ def home(request):
     wishlist_count = 0
     if request.user.is_authenticated:
         wishlist_count = Wishlist.objects.filter(user=request.user).count()
-  
-                
+    new_arrivals = products.order_by('product_added_date')[:8]
+    special_products = Product.objects.exclude(product_brand="No Brand")
     context = {
-    'sliders': sliders,
-    'main_categories': main_categories,
-    'products': products,
-    # 'best_solds': best_solds,
-    'wishlist_count': wishlist_count,
+        'sliders': sliders,
+        'main_categories': main_categories,
+        'products': products,
+        'new_arrivals': new_arrivals,
+        'special_products': special_products, 
+        'wishlist_count': wishlist_count,
     }
     return render(request, 'home/home.html', context)
 
@@ -60,19 +61,26 @@ def search(request):
     key_words = get_method.get('keywords') or None
     product = Product.objects.all()
     products = []  
+    product_count = 0
     print(key_words)
     if key_words:
         key_word = get_method.get('keywords')
         products = product.filter(product_description__icontains=key_word)
+        product_count = products.count()
+    wishlist_count = 0
+    if request.user.is_authenticated:
+        wishlist_count = Wishlist.objects.filter(user=request.user).count()    
     
 
     context= {
-        'categories': Category.objects.all(),
-        'products': products
+        'main_categories': Main_Category.objects.all(),
+        'products': products,
+        'product_count': product_count,
+        'wishlist_count': wishlist_count,
     }
     
 
-    return render(request, 'products/category-products.html', context)
+    return render(request, 'products/category_products.html', context)
 
 
 def about_us(request):
@@ -110,7 +118,7 @@ def contact_us(request):
     }
     return render(request, 'home/contact_us.html', context=context)
 
-
+  
 def send_query(request):
     if request.method == 'POST':
         name = request.POST.get('name')

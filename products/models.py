@@ -1,4 +1,5 @@
 from django.db import models
+from accounts.models import User
 
 class Main_Category(models.Model):
     name = models.CharField(max_length=255)
@@ -25,7 +26,7 @@ class Subcategory(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='category')
     
     def __str__(self):
-        return self.name
+        return self.name 
     
     class Meta:
         verbose_name_plural = "3. Sub Categories"
@@ -56,6 +57,19 @@ class Product(models.Model):
         verbose_name_plural ="4. Products"
         ordering = ['-product_added_date']
         
+        
+class Product_Reviews(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    user_name = models.CharField(max_length=255)
+    user_email = models.EmailField(max_length=255)
+    review = models.TextField(max_length=255)
+    review_date = models.DateTimeField(auto_now_add=True, null=True)
+    def __str__(self):
+        return self.product.product_name
+    
+
+    class Meta:
+        verbose_name_plural ="5. ProductReview"
 
 # class Order(models.Model):
 #     customer = models.ForeignKey(User, on_delete=models.CASCADE)
