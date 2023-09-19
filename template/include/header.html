@@ -21,13 +21,14 @@
 
 
                 <!--====== Search Form ======-->
-                <form class="main-form">
+                <form class="main-form" action="{% url "search" %}" method="GET">
 
                     <label for="main-search"></label>
 
-                    <input class="input-text input-text--border-radius input-text--style-1" type="text" id="main-search" placeholder="Search">
+                    <input class="input-text input-text--border-radius input-text--style-1" type="text" id="main-search" name="keywords" placeholder="Search">
 
-                    <button class="btn btn--icon fas fa-search main-search-button" type="submit"></button></form>
+                    <button class="btn btn--icon fas fa-search main-search-button" type="submit"></button>
+                </form>
                 <!--====== End - Search Form ======-->
 
 
@@ -243,29 +244,22 @@
                         <!--====== List ======-->
                         <ul class="ah-list ah-list--design2 ah-list--link-color-secondary">
                             <li>
-
-                                <a href="shop-side-version-2.html">NEW ARRIVALS</a>
+                                <a href="#">NEW ARRIVALS</a>
                             </li>
-                            
                             <li class="has-dropdown">
-
                                 <a>BLOG</a>
                             </li>
                             <li>
-
-                                <a href="shop-side-version-2.html">VALUE OF THE DAY</a>
+                                <a href="#">VALUE OF THE DAY</a>
                             </li>
                             <li>
-
-                                <a href="shop-side-version-2.html">F&Q</a>
+                                <a href="{% url 'FAQ' %}">F&Q</a>
                             </li>
                             <li>
-
-                                <a href="shop-side-version-2.html">ABOUT US</a>
+                                <a href="{% url 'about_us' %}">ABOUT US</a>
                             </li>
                             <li>
-
-                                <a href="shop-side-version-2.html">CONTACT US</a>
+                                <a href="{% url 'contact_us' %}">CONTACT US</a>
                             </li>
                         </ul>
                         <!--====== End - List ======-->

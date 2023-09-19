@@ -1,16 +1,4 @@
-/*
-Theme Name: Ludus
-Author: ahfront
-Description: Ludus - is complete multipurpose polish eCommerce template built with
-best practices. It will be perfect solution for your current or future shop, customizable
-into any store contains responsiveness & great UI. Well tested on compatible browsers.
-The template contains 40+ HTML files, 3 Homepages, 3 Header Styles, 12 Dashboard Pages,
-3 Product Pages, 7 Shop Pages, 5 Blog Pages, Box mode and generated 10 Color variations but could
-create unlimited colors.
-Version: 1.0.0
-Tags: one-column, two-columns, three-columns, four-columns, right-sidebar,
-custom-colors, box-mode, custom-header, custom-menu, custom-logo, featured-images
-*/
+
 /*--------------------------------------------------------------
 >>> TABLE OF CONTENTS:
 ----------------------------------------------------------------
@@ -1370,7 +1358,10 @@ input::-ms-clear {
         justify-content: space-between;
     margin-bottom: 6px; }
   .product-r__name, .product-r__price {
-    -ms-flex: 0 1 auto; }
+    -ms-flex: 0 1 auto;
+    flex: 0 1 auto; /* Standard flex property */
+  }
+  
   .product-r__name {
     display: block; }
     .product-r__name > a {
@@ -2134,7 +2125,11 @@ input::-ms-clear {
     -ms-flex-align: center;
         align-items: center; }
   .lower-footer__copyright, .lower-footer__payment {
-    -ms-flex: 0 1 auto; }
+    -ms-flex: 0 1 auto; /* Vendor-specific property */
+    flex: 0 1 auto; /* Standard flex property */
+  }
+      
+
   .lower-footer__copyright span {
     font-size: 13px;
     color: #ffffff; }
@@ -2551,7 +2546,9 @@ input::-ms-clear {
   box-shadow: 0 6px 15px 0 rgba(36, 37, 38, 0.08);
   border: 2px solid #f5f5f5; }
   .service__icon, .service__info-wrap {
-    -ms-flex: 0 1 auto; }
+    -ms-flex: 0 1 auto; /* Vendor-specific property */
+    flex: 0 1 auto; /* Standard flex property */
+  }
   .service__icon {
     margin-right: 20px; }
     .service__icon > i {
@@ -2871,7 +2868,10 @@ input::-ms-clear {
     -ms-flex-pack: justify;
         justify-content: space-between; }
   .w-r__wrap-1, .w-r__wrap-2 {
-    -ms-flex: 0 1 auto; }
+    -ms-flex: 0 1 auto; /* Vendor-specific property */
+    flex: 0 1 auto; /* Standard flex property */
+  }
+      
   .w-r__wrap-1 {
     display: -ms-flexbox;
     display: flex;
@@ -2940,7 +2940,10 @@ input::-ms-clear {
   -ms-flex-pack: justify;
       justify-content: space-between; }
   .route-box__g {
-    -ms-flex: 0 1 auto; }
+    -ms-flex: 0 1 auto; /* Vendor-specific property */
+    flex: 0 1 auto; /* Standard flex property */
+  }
+    
   .route-box__link {
     color: #333333;
     font-size: 13px;
@@ -4152,21 +4155,23 @@ input::-ms-clear {
     border-bottom: 1px solid #333333;
     font-weight: 600;
     color: #333333;
-    transition: color 110ms ease-in-out,border-color 110ms ease-in-out; }
+    transition: color 110ms ease-in-out,border-color 110ms ease-in-out; 
+  }
     .bp-detail__postnp a:hover {
       color: #ff4500;
-      border-color: #ff4500; }
+      border-color: #ff4500; 
+    }
 
-.blog-w__h {
+  .blog-w__h {
   display: block;
-  vertical-align: middle;
   font-size: 16px;
   color: #333333;
   letter-spacing: 0.03em;
   font-weight: 600;
   margin-bottom: 24px;
   padding-bottom: 12px;
-  border-bottom: 1px solid #f7f7f7; }
+  border-bottom: 1px solid #f7f7f7;
+  }
 
 .blog-w__list {
   margin: 0;
@@ -6036,12 +6041,12 @@ input::-ms-clear {
 
 .hero-slide {
   background: center center/cover no-repeat; }
-  .hero-slide--1 {
+  /* .hero-slide--1 {
     background-image: url(../images/slider/slide-1.jpg); }
   .hero-slide--2 {
     background-image: url(../images/slider/slide-2.jpg); }
   .hero-slide--3 {
-    background-image: url(../images/slider/slide-3.jpg); }
+    background-image: url(../images/slider/slide-3.jpg); } */
   .hero-slide--4 {
     background-image: url(../images/slider/slide-4.jpg); }
   .hero-slide--5 {

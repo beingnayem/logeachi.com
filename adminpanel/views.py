@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from accounts.models import User
 from django.views.generic import View
-from products.models import Product, Subcategory
+from products.models import Product, Main_Category, Category, Subcategory
 from django.contrib import messages
 from django.contrib.auth.tokens  import PasswordResetTokenGenerator
 from django.contrib.sites.shortcuts import get_current_site
@@ -13,6 +13,8 @@ from django.utils.encoding import force_bytes, force_str, DjangoUnicodeDecodeErr
 from django.utils import timezone
 from datetime import timedelta
 from accounts.utils import TokenGenerator, generate_token
+from home.models import Queries
+
 # emails
 from django.core.mail import send_mail, EmailMultiAlternatives, EmailMessage, BadHeaderError
 from django.core import mail
@@ -265,8 +267,8 @@ def add_product(request):
 
     # If it's a GET request, fetch an empty list of categories
     else:
-        categories = Subcategory.objects.all()
-        return render(request, 'adminpanel/add_product.html', {'categories': categories})
+        sub_categories = Subcategory.objects.all()
+        return render(request, 'adminpanel/add_product.html', {'sub_categories': sub_categories})
 
 
 @login_required
@@ -367,7 +369,7 @@ def delete_product(request):
             messages.error(request, 'An error occurred while deleting the product.')
             return redirect('product_list')
     
-    return render(request, 'adminpanel/edit_product.html', {'categories': categories, 'product': product})
+    return redirect(request.META.get('HTTP_REFERER'))
 
 
 @login_required
@@ -458,6 +460,7 @@ class admin_signup_requestView(View):
             messages.error(request, "This email is already registered")
             return render(request, 'adminpanel/admin_signup_request.html')
 
+
 class admin_signupView(View):
 
     def get(self, request, uidb64, token):
@@ -520,5 +523,381 @@ class admin_signupView(View):
             return redirect('home')
         
         return render(request, 'adminpanel/admin_signup.html', context)   
-
     
+    
+@login_required
+def queries(request):
+    if not request.user.is_admin:
+        return render(request, 'accounts/wrong_path.html')
+    
+    queries = Queries.objects.all()
+    return render(request, 'adminpanel/queries.html', {'queries': queries})
+
+
+@login_required
+def view_query(request):
+    if not request.user.is_admin:
+        return render(request, 'accounts/wrong_path.html')
+    
+    query_id = request.GET.get('id')
+    query = Queries.objects.get(id=query_id)
+    formatted_query_date = query.query_date.strftime('%Y-%m-%d')
+    formatted_reply_date = query.reply_date.strftime('%Y-%m-%d')
+    context = {
+        'query': query, 
+        'formatted_query_date': formatted_query_date, 
+        'formatted_reply_date': formatted_reply_date
+    }
+    return render(request, 'adminpanel/view_query.html', context)
+
+
+@login_required
+def reply_query(request):
+    if not request.user.is_admin:
+        return render(request, 'accounts/wrong_path.html')
+    
+    if request.method == 'POST':
+        query_id = request.POST.get('id')
+        query_reply = request.POST.get('query_reply')
+        
+        query = Queries.objects.get(id=query_id)
+        email = query.email
+        name = query.name
+        subject = query.subject
+
+        try:
+            # Send Query Reply email
+            current_site = get_current_site(request)
+            email_sub = "Query Reply"
+            message = render_to_string('adminpanel/query_replyed_email.html', {
+                'name': name,
+                'subject': subject,
+                'query_reply': query_reply
+            })
+            email_message= EmailMessage(email_sub, message, settings.EMAIL_HOST_USER, [email],)
+            EmailThread(email_message).start()
+
+        except Exception as e:
+            print(f"Error Sending Email: {e}")
+            messages.error(request, 'An error occurred while sending email.')
+            return redirect('queries')
+        
+        query.query_status = 'replyed'
+        query.query_reply = query_reply
+        query.reply_date = timezone.now()
+        query.save()
+        
+        messages.success(request, 'Query reply succesfull')
+        return redirect('queries')
+
+    # If the request method is GET
+    query_id = request.GET.get('id')
+    query = Queries.objects.get(id=query_id)
+    formatted_query_date = query.query_date.strftime('%Y-%m-%d')
+    context = {
+        'query': query, 
+        'formatted_query_date': formatted_query_date, 
+    }
+    
+    return render(request, 'adminpanel/query_reply.html', context)
+
+
+@login_required
+def main_categoryView(request):
+    if not request.user.is_admin:
+        return render(request, 'accounts/wrong_path.html')
+
+    main_categories= Main_Category.objects.all()
+    return render(request, 'adminpanel/main_category_list.html', {'main_categories': main_categories})
+
+
+@login_required
+def categoryView(request):
+    if not request.user.is_admin:
+        return render(request, 'accounts/wrong_path.html')
+
+    categories= Category.objects.all()
+    return render(request, 'adminpanel/category_list.html', {'categories': categories})
+
+
+@login_required
+def sub_categoryView(request):
+    if not request.user.is_admin:
+        return render(request, 'accounts/wrong_path.html')
+
+    sub_categories= Subcategory.objects.all()
+    return render(request, 'adminpanel/sub_category_list.html', {'sub_categories': sub_categories})
+
+
+@login_required
+def add_main_category(request):
+    if not request.user.is_admin:
+        return render(request, 'accounts/wrong_path.html')
+        
+    # Getting main category data
+    if request.method == 'POST':
+        try:
+            name = request.POST.get('name')
+            
+            Main_Category.objects.create(name=name)
+
+            messages.success(request, 'Main Category added successfully')
+            return redirect('main_category_list')
+        
+        except Exception as e:
+            messages.error(request, 'An error occurred while adding mian category.')
+            return redirect('main_category_list')
+        
+    # If it's a GET request
+    else:
+        return render(request, 'adminpanel/add_main_category.html')
+
+
+@login_required
+def add_category(request):
+    if not request.user.is_admin:
+        return render(request, 'accounts/wrong_path.html')
+        
+    # Getting category data
+    if request.method == 'POST':
+        try:
+            name = request.POST.get('name')
+            main_category_id = request.POST.get('main_category_id')
+            
+            main_category = Main_Category.objects.get(id=main_category_id)
+
+            Category.objects.create(name=name, main_category=main_category)
+
+            messages.success(request, 'Category added successfully')
+            return redirect('category_list')
+        
+        except Exception as e:
+            messages.error(request, 'An error occurred while adding category.')
+            return redirect('category_list')
+        
+    # If it's a GET request, fetch an empty list of main categories
+    else:
+        main_categories = Main_Category.objects.all()
+        return render(request, 'adminpanel/add_category.html', {'main_categories': main_categories})
+  
+
+@login_required
+def add_sub_category(request):
+    if not request.user.is_admin:
+        return render(request, 'accounts/wrong_path.html')
+        
+    # Getting sub category data
+    if request.method == 'POST':
+        try:
+            name = request.POST.get('name')
+            category_id = request.POST.get('category_id')
+            
+            category = Category.objects.get(id=category_id)
+            
+            Subcategory.objects.create(name=name, category=category)
+
+            messages.success(request, 'Sub Category added successfully')
+            return redirect('sub_category_list')
+        
+        except Exception as e:
+            print(f"Error adding sub category: {e}")
+            messages.error(request, 'An error occurred while adding sub category.')
+            return redirect('sub_category_list')
+            
+        
+    # If it's a GET request, fetch an empty list of categories
+    else:
+        categories = Category.objects.all()
+        return render(request, 'adminpanel/add_sub_category.html', {'categories': categories})
+    
+    
+@login_required
+def edit_main_category(request):
+    if not request.user.is_admin:
+        return render(request, 'accounts/wrong_path.html')
+    
+    if 'cancel' in request.POST:
+        # Redirect to the main category list without showing the success message
+        return redirect('main_category_list')
+    
+    if request.method == 'POST':
+        try:
+            # get main_category by id
+            main_category_id = request.POST.get('main_category_id')
+            main_category = Main_Category.objects.get(id=main_category_id)
+            
+            # Retrieve main category data from the request
+            name = request.POST.get('name')
+            
+            if main_category:
+                if name:
+                    main_category.name = name 
+                main_category.save()
+                
+                messages.success(request, 'Main Category Edited Successfully.')
+                return redirect('main_category_list')
+        
+        except Exception as e:
+            messages.error(request, 'An error occurred while editing the main category.')
+            return redirect('main_category_list')
+    
+    # If it's a GET request
+    main_category_id = request.GET.get('main_category_id')
+    main_category = Main_Category.objects.get(id=main_category_id)
+    
+    return render(request, 'adminpanel/edit_main_category.html', {'main_category': main_category})
+
+
+@login_required
+def edit_category(request):
+    if not request.user.is_admin:
+        return render(request, 'accounts/wrong_path.html')
+    
+    if 'cancel' in request.POST:
+        # Redirect to the category list without showing the success message
+        return redirect('category_list')
+    
+    if request.method == 'POST':
+        try:
+            # get category by id
+            name = request.POST.get('name')
+            category_id = request.POST.get('category_id')
+            main_category_id = request.POST.get('main_category_id')
+            category = Category.objects.get(id=category_id)
+            
+            
+            # Retrieve category data from the request
+            
+            if category:
+                if name:
+                    category.name = name 
+                if main_category_id:
+                    main_category = Main_Category.objects.get(id=main_category_id)
+                    category.main_category=main_category
+                category.save()
+                
+                messages.success(request, 'Category edited successfully.')
+                return redirect('category_list')
+        
+        except Exception as e:
+            messages.error(request, 'An error occurred while editing the category.')
+            return redirect('category_list')
+    
+    # If it's a GET request, fetch the list of main categories and render the edit form
+    category_id = request.GET.get('category_id')
+    category = Category.objects.get(id=category_id)
+    main_categories = Main_Category.objects.all()
+    
+    return render(request, 'adminpanel/edit_category.html', {'category': category, 'main_categories': main_categories})
+
+
+@login_required
+def edit_sub_category(request):
+    if not request.user.is_admin:
+        return render(request, 'accounts/wrong_path.html')
+    
+    if 'cancel' in request.POST:
+        # Redirect to the category list without showing the success message
+        return redirect('sub_category_list')
+    
+    if request.method == 'POST':
+        try:
+            # get sub category by id
+            name = request.POST.get('name')
+            sub_category_id = request.POST.get('sub_category_id')
+            category_id = request.POST.get('category_id')
+            sub_category = Subcategory.objects.get(id=sub_category_id)
+            
+            # Retrieve sub category data from the request
+            
+            if sub_category:
+                if name:
+                    sub_category.name = name 
+                if category_id:
+                    category = Category.objects.get(id=category_id)
+                    sub_category.category = category
+                sub_category.save()
+                
+                messages.success(request, 'Sub Category edited successfully.')
+                return redirect('sub_category_list')
+        
+        except Exception as e:
+            messages.error(request, 'An error occurred while editing the sub category.')
+            return redirect('sub_category_list')
+    
+    # If it's a GET request, fetch the list of categories and render the edit form
+    sub_category_id = request.GET.get('sub_category_id')
+    sub_category = Subcategory.objects.get(id=sub_category_id)
+    categories = Category.objects.all()
+    
+    return render(request, 'adminpanel/edit_sub_category.html', {'sub_category': sub_category, 'categories': categories})
+    
+    
+@login_required
+def delete_main_category(request):
+    if not request.user.is_admin:
+        return render(request, 'accounts/wrong_path.html')
+    
+    if request.method == 'GET':
+        try:
+            # get main category by id
+            main_category_id = request.GET.get('main_category_id')
+            main_category = get_object_or_404(Main_Category, id=main_category_id)
+            main_category.delete()
+
+            messages.success(request, 'Main Category deleted successfully.')
+            return redirect(request.META.get('HTTP_REFERER'))
+        
+        except Exception as e:
+            print(f"Error deleting main category: {e}")
+            messages.error(request, 'An error occurred while deleting the main category.')
+            return redirect(request.META.get('HTTP_REFERER'))
+    
+    return redirect(request.META.get('HTTP_REFERER'))
+
+
+@login_required
+def delete_category(request):
+    if not request.user.is_admin:
+        return render(request, 'accounts/wrong_path.html')
+    
+    if request.method == 'GET':
+        try:
+            # get category by id
+            category_id = request.GET.get('category_id')
+            category = get_object_or_404(Category, id=category_id)
+            category.delete()
+
+            messages.success(request, 'Category deleted successfully.')
+            return redirect(request.META.get('HTTP_REFERER'))
+        
+        except Exception as e:
+            print(f"Error deleting category: {e}")
+            messages.error(request, 'An error occurred while deleting the category.')
+            return redirect(request.META.get('HTTP_REFERER'))
+    
+    return redirect(request.META.get('HTTP_REFERER'))
+
+
+
+@login_required
+def delete_sub_category(request):
+    if not request.user.is_admin:
+        return render(request, 'accounts/wrong_path.html')
+    
+    if request.method == 'GET':
+        try:
+            # get sub category by id
+            sub_category_id = request.GET.get('sub_category_id')
+            sub_category = get_object_or_404(Subcategory, id=sub_category_id)
+            sub_category.delete()
+
+            messages.success(request, 'Sub Category deleted successfully.')
+            return redirect(request.META.get('HTTP_REFERER'))
+        
+        except Exception as e:
+            print(f"Error deleting sub category: {e}")
+            messages.error(request, 'An error occurred while deleting the sub category.')
+            return redirect(request.META.get('HTTP_REFERER'))
+    
+    return redirect(request.META.get('HTTP_REFERER'))

@@ -10,7 +10,21 @@
         <div class="team-member-list-container">
             
                 <h1>Product List</h1>
-                <div class="admin-request-approve-container">
+                <div class="admin-request-approve-button-container">
+                    <a href="{% url 'product_list' %}">
+                        <button class="admin-request-approve-button">Product</button>
+                    </a> 
+                    <a href="{% url 'main_category_list' %}">
+                        <button class="admin-request-approve-button">Main Category</button>
+                    </a>
+                    <a href="{% url 'category_list' %}">
+                        <button class="admin-request-approve-button">Category</button>
+                    </a>
+                    <a href="{% url 'sub_category_list' %}">
+                        <button class="admin-request-approve-button">Sub Category</button>
+                    </a>
+                </div>
+                <div class="admin-request-approve-button-container">
                     <a href="{% url 'add_product' %}">
                         <button class="admin-request-approve-button">Add Product</button>
                     </a> 

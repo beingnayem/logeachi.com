@@ -1,0 +1,257 @@
+{% extends 'base.html' %}
+
+{% block message_content %}
+    {% include 'include/message.html' %}
+{% endblock message_content %}
+
+{% block main_app %}
+    {% include 'include/header.html' %}
+    <!--====== App Content ======-->
+    <div class="app-content">
+
+        <br><br><br>
+
+        <!--====== Section 2 ======-->
+        <div class="u-s-p-b-60">
+
+            <!--====== Section Content ======-->
+            <div class="section__content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="about">
+                                <div class="about__container">
+                                    <div class="about__info">
+                                        <h2 class="about__h2">Welcome to Logeachi!</h2>
+                                        <div class="about__p-wrap">
+                                            <p class="about__p"> Discover an extensive selection of products across various categories. Shop securely with confidence, explore exclusive deals, and enjoy easy navigation. Find detailed product information, convenient shopping options, and exceptional customer support. Stay updated with the latest trends and track your orders effortlessly. Your satisfaction is our priority!</p>
+                                        </div>
+
+                                        <a class="about__link btn--e-secondary" href="{% url 'home' %}" target="_blank">Shop Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--====== End - Section Content ======-->
+        </div>
+        <!--====== End - Section 2 ======-->
+
+
+        <!--====== Section 3 ======-->
+        <div class="u-s-p-b-60">
+
+            <!--====== Section Intro ======-->
+            <div class="section__intro u-s-m-b-46">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="section__text-wrap">
+                                <h1 class="section__heading u-c-secondary">Our Team Members</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--====== End - Section Intro ======-->
+
+
+            <!--====== Section Content ======-->
+            <div class="section__content">
+                <div class="container">
+                    <div class="row" style="display: flex;  justify-content:center">
+                        <div class="col-lg-3 col-md-4 col-sm-6 u-s-m-b-30">
+                            <div class="team-member u-h-100">
+                                <div class="team-member__wrap">
+                                    <div class="aspect aspect--bg-grey-fb aspect--square">
+                                        <img class="aspect__img team-member__img" src="../../static/assets/images/nayem.png" alt="">
+                                    </div>
+                                    <div class="team-member__social-wrap">
+                                        <ul class="team-member__social-list">
+                                            <li>
+                                                <a class="s-tw--bgcolor-hover" href="https://twitter.com/Being_Nayem"><i class="fab fa-twitter"></i></a>
+                                            </li>
+                                            <li>
+                                                <a class="s-fb--bgcolor-hover" href="https://www.facebook.com/beningNayem/"><i class="fab fa-facebook-f"></i></a>
+                                            </li>
+                                            <li>
+                                                <a class="s-insta--bgcolor-hover" href="https://www.instagram.com/being_nayem/"><i class="fab fa-instagram"></i></a>
+                                            </li>
+                                            <li>
+                                                <a class="s-linked--bgcolor-hover" href="https://www.linkedin.com/in/being-nayem/"><i class="fab fa-linkedin"></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="team-member__info">
+                                    <span class="team-member__name">Nayem Sarwar Chowdhury</span>
+                                    <span class="team-member__job-title">Key Developer</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-4 col-sm-6 u-s-m-b-30">
+                            <div class="team-member u-h-100">
+                                <div class="team-member__wrap">
+                                    <div class="aspect aspect--bg-grey-fb aspect--square">
+                                        <img class="aspect__img team-member__img" src="../../static/assets/images/antar.jpeg" alt="">
+                                    </div>
+                                    <div class="team-member__social-wrap">
+                                        <ul class="team-member__social-list">
+                                            <li>
+                                                <a class="s-tw--bgcolor-hover" href="#"><i class="fab fa-twitter"></i></a>
+                                            </li>
+                                            <li>
+                                                <a class="s-fb--bgcolor-hover" href="https://www.facebook.com/antarnath20"><i class="fab fa-facebook-f"></i></a>
+                                            </li>
+                                            <li>
+                                                <a class="s-insta--bgcolor-hover" href="#"><i class="fab fa-instagram"></i></a>
+                                            </li>
+                                            <li>
+                                                <a class="s-linked--bgcolor-hover" href="https://www.linkedin.com/in/antar-ch-nath/"><i class="fab fa-linkedin"></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="team-member__info">
+
+                                    <span class="team-member__name">Antar Chandra Nath</span>
+
+                                    <span class="team-member__job-title">Key Developer</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-4 col-sm-6 u-s-m-b-30">
+                            <div class="team-member u-h-100">
+                                <div class="team-member__wrap">
+                                    <div class="aspect aspect--bg-grey-fb aspect--square">
+                                        <img class="aspect__img team-member__img" src="../../static/assets/images/naim.jpg" alt="">
+                                    </div>
+                                    <div class="team-member__social-wrap">
+                                        <ul class="team-member__social-list">
+                                            <li>
+                                                <a class="s-tw--bgcolor-hover" href="#"><i class="fab fa-twitter"></i></a>
+                                            </li>
+                                            <li>
+                                                <a class="s-fb--bgcolor-hover" href="https://www.facebook.com/profile.php?id=100025159483956"><i class="fab fa-facebook-f"></i></a>
+                                            </li>
+                                            <li>
+                                                <a class="s-insta--bgcolor-hover" href="#"><i class="fab fa-instagram"></i></a>
+                                            </li>
+                                            <li>
+                                                <a class="s-linked--bgcolor-hover" href="https://www.linkedin.com/in/sheikh-naim/"><i class="fab fa-linkedin"></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="team-member__info">
+                                    <span class="team-member__name">Sheikh Naim</span>
+                                    <span class="team-member__job-title">Minor Developer</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--====== End - Section Content ======-->
+        </div>
+        <!--====== End - Section 3 ======-->
+
+
+        <!--====== Section 4 ======-->
+        <div class="u-s-p-b-90 u-s-m-b-30">
+
+            <!--====== Section Intro ======-->
+            <div class="section__intro u-s-m-b-46">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="section__text-wrap">
+                                <h1 class="section__heading u-c-secondary u-s-m-b-12">CLIENTS FEEDBACK</h1>
+
+                                <span class="section__span u-c-silver">WHAT OUR CLIENTS SAY</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--====== End - Section Intro ======-->
+
+
+            <!--====== Section Content ======-->
+            <div class="section__content">
+                <div class="container">
+
+                    <!--====== Testimonial Slider ======-->
+                    <div class="slider-fouc">
+                        <div class="owl-carousel" id="testimonial-slider">
+                            <div class="testimonial">
+                                <div class="testimonial__img-wrap">
+
+                                    <img class="testimonial__img" src="../../static/assets/images/sara (1).jpg" alt=""></div>
+                                <div class="testimonial__content-wrap">
+
+                                    <span class="testimonial__double-quote"><i class="fas fa-quote-right"></i></span>
+                                    <blockquote class="testimonial__block-quote">
+                                        <p>"I love the variety of products available on Logeachi! The easy navigation and detailed product information made my shopping experience a breeze. Plus, the secure checkout process gave me peace of mind. Keep up the great work!"</p>
+                                    </blockquote>
+
+                                    <span class="testimonial__author">Emily R.</span>
+                                </div>
+                            </div>
+                            <div class="testimonial">
+                                <div class="testimonial__img-wrap">
+
+                                    <img class="testimonial__img" src="../../static/assets/images/sara (2).jpg" alt=""></div>
+                                <div class="testimonial__content-wrap">
+
+                                    <span class="testimonial__double-quote"><i class="fas fa-quote-right"></i></span>
+                                    <blockquote class="testimonial__block-quote">
+                                        <p>"Logeachi is my go-to for online shopping. The exclusive deals and promotions are fantastic, and I always find what I need. Your customer support team is top-notch, too – they promptly resolved my queries. Highly recommended!"</p>
+                                    </blockquote>
+
+                                    <span class="testimonial__author">David M.</span>
+                                </div>
+                            </div>
+                            <div class="testimonial">
+                                <div class="testimonial__img-wrap">
+
+                                    <img class="testimonial__img" src="../../static/assets/images/sara (4).jpg" alt=""></div>
+                                <div class="testimonial__content-wrap">
+
+                                    <span class="testimonial__double-quote"><i class="fas fa-quote-right"></i></span>
+                                    <blockquote class="testimonial__block-quote">
+                                        <p>"I'm impressed with Logeachi's commitment to customer satisfaction. The website's user-friendly interface and quick order tracking make shopping here a pleasure. Plus, the regular updates on new arrivals keep me coming back for more."</p>
+                                    </blockquote>
+
+                                    <span class="testimonial__author">Sarah W.</span>
+                                </div>
+                            </div>
+                            <div class="testimonial">
+                                <div class="testimonial__img-wrap">
+
+                                    <img class="testimonial__img" src="../../static/assets/images/sara (3).jpg" alt=""></div>
+                                <div class="testimonial__content-wrap">
+
+                                    <span class="testimonial__double-quote"><i class="fas fa-quote-right"></i></span>
+                                    <blockquote class="testimonial__block-quote">
+                                        <p>"Logeachi is a game-changer! The product reviews and ratings helped me choose the best items, and the seamless checkout process saved me time. It's evident that Logeachi values its customers. I'm a loyal shopper now!"</p>
+                                    </blockquote>
+
+                                    <span class="testimonial__author">Alex H.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--====== End - Testimonial Slider ======-->
+                </div>
+            </div>
+            <!--====== End - Section Content ======-->
+        </div>
+        <!--====== End - Section 4 ======-->
+    </div>
+    <!--====== End - App Content ======-->
+    {% include 'include/footer.html' %}
+{% endblock main_app %}
+    

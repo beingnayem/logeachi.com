@@ -1,0 +1,75 @@
+{% extends 'adminpanel/admin_panel.html' %}
+{% load static %}
+
+{% block message_content %}
+    {% include 'include/message.html' %}
+{% endblock message_content %}
+
+{% block admin-panel-main-content %}
+    <div class="adminpanelhome-content">
+        <div class="team-member-list-container">
+            
+                <h1>Main Category List</h1>
+                <div class="admin-request-approve-button-container">
+                    <a href="{% url 'product_list' %}">
+                        <button class="admin-request-approve-button">Product</button>
+                    </a> 
+                    <a href="{% url 'main_category_list' %}">
+                        <button class="admin-request-approve-button">Main Category</button>
+                    </a>
+                    <a href="{% url 'category_list' %}">
+                        <button class="admin-request-approve-button">Category</button>
+                    </a>
+                    <a href="{% url 'sub_category_list' %}">
+                        <button class="admin-request-approve-button">Sub Category</button>
+                    </a>
+                </div>
+                <div class="admin-request-approve-button-container">
+                    <a href="{% url 'add_main_category' %}">
+                        <button class="admin-request-approve-button">Add Main Category</button>
+                    </a>
+                </div>
+                {% if main_categories %}
+                <div class="team-member-list-table-container">
+                    <table class="team-member-list-table-container-table">
+                        <thead>
+                            <tr class="team-member-list-table-container-table-row">
+                                <th class="team-member-info-head">ID</th>
+                                <th class="team-member-info-head">Category Name</th>
+                                <th class="team-member-info-head">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            {% for main_category in main_categories %}
+                                <tr class="team-member-list-table-container-table-row">
+                                    <td class="team-member-info">{{main_category.id}}</td>
+                                    <td class="team-member-info">{{main_category.name}}</td>
+                                    <td class="team-member-action-buttons" style="justify-content: center;">
+                                        <form action="{% url 'edit_main_category' %}" method="GET">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="main_category_id" value="{{ main_category.id }}">
+                                            <button type="submit" class="team-member-remove-button"  title="Edit"><i class="fas fa-pencil-alt"></i></button>
+                                        </form>
+                                        <form action="{% url 'delete_main_category' %}" method="GET">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="main_category_id" value="{{ main_category.id }}">
+                                            <button class="team-member-remove-button"  title="Delete"><i class="fas fa-trash"></i></button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                                
+                            
+                        </tbody>
+                    </table>
+                </div> 
+                    {% else %}
+                        <h2 style="text-align: center; color:rgb(101, 168, 33) ">There is no Main Category yet.</h2>
+                {% endif %}
+               
+            
+            
+        </div>
+    </div>
+{% endblock admin-panel-main-content %}

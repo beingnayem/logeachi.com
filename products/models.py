@@ -37,7 +37,7 @@ class Product(models.Model):
     product_brand  = models.CharField(max_length=100, default="No Brand")
     product_category = models.ForeignKey(Subcategory, on_delete=models.CASCADE, related_name='products')
     product_slug = models.SlugField(unique=True, null=True, blank=True)
-    product_price = models.IntegerField()
+    product_price = models.DecimalField(max_digits=15, decimal_places=2)
     product_description = models.TextField()
     product_quantity = models.IntegerField(null=True)
     product_sold_quantity = models.IntegerField(default=0)
@@ -55,6 +55,9 @@ class Product(models.Model):
     class Meta:
         verbose_name_plural ="4. Products"
         ordering = ['-product_added_date']
+        
+        
+class product_reviews(models.Model):
         
 
 # class Order(models.Model):
