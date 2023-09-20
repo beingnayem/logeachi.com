@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block main_app %}
+{% include 'include/header.html' %}
+<div class="app-content">
+
+    <!--====== Section 1 ======-->
+    <div class="u-s-p-y-90">
+
+        <!--====== Detail Post ======-->
+        <div class="detail-post">
+            <div class="bp-detail">
+                <div class="bp-detail__thumbnail">
+
+                    <!--====== Image Code ======-->
+                    <div class="aspect aspect--bg-grey aspect--1366-768">
+
+                        <img class="aspect__img" src="{{blog.blog_image.url}}" alt=""></div>
+                    <!--====== End - Image Code ======-->
+                </div>
+                <div class="bp-detail__info-wrap">
+                    <div class="bp-detail__stat">
+
+                        <span class="bp-detail__stat-wrap">
+
+                            <span class="bp-detail__publish-date">
+
+                                <a>
+
+                                    <span> {{blog.blog_date}} </span></a></span></span>
+
+                        <span class="bp-detail__stat-wrap">
+
+                            <span class="bp-detail__author">
+
+                                <a>{{blog.blog_writer}} </a></span></span>
+
+                        <span class="bp-detail__stat-wrap">
+
+                            <span class="bp-detail__category">
+
+                                <p><h3>{{blog.blog_topic}} </h3></p>
+                            </span>
+                        </span>
+                    </div>
+
+                    <span class="bp-detail__h1">
+
+                        <a> {{block.blog_title}} </a>
+                    </span>
+                    <p class="bp-detail__p"> {{blog.blog_text}} </p>
+                    <div class="post-center-wrap">
+                        <ul class="bp-detail__social-list">
+                            <li>
+
+                                <a class="s-fb--color" href="#"><i class="fab fa-facebook-f"></i></a></li>
+                            <li>
+
+                                <a class="s-tw--color" href="#"><i class="fab fa-twitter"></i></a></li>
+                            <li>
+
+                                <a class="s-insta--color" href="#"><i class="fab fa-instagram"></i></a></li>
+                            <li>
+
+                                <a class="s-wa--color" href="#"><i class="fab fa-whatsapp"></i></a></li>
+                            <li>
+
+                                <a class="s-gplus--color" href="#"><i class="fab fa-google-plus-g"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--====== End - Detail Post ======-->
+    <div class="u-s-p-b-60">
+        <div class="d-meta">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="d-meta__comment-arena">
+
+                            <span class="d-meta__text u-s-m-b-36">{{comment_count}} Comments </span>
+                            <div class="d-meta__comments u-s-m-b-30">
+                                <ol>
+                                    <li>
+                                        {% for comment in comments %}
+                                        <!--====== Comment ======-->
+                                        <div class="d-meta__p-comment">
+                                            <div class="p-comment__wrap1">
+                                                <div class="aspect aspect--square p-comment__img-wrap">
+
+                                                    <img src="images/blog/avatar.jpg" alt=""></div>
+                                            </div>
+                                            <div class="p-comment__wrap2">
+
+                                                <span class="p-comment__author"> {{comment.user.first_name}} </span>
+
+                                                <span class="p-comment__timestamp">
+
+                                                    <a href="#">
+
+                                                        <span>{{comment.comment_date}} </span></a></span>
+                                                <p class="p-comment__paragraph">{{comment.comment_text}} </p>
+                                            </div>
+                                        </div>
+                                        <!--====== End - Comment ======-->
+                                        {% endfor %}
+                                    </li>
+                                </ol>
+                            </div>
+
+                            <span class="d-meta__text-2 u-s-m-b-6">Join the Conversation</span>
+
+                            <span class="d-meta__text-3 u-s-m-b-16">Your email address will not be published. Required fields are marked *</span>
+                            <form class="respond__form" action="{% url 'blog_comments' blog.pk %}" method="GET">
+                                <div class="respond__group">
+                                    <div class="u-s-m-b-15">
+
+                                        <label class="gl-label" for="comment">COMMENT *</label>
+                                        <textarea class="text-area text-area--primary-style" id="comment" name="comment"></textarea>
+                                    </div> 
+                                </div>
+                                <div>
+
+                                    <button class="btn btn--e-brand-shadow" type="submit">POST COMMENT</button></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--====== End - Section 1 ======-->
+</div>
+
+{% include 'include/footer.html' %}
+{% endblock main_app %}

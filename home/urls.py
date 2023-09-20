@@ -9,4 +9,5 @@ urlpatterns = [
     path('faq/', views.FAQ, name='FAQ'),
     path('about-us/', views.about_us, name='about_us'),
     path('send-query/', views.send_query, name='send_query'),
+    path('new-arrivals/', views.new_arrivals, name='new_arrivals'),
 ]

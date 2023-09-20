@@ -7,6 +7,8 @@ from django.contrib import messages
 from products.models import Category, Subcategory, Product, Main_Category
 from django.contrib.auth.decorators import login_required
 from cart.models import Wishlist
+from datetime import datetime, timedelta
+from blog.models import Blog
 
 # emails
 from django.contrib.sites.shortcuts import get_current_site
@@ -25,9 +27,21 @@ def home(request):
     wishlist_count = 0
     if request.user.is_authenticated:
         wishlist_count = Wishlist.objects.filter(user=request.user).count()
+        
     new_arrivals = products.order_by('product_added_date')[:8]
     special_products = Product.objects.exclude(product_brand="No Brand")
     banners = Banner.objects.all()
+    featured_products = Product.objects.filter(product_featured=True)[:8]
+    
+    today = datetime.now()
+    one_month_ago = today - timedelta(days=7) 
+    weekly_products = Product.objects.filter(
+        product_added_date__gte=one_month_ago,
+        product_added_date__lte=today
+    )[:4]
+    
+    blogs = Blog.objects.all()[:3]
+
     context = {
         'sliders': sliders,
         'main_categories': main_categories,
@@ -35,7 +49,10 @@ def home(request):
         'new_arrivals': new_arrivals,
         'special_products': special_products, 
         'wishlist_count': wishlist_count,
-        'banners': banners
+        'banners': banners,
+        'featured_products': featured_products,
+        'weekly_products': weekly_products,
+        'blogs': blogs
     }
     return render(request, 'home/home.html', context)
 
@@ -143,3 +160,22 @@ def send_query(request):
         messages.error(request, "Your querie has sent. We will reply to you soon.")
         return redirect(request.META.get('HTTP_REFERER'))
     
+
+def new_arrivals(request):
+    main_categories = Main_Category.objects.all()
+    wishlist_count = 0
+    if request.user.is_authenticated:
+        wishlist_count = Wishlist.objects.filter(user=request.user).count()
+    today = datetime.now()
+    one_month_ago = today - timedelta(days=30) 
+    new_arrivals = Product.objects.filter(
+        product_added_date__gte=one_month_ago,
+        product_added_date__lte=today
+    )   
+    context = {
+        'new_arrivals': new_arrivals,
+        'main_categories': main_categories,
+        'wishlist_count': wishlist_count,
+    }
+    
+    return render(request, 'products/new_arrivals.html', context)
