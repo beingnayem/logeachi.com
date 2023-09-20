@@ -13,6 +13,7 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('admin-panel/', include('adminpanel.urls')),
     path('cart/', include('cart.urls')),
+    path('blog/', include('blog.urls')),
 ]
 
 if settings.DEBUG:
