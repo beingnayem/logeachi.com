@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'accounts',
     'adminpanel',
     'cart',
+    'blog',
 ]
 
 ROOT_URLCONF = 'logeachi.urls'
