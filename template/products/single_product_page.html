@@ -96,11 +96,16 @@
                             </div>
                         </div>
                         <div class="u-s-m-b-15">
-                            <div class="pd-detail__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-
+                            <div class="pd-detail__rating gl-rating-style">
+                                {% for i in "12345" %}
+                                    {% if i|add:"0" <= avarage_rating %}
+                                        <i class="fas fa-star"></i> <!-- Solid (filled) star -->
+                                        {% else %}
+                                            <i class="far fa-star"></i> <!-- Outline (unfilled) star -->
+                                    {% endif %}
+                                {% endfor %}
                                 <span class="pd-detail__review u-s-m-l-4">
-
-                                    <a data-click-scroll="#view-review">23 Reviews</a></span></div>
+                                <a data-click-scroll="#view-review">{{review_count}} Reviews</a></span></div>
                         </div>
                         <div class="u-s-m-b-15">
                             <div class="pd-detail__inline">
@@ -173,16 +178,15 @@
                         <div class="u-s-m-b-30">
                             <ul class="nav pd-tab__list">
                                 <li class="nav-item">
-
-                                    <a class="nav-link active" data-toggle="tab" href="#pd-desc">DESCRIPTION</a></li>
+                                    <a class="nav-link active" data-toggle="tab" href="#pd-desc">DESCRIPTION</a>
+                                </li>
                                 <li class="nav-item">
-
-                                    <a class="nav-link" data-toggle="tab" href="#pd-tag">TAGS</a></li>
+                                    <a class="nav-link" data-toggle="tab" href="#pd-tag">TAGS</a>
+                                </li>
                                 <li class="nav-item">
-
                                     <a class="nav-link" id="view-review" data-toggle="tab" href="#pd-rev">REVIEWS
-
-                                        <span>{{review_count}} </span></a></li>
+                                    <span>{{review_count}} </span></a>
+                                </li>
                             </ul>
                         </div>
                         <div class="tab-content">
@@ -282,9 +286,17 @@
                                     <div class="u-s-m-b-30">
                                         <div class="pd-tab__rev-score">
                                             <div class="u-s-m-b-8">
-                                                <h2> {{review_count}} Reviews - 4.6 (Overall)</h2>
+                                                <h2>{{review_count}} Reviews - {{avarage_rating}} (Overall)</h2>
                                             </div>
-                                            <div class="gl-rating-style-2 u-s-m-b-8"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                                            <div class="gl-rating-style-2 u-s-m-b-8">
+                                                {% for i in "12345" %}
+                                                    {% if i|add:"0" <= avarage_rating %}
+                                                        <i class="fas fa-star"></i> <!-- Solid (filled) star -->
+                                                        {% else %}
+                                                            <i class="far fa-star"></i> <!-- Outline (unfilled) star -->
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </div>
                                             <div class="u-s-m-b-8">
                                                 <h4>We want to hear from you!</h4>
                                             </div>
@@ -292,11 +304,12 @@
                                             <span class="gl-text">Tell us what you think about this item</span>
                                         </div>
                                     </div>
+                                    
                                     <div class="u-s-m-b-30">
                                         <form class="pd-tab__rev-f1">
                                             <div class="rev-f1__group">
                                                 <div class="u-s-m-b-15">
-                                                    <h2> {{review_count}} Review(s) for Man Ruched Floral Applique Tee</h2>
+                                                    <h2>{{review_count}} Review(s) for {{product.product_name}}</h2>
                                                 </div>
                                                 <div class="u-s-m-b-15">
 
@@ -306,52 +319,62 @@
                                                     </select></div>
                                             </div>
                                             <div class="rev-f1__review">
+                                                
                                                 {% for review in reviews %}
                                                     <div class="review-o u-s-m-b-15">
                                                         <div class="review-o__info u-s-m-b-8">
-
-                                                            <span class="review-o__name"> {{review.user_name}} </span>
-
-                                                            <span class="review-o__date"> {{review.review_date}} </span></div>
-                                                        <div class="review-o__rating gl-rating-style u-s-m-b-8"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
-
-                                                            <span>(4)</span></div>
-                                                        <p class="review-o__text"> {{review.review}} </p>
+                                                            <span class="review-o__name">{{review.user.first_name}} {{review.user.last_name}}</span>
+                                                            <span class="review-o__date">{{review.review_date}}</span>
+                                                        </div>
+                                                        <div class="review-o__rating gl-rating-style u-s-m-b-8">
+                                                            {% for i in "12345" %}
+                                                                {% if i|add:"0" <= review.rating %}
+                                                                    <i class="fas fa-star"></i> <!-- Solid (filled) star -->
+                                                                {% else %}
+                                                                    <i class="far fa-star"></i> <!-- Outline (unfilled) star -->
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                            <span>({{ review.rating }})</span>
+                                                        </div>
+                                                        <p class="review-o__text">{{review.review}}</p>
                                                     </div>
                                                 {% endfor %}
+                                                    
                                             </div>
                                         </form>
                                     </div>
+                                    
                                     <div class="u-s-m-b-30">
-                                        <form class="pd-tab__rev-f2" action="{% url "add_review" product.pk%}" method="GET">
+                                        <form class="pd-tab__rev-f2" action="{% url 'add_review_rating' %}" method="POST">
+                                            {% csrf_token %}
                                             <h2 class="u-s-m-b-15">Add a Review</h2>
-
-                                            <span class="gl-text u-s-m-b-15">Your email address will not be published. Required fields are marked *</span>
-                                            
+                                            <input type="hidden" name="product_id" value="{{product.id}}">
                                             <div class="rev-f2__group">
                                                 <div class="u-s-m-b-15">
-
                                                     <label class="gl-label" for="reviewer-text">YOUR REVIEW *</label>
-                                                    <textarea class="text-area text-area--primary-style" id="reviewer-text" name="review"></textarea>
-                                                </div>
-                                                <div>
-                                                    <p class="u-s-m-b-30">
-
-                                                        <label class="gl-label" for="reviewer-name">NAME *</label>
-
-                                                        <input class="input-text input-text--primary-style" type="text" id="reviewer-name" name="name">
-                                                    </p>
-                                                    <p class="u-s-m-b-30">
-
-                                                        <label class="gl-label" for="reviewer-email">EMAIL *</label>
-
-                                                        <input class="input-text input-text--primary-style" type="text" id="reviewer-email" name="email">
-                                                    </p>
+                                                    <textarea class="text-area text-area--primary-style" id="reviewer-text" name="review" required></textarea>
                                                 </div>
                                             </div>
+                                            
+                                            <div class="rev-f2__group">
+                                                <label class="gl-label">RATE THE PRODUCT *</label>
+                                                <div class="singel-star-rating">
+                                                    <input type="radio" name="rating" id="star5" value="5">
+                                                    <label for="star5"></label>
+                                                    <input type="radio" name="rating" id="star4" value="4">
+                                                    <label for="star4"></label>
+                                                    <input type="radio" name="rating" id="star3" value="3">
+                                                    <label for="star3"></label>
+                                                    <input type="radio" name="rating" id="star2" value="2">
+                                                    <label for="star2"></label>
+                                                    <input type="radio" name="rating" id="star1" value="1">
+                                                    <label for="star1"></label>
+                                                </div>
+                                            </div>
+                                            
                                             <div>
-
-                                                <button class="btn btn--e-brand-shadow" type="submit">SUBMIT</button></div>
+                                                <button class="btn btn--e-brand-shadow" type="submit">SUBMIT</button>
+                                            </div>
                                         </form>
                                     </div>
                                 </div>
@@ -367,3 +390,14 @@
 <!--====== End - App Content ======-->
 {% include "include/footer.html" %}
 {% endblock main_app %}
+
+
+
+
+
+
+
+
+
+
+

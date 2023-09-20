@@ -105,71 +105,72 @@
                             <div class="col-lg-12">
                                 <div class="filter-category-container">
                                     <div class="filter__category-wrapper">
-
-                                        <button class="btn filter__btn filter__btn--style-1 js-checked" type="button" data-filter="*">ALL</button></div>
-                                    <div class="filter__category-wrapper">
-
-                                        <button class="btn filter__btn filter__btn--style-1" type="button" data-filter=".headphone">HEADPHONES</button></div>
-                                    <div class="filter__category-wrapper">
-
-                                        <button class="btn filter__btn filter__btn--style-1" type="button" data-filter=".smartphone">SMARTPHONES</button></div>
-                                    <div class="filter__category-wrapper">
-
-                                        <button class="btn filter__btn filter__btn--style-1" type="button" data-filter=".sportgadget">SPORT GADGETS</button></div>
-                                    <div class="filter__category-wrapper">
-
-                                        <button class="btn filter__btn filter__btn--style-1" type="button" data-filter=".dslr">DSLR</button></div>
+                                        <button class="btn filter__btn filter__btn--style-1 js-checked" type="button" data-category-id="all">ALL</button>
+                                    </div>
+                                    
+                                    {% for top_rated_category in top_rated_categories %}
+                                        <div class="filter__category-wrapper">
+                                            <button class="btn filter__btn filter__btn--style-1" type="button" data-category-id="{{ top_rated_category.category.id }}">{{ top_rated_category.category.name }}</button>
+                                        </div>
+                                    {% endfor %}
                                 </div>
                                 <div class="filter__grid-wrapper u-s-m-t-30">
                                     <div class="row">
-                                        {% for product in products %}
-                                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 u-s-m-b-30 filter__item headphone">
-                                            <div class="product-o product-o--hover-on product-o--radius">
-                                                <div class="product-o__wrap">
-
-                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block" href="{% url "single_product_page" product.pk %}">
-
-                                                        <img class="aspect__img" src="{{product.product_image.url}}" alt=""></a>
-                                                    <div class="product-o__action-wrap">
-                                                        <ul class="product-o__action-list">
-                                                            <li>
-
-                                                                <a data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick View"><i class="fas fa-search-plus"></i></a></li>
-                                                            <li>
-
-                                                                <a data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a></li>
-                                                            <li>
-
-                                                                <a href="{% url "add_wishlist_item" product.pk %}" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                                                            <li>
-
-                                                                <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Email me When the price drops"><i class="fas fa-envelope"></i></a></li>
-                                                        </ul>
+                                        {% for top_rated_category in top_rated_categories %}
+                                            {% for product in top_rated_category.top_rated_products %}
+                                                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 u-s-m-b-30 filter__item" data-category-id="{{ top_rated_category.category.id }}">
+                                                    <div class="product-o product-o--hover-on product-o--radius">
+                                                        <div class="product-o__wrap">
+                                                            <a class="aspect aspect--bg-grey aspect--square u-d-block" href="{% url "single_product_page" product.pk %}">
+                                                                <img class="aspect__img" src="{{product.product_image.url}}" alt=""></a>
+                                                            <div class="product-o__action-wrap">
+                                                                <ul class="product-o__action-list">
+                                                                    <li>
+                                                                        <a data-modal="modal" data-modal-id="#" data-tooltip="tooltip" data-placement="top" title="Quick View"><i class="fas fa-search-plus"></i></a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a data-modal="modal" data-modal-id="#" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="{% url 'add_wishlist_item' product.pk %}" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="#" data-tooltip="tooltip" data-placement="top" title="Email me When the price drops"><i class="fas fa-envelope"></i></a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                            
+                                                        <span class="product-o__category">
+                                                            <a href="#">{{product.product_category}} </a>
+                                                        </span>
+                            
+                                                        <span class="product-o__name">
+                                                            <a href="{% url 'single_product_page' product.pk %}"> {{product.product_name}} </a>
+                                                        </span>
+                                                        <div class="product-o__rating gl-rating-style">
+                                                            {% for i in "12345" %}
+                                                                {% if i|add:"0" <= product.average_rating %}
+                                                                    <i class="fas fa-star"></i> <!-- Solid (filled) star -->
+                                                                    {% else %}
+                                                                        <i class="far fa-star"></i> <!-- Outline (unfilled) star -->
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                            <span class="product-o__review">({{product.total_reviews}})</span>
+                                                        </div>
+                                                        <span class="product-o__price">$ {{product.product_price}} </span>
                                                     </div>
                                                 </div>
-
-                                                <span class="product-o__category">
-
-                                                    <a href="shop-side-version-2.html">{{product.product_category}} </a></span>
-
-                                                <span class="product-o__name">
-
-                                                    <a href="{% url "single_product_page" product.pk %}"> {{product.product_name}} </a></span>
-                                                <div class="product-o__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
-
-                                                    <span class="product-o__review">(23)</span></div>
-
-                                                <span class="product-o__price">$ {{product.product_price}} </span>
-                                            </div>
-                                        </div>
+                                            {% endfor %}
                                         {% endfor %}
                                     </div>
                                 </div>
                             </div>
+                            
                             <div class="col-lg-12">
                                 <div class="load-more">
-
-                                    <button class="btn btn--e-brand" type="button">Load More</button></div>
+                                    <!-- <button class="btn btn--e-brand" type="button">Load More</button> -->
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -359,9 +360,15 @@
                                         <span class="product-o__name">
 
                                             <a href="{% url "single_product_page" product.pk %}">{{product.product_name}}</a></span>
-                                        <div class="product-o__rating gl-rating-style"><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>
-
-                                            <span class="product-o__review">(0)</span></div>
+                                        <div class="product-o__rating gl-rating-style">
+                                            {% for i in "12345" %}
+                                                {% if i|add:"0" <= product.average_rating %}
+                                                    <i class="fas fa-star"></i> 
+                                                    {% else %}
+                                                        <i class="far fa-star"></i>
+                                                {% endif %}
+                                            {% endfor %}
+                                            <span class="product-o__review">({{product.total_reviews}})</span></div>
 
                                         <span class="product-o__price">$ {{product.product_price}}</span>
                                     </div>
@@ -618,7 +625,7 @@
                             
                             {% for banner in banners %}
                                 <div class="col-lg-4 col-md-4 col-sm-6 u-s-m-b-30">
-                                    <a class="promotion" href="#">
+                                    <a class="promotion" href="{% url 'category_products' banner.banner_product_category.id %}">
                                         <div class="aspect aspect--bg-grey aspect--square">
                                             <img class="aspect__img promotion__img" src="{{banner.banner_image.url}}" alt="">
                                         </div>

@@ -52,35 +52,46 @@
                                 <span class="js-menu-toggle"></span>
                                 <ul style="width:120px">
                                     {% if user.is_authenticated %}
-                                    <li>
+                                        
+                                        {% if user.is_admin %}
+                                            <li>
+                                                <a href="{% url 'admin_panel_dashboard' %}"><i class="fas fa-user-circle u-s-m-r-6"></i>
+                                                    <span>Admin</span>
+                                                </a>
+                                            </li>
+                                            
+                                            {% else %}
+                                                <li>
+                                                    <a href="#"><i class="fas fa-user-circle u-s-m-r-6"></i>
+                                                        <span>Account</span>
+                                                    </a>
+                                                </li>
+                                        {% endif %}
 
-                                        <a href="dashboard.html"><i class="fas fa-user-circle u-s-m-r-6"></i>
+                                        <li>
+                                            <a href="{% url 'signout' %}"><i class="fas fa-lock-open u-s-m-r-6"></i>
+                                                <span>Signout</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <span style="display:flex; justify-content:center">{{user.first_name}}</span>
+                                        </li>
+                                        
+                                        {% else %}
+                                            <li>
+                                                <a href="{% url 'signup' %}"><i class="fas fa-user-plus u-s-m-r-6"></i>
 
-                                            <span>Account</span>
-                                        </a>
-                                    </li>
-                                    <li>
+                                                    <span>Signup</span>
+                                                </a>
+                                            </li>
+                                            <li>
 
-                                        <a href="{% url "signout" %}"><i class="fas fa-lock-open u-s-m-r-6"></i>
+                                                <a href="{% url 'signin' %}"><i class="fas fa-lock u-s-m-r-6"></i>
 
-                                            <span>Signout</span>
-                                        </a>
-                                    </li>
-                                    {% else %}
-                                    <li>
+                                                    <span>Signin</span>
+                                                </a>
+                                            </li>
 
-                                        <a href="{% url "signup" %}"><i class="fas fa-user-plus u-s-m-r-6"></i>
-
-                                            <span>Signup</span>
-                                        </a>
-                                    </li>
-                                    <li>
-
-                                        <a href="{% url "signin" %}"><i class="fas fa-lock u-s-m-r-6"></i>
-
-                                            <span>Signin</span>
-                                        </a>
-                                    </li>
                                     {% endif %}
                                 </ul>
                                 <!--====== End - Dropdown ======-->
@@ -207,7 +218,7 @@
                                                         <div class="col-lg-3">
                                                             <ul>
                                                                 <li class="mega-list-title">
-                                                                    <a href="{% url "category_products" category.pk %}">{{ category.name }}</a>
+                                                                    <a href="{% url 'category_products' category.pk %}">{{ category.name }}</a>
                                                                 </li>
                                                                 {% for sub_category in category.category.all %}
                                                                     <li>
@@ -420,15 +431,13 @@
                                     <!--====== Mini Product Statistics ======-->
                                     <div class="mini-product-stat">
                                         <div class="mini-total">
-
                                             <span class="subtotal-text">SUBTOTAL</span>
-
                                             <span class="subtotal-value">$16</span></div>
                                         <div class="mini-action">
 
-                                            <a class="mini-link btn--e-brand-b-2" href="checkout.html">PROCEED TO CHECKOUT</a>
+                                            <a class="mini-link btn--e-brand-b-2" href="#">PROCEED TO CHECKOUT</a>
 
-                                            <a class="mini-link btn--e-transparent-secondary-b-2" href="cart.html">VIEW CART</a></div>
+                                            <a class="mini-link btn--e-transparent-secondary-b-2" href=#">VIEW CART</a></div>
                                     </div>
                                     <!--====== End - Mini Product Statistics ======-->
                                 </div>

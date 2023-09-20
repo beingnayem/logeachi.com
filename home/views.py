@@ -17,27 +17,52 @@ from django.conf import settings
 from accounts.views import EmailThread
 
 
+from django.db.models import Avg
+from django.db.models import Count
+
 def home(request):
-    sliders= Home_Slider.objects.all()
+    sliders = Home_Slider.objects.all()
     main_categories = Main_Category.objects.all()
-    products = Product.objects.all()
-    # best_solds = Product.objects.order_by('-product_sold_quantity')[:5]
     wishlist_count = 0
+
     if request.user.is_authenticated:
         wishlist_count = Wishlist.objects.filter(user=request.user).count()
-    new_arrivals = products.order_by('product_added_date')[:8]
+
+    # Calculate the average rating for each category
+    categories_with_avg_rating = Subcategory.objects.annotate(avg_rating=Avg('products__review_to__rating'))
+    
+    # Determine the top categories based on the average rating (e.g., top 4 categories)
+    top_rated_categories = categories_with_avg_rating.order_by('-avg_rating')[:4]
+
+    # Initialize a list to store top-rated products for each top category
+    top_rated_products_by_category = []
+
+    for category in top_rated_categories:
+        # Get the top 10 rated products in this category
+        top_rated_products = Product.objects.filter(product_category=category) \
+            .annotate(avg_rating=Avg('review_to__rating')) \
+            .order_by('-avg_rating')[:10]
+
+        top_rated_products_by_category.append({
+            'category': category,
+            'top_rated_products': top_rated_products,
+        })
+
+    new_arrivals = Product.objects.order_by('product_added_date')[:8]
     special_products = Product.objects.exclude(product_brand="No Brand")
     banners = Banner.objects.all()
+
     context = {
         'sliders': sliders,
         'main_categories': main_categories,
-        'products': products,
+        'top_rated_categories': top_rated_products_by_category,
         'new_arrivals': new_arrivals,
-        'special_products': special_products, 
+        'special_products': special_products,
         'wishlist_count': wishlist_count,
         'banners': banners
     }
     return render(request, 'home/home.html', context)
+
 
 
 def join_newsletter(request):
