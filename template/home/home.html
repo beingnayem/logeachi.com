@@ -436,13 +436,14 @@
                 <div class="section__content">
                     <div class="container">
                         <div class="row">
+                            {% for product in featured_products %}
                             <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 u-s-m-b-30">
                                 <div class="product-o product-o--hover-on u-h-100">
                                     <div class="product-o__wrap">
 
-                                        <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
+                                        <a class="aspect aspect--bg-grey aspect--square u-d-block" href="{% url "single_product_page" product.pk %}">
 
-                                            <img class="aspect__img" src="images/product/electronic/product19.jpg" alt=""></a>
+                                            <img class="aspect__img" src="{{product.product_image.url}}" alt=""></a>
                                         <div class="product-o__action-wrap">
                                             <ul class="product-o__action-list">
                                                 <li>
@@ -453,7 +454,7 @@
                                                     <a data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a></li>
                                                 <li>
 
-                                                    <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
+                                                    <a href="{% url "add_wishlist_item" product.pk %}" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
                                                 <li>
 
                                                     <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Email me When the price drops"><i class="fas fa-envelope"></i></a></li>
@@ -463,143 +464,19 @@
 
                                     <span class="product-o__category">
 
-                                        <a href="shop-side-version-2.html">Electronics</a></span>
+                                        <a href="shop-side-version-2.html">{{product.product_category}}</a></span>
 
                                     <span class="product-o__name">
 
-                                        <a href="product-detail.html">Tablet 14inch Screen</a></span>
+                                        <a href="{% url "single_product_page" product.pk %}">{{product.product_name}}</a></span>
                                     <div class="product-o__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
 
-                                        <span class="product-o__review">(23)</span></div>
+                                        <span class="product-o__review">(0)</span></div>
 
-                                    <span class="product-o__price">$125.00
-
-                                        <span class="product-o__discount">$160.00</span></span>
+                                    <span class="product-o__price">${{product.product_price}}</span>
                                 </div>
                             </div>
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 u-s-m-b-30">
-                                <div class="product-o product-o--hover-on u-h-100">
-                                    <div class="product-o__wrap">
-
-                                        <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
-
-                                            <img class="aspect__img" src="images/product/electronic/product20.jpg" alt=""></a>
-                                        <div class="product-o__action-wrap">
-                                            <ul class="product-o__action-list">
-                                                <li>
-
-                                                    <a data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick View"><i class="fas fa-search-plus"></i></a></li>
-                                                <li>
-
-                                                    <a data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a></li>
-                                                <li>
-
-                                                    <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                                                <li>
-
-                                                    <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Email me When the price drops"><i class="fas fa-envelope"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                    <span class="product-o__category">
-
-                                        <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                    <span class="product-o__name">
-
-                                        <a href="product-detail.html">Tablet 18inch Screen</a></span>
-                                    <div class="product-o__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-
-                                        <span class="product-o__review">(23)</span></div>
-
-                                    <span class="product-o__price">$125.00
-
-                                        <span class="product-o__discount">$160.00</span></span>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 u-s-m-b-30">
-                                <div class="product-o product-o--hover-on u-h-100">
-                                    <div class="product-o__wrap">
-
-                                        <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
-
-                                            <img class="aspect__img" src="images/product/electronic/product21.jpg" alt=""></a>
-                                        <div class="product-o__action-wrap">
-                                            <ul class="product-o__action-list">
-                                                <li>
-
-                                                    <a data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick View"><i class="fas fa-search-plus"></i></a></li>
-                                                <li>
-
-                                                    <a data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a></li>
-                                                <li>
-
-                                                    <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                                                <li>
-
-                                                    <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Email me When the price drops"><i class="fas fa-envelope"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                    <span class="product-o__category">
-
-                                        <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                    <span class="product-o__name">
-
-                                        <a href="product-detail.html">Tablet 13inch Screen Ram 16GB</a></span>
-                                    <div class="product-o__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-
-                                        <span class="product-o__review">(23)</span></div>
-
-                                    <span class="product-o__price">$125.00
-
-                                        <span class="product-o__discount">$160.00</span></span>
-                                </div>
-                            </div>
-                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 u-s-m-b-30">
-                                <div class="product-o product-o--hover-on u-h-100">
-                                    <div class="product-o__wrap">
-
-                                        <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
-
-                                            <img class="aspect__img" src="images/product/electronic/product22.jpg" alt=""></a>
-                                        <div class="product-o__action-wrap">
-                                            <ul class="product-o__action-list">
-                                                <li>
-
-                                                    <a data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick View"><i class="fas fa-search-plus"></i></a></li>
-                                                <li>
-
-                                                    <a data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a></li>
-                                                <li>
-
-                                                    <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                                                <li>
-
-                                                    <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Email me When the price drops"><i class="fas fa-envelope"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                    <span class="product-o__category">
-
-                                        <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                    <span class="product-o__name">
-
-                                        <a href="product-detail.html">Tablet 12inch Screen Ram 16GB</a></span>
-                                    <div class="product-o__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-
-                                        <span class="product-o__review">(23)</span></div>
-
-                                    <span class="product-o__price">$125.00
-
-                                        <span class="product-o__discount">$160.00</span></span>
-                                </div>
-                            </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
@@ -686,72 +563,28 @@
 
                                     <span class="column-product__title u-c-secondary u-s-m-b-25">WEEKLY PRODUCTS</span>
                                     <ul class="column-product__list">
+                                        {% for product in weekly_products %}
                                         <li class="column-product__item">
                                             <div class="product-l">
                                                 <div class="product-l__img-wrap">
 
-                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block product-l__link" href="product-detail.html">
+                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block product-l__link" href="{% url "single_product_page" product.pk %}">
 
-                                                        <img class="aspect__img" src="images/product/electronic/product26.jpg" alt=""></a></div>
+                                                        <img class="aspect__img" src="{{product.product_image.url}}" alt=""></a></div>
                                                 <div class="product-l__info-wrap">
 
                                                     <span class="product-l__category">
 
-                                                        <a href="shop-side-version-2.html">Electronics</a></span>
+                                                        <a href="shop-side-version-2.html">{{product.product_category}} </a></span>
 
                                                     <span class="product-l__name">
 
-                                                        <a href="product-detail.html">Razor Gear 10 Ram 16GB</a></span>
+                                                        <a href="{% url "single_product_page" product.pk %}">{{product.product_name}} </a></span>
 
-                                                    <span class="product-l__price">$125.00
-
-                                                        <span class="product-l__discount">$160</span></span></div>
+                                                    <span class="product-l__price">${{product.product_price}} </span></div>
                                             </div>
                                         </li>
-                                        <li class="column-product__item">
-                                            <div class="product-l">
-                                                <div class="product-l__img-wrap">
-
-                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block product-l__link" href="product-detail.html">
-
-                                                        <img class="aspect__img" src="images/product/electronic/product27.jpg" alt=""></a></div>
-                                                <div class="product-l__info-wrap">
-
-                                                    <span class="product-l__category">
-
-                                                        <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                                    <span class="product-l__name">
-
-                                                        <a href="product-detail.html">Razor Gear 15 Ram 8GB</a></span>
-
-                                                    <span class="product-l__price">$125.00
-
-                                                        <span class="product-l__discount">$160</span></span></div>
-                                            </div>
-                                        </li>
-                                        <li class="column-product__item">
-                                            <div class="product-l">
-                                                <div class="product-l__img-wrap">
-
-                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block product-l__link" href="product-detail.html">
-
-                                                        <img class="aspect__img" src="images/product/electronic/product28.jpg" alt=""></a></div>
-                                                <div class="product-l__info-wrap">
-
-                                                    <span class="product-l__category">
-
-                                                        <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                                    <span class="product-l__name">
-
-                                                        <a href="product-detail.html">Razor Gear 15 Ultra Ram 16GB</a></span>
-
-                                                    <span class="product-l__price">$125.00
-
-                                                        <span class="product-l__discount">$160</span></span></div>
-                                            </div>
-                                        </li>
+                                        {% endfor %}
                                     </ul>
                                 </div>
                             </div>
@@ -906,15 +739,16 @@
                 <div class="section__content">
                     <div class="container">
                         <div class="row">
+                            {% for blog in blogs %}
                             <div class="col-lg-4 col-md-6 u-s-m-b-30">
                                 <div class="bp-mini bp-mini--img u-h-100">
                                     <div class="bp-mini__thumbnail">
 
                                         <!--====== Image Code ======-->
 
-                                        <a class="aspect aspect--bg-grey aspect--1366-768 u-d-block" href="blog-detail.html">
+                                        <a class="aspect aspect--bg-grey aspect--1366-768 u-d-block" href="{% url 'blog_details' blog.pk %}">
 
-                                            <img class="aspect__img" src="{% static '../../static/assets/images/blog/blog (1).jpg' %}" alt=""></a>
+                                            <img class="aspect__img" src="{{blog.blog_image.url}}" alt=""></a>
                                         <!--====== End - Image Code ======-->
                                     </div>
                                     <div class="bp-mini__content">
@@ -926,7 +760,7 @@
 
                                                     <a>
 
-                                                        <span>25 February 2018</span></a></span></span>
+                                                        <span> {{blog.blog_date}} </span></a></span></span>
 
                                             <span class="bp-mini__stat-wrap">
 
@@ -934,155 +768,25 @@
 
                                                 <span class="bp-mini__author">
 
-                                                    <a href="#">Dayle</a></span></span>
-
-                                            <span class="bp-mini__stat">
-
-                                                <span class="bp-mini__comment">
-
-                                                    <a href="blog-detail.html"><i class="far fa-comments u-s-m-r-4"></i>
-
-                                                        <span>8</span></a></span></span></div>
+                                                    <a href="#"> {{blog.blog_writer}} </a>
+                                                </span>
+                                            </span>
+                                        </div>
                                         <div class="bp-mini__category">
 
-                                            <a>Learning</a>
-
-                                            <a>News</a>
-
-                                            <a>Health</a></div>
+                                            <a href="{% url 'blog_details' blog.pk %}"> {{blog.blog_topic}} </a>
+                                        </div>
 
                                         <span class="bp-mini__h1">
 
-                                            <a href="blog-detail.html">Life is an extraordinary Adventure</a></span>
-                                        <p class="bp-mini__p">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                                        <div class="blog-t-w">
-
-                                            <a class="gl-tag btn--e-transparent-hover-brand-b-2">Travel</a>
-
-                                            <a class="gl-tag btn--e-transparent-hover-brand-b-2">Culture</a>
-
-                                            <a class="gl-tag btn--e-transparent-hover-brand-b-2">Place</a></div>
+                                            <a href="{% url 'blog_details' blog.pk %}"> {{block.blog_title}}</a>
+                                        </span>
+                                        <p class="bp-mini__p">{{ blog.blog_text|linebreaksbr|default:""|safe|slice:":200" }}</p>
+                                        
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-md-6 u-s-m-b-30">
-                                <div class="bp-mini bp-mini--img u-h-100">
-                                    <div class="bp-mini__thumbnail">
-
-                                        <!--====== Image Code ======-->
-
-                                        <a class="aspect aspect--bg-grey aspect--1366-768 u-d-block" href="blog-detail.html">
-
-                                            <img class="aspect__img" src="{% static '../../static/assets/images/blog/blog (2).jpg' %}" alt=""></a>
-                                        <!--====== End - Image Code ======-->
-                                    </div>
-                                    <div class="bp-mini__content">
-                                        <div class="bp-mini__stat">
-
-                                            <span class="bp-mini__stat-wrap">
-
-                                                <span class="bp-mini__publish-date">
-
-                                                    <a>
-
-                                                        <span>25 February 2018</span></a></span></span>
-
-                                            <span class="bp-mini__stat-wrap">
-
-                                                <span class="bp-mini__preposition">By</span>
-
-                                                <span class="bp-mini__author">
-
-                                                    <a href="#">Dayle</a></span></span>
-
-                                            <span class="bp-mini__stat">
-
-                                                <span class="bp-mini__comment">
-
-                                                    <a href="blog-detail.html"><i class="far fa-comments u-s-m-r-4"></i>
-
-                                                        <span>8</span></a></span></span></div>
-                                        <div class="bp-mini__category">
-
-                                            <a>Learning</a>
-
-                                            <a>News</a>
-
-                                            <a>Health</a></div>
-
-                                        <span class="bp-mini__h1">
-
-                                            <a href="blog-detail.html">Wait till its open</a></span>
-                                        <p class="bp-mini__p">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                                        <div class="blog-t-w">
-
-                                            <a class="gl-tag btn--e-transparent-hover-brand-b-2">Travel</a>
-
-                                            <a class="gl-tag btn--e-transparent-hover-brand-b-2">Culture</a>
-
-                                            <a class="gl-tag btn--e-transparent-hover-brand-b-2">Place</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6 u-s-m-b-30">
-                                <div class="bp-mini bp-mini--img u-h-100">
-                                    <div class="bp-mini__thumbnail">
-
-                                        <!--====== Image Code ======-->
-
-                                        <a class="aspect aspect--bg-grey aspect--1366-768 u-d-block" href="blog-detail.html">
-
-                                            <img class="aspect__img" src="{% static '../../static/assets/images/blog/blog (3).jpg' %}" alt=""></a>
-                                        <!--====== End - Image Code ======-->
-                                    </div>
-                                    <div class="bp-mini__content">
-                                        <div class="bp-mini__stat">
-
-                                            <span class="bp-mini__stat-wrap">
-
-                                                <span class="bp-mini__publish-date">
-
-                                                    <a>
-
-                                                        <span>25 February 2018</span></a></span></span>
-
-                                            <span class="bp-mini__stat-wrap">
-
-                                                <span class="bp-mini__preposition">By</span>
-
-                                                <span class="bp-mini__author">
-
-                                                    <a href="#">Dayle</a></span></span>
-
-                                            <span class="bp-mini__stat">
-
-                                                <span class="bp-mini__comment">
-
-                                                    <a href="blog-detail.html"><i class="far fa-comments u-s-m-r-4"></i>
-
-                                                        <span>8</span></a></span></span></div>
-                                        <div class="bp-mini__category">
-
-                                            <a>Learning</a>
-
-                                            <a>News</a>
-
-                                            <a>Health</a></div>
-
-                                        <span class="bp-mini__h1">
-
-                                            <a href="blog-detail.html">Tell me difference between smoke and vape</a></span>
-                                        <p class="bp-mini__p">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                                        <div class="blog-t-w">
-
-                                            <a class="gl-tag btn--e-transparent-hover-brand-b-2">Travel</a>
-
-                                            <a class="gl-tag btn--e-transparent-hover-brand-b-2">Culture</a>
-
-                                            <a class="gl-tag btn--e-transparent-hover-brand-b-2">Place</a></div>
-                                    </div>
-                                </div>
-                            </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
