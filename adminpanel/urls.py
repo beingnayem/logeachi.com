@@ -33,5 +33,14 @@ urlpatterns = [
     path('delete-main-category/', views.delete_main_category, name='delete_main_category'),
     path('delete-category/', views.delete_category, name='delete_category'),
     path('delete-sub-category/', views.delete_sub_category, name='delete_sub_category'),
-    
+    path('sliders/', views.slidersView, name='sliders'),
+    path('add-slider/', views.add_slider, name='add_slider'),
+    path('delete-slider/', views.delete_slider, name='delete_slider'),
+    path('edit-slider/', views.edit_slider, name='edit_slider'),
+    path('slider-details/', views.slider_details, name='slider_details'),
+    path('banners/', views.bannersView, name='banners'),
+    path('add-banner/', views.add_banner, name='add_banner'),
+    path('delete-banner/', views.delete_banner, name='delete_banner'),
+    path('edit-banner/', views.edit_banner, name='edit_banner'),
+    path('banner-details/', views.banner_details, name='banner_details'),
 ]

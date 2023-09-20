@@ -13,7 +13,7 @@ from django.utils.encoding import force_bytes, force_str, DjangoUnicodeDecodeErr
 from django.utils import timezone
 from datetime import timedelta
 from accounts.utils import TokenGenerator, generate_token
-from home.models import Queries
+from home.models import Queries, Home_Slider, Banner
 
 # emails
 from django.core.mail import send_mail, EmailMultiAlternatives, EmailMessage, BadHeaderError
@@ -901,3 +901,254 @@ def delete_sub_category(request):
             return redirect(request.META.get('HTTP_REFERER'))
     
     return redirect(request.META.get('HTTP_REFERER'))
+
+
+
+@login_required
+def add_slider(request):
+    if not request.user.is_admin:
+        return render(request, 'accounts/wrong_path.html')
+        
+    # Getting sub category data
+    if request.method == 'POST':
+        try:
+            slider_banner =  request.FILES.get('slider_banner')
+            slider_title = request.POST.get('slider_title')
+            offer = request.POST.get('offer')
+            offer_description = request.POST.get('offer_description')
+            starting_price = request.POST.get('starting_price')
+
+            Home_Slider.objects.create(slider_banner=slider_banner, slider_offer_title=slider_title, slider_offer=offer, slider_offer_description=offer_description, slider_offer_starting_price=starting_price)       
+
+            messages.success(request, 'Slider added successfully')
+            return redirect('sliders')
+
+        except Exception as e:
+            # print(f"Error adding slider: {e}")
+            messages.error(request, 'An error occurred while adding Slider.')
+            return redirect('sliders')
+            
+    return render(request, 'adminpanel/add_slider.html')
+
+
+@login_required
+def delete_slider(request):
+    if not request.user.is_admin:
+        return render(request, 'accounts/wrong_path.html')
+    
+    if request.method == 'GET':
+        try:
+            # get sub category by id
+            slider_id = request.GET.get('slider_id')
+            slider = get_object_or_404(Home_Slider, id=slider_id)
+            slider.delete()
+
+            messages.success(request, 'Slider deleted successfully.')
+            return redirect(request.META.get('HTTP_REFERER'))
+        
+        except Exception as e:
+            print(f"Error deleting slider: {e}")
+            messages.error(request, 'An error occurred while deleting the slider.')
+            return redirect(request.META.get('HTTP_REFERER'))
+    
+    return redirect(request.META.get('HTTP_REFERER'))
+
+
+
+@login_required
+def edit_slider(request):
+    if not request.user.is_admin:
+        return render(request, 'accounts/wrong_path.html')
+    
+    if 'cancel' in request.POST:
+        # Redirect to the category list without showing the success message
+        return redirect('sliders')
+    
+    if request.method == 'POST':
+        try:
+            # Retrieve data from the request
+            slider_id = request.POST.get('slider_id')
+            slider_banner = request.FILES.get('slider_banner')
+            slider_title = request.POST.get('slider_title')
+            offer = request.POST.get('offer')
+            offer_description = request.POST.get('offer_description')
+            starting_price = request.POST.get('starting_price')
+
+            # Fetch the slider object
+            slider = Home_Slider.objects.get(id=slider_id)
+
+            if slider:
+                # Update slider attributes, including 'slider_banner' if a new file is provided
+                if slider_banner:
+                    slider.slider_banner = slider_banner
+
+                slider.slider_offer_title = slider_title
+                slider.slider_offer = offer
+                slider.slider_offer_description = offer_description
+                slider.slider_offer_starting_price = starting_price
+                slider.save()
+
+                messages.success(request, 'Slider edited successfully.')
+                return redirect('sliders')
+
+        except Exception as e:
+            print(f"Error editing slider: {e}")
+            messages.error(request, 'An error occurred while editing the slider.')
+            return redirect('sliders')
+
+    
+    # If it's a GET request, fetch the list of slider and render the edit form
+    slider_id = request.GET.get('slider_id')
+    slider = Home_Slider.objects.get(id=slider_id)
+    
+    return render(request, 'adminpanel/edit_slider.html', {'slider': slider})
+
+
+@login_required
+def slider_details(request):
+    if not request.user.is_admin:
+        return render(request, 'accounts/wrong_path.html')
+    
+    if request.method == 'POST':
+        slider_id = request.POST.get('slider_id')
+        slider = Home_Slider.objects.get(id=slider_id)
+        
+        return render(request, 'adminpanel/slider_details.html', {'slider': slider})
+
+
+@login_required
+def slidersView(request):
+    if not request.user.is_admin:
+        return render(request, 'accounts/wrong_path.html')
+
+    sliders = Home_Slider.objects.all()
+    return render(request, 'adminpanel/sliders.html', {'sliders': sliders})
+
+
+@login_required
+def add_banner(request):
+    if not request.user.is_admin:
+        return render(request, 'accounts/wrong_path.html')
+        
+    # Getting banner data
+    if request.method == 'POST':
+        try:
+            banner_image = request.FILES.get('banner_image')
+            banner_title = request.POST.get('banner_title')
+            banner_offer = request.POST.get('banner_offer')
+            category_id = request.POST.get('category_id')
+            
+            # get the category object from the category model
+            banner_product_category = Category.objects.get(id=category_id)
+
+            Banner.objects.create(banner_image=banner_image, banner_title=banner_title, banner_offer=banner_offer, banner_product_category=banner_product_category)      
+
+            messages.success(request, 'Banner added successfully')
+            return redirect('banners')
+
+        except Exception as e:
+            # print(f"Error adding slider: {e}")
+            messages.error(request, 'An error occurred while adding Banner.')
+            return redirect('banners')
+        
+    else:
+        categories = Category.objects.all()
+        return render(request, 'adminpanel/add_banner.html', {'categories': categories})
+
+
+@login_required
+def delete_banner(request):
+    if not request.user.is_admin:
+        return render(request, 'accounts/wrong_path.html')
+    
+    if request.method == 'GET':
+        try:
+            # get banner by id
+            banner_id = request.GET.get('banner_id')
+            banner = get_object_or_404(Banner, id=banner_id)
+            banner.delete()
+
+            messages.success(request, 'Banner deleted successfully.')
+            return redirect(request.META.get('HTTP_REFERER'))
+        
+        except Exception as e:
+            print(f"Error deleting banner: {e}")
+            messages.error(request, 'An error occurred while deleting the banner.')
+            return redirect(request.META.get('HTTP_REFERER'))
+    
+    return redirect(request.META.get('HTTP_REFERER'))
+
+
+
+@login_required
+def edit_banner(request):
+    if not request.user.is_admin:
+        return render(request, 'accounts/wrong_path.html')
+    
+    if 'cancel' in request.POST:
+        # Redirect to the category list without showing the success message
+        return redirect('banners')
+    
+    if request.method == 'POST':
+        try:
+            # Retrieve data from the request
+            banner_id = request.POST.get('banner_id')
+            banner_image = request.FILES.get('banner_image')
+            banner_title = request.POST.get('banner_title')
+            banner_offer = request.POST.get('banner_offer')
+            category_id = request.POST.get('category_id')
+
+            # get the banner object
+            banner = Banner.objects.get(id=banner_id)
+
+            if banner:
+                # Update slider attributes, including 'banner image' if a new file is provided
+                if banner_image:
+                    banner.banner_image = banner_image
+                banner.slider_offer_title = banner_title
+                banner.banner_offer = banner_offer
+                if category_id:
+                    banner_product_category = Category.objects.get(id=category_id)
+                    banner.banner_product_category = banner_product_category
+                banner.save()
+
+                messages.success(request, 'Banner edited successfully.')
+                return redirect('banners')
+
+        except Exception as e:
+            print(f"Error editing slider: {e}")
+            messages.error(request, 'An error occurred while editing the banner.')
+            return redirect('banners')
+
+    # If it's a GET request, fetch the list of baner, categories and render the edit form
+    banner_id = request.GET.get('banner_id')
+    banner = Banner.objects.get(id=banner_id)
+    categories = Category.objects.all()
+    
+    return render(request, 'adminpanel/edit_banner.html', {'banner': banner, 'categories': categories})
+
+
+@login_required
+def banner_details(request):
+    if not request.user.is_admin:
+        return render(request, 'accounts/wrong_path.html')
+    
+    if request.method == 'POST':
+        banner_id = request.POST.get('banner_id')
+        banner = Banner.objects.get(id=banner_id)
+        
+        return render(request, 'adminpanel/banner_details.html', {'banner': banner})
+
+
+@login_required
+def bannersView(request):
+    if not request.user.is_admin:
+        return render(request, 'accounts/wrong_path.html')
+
+    banners = Banner.objects.all()
+    
+    return render(request, 'adminpanel/banners.html', {'banners': banners})
+
+    
+    
+

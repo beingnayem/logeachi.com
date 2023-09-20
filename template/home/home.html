@@ -615,61 +615,27 @@
                 <div class="section__content">
                     <div class="container">
                         <div class="row">
-                            <div class="col-lg-4 col-md-4 col-sm-6 u-s-m-b-30">
-
-                                <a class="promotion" href="shop-side-version-2.html">
-                                    <div class="aspect aspect--bg-grey aspect--square">
-
-                                        <img class="aspect__img promotion__img" src="images/promo/promo-img-1.jpg" alt=""></div>
-                                    <div class="promotion__content">
-                                        <div class="promotion__text-wrap">
-                                            <div class="promotion__text-1">
-
-                                                <span class="u-c-secondary">ACCESSORIES FOR YOUR EVERYDAY</span></div>
-                                            <div class="promotion__text-2">
-
-                                                <span class="u-c-secondary">GET IN</span>
-
-                                                <span class="u-c-brand">TOUCH</span></div>
+                            
+                            {% for banner in banners %}
+                                <div class="col-lg-4 col-md-4 col-sm-6 u-s-m-b-30">
+                                    <a class="promotion" href="#">
+                                        <div class="aspect aspect--bg-grey aspect--square">
+                                            <img class="aspect__img promotion__img" src="{{banner.banner_image.url}}" alt="">
                                         </div>
-                                    </div>
-                                </a></div>
-                            <div class="col-lg-4 col-md-4 col-sm-6 u-s-m-b-30">
-
-                                <a class="promotion" href="shop-side-version-2.html">
-                                    <div class="aspect aspect--bg-grey aspect--square">
-
-                                        <img class="aspect__img promotion__img" src="images/promo/promo-img-2.jpg" alt=""></div>
-                                    <div class="promotion__content">
-                                        <div class="promotion__text-wrap">
-                                            <div class="promotion__text-1">
-
-                                                <span class="u-c-secondary">SMARTPHONE</span>
-
-                                                <span class="u-c-brand">2019</span></div>
-                                            <div class="promotion__text-2">
-
-                                                <span class="u-c-secondary">NEW ARRIVALS</span></div>
+                                        <div class="promotion__content">
+                                            <div class="promotion__text-wrap">
+                                                <div class="promotion__text-1">
+                                                    <span class="u-c-secondary">{{banner.banner_title}}</span>
+                                                </div>
+                                                <div class="promotion__text-2">
+                                                    <span class="u-c-brand">{{banner.banner_offer}}</span>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </a></div>
-                            <div class="col-lg-4 col-md-4 col-sm-6 u-s-m-b-30">
+                                    </a>
+                                </div>
+                            {% endfor %}
 
-                                <a class="promotion" href="shop-side-version-2.html">
-                                    <div class="aspect aspect--bg-grey aspect--square">
-
-                                        <img class="aspect__img promotion__img" src="images/promo/promo-img-3.jpg" alt=""></div>
-                                    <div class="promotion__content">
-                                        <div class="promotion__text-wrap">
-                                            <div class="promotion__text-1">
-
-                                                <span class="u-c-secondary">DSLR FOR NEW GENERATION</span></div>
-                                            <div class="promotion__text-2">
-
-                                                <span class="u-c-brand">GET UP TO 10% OFF</span></div>
-                                        </div>
-                                    </div>
-                                </a></div>
                         </div>
                     </div>
                 </div>
@@ -948,7 +914,7 @@
 
                                         <a class="aspect aspect--bg-grey aspect--1366-768 u-d-block" href="blog-detail.html">
 
-                                            <img class="aspect__img" src="images/blog/post-2.jpg" alt=""></a>
+                                            <img class="aspect__img" src="{% static '../../static/assets/images/blog/blog (1).jpg' %}" alt=""></a>
                                         <!--====== End - Image Code ======-->
                                     </div>
                                     <div class="bp-mini__content">
@@ -1007,7 +973,7 @@
 
                                         <a class="aspect aspect--bg-grey aspect--1366-768 u-d-block" href="blog-detail.html">
 
-                                            <img class="aspect__img" src="images/blog/post-12.jpg" alt=""></a>
+                                            <img class="aspect__img" src="{% static '../../static/assets/images/blog/blog (2).jpg' %}" alt=""></a>
                                         <!--====== End - Image Code ======-->
                                     </div>
                                     <div class="bp-mini__content">
@@ -1066,7 +1032,7 @@
 
                                         <a class="aspect aspect--bg-grey aspect--1366-768 u-d-block" href="blog-detail.html">
 
-                                            <img class="aspect__img" src="images/blog/post-5.jpg" alt=""></a>
+                                            <img class="aspect__img" src="{% static '../../static/assets/images/blog/blog (3).jpg' %}" alt=""></a>
                                         <!--====== End - Image Code ======-->
                                     </div>
                                     <div class="bp-mini__content">

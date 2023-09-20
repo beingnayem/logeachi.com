@@ -1,4 +1,5 @@
 from django.db import models
+from products.models import Category
 
 # Create your models here.
 
@@ -38,3 +39,8 @@ class Queries(models.Model):
     def __str__(self) -> str:
         return self.name
 
+class Banner(models.Model):
+    banner_image = models.ImageField(upload_to='Banner')
+    banner_title = models.CharField(max_length=155)
+    banner_offer = models.CharField(max_length=155)
+    banner_product_category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='banner_product_category')

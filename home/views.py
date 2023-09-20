@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from home.models import Home_Slider, Newsletter, Queries
+from home.models import Home_Slider, Newsletter, Queries, Banner
 from accounts.models import User
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
@@ -27,6 +27,7 @@ def home(request):
         wishlist_count = Wishlist.objects.filter(user=request.user).count()
     new_arrivals = products.order_by('product_added_date')[:8]
     special_products = Product.objects.exclude(product_brand="No Brand")
+    banners = Banner.objects.all()
     context = {
         'sliders': sliders,
         'main_categories': main_categories,
@@ -34,6 +35,7 @@ def home(request):
         'new_arrivals': new_arrivals,
         'special_products': special_products, 
         'wishlist_count': wishlist_count,
+        'banners': banners
     }
     return render(request, 'home/home.html', context)
 

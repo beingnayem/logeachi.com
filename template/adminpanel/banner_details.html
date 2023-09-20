@@ -1,0 +1,32 @@
+{% extends 'adminpanel/admin_panel.html' %}
+{% load static %}
+
+{% block message_content %}
+    {% include 'include/message.html' %}
+{% endblock message_content %}
+
+{% block admin-panel-main-content %}
+    <div class="adminpanelhome-content">
+        <div class="individual-product-details-container">
+            <h1 class="individual-product-details-container-title">Banner Details</h1>
+            <div class="individual-product-image-container">
+                <img class="individual-product-image" src="{{ banner.banner_image.url }}" alt="Product Image">
+                <p class="image-caption">{{banner.banner_title}}</p>
+            </div>
+            <div class="individual-product-info">
+                <p class="individual-product-info-data"><strong class="product-data-title">Banner Title: </strong>{{banner.banner_title}}</p>
+                <p class="individual-product-info-data"><strong class="product-data-title">Offer: </strong>{{banner.banner_offer}}</p>
+                <p class="individual-product-info-data"><strong class="product-data-title">Product Category: </strong>{{banner.banner_product_category}}</p>
+            </div>
+            <div class="product-edit-pencil-btn-container">
+                <form action="{% url 'edit_banner' %}" method="GET">
+                    {% csrf_token %}
+                    <input type="hidden" name="banner_id" value="{{ banner.id }}">
+                    <button type="submit" title="Edit Product" class="product-edit-pencil-btn"><i class="fas fa-pencil-alt"></i></button>
+                </form>
+            </div>
+            <button class="go-back-btn" onclick="goBack()">Back</button>
+           
+        </div>
+    </div>
+{% endblock admin-panel-main-content %}
