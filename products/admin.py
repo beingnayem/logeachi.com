@@ -26,9 +26,9 @@ class ProductAdmin(admin.ModelAdmin):
         'product_stock_date'
     ]
     
-@admin.register(Product_Reviews)
-class ProductReviewsAdmin(admin.ModelAdmin):
-    list_display = ['id', 'user_name', 'user_email', 'product']
+@admin.register(Product_Reviews_and_Rating)
+class ProductReviewsandRatingAdmin(admin.ModelAdmin):
+    list_display = ['id', 'user', 'review_date', 'product', 'rating']
 
 
 
