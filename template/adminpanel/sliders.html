@@ -1,0 +1,76 @@
+{% extends 'adminpanel/admin_panel.html' %}
+{% load static %}
+
+{% block message_content %}
+    {% include 'include/message.html' %}
+{% endblock message_content %}
+
+{% block admin-panel-main-content %}
+    <div class="adminpanelhome-content">
+        <div class="team-member-list-container">
+            
+                <h1>Slider List</h1>
+                <div class="admin-request-approve-button-container">
+                    <a href="{% url 'banners' %}">
+                        <button class="admin-request-approve-button">Banners</button>
+                    </a> 
+                    <a href="{% url 'sliders' %}">
+                        <button class="admin-request-approve-button">Sliders</button>
+                    </a>
+                </div>
+                <div class="admin-request-approve-button-container">
+                    <a href="{% url 'add_slider' %}">
+                        <button class="admin-request-approve-button">Add Slider</button>
+                    </a> 
+                </div>
+                {% if sliders %}
+                <div class="team-member-list-table-container">
+                    <table class="team-member-list-table-container-table">
+                        <thead>
+                            <tr class="team-member-list-table-container-table-row">
+                                <th class="team-member-info-head">ID</th>
+                                <th class="team-member-info-head">Ttile</th>
+                                <th class="team-member-info-head">Offer</th>
+                                <th class="team-member-info-head">Offer Description</th>
+                                <th class="team-member-info-head">Price</th>
+                                <th class="team-member-info-head" style="display: flex; justify-content:center;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            {% for slider in sliders %}
+                                <tr class="team-member-list-table-container-table-row">
+                                    <td class="team-member-info">{{slider.id}}</td>
+                                    <td class="team-member-info">{{slider.slider_offer_title}}</td>
+                                    <td class="team-member-info">{{slider.slider_offer}}</td>
+                                    <td class="team-member-info">{{slider.slider_offer_description}}</td>
+                                    <td class="team-member-info">{{slider.slider_offer_starting_price}}</td>
+                                    <td class="team-member-action-buttons" style="justify-content: center;">
+                                        <form action="{% url 'edit_slider' %}" method="GET">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="slider_id" value="{{ slider.id }}">
+                                            <button type="submit" class="team-member-remove-button"  title="Edit"><i class="fas fa-pencil-alt"></i></button>
+                                        </form>
+                                        <form action="{% url 'slider_details' %}" method="POST">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="slider_id" value="{{ slider.id }}">
+                                            <button class="team-member-remove-button"  title="View"><i class="fas fa-eye"></i></button>
+                                        </form>
+                                        <form action="{% url 'delete_slider' %}" method="GET">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="slider_id" value="{{ slider.id }}">
+                                            <button class="team-member-remove-button"  title="Delete"><i class="fas fa-trash"></i></button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div> 
+                    {% else %}
+                        <h2 style="text-align: center; color:rgb(101, 168, 33) ">There is no Sliders yet.</h2>
+                {% endif %}
+        </div>
+    </div>
+{% endblock admin-panel-main-content %}
