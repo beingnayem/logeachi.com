@@ -53,3 +53,29 @@
 
 
 
+    /* Hide the default radio buttons */
+    input[type="radio"] {
+      display: none;
+  }
+
+  /* Style the star labels */
+  .singel-star-rating label {
+      font-size: 40px; /* Adjust the size of the stars */
+      cursor: pointer;
+  }
+
+  /* Style the empty star (unselected) */
+  .singel-star-rating label::before {
+      content: "\2606"; /* Unicode character for an empty star */
+  }
+
+  /* Style the filled star (selected) */
+  .singel-star-rating input:checked + label::before {
+      content: "\2605"; /* Unicode character for a filled star */
+      color: rgb(233, 198, 0); /* Adjust the color of the filled star */
+  }
+
+
+  .singel-star-rating label.selected::before {
+    color: gold; /* Adjust the color of the selected star */
+}

@@ -1,5 +1,7 @@
 from django.db import models
 from accounts.models import User
+from django.db.models import Avg
+
 
 class Main_Category(models.Model):
     name = models.CharField(max_length=255)
@@ -60,18 +62,41 @@ class Product(models.Model):
         ordering = ['-product_added_date']
         
         
-class Product_Reviews(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    user_name = models.CharField(max_length=255)
-    user_email = models.EmailField(max_length=255)
+    def average_rating(self):
+        # Calculate the average rating for the product
+        return Product_Reviews_and_Rating.objects.filter(product=self).aggregate(avg_rating=Avg('rating'))['avg_rating']
+    
+    def total_reviews(self):
+        # Calculate the total number of reviews for the product
+        return self.review_to.count()
+        
+        
+class Product_Reviews_and_Rating(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='review_to')
+    user =  models.ForeignKey(User, on_delete=models.CASCADE, related_name='review_by')
     review = models.TextField(max_length=255)
     review_date = models.DateTimeField(auto_now_add=True, null=True)
+    rating = models.FloatField(default=0.0)
+    
     def __str__(self):
         return self.product.product_name
     
 
     class Meta:
-        verbose_name_plural ="5. ProductReview"
+        verbose_name_plural ="5. Product Review And Rating"
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # class Order(models.Model):
 #     customer = models.ForeignKey(User, on_delete=models.CASCADE)
