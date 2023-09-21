@@ -1,5 +1,5 @@
 from django.contrib import admin
-from home.models import Newsletter, Queries, Home_Slider
+from home.models import Newsletter, Queries, Home_Slider, Event, Banner
 
 # Register your models here.
 
@@ -26,4 +26,22 @@ class QueriesAdmin(admin.ModelAdmin):
         'subject',
         'query_date',
         'query_status'
+    ]
+    
+    
+@admin.register(Banner)
+class BannerAdmin(admin.ModelAdmin):
+    list_display = [
+        'id',
+        'banner_title',
+        'banner_product_category'
+    ]
+    
+    
+@admin.register(Event)
+class EventAdmin(admin.ModelAdmin):
+    list_display = [
+        'id',
+        'event_title',
+        'event_product_category'
     ]

@@ -1,5 +1,6 @@
 from django.db import models
-from products.models import Category
+from products.models import Category, Subcategory
+from datetime import datetime, timedelta
 
 # Create your models here.
 
@@ -44,3 +45,30 @@ class Banner(models.Model):
     banner_title = models.CharField(max_length=155)
     banner_offer = models.CharField(max_length=155)
     banner_product_category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='banner_product_category')
+
+
+class Event(models.Model):
+    event_banner = models.ImageField(upload_to='Event')
+    event_title = models.CharField(max_length=155)
+    event_offer_title = models.CharField(max_length=155)
+    event_offer = models.CharField(max_length=155)
+    event_product_category = models.ForeignKey(Subcategory, on_delete=models.CASCADE, related_name='event_product_category')
+    event_deadline = models.DateTimeField(blank=True, null=True)
+    
+    
+    def formatted_deadline(self):
+        # Check if event_deadline is not None
+        if self.event_deadline:
+            return self.event_deadline.strftime('%Y/%m/%d')
+        else:
+            return None
+        
+    def is_event_over(self):
+        if self.event_deadline:
+            # Get the current date
+            current_date = datetime.now().date()
+            
+            # Check if the current date is after the event deadline
+            return current_date > self.event_deadline.date()
+        else:
+            return False  # Return False if the event date is not set

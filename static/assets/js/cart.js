@@ -22,7 +22,7 @@ $('.qty-plus').click(function(){
 
 
 
-
+// Rating Star JS
 const starRating = document.querySelector('.singel-star-rating');
 const ratingInputs = document.querySelectorAll('input[name="rating"]');
 const starLabels = document.querySelectorAll('.singel-star-rating label');
@@ -57,7 +57,7 @@ ratingInputs.forEach((input, index) => {
 
 
 
-
+// Home Top Trending JS
 $(document).ready(function() {
     // Add an event listener for category buttons
     $(".filter__btn").click(function() {
