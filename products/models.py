@@ -60,8 +60,7 @@ class Product(models.Model):
     class Meta:
         verbose_name_plural ="4. Products"
         ordering = ['-product_added_date']
-        
-        
+         
     def average_rating(self):
         # Calculate the average rating for the product
         return Product_Reviews_and_Rating.objects.filter(product=self).aggregate(avg_rating=Avg('rating'))['avg_rating']
