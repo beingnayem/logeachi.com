@@ -29,8 +29,8 @@ def home(request):
 
     if request.user.is_authenticated:
         wishlist_count = Wishlist.objects.filter(user=request.user).count()
-<<<<<<< HEAD
 
+    # this is for top rated categories and products
     # Calculate the average rating for each category
     categories_with_avg_rating = Subcategory.objects.annotate(avg_rating=Avg('products__review_to__rating'))
     
@@ -50,12 +50,9 @@ def home(request):
             'category': category,
             'top_rated_products': top_rated_products,
         })
-
-    new_arrivals = Product.objects.order_by('product_added_date')[:8]
-    special_products = Product.objects.exclude(product_brand="No Brand")
-    banners = Banner.objects.all()
-=======
         
+    
+    products = Product.objects.all() 
     new_arrivals = products.order_by('product_added_date')[:8]
     special_products = Product.objects.exclude(product_brand="No Brand")
     banners = Banner.objects.all()
@@ -69,7 +66,6 @@ def home(request):
     )[:4]
     
     blogs = Blog.objects.all()[:3]
->>>>>>> 7e6ef540e9c4172efe5466d6b879dfa64c0d86e9
 
     context = {
         'sliders': sliders,
