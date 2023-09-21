@@ -71,8 +71,12 @@
                         </ul>
                     </div>
                     <p class="individual-product-info-data">
-                        <strong class="product-data-title">Description: </strong>
-                        {{ product.product_description|slice:"4" }}
+                        <strong class="product-data-title">Featured: </strong>
+                        {% if product.product_featured  %}
+                            Yes
+                            {% else %}
+                                No
+                        {% endif %}
                     </p>
                 </div>
             </div>

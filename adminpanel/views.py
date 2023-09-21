@@ -11,9 +11,10 @@ from django.urls import NoReverseMatch, reverse
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes, force_str, DjangoUnicodeDecodeError
 from django.utils import timezone
-from datetime import timedelta
+from datetime import datetime, timedelta
 from accounts.utils import TokenGenerator, generate_token
-from home.models import Queries, Home_Slider, Banner
+from home.models import Queries, Home_Slider, Banner, Event
+from blog.models import Blog
 
 # emails
 from django.core.mail import send_mail, EmailMultiAlternatives, EmailMessage, BadHeaderError
@@ -161,6 +162,7 @@ def remove_admin(request):
 
     return redirect('team_member')
 
+
 @login_required
 def remove_user(request):
     if not request.user.is_admin:
@@ -237,6 +239,7 @@ def add_product(request):
             product_cash_payment = request.POST.get('product_cash_payment')
             product_online_payment = request.POST.get('product_online_payment')
             product_return = request.POST.get('product_return')
+            product_featured = request.POST.get('product_featured')
             
             # Get the Subcategory instance by name
             product_category = Subcategory.objects.get(id=product_category_id)
@@ -254,7 +257,8 @@ def add_product(request):
                 product_warrenty=product_warrenty,
                 product_cash_payment=product_cash_payment,
                 product_online_payment=product_online_payment,
-                product_return=product_return
+                product_return=product_return,
+                product_featured=product_featured
             )
             
             messages.success(request, 'Product added successfully.')
@@ -285,13 +289,7 @@ def edit_product(request):
             # get product by id
             product_id = request.POST.get('id')
             product = Product.objects.get(id=product_id)
-            
-            # current_product_warrenty = product.product_warrenty
-            # current_product_cash_payment = product.product_cash_payment
-            # current_product_online_payment = product.product_online_payment
-            # current_product_return = product.product_return
-            
-            
+
             # Retrieve product data from the request
             product_name = request.POST.get('product_name')
             product_image = request.FILES.get('product_image')
@@ -305,6 +303,7 @@ def edit_product(request):
             product_cash_payment = request.POST.get('product_cash_payment')
             product_online_payment = request.POST.get('product_online_payment')
             product_return = request.POST.get('product_return')
+            product_featured = request.POST.get('product_featured')
             
             # Update product details and save the object in the database
             product.product_name = product_name
@@ -319,18 +318,14 @@ def edit_product(request):
             product.product_quantity = product_quantity
             product.product_location = product_location
             if product_warrenty:
-            # if current_product_warrenty != product_warrenty:
-                    product.product_warrenty = product_warrenty
+                product.product_warrenty = product_warrenty
             if product_cash_payment:
-            # if current_product_cash_payment != product_cash_payment:
-                    product.product_cash_payment = product_cash_payment
+                product.product_cash_payment = product_cash_payment
             if product_online_payment:
-            # if current_product_online_payment != product_online_payment:
-                    product.product_online_payment = product_online_payment
+                product.product_online_payment = product_online_payment
             if product_return:
-            # if current_product_return != product_return:
-                    product.product_return = product_return
-
+                product.product_return = product_return
+            product.product_featured = product_featured
             product.save()
             
             messages.success(request, 'Product edited successfully.')
@@ -1097,7 +1092,7 @@ def edit_banner(request):
             banner_title = request.POST.get('banner_title')
             banner_offer = request.POST.get('banner_offer')
             category_id = request.POST.get('category_id')
-
+            # print("============================================================", category_id)
             # get the banner object
             banner = Banner.objects.get(id=banner_id)
 
@@ -1109,6 +1104,7 @@ def edit_banner(request):
                 banner.banner_offer = banner_offer
                 if category_id:
                     banner_product_category = Category.objects.get(id=category_id)
+                    # print("============================================================", bbname)
                     banner.banner_product_category = banner_product_category
                 banner.save()
 
@@ -1150,5 +1146,235 @@ def bannersView(request):
     return render(request, 'adminpanel/banners.html', {'banners': banners})
 
     
+@login_required   
+def blogsView(request):
+    
+    if not request.user.is_admin:
+        return render(request, 'accounts/wrong_path.html')
+    
+    blogs= Blog.objects.all()
+    return render(request, 'adminpanel/blogs.html', {'blogs': blogs})
+
+
+@login_required
+def post_blog(request):
+    
+    if not request.user.is_admin:
+        return render(request, 'accounts/wrong_path.html')
+    
+    if request.method == 'POST':
+        try:
+            blog_image = request.FILES.get('blog_image')
+            blog_title = request.POST.get('blog_title')
+            blog_topic = request.POST.get('blog_topic')
+            blog_writer = request.POST.get('blog_writer')
+            blog_text = request.POST.get('blog_text')
+            
+            Blog.objects.create(blog_image=blog_image, blog_title=blog_title, blog_topic=blog_topic, blog_writer=blog_writer, blog_text=blog_text)
+
+            messages.success(request, 'Blog posted successfully')  # Use messages.success for success messages
+            return redirect('blogs')
+        
+        except Exception as e:
+            print(f"Error posting blog: {e}")
+            messages.error(request, 'An error occurred while posting blog.')
+            return redirect(request.META.get('HTTP_REFERER'))
+            
+    
+    return render(request, 'adminpanel/post_blog.html')
+
+
+@login_required
+def edit_blog(request):
+    
+    if not request.user.is_admin:
+        return render(request, 'accounts/wrong_path.html')
+    
+    if 'cancel' in request.POST:
+        # Redirect to the blog list without showing the success message
+        return redirect('blogs')
+    
+    if request.method == 'POST':
+        try:
+            blog_id = request.POST.get('blog_id')
+            blog_image = request.FILES.get('blog_image')
+            blog_title = request.POST.get('blog_title')
+            blog_topic = request.POST.get('blog_topic')
+            blog_writer = request.POST.get('blog_writer')
+            blog_text = request.POST.get('blog_text')
+            
+            blog = Blog.objects.get(id=blog_id)
+
+            if blog_image:
+                blog.blog_image = blog_image
+            blog.blog_title = blog_title
+            blog.blog_topic = blog_topic
+            blog.blog_writer = blog_writer
+            blog.blog_text = blog_text
+            blog.save()
+            
+            messages.success(request, 'Blog edited successfully')  # Use messages.success for success messages
+            return redirect('blogs')
+        
+        except Exception as e:
+            print(f"Error editing blog: {e}")
+            messages.error(request, 'An error occurred while editing blog.')
+            return redirect(request.META.get('HTTP_REFERER'))
+        
+    else:
+        blog_id = request.GET.get('blog_id')
+        blog = Blog.objects.get(id=blog_id)
+        
+        return render(request, 'adminpanel/edit_blog.html', {'blog': blog})
     
 
+@login_required
+def delete_blog(request):
+    if not request.user.is_admin:
+        return render(request, 'accounts/wrong_path.html')
+    
+    if request.method == 'GET':
+        try:
+            # get blog by id
+            blog_id = request.GET.get('blog_id')
+            blog = get_object_or_404(Blog, id=blog_id)
+            blog.delete()
+
+            messages.success(request, 'Blog deleted successfully.')
+            return redirect(request.META.get('HTTP_REFERER'))
+        
+        except Exception as e:
+            print(f"Error deleting blog: {e}")
+            messages.error(request, 'An error occurred while deleting the blog.')
+            return redirect(request.META.get('HTTP_REFERER'))
+    
+    return redirect(request.META.get('HTTP_REFERER'))
+
+
+@login_required
+def create_event(request):
+    if not request.user.is_admin:
+        return render(request, 'accounts/wrong_path.html')
+        
+    # Getting event data
+    if request.method == 'POST':
+        try:
+            event_banner = request.FILES.get('event_banner')
+            event_title = request.POST.get('event_title')
+            event_offer_title = request.POST.get('event_offer_title')
+            event_offer = request.POST.get('event_offer')
+            sub_category_id = request.POST.get('sub_category_id')
+            event_deadline_str = request.POST.get('event_deadline')
+        
+            # Convert the date string to a datetime object (assuming 'YYYY-MM-DD' format)
+            event_deadline = datetime.strptime(event_deadline_str, '%Y-%m-%d')
+            
+            # get the category object from the category model
+            event_product_category = Subcategory.objects.get(id=sub_category_id)
+
+            Event.objects.create(event_banner=event_banner, event_title=event_title, event_offer_title=event_offer_title, event_offer=event_offer, event_product_category=event_product_category, event_deadline=event_deadline)      
+
+            messages.success(request, 'Event Created successfully')
+            return redirect('events')
+
+        except Exception as e:
+            # print(f"Error adding slider: {e}")
+            messages.error(request, 'An error occurred while creating Event.')
+            return redirect('events')
+        
+    else:
+        sub_categories = Subcategory.objects.all()
+        return render(request, 'adminpanel/create_event.html', {'sub_categories': sub_categories})
+
+    
+@login_required
+def eventsView(request):
+    if not request.user.is_admin:
+        return render(request, 'accounts/wrong_path.html')
+        
+    events = Event.objects.all()
+    return render(request, 'adminpanel/events.html', {'events': events})
+
+@login_required
+def delete_event(request):
+    if not request.user.is_admin:
+        return render(request, 'accounts/wrong_path.html')
+    
+    if request.method == 'GET':
+        try:
+            # get event by id
+            event_id = request.GET.get('event_id')
+            event = get_object_or_404(Event, id=event_id)
+            event.delete()
+
+            messages.success(request, 'Event deleted successfully.')
+            return redirect(request.META.get('HTTP_REFERER'))
+        
+        except Exception as e:
+            print(f"Error deleting event: {e}")
+            messages.error(request, 'An error occurred while deleting the event.')
+            return redirect(request.META.get('HTTP_REFERER'))
+    
+    return redirect(request.META.get('HTTP_REFERER'))
+
+
+@login_required
+def edit_event(request):
+    if not request.user.is_admin:
+        return render(request, 'accounts/wrong_path.html')
+
+    if 'cancel' in request.POST:
+        # Redirect to the event list without showing the success message
+        return redirect('events')    
+    
+    # Getting event data
+    if request.method == 'POST':
+        try:
+            event_id = request.POST.get('event_id')
+            event_banner = request.FILES.get('event_banner')
+            event_title = request.POST.get('event_title')
+            event_offer_title = request.POST.get('event_offer_title')
+            event_offer = request.POST.get('event_offer')
+            sub_category_id = request.POST.get('sub_category_id')
+            event_deadline_str = request.POST.get('event_deadline')
+
+            event = Event.objects.get(id=event_id)
+            
+            if event:
+                if event_banner:
+                    event.event_banner = event_banner
+                event.event_title = event_title
+                event.event_offer_title = event_offer_title
+                event.event_offer = event_offer
+                if sub_category_id:
+                    # get the sub_category object from the sub_category model
+                    event_product_category = Subcategory.objects.get(id=sub_category_id)
+                    event.event_product_category = event_product_category
+                if event_deadline_str:
+                    # Convert the date string to a datetime object (assuming 'YYYY-MM-DD' format)
+                    event_deadline = datetime.strptime(event_deadline_str, '%Y-%m-%d')
+                    event.event_deadline = event_deadline
+                event.save()
+
+            messages.success(request, 'Event Edited successfully')
+            return redirect('events')
+
+        except Exception as e:
+            print(f"Error editing event: {e}")
+            messages.error(request, 'An error occurred while editing Event.')
+            return redirect('events')
+        
+    else:
+        event_id = request.GET.get('event_id')
+        event = Event.objects.get(id=event_id)
+        sub_categories = Subcategory.objects.all()
+        return render(request, 'adminpanel/edit_event.html', {'sub_categories': sub_categories, 'event': event})
+    
+
+@login_required
+def event_details(request):
+    if not request.user.is_admin:
+        return render(request, 'accounts/wrong_path.html')
+        
+    event = Event.objects.get(id=request.GET.get('event_id'))
+    return render(request, 'adminpanel/event_details.html', {'event': event})
