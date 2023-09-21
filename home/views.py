@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from products.models import Category, Subcategory, Product, Main_Category
 from django.contrib.auth.decorators import login_required
-from cart.models import Wishlist
+from cart.models import Wishlist, Cart, CartItem
 from datetime import datetime, timedelta
 from blog.models import Blog
 
@@ -25,10 +25,6 @@ from django.db.models import Count
 def home(request):
     sliders = Home_Slider.objects.all()
     main_categories = Main_Category.objects.all()
-    wishlist_count = 0
-
-    if request.user.is_authenticated:
-        wishlist_count = Wishlist.objects.filter(user=request.user).count()
 
     # this is for top rated categories and products
     # Calculate the average rating for each category
@@ -66,6 +62,7 @@ def home(request):
     )[:4]
     
     blogs = Blog.objects.all()[:3]
+    
 
     context = {
         'sliders': sliders,
@@ -73,7 +70,6 @@ def home(request):
         'top_rated_categories': top_rated_products_by_category,
         'new_arrivals': new_arrivals,
         'special_products': special_products,
-        'wishlist_count': wishlist_count,
         'banners': banners,
         'featured_products': featured_products,
         'weekly_products': weekly_products,
@@ -112,16 +108,12 @@ def search(request):
         key_word = get_method.get('keywords')
         products = product.filter(product_description__icontains=key_word)
         product_count = products.count()
-    wishlist_count = 0
-    if request.user.is_authenticated:
-        wishlist_count = Wishlist.objects.filter(user=request.user).count()    
     
 
     context= {
         'main_categories': Main_Category.objects.all(),
         'products': products,
         'product_count': product_count,
-        'wishlist_count': wishlist_count,
     }
     
 
@@ -130,36 +122,32 @@ def search(request):
 
 def about_us(request):
     main_categories = Main_Category.objects.all()
-    wishlist_count = 0
-    if request.user.is_authenticated:
-        wishlist_count = Wishlist.objects.filter(user=request.user).count()
+        
+    cart = Cart.objects.get(user=request.user)
+    cart_item = []
+    cart_item_count = 0
+    if cart:
+        cart_item = CartItem.objects.filter(cart=cart)
+        cart_item_count = cart_item.count()
+        
     context = {
     'main_categories': main_categories,
-    'wishlist_count': wishlist_count,
     }
     return render(request, 'home/about_us.html', context=context)
 
 
 def FAQ(request):
     main_categories = Main_Category.objects.all()
-    wishlist_count = 0
-    if request.user.is_authenticated:
-        wishlist_count = Wishlist.objects.filter(user=request.user).count()
     context = {
     'main_categories': main_categories,
-    'wishlist_count': wishlist_count,
     }
     return render(request, 'home/FAQ.html', context=context)
 
 
 def contact_us(request):
     main_categories = Main_Category.objects.all()
-    wishlist_count = 0
-    if request.user.is_authenticated:
-        wishlist_count = Wishlist.objects.filter(user=request.user).count()
     context = {
     'main_categories': main_categories,
-    'wishlist_count': wishlist_count,
     }
     return render(request, 'home/contact_us.html', context=context)
 
@@ -190,8 +178,6 @@ def send_query(request):
 def new_arrivals(request):
     main_categories = Main_Category.objects.all()
     wishlist_count = 0
-    if request.user.is_authenticated:
-        wishlist_count = Wishlist.objects.filter(user=request.user).count()
     today = datetime.now()
     one_month_ago = today - timedelta(days=30) 
     new_arrivals = Product.objects.filter(
@@ -201,7 +187,6 @@ def new_arrivals(request):
     context = {
         'new_arrivals': new_arrivals,
         'main_categories': main_categories,
-        'wishlist_count': wishlist_count,
     }
     
     return render(request, 'products/new_arrivals.html', context)

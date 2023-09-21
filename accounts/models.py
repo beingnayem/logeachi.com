@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from .manager import UserManager
-
+from cart.models import CartItem
 # Create your models here.
 class User(AbstractBaseUser):
     admin_request_choiche=(
@@ -40,3 +40,12 @@ class User(AbstractBaseUser):
     @property
     def is_staff(self):
         return self.is_admin
+    
+    def wishlist_count(self):
+        return self.user_wishlist.count()
+    
+    def cart_count(self):
+        return CartItem.objects.filter(cart__user=self).count()
+    
+    def cart_item(self):
+        return CartItem.objects.filter(cart__user=self)

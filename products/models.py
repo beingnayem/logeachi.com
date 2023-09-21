@@ -1,5 +1,4 @@
 from django.db import models
-from accounts.models import User
 from django.db.models import Avg
 
 
@@ -72,7 +71,7 @@ class Product(models.Model):
         
 class Product_Reviews_and_Rating(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='review_to')
-    user =  models.ForeignKey(User, on_delete=models.CASCADE, related_name='review_by')
+    user =  models.ForeignKey('accounts.User', on_delete=models.CASCADE, related_name='review_by')
     review = models.TextField(max_length=255)
     review_date = models.DateTimeField(auto_now_add=True, null=True)
     rating = models.FloatField(default=0.0)
@@ -98,7 +97,7 @@ class Product_Reviews_and_Rating(models.Model):
 
 
 # class Order(models.Model):
-#     customer = models.ForeignKey(User, on_delete=models.CASCADE)
+#     customer = models.ForeignKey('accounts.User', on_delete=models.CASCADE)
 #     shipping_address = models.ForeignKey(Address, on_delete=models.SET_NULL, null=True, blank=True)
 #     shipping_cost = models.PositiveIntegerField(default=50)
 #     order_date = models.DateTimeField(auto_now_add=True)
