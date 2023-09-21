@@ -21,9 +21,6 @@ def sub_category_products(request, pk):
     category = sub_category.category
     main_category = category.main_category
     product_count = products.count()
-    wishlist_count = 0
-    if request.user.is_authenticated:
-        wishlist_count = Wishlist.objects.filter(user=request.user).count()
     
     context = {
         'main_categories': main_categories,
@@ -32,7 +29,6 @@ def sub_category_products(request, pk):
         'sub_category': sub_category,
         'category': category,
         'product_count': product_count,
-        'wishlist_count': wishlist_count
     }
     return render(request, 'products/category_products.html', context)
 
@@ -45,10 +41,6 @@ def category_products(request, pk):
     sub_category = None
     main_category = category.main_category
     
-    wishlist_count = 0
-    if request.user.is_authenticated:
-        wishlist_count = Wishlist.objects.filter(user=request.user).count()
-    
     context = {
         'main_categories': main_categories,
         'products': products,
@@ -56,7 +48,6 @@ def category_products(request, pk):
         'sub_category': sub_category,
         'category': category,
         'product_count': product_count,
-        'wishlist_count': wishlist_count
     }
     return render(request, 'products/category_products.html', context)
 
@@ -69,9 +60,6 @@ def main_category_products(request, pk):
     sub_category = None
     category = None
     
-    wishlist_count = 0
-    if request.user.is_authenticated:
-        wishlist_count = Wishlist.objects.filter(user=request.user).count()
         
     context = {
         'main_categories': main_categories,
@@ -80,23 +68,18 @@ def main_category_products(request, pk):
         'sub_category': sub_category,
         'category': category,
         'product_count': product_count,
-        'wishlist_count': wishlist_count
     }
     return render(request, 'products/category_products.html', context)
 
 
 def single_product_page(request, pk):
     product = Product.objects.get(id=pk)
-    wishlist_count = 0
     avarage_rating = product.average_rating()
     reviews = Product_Reviews_and_Rating.objects.filter(product=product)
     review_count = reviews.count()
-    if request.user.is_authenticated:
-        wishlist_count = Wishlist.objects.filter(user=request.user).count()
     
     context = {
         'product': product,
-        'wishlist_count': wishlist_count,
         'reviews': reviews,
         'review_count': review_count,
         'avarage_rating': avarage_rating,

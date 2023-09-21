@@ -9,21 +9,14 @@ from django.contrib.auth.decorators import login_required
 def blog_show(request):
     blogs = Blog.objects.all()
     main_categories = Main_Category.objects.all()
-    wishlist_count = 0
-    if request.user.is_authenticated:
-        wishlist_count = Wishlist.objects.filter(user=request.user).count()
     context = {
         'blogs': blogs,
         'main_categories': main_categories,
-        'wishlist_count': wishlist_count,
     }
     return render(request, 'blog/all_blog.html', context)
 
 def blog_details(request, pk):
     main_categories = Main_Category.objects.all()
-    wishlist_count = 0
-    if request.user.is_authenticated:
-        wishlist_count = Wishlist.objects.filter(user=request.user).count()
      
     blog = Blog.objects.get(id=pk)  
     comments = Blog_Comment.objects.filter(blog=blog)
@@ -34,7 +27,6 @@ def blog_details(request, pk):
         'comments': comments,
         'comment_count': comment_count,
         'main_categories': main_categories,
-        'wishlist_count': wishlist_count,
     }
     
     
