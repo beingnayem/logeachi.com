@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from home.models import Home_Slider, Newsletter, Queries, Banner
+from home.models import Home_Slider, Newsletter, Queries, Banner, Event
 from accounts.models import User
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
@@ -66,7 +66,7 @@ def home(request):
     )[:4]
     
     blogs = Blog.objects.all()[:3]
-
+    event = Event.objects.all()[:1]
     context = {
         'sliders': sliders,
         'main_categories': main_categories,
@@ -77,7 +77,8 @@ def home(request):
         'banners': banners,
         'featured_products': featured_products,
         'weekly_products': weekly_products,
-        'blogs': blogs
+        'blogs': blogs,
+        'event': event
     }
     return render(request, 'home/home.html', context)
 

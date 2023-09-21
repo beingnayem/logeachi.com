@@ -68,13 +68,11 @@
                     <label class="product-add-page-form-label" for="product_cash_payment">Cash Payment</label>
                     <select class="product-add-page-form-select" id=product-cash-payment" name="product_cash_payment">
                         <option value="" disabled selected>
-                            <option value="" disabled selected>
-                                {% if product.product_cash_payment %}
-                                    Yes
-                                    {% else %}
-                                        No
-                                {% endif %}
-                            </option>
+                            {% if product.product_cash_payment %}
+                                Yes
+                                {% else %}
+                                    No
+                            {% endif %}
                         </option>
                         <option value="True"  >Yes</option>
                         <option value="False"  >No</option>
@@ -84,13 +82,11 @@
                     <label class="product-add-page-form-label" for="product_online_payment">Online Payment</label>
                     <select class="product-add-page-form-select" id="product-warrenty-payment" name="product_online_payment">
                         <option value="" disabled selected>
-                            <option value="" disabled selected>
-                                {% if product.product_online_payment %}
-                                    Yes
-                                    {% else %}
-                                        No
-                                {% endif %}
-                            </option>
+                            {% if product.product_online_payment %}
+                                Yes
+                                {% else %}
+                                    No
+                            {% endif %}
                         </option>
                         <option value="True"  >Yes</option>
                         <option value="False"  >No</option>
@@ -100,13 +96,25 @@
                     <label class="product-add-page-form-label" for="product_return">Return Policy</label>
                     <select class="product-add-page-form-select" id="product-return" name="product_return">
                         <option value="" disabled selected>
-                            <option value="" disabled selected>
-                                {% if product.product_return %}
-                                    Yes
-                                    {% else %}
-                                        No
-                                {% endif %}
-                            </option>
+                            {% if product.product_return %}
+                                Yes
+                                {% else %}
+                                    No
+                            {% endif %}
+                        </option>
+                        <option value="True"  >Yes</option>
+                        <option value="False"  >No</option>
+                    </select>
+                </div>
+                <div class="product-add-page-form-group">
+                    <label class="product-add-page-form-label" for="product_featured">Feature This Product?</label>
+                    <select class="product-add-page-form-select" id="product-featured" name="product_featured">
+                        <option value="" disabled selected>
+                            {% if product.product_featured %}
+                                Yes
+                                {% else %}
+                                    No
+                            {% endif %}
                         </option>
                         <option value="True"  >Yes</option>
                         <option value="False"  >No</option>

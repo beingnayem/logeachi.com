@@ -9,7 +9,7 @@
     <div class="adminpanelhome-content">
         <div class="team-member-list-container">
             
-                <h1>Banner List</h1>
+                <h1>Main Category List</h1>
                 <div class="admin-request-approve-button-container">
                     <a href="{% url 'banners' %}">
                         <button class="admin-request-approve-button">Banners</button>
@@ -22,56 +22,60 @@
                     </a>
                 </div>
                 <div class="admin-request-approve-button-container">
-                    <a href="{% url 'add_banner' %}">
-                        <button class="admin-request-approve-button">Add Banner</button>
-                    </a> 
+                    <a href="{% url 'create_event' %}">
+                        <button class="admin-request-approve-button">Create Event</button>
+                    </a>
                 </div>
-                {% if banners %}
+                {% if events %}
                 <div class="team-member-list-table-container">
                     <table class="team-member-list-table-container-table">
                         <thead>
                             <tr class="team-member-list-table-container-table-row">
                                 <th class="team-member-info-head">ID</th>
-                                <th class="team-member-info-head">Ttile</th>
-                                <th class="team-member-info-head">Offer</th>
-                                <th class="team-member-info-head">Product Category</th>
+                                <th class="team-member-info-head">Event Title</th>
+                                <th class="team-member-info-head">Event Product Category</th>
+                                <th class="team-member-info-head">Event Deadline</th>
                                 <th class="team-member-info-head" style="display: flex; justify-content:center;">Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             
-                            {% for banner in banners %}
+                            {% for event in events %}
                                 <tr class="team-member-list-table-container-table-row">
-                                    <td class="team-member-info">{{banner.id}}</td>
-                                    <td class="team-member-info">{{banner.banner_title}}</td>
-                                    <td class="team-member-info">{{banner.banner_offer}}</td>
-                                    <td class="team-member-info">{{banner.banner_product_category}}</td>
+                                    <td class="team-member-info">{{event.id}}</td>
+                                    <td class="team-member-info">{{event.event_title}}</td>
+                                    <td class="team-member-info">{{event.event_product_category}}</td>
+                                    <td class="team-member-info">{{event.event_deadline}}</td>
                                     <td class="team-member-action-buttons" style="justify-content: center;">
-                                        <form action="{% url 'edit_banner' %}" method="GET">
+                                        <form action="{% url 'edit_event' %}" method="GET">
                                             {% csrf_token %}
-                                            <input type="hidden" name="banner_id" value="{{ banner.id }}">
+                                            <input type="hidden" name="event_id" value="{{ event.id }}">
                                             <button type="submit" class="team-member-remove-button"  title="Edit"><i class="fas fa-pencil-alt"></i></button>
                                         </form>
-                                        <form action="{% url 'banner_details' %}" method="POST">
+                                        <form action="{% url 'event_details' %}" method="GET">
                                             {% csrf_token %}
-                                            <input type="hidden" name="banner_id" value="{{ banner.id }}">
+                                            <input type="hidden" name="event_id" value="{{ event.id }}">
                                             <button class="team-member-remove-button"  title="View"><i class="fas fa-eye"></i></button>
                                         </form>
-                                        <form action="{% url 'delete_banner' %}" method="GET">
+                                        <form action="{% url 'delete_event' %}" method="GET">
                                             {% csrf_token %}
-                                            <input type="hidden" name="banner_id" value="{{ banner.id }}">
+                                            <input type="hidden" name="event_id" value="{{ event.id }}">
                                             <button class="team-member-remove-button"  title="Delete"><i class="fas fa-trash"></i></button>
                                         </form>
                                     </td>
                                 </tr>
                             {% endfor %}
-
+                                
+                            
                         </tbody>
                     </table>
                 </div> 
                     {% else %}
-                        <h2 style="text-align: center; color:rgb(101, 168, 33) ">There is no Banners yet.</h2>
+                        <h2 style="text-align: center; color:rgb(101, 168, 33) ">There is no Events yet.</h2>
                 {% endif %}
+               
+            
+            
         </div>
     </div>
 {% endblock admin-panel-main-content %}

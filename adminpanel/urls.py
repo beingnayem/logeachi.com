@@ -43,4 +43,13 @@ urlpatterns = [
     path('delete-banner/', views.delete_banner, name='delete_banner'),
     path('edit-banner/', views.edit_banner, name='edit_banner'),
     path('banner-details/', views.banner_details, name='banner_details'),
+    path('blogs/', views.blogsView, name='blogs'),
+    path('post-blog/', views.post_blog, name='post_blog'),
+    path('edit-blog/', views.edit_blog, name='edit_blog'),
+    path('delete-blog/', views.delete_blog, name='delete_blog'),
+    path('events/', views.eventsView, name='events'),
+    path('create-event/', views.create_event, name='create_event'),
+    path('delete-event/', views.delete_event, name='delete_event'),
+    path('edit-event/', views.edit_event, name='edit_event'),
+    path('event-details/', views.event_details, name='event_details'),
 ]
