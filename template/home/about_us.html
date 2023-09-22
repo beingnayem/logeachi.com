@@ -168,9 +168,9 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="section__text-wrap">
-                                <h1 class="section__heading u-c-secondary u-s-m-b-12">CLIENTS FEEDBACK</h1>
+                                <h1 class="section__heading u-c-secondary u-s-m-b-12">CUSTOMER FEEDBACK</h1>
 
-                                <span class="section__span u-c-silver">WHAT OUR CLIENTS SAY</span>
+                                <span class="section__span u-c-silver">WHAT OUR CUSTOMER SAY</span>
                             </div>
                         </div>
                     </div>
@@ -186,62 +186,23 @@
                     <!--====== Testimonial Slider ======-->
                     <div class="slider-fouc">
                         <div class="owl-carousel" id="testimonial-slider">
-                            <div class="testimonial">
-                                <div class="testimonial__img-wrap">
-
-                                    <img class="testimonial__img" src="../../static/assets/images/sara (1).jpg" alt=""></div>
-                                <div class="testimonial__content-wrap">
-
-                                    <span class="testimonial__double-quote"><i class="fas fa-quote-right"></i></span>
-                                    <blockquote class="testimonial__block-quote">
-                                        <p>"I love the variety of products available on Logeachi! The easy navigation and detailed product information made my shopping experience a breeze. Plus, the secure checkout process gave me peace of mind. Keep up the great work!"</p>
-                                    </blockquote>
-
-                                    <span class="testimonial__author">Emily R.</span>
+                            
+                            {% for feedback in feedbacks %}
+                                <div class="testimonial">
+                                    <div class="testimonial__img-wrap">
+                                        <img class="testimonial__img" src="{{feedback.user.user_image.url}}" alt="Feedback Customer">
+                                    </div>
+                                    <div class="testimonial__content-wrap">
+                                        <span class="testimonial__double-quote"><i class="fas fa-quote-right"></i></span>
+                                        <blockquote class="testimonial__block-quote">
+                                            <p>{{feedback.feedback}}</p>
+                                        </blockquote>
+                                        <span class="testimonial__author">{{feedback.user.first_name}} {{feedback.user.last_name}}</span>
+                                        <span class="testimonial__author">{{feedback.feedback_date}}</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="testimonial">
-                                <div class="testimonial__img-wrap">
+                            {% endfor %}
 
-                                    <img class="testimonial__img" src="../../static/assets/images/sara (2).jpg" alt=""></div>
-                                <div class="testimonial__content-wrap">
-
-                                    <span class="testimonial__double-quote"><i class="fas fa-quote-right"></i></span>
-                                    <blockquote class="testimonial__block-quote">
-                                        <p>"Logeachi is my go-to for online shopping. The exclusive deals and promotions are fantastic, and I always find what I need. Your customer support team is top-notch, too – they promptly resolved my queries. Highly recommended!"</p>
-                                    </blockquote>
-
-                                    <span class="testimonial__author">David M.</span>
-                                </div>
-                            </div>
-                            <div class="testimonial">
-                                <div class="testimonial__img-wrap">
-
-                                    <img class="testimonial__img" src="../../static/assets/images/sara (4).jpg" alt=""></div>
-                                <div class="testimonial__content-wrap">
-
-                                    <span class="testimonial__double-quote"><i class="fas fa-quote-right"></i></span>
-                                    <blockquote class="testimonial__block-quote">
-                                        <p>"I'm impressed with Logeachi's commitment to customer satisfaction. The website's user-friendly interface and quick order tracking make shopping here a pleasure. Plus, the regular updates on new arrivals keep me coming back for more."</p>
-                                    </blockquote>
-
-                                    <span class="testimonial__author">Sarah W.</span>
-                                </div>
-                            </div>
-                            <div class="testimonial">
-                                <div class="testimonial__img-wrap">
-
-                                    <img class="testimonial__img" src="../../static/assets/images/sara (3).jpg" alt=""></div>
-                                <div class="testimonial__content-wrap">
-
-                                    <span class="testimonial__double-quote"><i class="fas fa-quote-right"></i></span>
-                                    <blockquote class="testimonial__block-quote">
-                                        <p>"Logeachi is a game-changer! The product reviews and ratings helped me choose the best items, and the seamless checkout process saved me time. It's evident that Logeachi values its customers. I'm a loyal shopper now!"</p>
-                                    </blockquote>
-
-                                    <span class="testimonial__author">Alex H.</span>
-                                </div>
-                            </div>
                         </div>
                     </div>
                     <!--====== End - Testimonial Slider ======-->
@@ -250,6 +211,43 @@
             <!--====== End - Section Content ======-->
         </div>
         <!--====== End - Section 4 ======-->
+
+        <!--====== Section 5 ======-->
+        <div class="u-s-p-b-60">
+
+            <!--====== Section Content ======-->
+            <div class="section__content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="contact-area u-h-100">
+                                <div class="contact-area__heading">
+                                    <h2>Give Feedback</h2>
+                                    <span class="gl-text u-s-m-b-15">Your feedback drives our improvement, shaping our service according to your wishes</span>
+                                </div>
+                                <form class="contact-f" method="POST" action="{% url 'give_feedback' %}">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 u-h-100">
+                                            <div class="u-s-m-b-30">
+                                                <label for="c-message"></label>
+                                                <textarea name="feedback" class="text-area text-area--border-radius text-area--primary-style" id="c-message" placeholder="Write a feedback (Required)" required></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <button class="btn btn--e-brand-b-2" type="submit">Give Feedback</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--====== End - Section Content ======-->
+        </div>
+        <!--====== End - Section 5 ======-->
+
     </div>
     <!--====== End - App Content ======-->
     {% include 'include/footer.html' %}
