@@ -1,5 +1,5 @@
 from django.contrib import admin
-from home.models import Newsletter, Queries, Home_Slider, Event, Banner
+from home.models import Newsletter, Queries, Home_Slider, Event, Banner, Feedback
 
 # Register your models here.
 
@@ -44,4 +44,12 @@ class EventAdmin(admin.ModelAdmin):
         'id',
         'event_title',
         'event_product_category'
+    ]
+    
+@admin.register(Feedback)
+class FeedbackAdmin(admin.ModelAdmin):
+    list_display = [
+        'id',
+        'user',
+        'feedback_date'
     ]

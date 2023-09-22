@@ -13,7 +13,7 @@ from django.utils.encoding import force_bytes, force_str, DjangoUnicodeDecodeErr
 from django.utils import timezone
 from datetime import datetime, timedelta
 from accounts.utils import TokenGenerator, generate_token
-from home.models import Queries, Home_Slider, Banner, Event
+from home.models import Queries, Home_Slider, Banner, Event, Feedback
 from blog.models import Blog
 
 # emails
@@ -1378,3 +1378,72 @@ def event_details(request):
         
     event = Event.objects.get(id=request.GET.get('event_id'))
     return render(request, 'adminpanel/event_details.html', {'event': event})
+
+@login_required
+def feedbacks(request):
+    if not request.user.is_admin:
+        return render(request, 'accounts/wrong_path.html')
+        
+    feedbacks = Feedback.objects.all()
+    return render(request, 'adminpanel/feedbacks.html', {'feedbacks': feedbacks})
+
+
+
+@login_required
+def feedback_details(request):
+    if not request.user.is_admin:
+        return render(request, 'accounts/wrong_path.html')
+        
+    feedback = Feedback.objects.get(id=request.GET.get('feedback_id'))
+    return render(request, 'adminpanel/feedback_details.html', {'feedback': feedback})
+
+
+@login_required
+def display_feedback(request):
+    if not request.user.is_admin:
+        return render(request, 'accounts/wrong_path.html')
+        
+    feedback_id = request.GET.get('feedback_id')
+    feedback = Feedback.objects.get(id=feedback_id)
+    feedback.is_display = True
+    feedback.save()
+    
+    messages.success(request, 'Feedback Displayed successfully.')
+    return redirect(request.META.get('HTTP_REFERER'))
+
+
+@login_required
+def delete_feedback(request):
+    if not request.user.is_admin:
+        return render(request, 'accounts/wrong_path.html')
+    
+    if request.method == 'GET':
+        try:
+            # get feedback by id
+            feedback_id = request.GET.get('feedback_id')
+            feedback = get_object_or_404(Feedback, id=feedback_id)
+            feedback.delete()
+
+            messages.success(request, 'Feedback deleted successfully.')
+            return redirect(request.META.get('HTTP_REFERER'))
+        
+        except Exception as e:
+            print(f"Error deleting feedback: {e}")
+            messages.error(request, 'An error occurred while deleting the feedback.')
+            return redirect(request.META.get('HTTP_REFERER'))
+    
+    return redirect(request.META.get('HTTP_REFERER'))
+
+
+@login_required
+def not_display_feedback(request):
+    if not request.user.is_admin:
+        return render(request, 'accounts/wrong_path.html')
+        
+    feedback_id = request.GET.get('feedback_id')
+    feedback = Feedback.objects.get(id=feedback_id)
+    feedback.is_display = False
+    feedback.save()
+    
+    messages.success(request, 'Feedback Not Displayed successfully.')
+    return redirect(request.META.get('HTTP_REFERER'))
