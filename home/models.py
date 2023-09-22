@@ -1,6 +1,7 @@
 from django.db import models
 from products.models import Category, Subcategory
 from datetime import datetime, timedelta
+from accounts.models import User
 
 # Create your models here.
 
@@ -72,3 +73,13 @@ class Event(models.Model):
             return current_date > self.event_deadline.date()
         else:
             return False  # Return False if the event date is not set
+        
+        
+class Feedback(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='feedback_by')
+    feedback = models.TextField(max_length=300)
+    feedback_date = models.DateTimeField(auto_now_add=True)
+    is_display = models.BooleanField(default=False)
+    
+    def __str__(self) -> str:
+        return self.user.first_name + ' ' + self.user.last_name

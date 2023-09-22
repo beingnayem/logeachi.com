@@ -52,4 +52,9 @@ urlpatterns = [
     path('delete-event/', views.delete_event, name='delete_event'),
     path('edit-event/', views.edit_event, name='edit_event'),
     path('event-details/', views.event_details, name='event_details'),
+    path('feedbacks/', views.feedbacks, name='feedbacks'),
+    path('feedback-details/', views.feedback_details, name='feedback_details'),
+    path('display-feedback/', views.display_feedback, name='display_feedback'),
+    path('delete-feedback/', views.delete_feedback, name='delete_feedback'),
+    path('not-display-feedback/', views.not_display_feedback, name='not_display_feedback'),
 ]

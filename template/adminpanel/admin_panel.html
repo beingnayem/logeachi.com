@@ -26,9 +26,9 @@
             </a>
           </li>
           <li>
-            <a href="#">
-              <i class='bx bx-list-ul' ></i>
-              <span class="adminPanellinks_name">Order list</span>
+            <a href="{% url 'feedbacks' %}">
+              <i class="fas fa-comment"></i>
+              <span class="adminPanellinks_name">Feedback</span>
             </a>
           </li>
           <li>
@@ -87,7 +87,23 @@
           <i class='bx bx-search' ></i>
         </div> -->
         <div class="adminpanelprofile-details">
-        <!-- <img src="images/profile.jpg" alt=""> -->
+          
+          {% if user.user_image %}
+            <img src="{{user.user_image.url}}" alt="User Image">
+            
+            {% else %}
+
+            {% if user.gender == 'male' %}
+              <img src="../../static/assets/images/male.png" alt="User Image">
+
+              {% else %}
+              <img src="../../static/assets/images/female.png" alt="User Image">
+
+            {% endif %}
+
+          {% endif %}
+            
+        
           <span class="admin_name">{{user.first_name}}</span>
           <!-- <i class='bx bx-chevron-down' ></i> -->
         </div>
