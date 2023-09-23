@@ -82,6 +82,7 @@ def home(request):
 
 
 def join_newsletter(request):
+    
     if request.method == 'POST':
         email = request.POST.get('email')
         gender = request.POST.get('gender')
@@ -91,12 +92,27 @@ def join_newsletter(request):
         if not user_exists:
             # If the user does not exist, create a new Subscriber
             Newsletter.objects.create(email=email, gender=gender)
-            messages.error(request, "You have successfully subscribed to Logeachi Newsletter.")
+            messages.success(request, "You have successfully subscribed to Logeachi Newsletter.")
             return redirect(request.META.get('HTTP_REFERER'))
         else:
             messages.error(request, "This e-mail is already subscribed")
             return redirect(request.META.get('HTTP_REFERER'))
-
+        
+    else:
+        if request.user.is_authenticated:
+            email = request.user.email
+            gender = request.user.gender
+            user_exists = Newsletter.objects.filter(email=email, gender=gender).exists()
+            
+            if user_exists:
+                messages.error(request, 'You have already subscribed our newsletter')
+                return redirect(request.META.get('HTTP_REFERER'))
+            else:
+                Newsletter.objects.create(email=email, gender=gender)
+                messages.success(request, "You have successfully subscribed to Logeachi Newsletter.")
+                return redirect(request.META.get('HTTP_REFERER'))
+        else:
+            return redirect('signin')
 
 # Search options for keywords
 def search(request):
