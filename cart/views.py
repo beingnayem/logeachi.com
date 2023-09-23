@@ -91,13 +91,19 @@ def show_cart(request):
         return render(request, 'cart/empty-cart.html')
     
     cart_item = CartItem.objects.filter(cart=cart[0])
+    sub_total = 0
     if not cart_item:
         if cart:
             cart.delete()
         return render(request, 'cart/empty-cart.html')
-   
-    
-    return render(request, 'cart/show_cart.html')
+    else:
+        for item in cart_item:
+            sub_total += item.subtotal
+    context = {
+        'sub_total': sub_total,
+    }
+      
+    return render(request, 'cart/show_cart.html', context)
 
 @login_required
 def delete_cart(request, id):
