@@ -79,3 +79,25 @@
   .singel-star-rating label.selected::before {
     color: gold; /* Adjust the color of the selected star */
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Style for the user image */
+.user_image {
+  width: 35px; /* Set the width of the image */
+  height: 35px; /* Set the height of the image */
+  border-radius: 50%; /* Create a circular image */
+  object-fit: cover; /* Ensure the image covers the entire container */
+  border: 2px solid #fff; /* Add a white border to the image */
+}
+

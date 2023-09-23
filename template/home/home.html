@@ -862,62 +862,21 @@
                         <!--====== Testimonial Slider ======-->
                         <div class="slider-fouc">
                             <div class="owl-carousel" id="testimonial-slider">
-                                <div class="testimonial">
-                                    <div class="testimonial__img-wrap">
-    
-                                        <img class="testimonial__img" src="../../static/assets/images/sara (1).jpg" alt=""></div>
-                                    <div class="testimonial__content-wrap">
-    
-                                        <span class="testimonial__double-quote"><i class="fas fa-quote-right"></i></span>
-                                        <blockquote class="testimonial__block-quote">
-                                            <p>"I love the variety of products available on Logeachi! The easy navigation and detailed product information made my shopping experience a breeze. Plus, the secure checkout process gave me peace of mind. Keep up the great work!"</p>
-                                        </blockquote>
-    
-                                        <span class="testimonial__author">Emily R.</span>
+                                {% for feedback in feedbacks %}
+                                    <div class="testimonial">
+                                        <div class="testimonial__img-wrap">
+                                            <img class="testimonial__img" src="{{feedback.user.user_image.url}}" alt="Feedback Customer">
+                                        </div>
+                                        <div class="testimonial__content-wrap">
+                                            <span class="testimonial__double-quote"><i class="fas fa-quote-right"></i></span>
+                                            <blockquote class="testimonial__block-quote">
+                                                <p>{{feedback.feedback}}</p>
+                                            </blockquote>
+                                            <span class="testimonial__author">{{feedback.user.first_name}} {{feedback.user.last_name}}</span>
+                                            <span class="testimonial__author">{{feedback.feedback_date}}</span>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="testimonial">
-                                    <div class="testimonial__img-wrap">
-    
-                                        <img class="testimonial__img" src="../../static/assets/images/sara (2).jpg" alt=""></div>
-                                    <div class="testimonial__content-wrap">
-    
-                                        <span class="testimonial__double-quote"><i class="fas fa-quote-right"></i></span>
-                                        <blockquote class="testimonial__block-quote">
-                                            <p>"Logeachi is my go-to for online shopping. The exclusive deals and promotions are fantastic, and I always find what I need. Your customer support team is top-notch, too – they promptly resolved my queries. Highly recommended!"</p>
-                                        </blockquote>
-    
-                                        <span class="testimonial__author">David M.</span>
-                                    </div>
-                                </div>
-                                <div class="testimonial">
-                                    <div class="testimonial__img-wrap">
-    
-                                        <img class="testimonial__img" src="../../static/assets/images/sara (4).jpg" alt=""></div>
-                                    <div class="testimonial__content-wrap">
-    
-                                        <span class="testimonial__double-quote"><i class="fas fa-quote-right"></i></span>
-                                        <blockquote class="testimonial__block-quote">
-                                            <p>"I'm impressed with Logeachi's commitment to customer satisfaction. The website's user-friendly interface and quick order tracking make shopping here a pleasure. Plus, the regular updates on new arrivals keep me coming back for more."</p>
-                                        </blockquote>
-    
-                                        <span class="testimonial__author">Sarah W.</span>
-                                    </div>
-                                </div>
-                                <div class="testimonial">
-                                    <div class="testimonial__img-wrap">
-    
-                                        <img class="testimonial__img" src="../../static/assets/images/sara (3).jpg" alt=""></div>
-                                    <div class="testimonial__content-wrap">
-    
-                                        <span class="testimonial__double-quote"><i class="fas fa-quote-right"></i></span>
-                                        <blockquote class="testimonial__block-quote">
-                                            <p>"Logeachi is a game-changer! The product reviews and ratings helped me choose the best items, and the seamless checkout process saved me time. It's evident that Logeachi values its customers. I'm a loyal shopper now!"</p>
-                                        </blockquote>
-    
-                                        <span class="testimonial__author">Alex H.</span>
-                                    </div>
-                                </div>
+                                {% endfor %}
                             </div>
                         </div>
                         <!--====== End - Testimonial Slider ======-->

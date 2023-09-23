@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from home.models import Home_Slider, Newsletter, Queries, Banner, Event
+from home.models import Home_Slider, Newsletter, Queries, Banner, Event, Feedback
 from accounts.models import User
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
@@ -63,6 +63,7 @@ def home(request):
     
     blogs = Blog.objects.all()[:3]
     event = Event.objects.all()[:1]
+    feedbacks = Feedback.objects.filter(is_display=True)
     context = {
         'sliders': sliders,
         'main_categories': main_categories,
@@ -73,7 +74,8 @@ def home(request):
         'featured_products': featured_products,
         'weekly_products': weekly_products,
         'blogs': blogs,
-        'event': event
+        'event': event,
+        'feedbacks': feedbacks
     }
     return render(request, 'home/home.html', context)
 
@@ -122,22 +124,17 @@ def search(request):
 
 def about_us(request):
     main_categories = Main_Category.objects.all()
-        
-    cart = Cart.objects.get(user=request.user)
-    cart_item = []
-    cart_item_count = 0
-    if cart:
-        cart_item = CartItem.objects.filter(cart=cart)
-        cart_item_count = cart_item.count()
-        
+    feedbacks = Feedback.objects.filter(is_display=True)
     context = {
     'main_categories': main_categories,
+    'feedbacks': feedbacks
     }
     return render(request, 'home/about_us.html', context=context)
 
 
 def FAQ(request):
     main_categories = Main_Category.objects.all()
+    
     context = {
     'main_categories': main_categories,
     }
@@ -146,6 +143,7 @@ def FAQ(request):
 
 def contact_us(request):
     main_categories = Main_Category.objects.all()
+    
     context = {
     'main_categories': main_categories,
     }
@@ -190,3 +188,16 @@ def new_arrivals(request):
     }
     
     return render(request, 'products/new_arrivals.html', context)
+
+
+@login_required
+def give_feedback(request):
+    
+    if request.method == 'POST':
+        feedback = request.POST.get('feedback')
+        user = request.user
+        
+        Feedback.objects.create(user=user, feedback=feedback)
+        
+        messages.success(request, 'Your feedback has been submited')
+        return redirect(request.META.get('HTTP_REFERER'))

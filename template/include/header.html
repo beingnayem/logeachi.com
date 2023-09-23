@@ -11,7 +11,7 @@
 
                 <!--====== Main Logo ======-->
 
-                <a class="main-logo" href="{% url "home" %}">
+                <a class="main-logo" href="{% url 'home' %}">
 
                     <h2>
                         LOGEACHI
@@ -21,7 +21,7 @@
 
 
                 <!--====== Search Form ======-->
-                <form class="main-form" action="{% url "search" %}" method="GET">
+                <form class="main-form" action="{% url 'search' %}" method="GET">
 
                     <label for="main-search"></label>
 
@@ -43,10 +43,22 @@
 
                         <!--====== List ======-->
                         <ul class="ah-list ah-list--design1 ah-list--link-color-secondary">
+                            
                             <li class="has-dropdown" data-tooltip="tooltip" data-placement="left" title="Account">
-
-                                <a><i class="far fa-user-circle"></i></a>
-
+                                
+                                {% if user.is_authenticated %}
+                                    {% if user.user_image %}
+                                    <a><img class="user_image" src="{{user.user_image.url}}" alt="User Image"></i></a>
+                                        {% else %}
+                                            {% if user.gender == 'male' %}
+                                                <a><img class="user_image" src="../../static/assets/images/male.png" alt="User Image"></i></a>
+                                                {% else %}
+                                                    <a><img class="user_image" src="../../static/assets/images/female.png" alt="User Image"></i></a>
+                                            {% endif %}
+                                    {% endif %}
+                                    {% else %}
+                                        <a><i class="far fa-user-circle"></i></a>
+                                {% endif %}
                                 <!--====== Dropdown ======-->
 
                                 <span class="js-menu-toggle"></span>
@@ -151,11 +163,11 @@
                                 <!--====== End - Dropdown ======-->
                             </li>
                             <li data-tooltip="tooltip" data-placement="left" title="Contact">
-
-                                <a href="tel:+0900901904"><i class="fas fa-phone-volume"></i></a></li>
+                                <a href="tel:+0900901904"><i class="fas fa-phone-volume"></i></a>
+                            </li>
                             <li data-tooltip="tooltip" data-placement="left" title="Mail">
-
-                                <a href="mailto:contact@domain.com"><i class="far fa-envelope"></i></a></li>
+                                <a href="mailto:contact@domain.com"><i class="far fa-envelope"></i></a>
+                            </li>
                         </ul>
                         <!--====== End - List ======-->
                     </div>
