@@ -1,0 +1,98 @@
+{% extends 'customer/user_dashboard.html' %}
+
+
+{% block user_dashboard_content %}
+    
+<div class="col-lg-9 col-md-12">
+    <div class="dash__box dash__box--shadow dash__box--radius dash__box--bg-white">
+        <div class="dash__pad-2">
+            <h1 class="dash__h1 u-s-m-b-14">Edit Address</h1>
+
+            <span class="dash__text u-s-m-b-30">We need an address where we could deliver products and send bills.</span>
+            <form class="dash-address-manipulation" action="{% url 'edit_address' %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="address_id" value="{{address.id}}">
+                <div class="gl-inline">
+                    <div class="u-s-m-b-30">
+                        <label class="gl-label" for="address-fname">FIRST NAME *</label>
+                        <input class="input-text input-text--primary-style" name="first_name" value="{{address.first_name}}" type="text" id="address-fname" placeholder="First Name" >
+                    </div>
+                    <div class="u-s-m-b-30">
+                        <label class="gl-label" for="address-lname">LAST NAME *</label>
+                        <input class="input-text input-text--primary-style" name="last_name" value="{{address.last_name}}" type="text" id="address-lname" placeholder="Last Name" >
+                    </div>
+                </div>
+                <div class="gl-inline">
+                    <div class="u-s-m-b-30">
+                        <label class="gl-label" for="address-phone">PHONE *</label>
+                        <input class="input-text input-text--primary-style" name="phone_number" value="{{address.phone_number}}" type="text" id="address-phone" placeholder="Phone Number"
+                            pattern="\+880\d{10}" 
+                            maxlength="14">
+                        <small>Format: +880XXXXXXXXXX</small>
+                    </div>
+                    
+                    <div class="u-s-m-b-30">
+                        <label class="gl-label" for="address-street">STREET ADDRESS *</label>
+                        <input class="input-text input-text--primary-style" name="details_address" value="{{address.details_address}}" type="text" id="address-street" placeholder="House Name and Street" >
+                    </div>
+                </div>
+                <div class="gl-inline">
+                    <div class="u-s-m-b-30">
+                        <!--====== Select Box ======-->
+                        <label class="gl-label" for="address-country">COUNTRY *</label>
+                        <select class="select-box select-box--primary-style" id="country" >
+                            <option selected value="">{{address.country}}</option>
+                            <option value="uae">Bangladesh</option>
+                        </select>
+                        <!--====== End - Select Box ======-->
+                    </div>
+                    <div class="u-s-m-b-30">
+                        <label class="gl-label" for="address-street">Zila *</label>
+                        <input class="input-text input-text--primary-style" name="zila" value="{{address.zila}}" type="text" id="details-address" placeholder="Your District" >
+                    </div>
+                </div>
+                <div class="gl-inline">
+                    <div class="u-s-m-b-30">
+                        <label class="gl-label" for="address-city">Thana *</label>
+                        <input class="input-text input-text--primary-style" name="thana" value="{{address.thana}}" type="text" id="thana" placeholder="Your Police Station" >
+                    </div>
+                    <div class="u-s-m-b-30">
+                        <label class="gl-label" for="address-street">ZIP/POSTAL CODE *</label>
+                        <input class="input-text input-text--primary-style" name="postal_code" value="{{address.postal_code}}" type="text" id="postal-code" placeholder="Zip/Postal Code Like Dhaka-1236">
+                    </div>
+                </div>
+                <div class="gl-inline">
+                    <div class="u-s-m-b-30">
+                        <div class="check-box">
+                            <input type="checkbox" id="default-shipping-address" name="shipping_address" 
+                                {% if address.is_default_shipping %}
+                                    checked
+                                {% endif %}
+                            >
+                            <div class="check-box__state check-box__state--primary">
+                                <label class="check-box__label" for="default-shipping-address">Default shipping address</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="u-s-m-b-30">
+                        <div class="check-box">
+                            <input type="checkbox" id="default-billing-address" name="billing_address" 
+                                {% if address.is_default_billing %}
+                                    checked
+                                {% endif %}
+                            >
+                            <div class="check-box__state check-box__state--primary">
+                                <label class="check-box__label" for="default-billing-address">Default billing address</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn btn--e-brand-b-2" type="submit">SAVE</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock user_dashboard_content %}
+    

@@ -14,7 +14,8 @@ class Home_SliderAdmin(admin.ModelAdmin):
 class NewsletterAdmin(admin.ModelAdmin):
     list_display = [
         'pk',
-        'email'
+        'email',
+        'gender'
     ]
     
 @admin.register(Queries)

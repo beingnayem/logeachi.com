@@ -7,7 +7,7 @@ from customer.models import *
 class AddressAdmin(admin.ModelAdmin):
     list_display = [
         'id',
-        'user',
+        'first_name',
         'zila',
         'thana',
         'postal_code',
