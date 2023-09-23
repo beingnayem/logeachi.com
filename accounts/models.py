@@ -2,6 +2,9 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from .manager import UserManager
 from cart.models import CartItem
+from customer.models import Address
+
+
 # Create your models here.
 class User(AbstractBaseUser):
     admin_request_choiche=(
@@ -50,3 +53,15 @@ class User(AbstractBaseUser):
     
     def cart_item(self):
         return CartItem.objects.filter(cart__user=self)
+    
+    def get_default_shipping_address(self):
+        try:
+            return self.user_address.get(is_default_shipping=True)
+        except Address.DoesNotExist:
+            return None
+
+    def get_default_billing_address(self):
+        try:
+            return self.user_address.get(is_default_billing=True)
+        except Address.DoesNotExist:
+            return None
