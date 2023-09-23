@@ -386,43 +386,45 @@
 
 
             <!--====== Section 5 ======-->
+            
             {% if event %}
-            <div class="banner-bg" style="background-image: url('{{ event.0.event_banner.url }}');">
-
-                <!--====== Section Content ======-->
-                <div class="section__content">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="banner-bg__countdown" >
-                                    <div class="countdown countdown--style-banner" data-countdown="{{ event.0.formatted_deadline }}"> </div>
-                                </div>
-                                <div class="banner-bg__wrap">
-                                    <div class="banner-bg__text-1">
-                                        <span class="u-c-white">{{event.0.event_title}}</span>
-                                        <!-- <span class="u-c-secondary">Offers</span> -->
+                <div class="banner-bg" style="background-image: url('{{ event.0.event_banner.url }}');">
+                    <!--====== Section Content ======-->
+                    <div class="section__content">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="banner-bg__countdown" >
+                                        <div class="countdown countdown--style-banner" data-countdown="{{ event.0.formatted_deadline }}"> </div>
                                     </div>
-                                    <div class="banner-bg__text-2">
-                                        <span class="u-c-white">{{event.0.event_offer_title}}</span>
-                                        <!-- <span class="u-c-white">Don't Miss!</span> -->
-                                    </div>
-                                    <span class="banner-bg__text-block banner-bg__text-3 u-c-white">{{event.0.event_offer}}</span>
+                                    <div class="banner-bg__wrap">
+                                        <div class="banner-bg__text-1">
+                                            <span class="u-c-white">{{event.0.event_title}}</span>
+                                            <!-- <span class="u-c-secondary">Offers</span> -->
+                                        </div>
+                                        <div class="banner-bg__text-2">
+                                            <span class="u-c-white">{{event.0.event_offer_title}}</span>
+                                            <!-- <span class="u-c-white">Don't Miss!</span> -->
+                                        </div>
+                                        <span class="banner-bg__text-block banner-bg__text-3 u-c-white">{{event.0.event_offer}}</span>
 
-                                   
-                                   {% if event.0.is_event_over %}
-                                    <a class="banner-bg__shop-now btn--e-secondary">Offer Date Ended</a>
-                                        {% else %}
-                                            <a class="banner-bg__shop-now btn--e-secondary" href="{% url 'sub_category_products' event.0.event_product_category.id %}">Shop Now</a>
-                                   {% endif %}
                                     
+                                    {% if event.0.is_event_over %}
+                                        <a class="banner-bg__shop-now btn--e-secondary">Offer Date Ended</a>
+                                            {% else %}
+                                                <a class="banner-bg__shop-now btn--e-secondary" href="{% url 'sub_category_products' event.0.event_product_category.id %}">Shop Now</a>
+                                    {% endif %}
+                                        
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <!--====== End - Section Content ======-->
                 </div>
-                <!--====== End - Section Content ======-->
-            </div>
             {% endif %}
+                
+            
             <!--====== End - Section 5 ======-->
 
 
@@ -844,9 +846,9 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="section__text-wrap">
-                                    <h1 class="section__heading u-c-secondary u-s-m-b-12">CLIENTS FEEDBACK</h1>
+                                    <h1 class="section__heading u-c-secondary u-s-m-b-12">CUSTOMER FEEDBACK</h1>
 
-                                    <span class="section__span u-c-silver">WHAT OUR CLIENTS SAY</span>
+                                    <span class="section__span u-c-silver">WHAT OUR CUSTOMER SAY</span>
                                 </div>
                             </div>
                         </div>
@@ -865,7 +867,15 @@
                                 {% for feedback in feedbacks %}
                                     <div class="testimonial">
                                         <div class="testimonial__img-wrap">
-                                            <img class="testimonial__img" src="{{feedback.user.user_image.url}}" alt="Feedback Customer">
+                                            {% if feedback.user.user_image %}
+                                                <img class="testimonial__img" src="{{ feedback.user.user_image.url }}" alt="Feedback Customer">
+                                                {% else %}
+                                                    {% if user.gender == 'male' %}
+                                                        <img class="testimonial__img" src="{% static 'assets/images/male.png' %}" alt="Default Image">
+                                                        {% else %}
+                                                            <img class="testimonial__img" src="{% static 'assets/images/female.png' %}" alt="Default Image">
+                                                    {% endif %}
+                                            {% endif %}
                                         </div>
                                         <div class="testimonial__content-wrap">
                                             <span class="testimonial__double-quote"><i class="fas fa-quote-right"></i></span>
