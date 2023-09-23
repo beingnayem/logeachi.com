@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block message_content %}
     {% include 'include/message.html' %}
@@ -190,7 +191,15 @@
                             {% for feedback in feedbacks %}
                                 <div class="testimonial">
                                     <div class="testimonial__img-wrap">
-                                        <img class="testimonial__img" src="{{feedback.user.user_image.url}}" alt="Feedback Customer">
+                                        {% if feedback.user.user_image %}
+                                            <img class="testimonial__img" src="{{ feedback.user.user_image.url }}" alt="Feedback Customer">
+                                            {% else %}
+                                                {% if user.gender == 'male' %}
+                                                <img class="testimonial__img" src="{% static 'assets/images/male.png' %}" alt="Default Image">
+                                                    {% else %}
+                                                        <img class="testimonial__img" src="{% static 'assets/images/female.png' %}" alt="Default Image">
+                                                {% endif %}
+                                        {% endif %}
                                     </div>
                                     <div class="testimonial__content-wrap">
                                         <span class="testimonial__double-quote"><i class="fas fa-quote-right"></i></span>

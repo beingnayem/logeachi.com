@@ -1,4 +1,6 @@
 {% extends 'adminpanel/admin_panel.html' %}
+{% load static %}
+
 
 {% block message_content %}
     {% include 'include/message.html' %}
@@ -19,7 +21,7 @@
                 <select class="product-add-page-form-select" id="product-category" name="category_id" required>
                     <option value="" disabled selected>Select Category</option>
                     {% for category in categories %}
-                    <option value="{{ category.id }}" required>{{ category.name }}</option>
+                    <option value="{{ category.id }}" required>{{ category.name }}--{{ category.main_category }}</option>
                     {% endfor %}
                 </select>
             </div>

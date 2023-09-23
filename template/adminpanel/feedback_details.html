@@ -10,7 +10,15 @@
         <div class="individual-product-details-container">
             <h1 class="individual-product-details-container-title">Feedback Details</h1>
             <div class="individual-product-image-container">
-                <img class="individual-product-image" src="{{ feedback.user.user_image.url }}" alt="Event Banner">
+                {% if feedback.user.user_image %}
+                    <img class="individual-product-image" src="{{ feedback.user.user_image.url }}" alt="Feedback Customer">
+                    {% else %}
+                        {% if user.gender == 'male' %}
+                            <img class="individual-product-image" src="{% static 'assets/images/male.png' %}" alt="Default Image">
+                            {% else %}
+                                <img class="individual-product-image" src="{% static 'assets/images/female.png' %}" alt="Default Image">
+                        {% endif %}
+                {% endif %}
                 <p class="image-caption">{{feedback.user.first_name}}</p>
             </div>
             <div class="individual-product-info">
