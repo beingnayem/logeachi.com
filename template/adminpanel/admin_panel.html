@@ -9,8 +9,10 @@
   <div class='admin-panel'>
     <div class="adminPanelsidebar">
       <div class="adminPanellogo-details">
-        <i class='bx bxs-bank'></i>
-        <span class="adminPanellogo_name"> Admin </span>
+        <a href="{% url 'admin_panel_dashboard' %}" class="no-underline" style="text-decoration: none;">
+          <i class='bx bxs-bank'></i>
+          <span class="adminPanellogo_name">Admin</span>
+        </a>
       </div>
         <ul class="adminpanelnav-links">
           <li>
@@ -80,7 +82,7 @@
       <nav>
         <div class="AdminPanelsidebar-button">
           <i class='bx bx-menu AdminPanelsidebarBtn'></i>
-          <a href="{% url 'admin_panel_dashboard' %}"><span class="adminPaneldashboard">Logeachi Admin Dashboard</span></a>
+         <span class="adminPaneldashboard">Logeachi Admin Dashboard</span>
         </div>
         <!-- <div class="adminpanelsearch-box">
           <input type="text" placeholder="Search...">
@@ -93,13 +95,13 @@
             
             {% else %}
 
-            {% if user.gender == 'male' %}
-              <img src="../../static/assets/images/male.png" alt="User Image">
+              {% if user.gender == 'male' %}
+                  <img src="{% static 'assets/images/male.png' %}" alt="Default Image">
 
-              {% else %}
-              <img src="../../static/assets/images/female.png" alt="User Image">
+                {% else %}
+                  <img src="{% static 'assets/images/female.png' %}" alt="Default Image">
 
-            {% endif %}
+              {% endif %}
 
           {% endif %}
             
