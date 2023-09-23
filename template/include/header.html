@@ -48,12 +48,12 @@
                                 
                                 {% if user.is_authenticated %}
                                     {% if user.user_image %}
-                                    <a><img class="user_image" src="{{user.user_image.url}}" alt="User Image"></i></a>
+                                        <a><img class="user_image" src="{{user.user_image.url}}" alt="User Image"></a>
                                         {% else %}
                                             {% if user.gender == 'male' %}
-                                                <a><img class="user_image" src="../../static/assets/images/male.png" alt="User Image"></i></a>
+                                                <a><img class="user_image" src="{% static 'assets/images/male.png' %}" alt="Default Image"></a>
                                                 {% else %}
-                                                    <a><img class="user_image" src="../../static/assets/images/female.png" alt="User Image"></i></a>
+                                                    <a><img class="user_image" src="{% static 'assets/images/female.png' %}" alt="Default Image"></a>
                                             {% endif %}
                                     {% endif %}
                                     {% else %}
@@ -74,7 +74,7 @@
                                             
                                             {% else %}
                                                 <li>
-                                                    <a href="#"><i class="fas fa-user-circle u-s-m-r-6"></i>
+                                                    <a href="{% url 'user_dashboard' %}"><i class="fas fa-user-circle u-s-m-r-6"></i>
                                                         <span>Account</span>
                                                     </a>
                                                 </li>
@@ -234,7 +234,7 @@
                                                                 </li>
                                                                 {% for sub_category in category.category.all %}
                                                                     <li>
-                                                                        <a href="{% url "sub_category_products" sub_category.pk %}">{{ sub_category.name }}</a>
+                                                                        <a href="{% url 'sub_category_products' sub_category.pk %}">{{ sub_category.name }}</a>
                                                                     </li>
                                                                 {% endfor %}
                                                             </ul>
@@ -309,15 +309,20 @@
                             <li>
 
                                 <a href="{% url "wishlist" %}" class="mini-cart-shop-link"><i class="far fa-heart"></i>
-                                    <span class="total-item-round"> {{user.wishlist_count}} </span>
+                                    
+                                    {% if user.wishlist_count %}
+                                        <span class="total-item-round"> {{user.wishlist_count}} </span>
+                                    {% endif %}
+
                                 </a>
                             </li>
                             <li class="has-dropdown">
 
                                 <a class="mini-cart-shop-link"><i class="fas fa-shopping-bag"></i>
-
-                                    <span class="total-item-round">{{user.cart_count}} </span></a>
-
+                                    
+                                    {% if user.cart_count %}
+                                        <span class="total-item-round">{{user.cart_count}} </span></a>
+                                    {% endif %}
                                 <!--====== Dropdown ======-->
 
                                 <span class="js-menu-toggle"></span>
