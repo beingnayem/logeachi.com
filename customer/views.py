@@ -69,7 +69,7 @@ def add_address(request):
             )
             
             messages.success(request, 'Address created successfully')
-            return redirect('address_book')
+            return redirect(request.META.get('HTTP_REFERER'))
         
         except Exception as e:
             messages.error(request, f'{e}')
