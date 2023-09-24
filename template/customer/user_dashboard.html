@@ -27,13 +27,13 @@
                                     <div class="dash__box dash__box--bg-white dash__box--shadow u-s-m-b-30">
                                         <div class="dash__pad-1">
 
-                                            <span class="dash__text u-s-m-b-16">Hello, John Doe</span>
+                                            <span class="dash__text u-s-m-b-16">Hello, {{user.first_name}}  {{user.last_name}}</span>
                                             <ul class="dash__f-list">
                                                 <li>
-                                                    <a class="dash-active" href="{% url 'dashboard' %}">Manage My Account</a>
+                                                    <a class="dash-active" href="{% url 'dashboard' %}">Manage Account</a>
                                                 </li>
                                                 <li>
-                                                    <a href="dash-my-profile.html">My Profile</a>
+                                                    <a href="{% url 'profile' %}">Profile</a>
                                                 </li>
                                                 <li>
                                                     <a href="{% url 'address_book' %}">Address Book</a>
@@ -42,13 +42,13 @@
                                                     <a href="dash-track-order.html">Track Order</a>
                                                 </li>
                                                 <li>
-                                                    <a href="dash-my-order.html">My Orders</a>
+                                                    <a href="dash-my-order.html">Orders</a>
                                                 </li>
                                                 <li>
-                                                    <a href="dash-payment-option.html">My Payment Options</a>
+                                                    <a href="dash-payment-option.html">Payment Options</a>
                                                 </li>
                                                 <li>
-                                                    <a href="dash-cancellation.html">My Returns & Cancellations</a>
+                                                    <a href="dash-cancellation.html">Returns & Cancellations</a>
                                                 </li>
                                             </ul>
                                         </div>

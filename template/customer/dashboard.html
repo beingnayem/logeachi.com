@@ -1,14 +1,33 @@
 {% extends 'customer/user_dashboard.html' %}
-
+{% load static %}
 
 {% block user_dashboard_content %}
     
 <div class="col-lg-9 col-md-12">
     <div class="dash__box dash__box--shadow dash__box--radius dash__box--bg-white u-s-m-b-30">
+
+        <div  style="display: flex; justify-content:center;">
+            <div class="dash__box dash__box--bg-grey dash__box--shadow-2 u-h-100" style="display:block; margin-top: 20px; max-height: 200px; max-width: 200px; border-radius: 100%;">
+                <div class="dash__pad-3" >
+
+                    {% if user.user_image %}
+                        <img style="max-height: 150px; max-width: 150px; border-radius: 100%;" src="{{user.user_image.url}}" alt="User Image">
+                        {% else %}
+                            {% if user.gender == 'male' or user.gender == 'Male' %}
+                                <img style="max-height: 150px; max-width: 150px;" src="{% static 'assets/images/male.png' %}" alt="Default Image">
+                                {% else %}
+                                    <img style="max-height: 150px; max-width: 150px;" src="{% static 'assets/images/female.png' %}" alt="Default Image">
+                            {% endif %}  
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+
         <div class="dash__pad-2">
             <h1 class="dash__h1 u-s-m-b-14">Manage Account</h1>
 
-            <span class="dash__text u-s-m-b-30">From your My Account Dashboard you have the ability to view a snapshot of your recent account activity and update your account information. Select a link below to view or edit information.</span>
+            <span class="dash__text u-s-m-b-30">From your Account Dashboard you have the ability to view a snapshot of your recent account activity and update your account information. Select a link below to view or edit information.</span>
             <div class="row">
                 <div class="col-lg-4 u-s-m-b-30">
                     <div class="dash__box dash__box--bg-grey dash__box--shadow-2 u-h-100">
@@ -16,7 +35,7 @@
                             <h2 class="dash__h2 u-s-m-b-8">PERSONAL PROFILE</h2>
                             <div class="dash__link dash__link--secondary u-s-m-b-8">
 
-                                <a href="dash-edit-profile.html">Edit</a></div>
+                                <a href="{% url 'profile' %}">Edit</a></div>
 
                             <span class="dash__text">{{user.first_name}} {{user.last_name}}</span>
 

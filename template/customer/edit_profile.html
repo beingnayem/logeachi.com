@@ -1,0 +1,85 @@
+{% extends 'customer/user_dashboard.html' %}
+{% load static %}
+
+{% block user_dashboard_content %}
+    
+<div class="col-lg-9 col-md-12">
+    <div class="dash__box dash__box--shadow dash__box--radius dash__box--bg-white">
+        <div class="dash__pad-2">
+            <h1 class="dash__h1 u-s-m-b-14">Edit Profile</h1>
+
+            <span class="dash__text u-s-m-b-30">Looks like you haven't update your profile</span>
+            <div class="dash__link dash__link--secondary u-s-m-b-30">
+
+                <a href="{% url 'join_newsletter' %}" data-modal="modal" data-modal-id="#dash-newsletter">Subscribe Newsletter</a></div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <form class="dash-edit-p" action="{% url 'edit_profile' %}" method="POST">
+                        {% csrf_token %}
+                        <div class="gl-inline">
+                            <div class="u-s-m-b-30">
+
+                                <label class="gl-label" for="reg-fname">FIRST NAME</label>
+
+                                <input class="input-text input-text--primary-style" type="text" id="reg-fname" name="first_name" value="{{user.first_name}}"></div>
+                            <div class="u-s-m-b-30">
+                                <label class="gl-label" for="reg-lname">LAST NAME</label>
+                                <input class="input-text input-text--primary-style" type="text" id="reg-lname" name="last_name" value="{{user.last_name}}">
+                            </div>
+                        </div>
+                        <div class="gl-inline">
+                            <div class="u-s-m-b-30">
+
+                                <!--====== Date of Birth Select-Box ======-->
+
+                                <span class="gl-label">BIRTHDAY (MM-DD-YYYY)</span>
+                                <div class="gl-dob">
+                                    <input type="date" id="birthdate" name="birthdate" value="{{ user.birthdate|date:'Y-m-d' }}">
+                                </div>
+                                <!--====== End - Date of Birth Select-Box ======-->
+                            </div>
+                            <div class="u-s-m-b-30">
+                                <label class="gl-label" for="gender">GENDER</label>
+                                <select class="select-box select-box--primary-style u-w-100" id="gender" name="gender">
+                                    <option selected>
+                                        {% if user.gender == 'male' or user.gender == 'Male' %}
+                                            Male
+                                            {% else %}
+                                                Female
+                                        {% endif %}
+                                    </option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="gl-inline">
+                            <div class="u-s-m-b-30">
+                                <h2 class="dash__h2 u-s-m-b-8">E-mail</h2>
+                                <span class="dash__text">{{user.email}}</span>
+                            </div>
+                            <div class="u-s-m-b-30">
+                                <label class="gl-label" for="address-phone">PHONE</label>
+                                <input class="input-text input-text--primary-style" name="phone_number"
+                                    
+                                    {% if user.phone_number %}
+                                        value="{{user.phone_number}}"
+                                        {% else %}
+                                            placeholder="Add Your Phone Number"
+                                    {% endif %}
+                                    type="text" id="address-phone" pattern="\+880\d{10}" maxlength="14"
+                                >
+                                <small>Format: +880XXXXXXXXXX</small>
+                            </div>
+                        </div>
+
+                        <button class="btn btn--e-brand-b-2" type="submit">SAVE</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock user_dashboard_content %}
+    
