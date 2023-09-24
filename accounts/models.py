@@ -2,6 +2,9 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from .manager import UserManager
 from cart.models import CartItem
+from customer.models import Address
+
+
 # Create your models here.
 class User(AbstractBaseUser):
     admin_request_choiche=(
@@ -23,6 +26,8 @@ class User(AbstractBaseUser):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     user_image = models.ImageField(blank=True, null=True, default=None)
+    birthdate = models.DateField(null=True, blank=True, default=None)
+    phone_number = models.CharField(max_length=14, null=True, blank=True)
 
     objects = UserManager()
 
@@ -54,6 +59,18 @@ class User(AbstractBaseUser):
     
     def cart_item(self):
         return CartItem.objects.filter(cart__user=self)
+    
+    def get_default_shipping_address(self):
+        try:
+            return self.user_address.get(is_default_shipping=True)
+        except Address.DoesNotExist:
+            return None
+
+    def get_default_billing_address(self):
+        try:
+            return self.user_address.get(is_default_billing=True)
+        except Address.DoesNotExist:
+            return None
     
     def calculate_subtotal(self):
         cart_item = CartItem.objects.filter(cart__user=self)

@@ -1,0 +1,57 @@
+{% extends 'customer/user_dashboard.html' %}
+
+{% block user_dashboard_content %}
+    
+<div class="col-lg-9 col-md-12">
+    {% if addresses %}
+        <div class="dash__box dash__box--shadow dash__box--bg-white dash__box--radius u-s-m-b-30">
+            <h2 class="dash__h2 u-s-p-xy-20">Make Default Billing Address</h2>
+            <div class="dash__table-2-wrap gl-scroll">
+                <table class="dash__table-2">
+                    <thead>
+                        <tr>
+                            <th>Action</th>
+                            <th>Full Name</th>
+                            <th>Address</th>
+                            <th>Phone Number</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for address in addresses %}
+                            <tr>
+                                
+                                {% if not address.is_default_billing %}
+                                    <td>
+                                        <form action="{% url 'deafult_billing' %}" method="POST">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="address_id" value="{{address.id}}">
+                                            <button class="address-book-edit btn--e-transparent-platinum-b-2" type="submit" style="margin: 3px;">Make Default</button>
+                                        </form>
+                                    </td>
+
+                                    {% else %}
+                                        <td>
+                                            <button disabled class="address-book-edit btn--e-transparent-platinum-b-2" type="submit" style="margin: 3px;">Default</button>
+                                        </td>
+
+                                {% endif %}
+
+                                <td>{{address.first_name}} {{address.last_name}}</td>
+                                <td>{{address.details_address}}, {{address.thana}}, {{address.zila}}, {{address.postal_code}}, {{address.country}}</td>
+                                <td>{{address.phone_number}}</td>
+                                <td>
+                                    {% if address.is_default_billing %}
+                                        <div class="gl-text">Default Billing Address</div>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+{% endblock user_dashboard_content %}
