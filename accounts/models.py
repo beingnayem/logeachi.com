@@ -77,4 +77,4 @@ class User(AbstractBaseUser):
         sub_total = 0
         for item in cart_item:
             sub_total += item.subtotal
-        return sub_total
+        return sub_total 
