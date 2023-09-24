@@ -9,5 +9,7 @@ urlpatterns = [
     path('delete-address/', views.delete_address, name='delete_address'),
     path('make-default-shipping-address/', views.default_shipping, name='default_shipping'),
     path('make-default-billing-address/', views.deafult_billing, name='deafult_billing'),
+    path('profile/', views.profileView, name='profile'),
+    path('edit-profile/', views.edit_profile, name='edit_profile'),
     
 ]
