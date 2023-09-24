@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from customer.models import Address
+from accounts.models import User
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
@@ -216,3 +217,41 @@ def deafult_billing(request):
     return render(request, 'customer/make_default_billing_address.html', {'addresses': addresses})
 
 
+@login_required
+def profileView(request):
+    return render(request, 'customer/profile.html')
+
+@login_required
+def edit_profile(request):
+    
+    if request.method =='POST':
+        try:
+            # get profile edit data
+            email = request.user.email
+            first_name = request.POST.get('first_name')
+            last_name = request.POST.get('last_name')
+            gender = request.POST.get('gender')
+            birthdate = request.POST.get('birthdate')
+            phone_number = request.POST.get('phone_number')
+            
+            # get user by email address
+            user = User.objects.get(email=email)
+            
+            # Updateing the user object
+            user.first_name = first_name
+            user.last_name = last_name
+            user.gender = gender
+            if birthdate:
+                user.birthdate = birthdate
+            if phone_number:
+                user.phone_number = phone_number
+            user.save()
+            
+            messages.success(request, 'Profile Updated Successfully')
+        
+        except Exception as e:
+            messages.error(request, f'{e}')
+            
+        return redirect('profile')
+
+    return render(request, 'customer/edit_profile.html')

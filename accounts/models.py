@@ -26,6 +26,8 @@ class User(AbstractBaseUser):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     user_image = models.ImageField(blank=True, null=True, default=None)
+    birthdate = models.DateField(null=True, blank=True, default=None)
+    phone_number = models.CharField(max_length=14, null=True, blank=True)
 
     objects = UserManager()
 
