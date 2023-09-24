@@ -70,11 +70,12 @@
                                                     <!--====== Input Counter ======-->
                                                     <div class="input-counter" >
 
-                                                        <span style="line-height: 5;" class="input-counter__minus fas fa-minus"></span>
+                                                        <a href="{% url 'minus_cart' item.product.pk %}"><span style="line-height: 5;" class="input-counter__minus fas fa-minus"></span></a>
 
-                                                        <input class="input-counter__text input-counter--text-primary-style" type="text" value="{{item.quantity}}" data-min="1" data-max="1000">
+                                                        <input class="input-counter__text input-counter--text-primary-style" type="text" value="{{item.quantity}}" data-min="0" data-max="1000">
 
-                                                        <span style="line-height: 5;" class="input-counter__plus fas fa-plus"></span></div>
+                                                        <a href="{% url 'plus_cart' item.product.pk %}"><span style="line-height: 5;" class="input-counter__plus fas fa-plus"></span></a>
+                                                    </div>
                                                     <!--====== End - Input Counter ======-->
                                                 </div>
                                             </td>
@@ -191,7 +192,7 @@
                                                         </tr>
                                                         <tr>
                                                             <td>SUBTOTAL</td>
-                                                            <td>${{sub_total}} </td>
+                                                            <td>${{user.calculate_subtotal}} </td>
                                                         </tr>
                                                         <tr>
                                                             <td>GRAND TOTAL</td>

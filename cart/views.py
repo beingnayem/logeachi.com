@@ -86,11 +86,11 @@ def add_to_cart(request, id):
 def show_cart(request):
     
     user = request.user
-    cart = Cart.objects.filter(user=user)
+    cart = Cart.objects.get(user=user)
     if not cart:
         return render(request, 'cart/empty-cart.html')
     
-    cart_item = CartItem.objects.filter(cart=cart[0])
+    cart_item = CartItem.objects.filter(cart=cart)
     sub_total = 0
     if not cart_item:
         if cart:
@@ -123,4 +123,27 @@ def clear_cart(request):
         item.delete()
     cart.delete()
     return redirect(request.META.get('HTTP_REFERER'))
+
+@login_required
+def plus_cart(request, id):
+    user = request.user
+    cart = Cart.objects.get(user=user)
+    product = Product.objects.get(id=id)
+    cart_item = CartItem.objects.get(cart=cart, product=product)
     
+    cart_item.quantity += 1
+    cart_item.save()
+    return redirect(request.META.get('HTTP_REFERER'))
+
+@login_required
+def minus_cart(request, id):
+    user = request.user
+    cart = Cart.objects.get(user=user)
+    product = Product.objects.get(id=id)
+    cart_item = CartItem.objects.get(cart=cart, product=product)
+
+    cart_item.quantity -= 1
+    cart_item.save()
+    if cart_item.quantity == 0:
+        cart_item.delete()
+    return redirect(request.META.get('HTTP_REFERER'))

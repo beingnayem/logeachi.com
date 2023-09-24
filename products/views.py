@@ -5,7 +5,7 @@ from cart.models import Wishlist
 from django.http import HttpResponseRedirect
 from django.db.models import Avg
 from django.contrib.auth.decorators import login_required
-
+from django.core.paginator import Paginator
 
 # Create your views here.    
 
@@ -21,6 +21,7 @@ def sub_category_products(request, pk):
     category = sub_category.category
     main_category = category.main_category
     product_count = products.count()
+    
     
     context = {
         'main_categories': main_categories,

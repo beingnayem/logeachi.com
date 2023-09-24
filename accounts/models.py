@@ -46,7 +46,18 @@ class User(AbstractBaseUser):
         return self.user_wishlist.count()
     
     def cart_count(self):
-        return CartItem.objects.filter(cart__user=self).count()
+        cart_item = CartItem.objects.filter(cart__user=self)
+        cart_item_count = 0
+        for item in cart_item:
+            cart_item_count += item.quantity
+        return cart_item_count
     
     def cart_item(self):
         return CartItem.objects.filter(cart__user=self)
+    
+    def calculate_subtotal(self):
+        cart_item = CartItem.objects.filter(cart__user=self)
+        sub_total = 0
+        for item in cart_item:
+            sub_total += item.subtotal
+        return sub_total
