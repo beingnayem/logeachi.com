@@ -30,7 +30,7 @@ def place_order(request):
                 user=user,
                 billing_address=billing_address,
                 shipping_address=shipping_address,
-                order_status='pending',
+                order_status='processing',
                 payment_status='unpaid',
                 payment_method='case_on_delivery',
             )
@@ -48,4 +48,4 @@ def place_order(request):
         else:
             pass
         
-    return redirect(request.META.get('HTTP_REFERER'))
+    return redirect('home')

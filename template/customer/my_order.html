@@ -1,0 +1,70 @@
+{% extends 'customer/user_dashboard.html' %}
+
+
+{% block user_dashboard_content %}
+<div class="col-lg-9 col-md-12">
+    <div class="dash__box dash__box--shadow dash__box--radius dash__box--bg-white u-s-m-b-30">
+        <div class="dash__pad-2">
+            <h1 class="dash__h1 u-s-m-b-14">My Orders</h1>
+
+            <span class="dash__text u-s-m-b-30">Here you can see all products that have been delivered.</span>
+            <form class="m-order u-s-m-b-30">
+                <div class="m-order__select-wrapper">
+
+                    <label class="u-s-m-r-8" for="my-order-sort">Show: {{user.order_count}} orders</label>
+                </div>
+            </form>
+            <div class="m-order__list">
+                {% with orders=user.get_order %}
+                {% for order in orders %}
+                <div class="m-order__get">
+                    <div class="manage-o__header u-s-m-b-30">
+                        <div class="dash-l-r">
+                            <div>
+                                <div class="manage-o__text-2 u-c-secondary">Order #{{order.order_id}} </div>
+                                <div class="manage-o__text u-c-silver">Placed on {{order.created_at}} </div>
+                            </div>
+                            <div>
+                                <div class="dash__link dash__link--brand">
+
+                                    <a href="dash-manage-order.html">MANAGE</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    {% for order_item in order.order_items.all %}
+                    <div class="manage-o__description">
+                        <div class="description__container">
+                            <div class="description__img-wrap">
+
+                                <img class="u-img-fluid" src="{{order_item.product.product_image.url}}" alt=""></div>
+                            <div class="description-title">{{order_item.product.product_name}}</div>
+                        </div>
+                        <div class="description__info-wrap">
+                            <div>
+
+                                <span class="manage-o__badge badge--processing">{{order.order_status}} </span></div>
+                            <div>
+
+                                <span class="manage-o__text-2 u-c-silver">Quantity:
+
+                                    <span class="manage-o__text-2 u-c-secondary">{{order_item.quantity}} </span></span></div>
+                            <div>
+
+                                <span class="manage-o__text-2 u-c-silver">Sub Total:
+
+                                    <span class="manage-o__text-2 u-c-secondary">${{order_item.subtotal}}</span></span></div>
+                        </div>
+                    </div>
+                    <br><br>
+                    {% endfor %}
+                    
+                    <span class="manage-o__text-2 u-c-silver" style="display:flex; justify-content:right;">Total: $50.00</span>
+                </div>
+                {% endfor %}
+                {% endwith %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock user_dashboard_content %}
