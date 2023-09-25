@@ -2,7 +2,6 @@ from django.db import models
 
 # Create your models here.
 from django.db import models
-from accounts.models import User
 from cart.models import CartItem
 from customer.models import Address
 from products.models import Product
@@ -27,10 +26,9 @@ class Order(models.Model):
         max_length=10, 
         unique=True, 
         default=get_random_string(length=10), 
-        editable=False, 
-        primary_key=True
+        editable=False
     )
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey('accounts.User', on_delete=models.CASCADE)
     billing_address = models.ForeignKey(
         Address,
         related_name='billing_orders',
