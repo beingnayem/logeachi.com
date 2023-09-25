@@ -255,3 +255,8 @@ def edit_profile(request):
         return redirect('profile')
 
     return render(request, 'customer/edit_profile.html')
+
+
+@login_required
+def order(request):
+    return render(request, 'customer/my_order.html')

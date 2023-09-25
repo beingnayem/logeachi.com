@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractBaseUser
 from .manager import UserManager
 from cart.models import CartItem
 from customer.models import Address
+from order.models import Order, OrderItem
 
 
 # Create your models here.
@@ -78,3 +79,9 @@ class User(AbstractBaseUser):
         for item in cart_item:
             sub_total += item.subtotal
         return sub_total 
+    
+    def get_order(self):
+        return Order.objects.filter(user=self)
+    
+    def order_count(self):
+        return Order.objects.filter(user=self).count()
