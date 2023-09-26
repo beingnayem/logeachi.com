@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'cart',
     'blog',
     'customer',
+    'order',
 ]
 
 ROOT_URLCONF = 'logeachi.urls'

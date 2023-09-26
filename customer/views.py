@@ -69,7 +69,7 @@ def add_address(request):
             )
             
             messages.success(request, 'Address created successfully')
-            return redirect('address_book')
+            return redirect(request.META.get('HTTP_REFERER'))
         
         except Exception as e:
             messages.error(request, f'{e}')
@@ -258,3 +258,8 @@ def edit_profile(request):
         return redirect('profile')
 
     return render(request, 'customer/edit_profile.html')
+
+
+@login_required
+def order(request):
+    return render(request, 'customer/my_order.html')

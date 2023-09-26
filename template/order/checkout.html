@@ -1,0 +1,483 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block message_content %}
+    {% include 'include/message.html' %}
+{% endblock message_content %}
+
+{% block main_app %}
+{% include 'include/header.html' %}
+<br><br><br><br>
+
+<div id="app">
+
+
+
+    <!--====== App Content ======-->
+    <div class="app-content">
+
+
+
+        <!--====== Section 3 ======-->
+        <div class="u-s-p-b-60">
+
+            <!--====== Section Content ======-->
+            <div class="section__content">
+                <div class="container">
+                    <div class="checkout-f">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <h1 class="checkout-f__h1">DELIVERY INFORMATION</h1>
+                                <form class="checkout-f__delivery"  action="{% url 'add_address' %}" method="POST">
+                                    {% csrf_token %}
+                                    <div class="u-s-m-b-30">
+                                        <div class="u-s-m-b-15">
+
+                                            <!--====== Check Box ======-->
+                                            <div class="check-box">
+
+                                                <input type="checkbox" id="get-address">
+                                                <div class="check-box__state check-box__state--primary">
+
+                                                    <label class="check-box__label" for="get-address">Use default shipping and billing address from account</label></div>
+                                            </div>
+                                            <!--====== End - Check Box ======-->
+                                        </div>
+
+                                        <!--====== First Name, Last Name ======-->
+                                        <div class="gl-inline">
+                                            <div class="u-s-m-b-15">
+
+                                                <label class="gl-label" for="billing-fname">FIRST NAME *</label>
+
+                                                <input class="input-text input-text--primary-style" type="text" id="billing-fname" name="first_name" data-bill=""placeholder="First Name" required></div>
+                                            <div class="u-s-m-b-15">
+
+                                                <label class="gl-label" for="billing-lname">LAST NAME *</label>
+
+                                                <input class="input-text input-text--primary-style" type="text" id="billing-lname" name="last_name" data-bill="" placeholder="Last Name" required>
+                                            </div>
+                                        </div>
+                                        <!--====== End - First Name, Last Name ======-->
+
+                                        <!--====== PHONE ======-->
+                                        <div class="u-s-m-b-15">
+
+                                            <label class="gl-label" for="billing-phone">PHONE *</label>
+
+                                            <input class="input-text input-text--primary-style" type="text" name="phone_number" id="billing-phone" data-bill="" placeholder="Phone Number" required
+                                                pattern="\+880\d{10}" 
+                                                maxlength="14"
+                                            >
+                                            <small>Format: +880XXXXXXXXXX</small>
+                                        </div>
+                                        <!--====== End - PHONE ======-->
+
+
+                                        <!--====== Street Address ======-->
+                                        <div class="u-s-m-b-15">
+
+                                            <label class="gl-label" for="billing-street">STREET ADDRESS *</label>
+
+                                            <input class="input-text input-text--primary-style" type="text" id="billing-street" name="details_address" placeholder="House name and street name" data-bill="" required>
+                                        </div>
+                                        <!--====== End - Street Address ======-->
+
+
+                                        <!--====== Country ======-->
+                                        <div class="u-s-m-b-15">
+
+                                            <!--====== Select Box ======-->
+
+                                            <label class="gl-label" for="billing-country">COUNTRY *</label>
+                                            <select class="select-box select-box--primary-style" id="billing-country" data-bill="" required>
+                                                <option selected value="">Choose Country</option>
+                                                <option value="uae">Bangladesh</option>
+                                            </select>
+                                            <!--====== End - Select Box ======-->
+                                        </div>
+                                        <!--====== End - Country ======-->
+
+
+                                        <!--====== Zila=====-->
+                                        <div class="u-s-m-b-15">
+
+                                            <label class="gl-label" for="billing-town-city">Zila *</label>
+
+                                            <input class="input-text input-text--primary-style" type="text" id="billing-town-city" name="zila" data-bill="" placeholder="Your District" required>
+                                        </div>
+                                        <!--====== End - Zila ======-->
+
+                                        <!--====== Thana=====-->
+                                        <div class="u-s-m-b-15">
+
+                                            <label class="gl-label" for="billing-town-city">Thana *</label>
+
+                                            <input class="input-text input-text--primary-style" type="text" id="billing-town-city" name="thana" data-bill="" placeholder="Your Police Station" required>
+                                        </div>
+                                        <!--====== End - Thana ======-->
+
+                                        <!--====== ZIP/POSTAL ======-->
+                                        <div class="u-s-m-b-15">
+
+                                            <label class="gl-label" for="billing-zip">ZIP/POSTAL CODE *</label>
+
+                                            <input class="input-text input-text--primary-style" type="text" id="billing-zip" name="postal_code" placeholder="Zip/Postal Code" data-bill="" required></div>
+                                        <!--====== End - ZIP/POSTAL ======-->
+                                        <br>
+                                        <div class="u-s-m-b-10" style="display:flex; flex-direction: row; justify-content:space-between;">
+
+                                            <!--====== Check Box ======-->
+                                            <div class="check-box">
+
+                                                <input type="checkbox" class="input-text input-text--primary-style" id="make-default-address" data-bill="" name="shipping_address">
+                                                <div class="check-box__state check-box__state--primary">
+
+                                                    <label class="check-box__label" for="make-default-address">Make default shipping address</label></div>
+                                            </div>
+                                            <div class="check-box">
+
+                                                <input type="checkbox" class="input-text input-text--primary-style" id="make-default-address" data-bill="" name="billing_address">
+                                                <div class="check-box__state check-box__state--primary">
+
+                                                    <label class="check-box__label" for="make-default-address">Make default billing address</label></div>
+                                            </div>
+                                            <!--====== End - Check Box ======-->
+                                        </div>
+                                        <br>
+                                        <div>
+
+                                            <button class="btn btn--e-transparent-brand-b-2" type="submit">SAVE</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-lg-6">
+                                <h1 class="checkout-f__h1">ORDER SUMMARY</h1>
+
+                                <!--====== Order Summary ======-->
+                                <div class="o-summary">
+                                    <div class="o-summary__section u-s-m-b-30">
+                                        <div class="o-summary__item-wrap gl-scroll">
+                                            {% for item in user.cart_item %}
+                                            <div class="o-card">
+                                                <div class="o-card__flex">
+                                                    <div class="o-card__img-wrap">
+
+                                                        <img class="u-img-fluid" src="{{item.product.product_image.url}}" alt=""></div>
+                                                    <div class="o-card__info-wrap">
+
+                                                        <span class="o-card__name">
+
+                                                            <a href="{% url 'single_product_page' item.product.pk %}">{{item.product.product_name}} </a></span>
+
+                                                        <span class="o-card__quantity">{{item.quantity}} x ${{item.product.product_price}} </span>
+
+                                                        <span class="o-card__price">${{item.subtotal}} </span></div>
+                                                </div>
+
+                                                <a href="{% url 'delete_cart' item.pk %}" class="o-card__del far fa-trash-alt"></a>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    <div class="o-summary__section u-s-m-b-30">
+                                        <div class="o-summary__box">
+                                            <h1 class="checkout-f__h1">SHIPPING & BILLING</h1>
+                                            <div class="ship-b">
+                                                {% with default_shipping_address=user.get_default_shipping_address %}
+                                                {% if default_shipping_address %}
+                                                <span class="ship-b__text">Ship to:</span>
+                                                <div class="ship-b__box u-s-m-b-10">
+                                                    <div class="ship-b__p">
+                                                        <p>{{ default_shipping_address.first_name }} {{ default_shipping_address.last_name }}</p>
+                                                        <p>{{default_shipping_address.details_address}}, {{default_shipping_address.thana}}</p>
+                                                        <p>{{default_shipping_address.zila}}, {{default_shipping_address.postal_code}}, {{default_shipping_address.country}}</p>
+                                                    </div>
+
+                                                    <a class="ship-b__edit btn--e-transparent-platinum-b-2" data-modal="modal" data-modal-id="#edit-ship-address">Edit</a>
+                                                </div>
+                                                {% endif %}
+                                                {% endwith %}
+                                            </div>
+                                            <div class="ship-b">
+                                                {% with default_billing_address=user.get_default_billing_address %}
+                                                {% if default_billing_address %}
+                                                <span class="ship-b__text">Bill to:</span>
+                                                <div class="ship-b__box u-s-m-b-10">
+                                                    <div class="ship-b__p">
+                                                        <p>{{ default_billing_address.first_name }} {{ default_billing_address.last_name }}</p>
+                                                        <p>{{default_billing_address.details_address}}, {{default_billing_address.thana}}</p>
+                                                        <p>{{default_billing_address.zila}}, {{default_billing_address.postal_code}}, {{default_billing_address.country}}</p>
+                                                    </div>
+
+                                                    <a class="ship-b__edit btn--e-transparent-platinum-b-2" data-modal="modal" data-modal-id="#edit-ship-address">Edit</a>
+                                                </div>
+                                                {% endif %}
+                                                {% endwith %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="o-summary__section u-s-m-b-30">
+                                        <div class="o-summary__box">
+                                            <table class="o-summary__table">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>SHIPPING</td>
+                                                        <td>$4.00</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>TAX</td>
+                                                        <td>$0.00</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>SUBTOTAL</td>
+                                                        <td>${{user.calculate_subtotal}} </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>GRAND TOTAL</td>
+                                                        <td>$379.00</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="o-summary__section u-s-m-b-30">
+                                        <div class="o-summary__box">
+                                            <h1 class="checkout-f__h1">PAYMENT INFORMATION</h1>
+                                            <form class="checkout-f__payment" action="{% url 'place_order' %}" method="POST">
+                                                {% csrf_token %}
+                                                <div class="u-s-m-b-10">
+
+                                                    <!--====== Radio Box ======-->
+                                                    <div class="radio-box">
+
+                                                        <input type="radio" id="cash-on-delivery" name="payment" value="cash_on_delivery">
+                                                        <div class="radio-box__state radio-box__state--primary">
+
+                                                            <label class="radio-box__label" for="cash-on-delivery">Cash on Delivery</label></div>
+                                                    </div>
+                                                    <!--====== End - Radio Box ======-->
+
+                                                    <span class="gl-text u-s-m-t-6">Pay Upon Cash on delivery. (This service is only available for some countries)</span>
+                                                </div>
+                                                <div class="u-s-m-b-10">
+
+                                                    <!--====== Radio Box ======-->
+                                                    <div class="radio-box">
+
+                                                        <input type="radio" id="direct-bank-transfer" name="payment", value="sslcommerz">
+                                                        <div class="radio-box__state radio-box__state--primary">
+
+                                                            <label class="radio-box__label" for="direct-bank-transfer">Payment on sslcommerz</label></div>
+                                                    </div>
+                                                    <!--====== End - Radio Box ======-->
+
+                                                    <span class="gl-text u-s-m-t-6">Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.</span>
+                                                </div>
+                                                <div class="u-s-m-b-10">
+
+                                                    <!--====== Radio Box ======-->
+                                                    <div class="radio-box">
+
+                                                        <input type="radio" id="pay-pal" name="payment", value="paypal">
+                                                        <div class="radio-box__state radio-box__state--primary">
+
+                                                            <label class="radio-box__label" for="pay-pal">Pay Pal</label></div>
+                                                    </div>
+                                                    <!--====== End - Radio Box ======-->
+
+                                                    <span class="gl-text u-s-m-t-6">When you click "Place Order" below we'll take you to Paypal's site to set up your billing information.</span>
+                                                </div>
+                                                <div class="u-s-m-b-15">
+
+                                                    <!--====== Check Box ======-->
+                                                    <div class="check-box">
+
+                                                        <input type="checkbox" id="term-and-condition">
+                                                        <div class="check-box__state check-box__state--primary">
+
+                                                            <label class="check-box__label" for="term-and-condition">I consent to the</label></div>
+                                                    </div>
+                                                    <!--====== End - Check Box ======-->
+
+                                                    <a class="gl-link">Terms of Service.</a>
+                                                </div>
+                                                <div>
+
+                                                    <button class="btn btn--e-brand-b-2" type="submit">PLACE ORDER</button></div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--====== End - Order Summary ======-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--====== End - Section Content ======-->
+        </div>
+        <!--====== End - Section 3 ======-->
+    </div>
+    <!--====== End - App Content ======-->
+
+
+    <!--====== Shipping Address Add Modal ======-->
+    <div class="modal fade" id="edit-ship-address">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="checkout-modal2">
+                        <div class="u-s-m-b-30">
+                            <div class="dash-l-r">
+                                <h1 class="gl-modal-h1">Shipping Address</h1>
+                                <div class="dash__link dash__link--brand">
+
+                                    <a data-modal="modal" data-modal-id="#add-ship-address" data-dismiss="modal">Add new Address</a></div>
+                            </div>
+                        </div>
+                        <div class="dash__table-2-wrap u-s-m-b-30 gl-scroll">
+                            <table class="dash__table-2">
+                                <thead>
+                                    <tr>
+                                        <th>Action</th>
+                                        <th>Full Name</th>
+                                        <th>Address</th>
+                                        <th>Phone Number</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for address in addresses %}
+                                    <tr>
+                                        {% if not address.is_default_shipping %}
+                                            <td>
+                                                <form action="{% url 'default_shipping' %}" method="POST">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="address_id" value="{{address.id}}">
+                                                    <button class="address-book-edit btn--e-transparent-platinum-b-2" type="submit" style="margin: 3px;">Make Default</button>
+                                                </form>
+                                            </td>
+        
+                                            {% else %}
+                                                <td>
+                                                    <button disabled class="address-book-edit btn--e-transparent-platinum-b-2" type="submit" style="margin: 3px;">Default</button>
+                                                </td>
+                                        {% endif %}
+                                        <td>{{address.first_name}} {{address.last_name}}</td>
+                                        <td>{{address.details_address}}, {{address.thana}}, {{address.zila}}, {{address.postal_code}}, {{address.country}}</td>
+                                        <td>{{address.phone_number}}</td>
+                                        <td>
+                                            {% if address.is_default_shipping %}
+                                                <div class="gl-text">Default Shipping Address</div>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <button class="btn btn--e-grey-b-2" type="button" data-dismiss="modal">CANCEL</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--====== End - Shipping Address Add Modal ======-->
+
+
+    <!--====== Shipping Address Add Modal ======-->
+    <div class="modal fade" id="add-ship-address">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="checkout-modal1">
+                        <div class="u-s-m-b-30">
+                            <h1 class="gl-modal-h1">Add new Shipping Address </h1>
+                        </div>
+                        <form class="dash-address-manipulation" action="{% url 'add_address' %}" method="POST">
+                            {% csrf_token %}
+                            <div class="gl-inline">
+                                <div class="u-s-m-b-30">
+                                    <label class="gl-label" for="address-fname">FIRST NAME *</label>
+                                    <input class="input-text input-text--primary-style" name="first_name" type="text" id="address-fname" placeholder="First Name" required>
+                                </div>
+                                <div class="u-s-m-b-30">
+                                    <label class="gl-label" for="address-lname">LAST NAME *</label>
+                                    <input class="input-text input-text--primary-style" name="last_name" type="text" id="address-lname" placeholder="Last Name" required>
+                                </div>
+                            </div>
+                            <div class="gl-inline">
+                                <div class="u-s-m-b-30">
+                                    <label class="gl-label" for="address-phone">PHONE *</label>
+                                    <input class="input-text input-text--primary-style" name="phone_number" type="text" id="address-phone" placeholder="Phone Number" required
+                                        pattern="\+880\d{10}" 
+                                        maxlength="14">
+                                    <small>Format: +880XXXXXXXXXX</small>
+                                </div>
+                                
+                                <div class="u-s-m-b-30">
+                                    <label class="gl-label" for="address-street">STREET ADDRESS *</label>
+                                    <input class="input-text input-text--primary-style" name="details_address" type="text" id="address-street" placeholder="House Name and Street" required>
+                                </div>
+                            </div>
+                            <div class="gl-inline">
+                                <div class="u-s-m-b-30">
+                                    <!--====== Select Box ======-->
+                                    <label class="gl-label" for="address-country">COUNTRY *</label>
+                                    <select class="select-box select-box--primary-style" id="country" required>
+                                        <option selected value="">Choose Country</option>
+                                        <option value="uae">Bangladesh</option>
+                                    </select>
+                                    <!--====== End - Select Box ======-->
+                                </div>
+                                <div class="u-s-m-b-30">
+                                    <label class="gl-label" for="address-street">Zila *</label>
+                                    <input class="input-text input-text--primary-style" name="zila" type="text" id="details-address" placeholder="Your District" required>
+                                </div>
+                            </div>
+                            <div class="gl-inline">
+                                <div class="u-s-m-b-30">
+                                    <label class="gl-label" for="address-city">Thana *</label>
+                                    <input class="input-text input-text--primary-style" name="thana" type="text" id="thana" placeholder="Your Police Station" required>
+                                </div>
+                                <div class="u-s-m-b-30">
+                                    <label class="gl-label" for="address-street">ZIP/POSTAL CODE *</label>
+                                    <input class="input-text input-text--primary-style" name="postal_code" type="text" id="postal-code" placeholder="Zip/Postal Code Like Dhaka-1236" required>
+                                </div>
+                            </div>
+                            <div class="gl-inline">
+                                <div class="u-s-m-b-30">
+                                    <div class="check-box">
+                                        <input type="checkbox" id="default-shipping-address" name="shipping_address">
+                                        <div class="check-box__state check-box__state--primary">
+                                            <label class="check-box__label" for="default-shipping-address">Default shipping address</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="u-s-m-b-30">
+                                    <div class="check-box">
+                                        <input type="checkbox" id="default-billing-address" name="billing_address">
+                                        <div class="check-box__state check-box__state--primary">
+                                            <label class="check-box__label" for="default-billing-address">Default billing address</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+            
+                            <button class="btn btn--e-brand-b-2" type="submit">SAVE</button>
+                            <button class="btn btn--e-grey-b-2" type="button" data-dismiss="modal">CANCEL</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--====== End - Shipping Address Add Modal ======-->
+    <!--====== End - Modal Section ======-->
+</div>
+
+{% include 'include/footer.html' %}
+{% endblock main_app %}

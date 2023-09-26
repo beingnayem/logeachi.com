@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractBaseUser
 from .manager import UserManager
 from cart.models import CartItem
 from customer.models import Address
+from order.models import Order, OrderItem
 
 
 # Create your models here.
@@ -51,7 +52,11 @@ class User(AbstractBaseUser):
         return self.user_wishlist.count()
     
     def cart_count(self):
-        return CartItem.objects.filter(cart__user=self).count()
+        cart_item = CartItem.objects.filter(cart__user=self)
+        cart_item_count = 0
+        for item in cart_item:
+            cart_item_count += item.quantity
+        return cart_item_count
     
     def cart_item(self):
         return CartItem.objects.filter(cart__user=self)
@@ -67,3 +72,16 @@ class User(AbstractBaseUser):
             return self.user_address.get(is_default_billing=True)
         except Address.DoesNotExist:
             return None
+    
+    def calculate_subtotal(self):
+        cart_item = CartItem.objects.filter(cart__user=self)
+        sub_total = 0
+        for item in cart_item:
+            sub_total += item.subtotal
+        return sub_total 
+    
+    def get_order(self):
+        return Order.objects.filter(user=self)
+    
+    def order_count(self):
+        return Order.objects.filter(user=self).count()
