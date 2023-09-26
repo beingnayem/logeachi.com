@@ -174,6 +174,7 @@ def delete_address(request):
         
     return redirect(request.META.get('HTTP_REFERER'))
 
+
 @login_required
 def default_shipping(request):
     if request.method == 'POST':
@@ -194,6 +195,7 @@ def default_shipping(request):
     
     addresses = Address.objects.all()
     return render(request, 'customer/make_default_shipping_address.html', {'addresses': addresses})
+
 
 @login_required
 def deafult_billing(request):
@@ -220,6 +222,7 @@ def deafult_billing(request):
 @login_required
 def profileView(request):
     return render(request, 'customer/profile.html')
+
 
 @login_required
 def edit_profile(request):
