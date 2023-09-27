@@ -6,6 +6,10 @@ from cart.models import CartItem
 from customer.models import Address
 from products.models import Product
 from django.utils.crypto import get_random_string
+import string, random
+
+def unique_transaction_id_generator(size=10, chars=string.ascii_uppercase + string.digits):
+    return ''.join(random.choice(chars) for _ in range(size))
 
 class Order(models.Model):
     ORDER_STATUS_CHOICES = (
@@ -22,12 +26,6 @@ class Order(models.Model):
         ('sslcommerz', 'SSLCOMMERZ'),
     )
 
-    order_id = models.CharField(
-        max_length=10, 
-        unique=True, 
-        default=get_random_string(length=10), 
-        editable=False
-    )
     user = models.ForeignKey('accounts.User', on_delete=models.CASCADE)
     billing_address = models.ForeignKey(
         Address,
@@ -79,3 +77,7 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return f"{self.product.product_name} ({self.quantity})"
+    
+class PaymentGateWaySettings(models.Model):
+    store_id = models.CharField(max_length=500, blank=True, null=True)
+    store_pass = models.CharField(max_length=500, blank=True, null = True)
