@@ -1,30 +1,47 @@
 {% load static %}
 <!--====== Primary Slider ======-->
-<div class="s-skeleton s-skeleton--h-600 s-skeleton--bg-grey">
-    <div class="owl-carousel primary-style-1" id="hero-slider">
-        
-        {% for slider in sliders %}
+
+{% if sliders %}
+    <div class="s-skeleton s-skeleton--h-600 s-skeleton--bg-grey">
+        <div class="owl-carousel primary-style-1" id="hero-slider">
             
-            <div class="hero-slide hero-slide--1" style="background-image: url('{{ slider.slider_banner.url }}');">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="slider-content slider-content--animation">
-                                <span class="content-span-1 u-c-white">{{slider.slider_offer_title}}</span>
-                                <span class="content-span-2  u-c-white">{{slider.slider_offer}}</span>
-                                <span class="content-span-3  u-c-white">{{slider.slider_offer_description}}</span>
-                                <span class="content-span-4  u-c-white">Starting At
-                                <span class="u-c-brand">${{slider.slider_offer_starting_price}}</span></span>
-                                <a class="shop-now-link btn--e-brand" href="#">SHOP NOW</a>
+            {% for slider in sliders %}
+                
+                <div class="hero-slide hero-slide--1" style="background-image: url('{{ slider.slider_banner.url }}');">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="slider-content slider-content--animation">
+                                    
+                                    {% if slider_offer_title %}
+                                        <span class="content-span-1 u-c-white">{{slider.slider_offer_title}}</span>
+                                    {% endif %}
+                                    
+                                    {% if slider_offer %}
+                                        <span class="content-span-2  u-c-white">{{slider.slider_offer}}</span>
+                                    {% endif %}
+                                    
+                                    {% if slider_offer_description %}
+                                        <span class="content-span-3  u-c-white">{{slider.slider_offer_description}}</span>
+                                    {% endif %}
+                                    
+                                    {% if slider_offer_starting_price %}
+                                        <span class="content-span-4  u-c-white">Starting At
+                                        <span class="u-c-brand">${{slider.slider_offer_starting_price}}</span></span>
+                                    {% endif %}
+                                    
+                                    <a class="shop-now-link btn--e-brand" href="{% url 'category_products' slider.slider_product_category.id %}">SHOP NOW</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            
-        {% endfor %}
-            
+                
+            {% endfor %}
+                
 
+        </div>
     </div>
-</div>
+{% endif %}
+    
 <!--====== End - Primary Slider ======-->

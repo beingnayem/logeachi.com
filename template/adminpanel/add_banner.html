@@ -18,18 +18,18 @@
             </div>
             <div class="product-add-page-form-group">
                 <label class="product-add-page-form-label" for="banner-title">Banner Title</label>
-                <input class="product-add-page-form-input" type="text" id="banner-title" name="banner_title" required>
+                <input class="product-add-page-form-input" type="text" id="banner-title" name="banner_title" >
             </div>
             <div class="product-add-page-form-group">
                 <label class="product-add-page-form-label" for="banner-offer">Offer</label>
-                <input class="product-add-page-form-input" type="text" id="banner-offer" name="banner_offer" required>
+                <input class="product-add-page-form-input" type="text" id="banner-offer" name="banner_offer" >
             </div>
             <div class="product-add-page-form-group">
                 <label class="product-add-page-form-label" for="product-category">Banner Product Category</label>
                 <select class="product-add-page-form-select" id="product-category" name="category_id" required>
                     <option value="" disabled selected>Select Category</option>
                     {% for category in categories %}
-                    <option value="{{ category.id }}" required>{{ category.name }}</option>
+                    <option value="{{ category.id }}" required>{{ category.name }}--{{ category.main_category }}</option>
                     {% endfor %}
                 </select>
             </div>      

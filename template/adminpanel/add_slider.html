@@ -18,19 +18,28 @@
             </div>
             <div class="product-add-page-form-group">
                 <label class="product-add-page-form-label" for="slider-title">Slider Title</label>
-                <input class="product-add-page-form-input" type="text" id="slider-title" name="slider_title" required>
+                <input class="product-add-page-form-input" type="text" id="slider-title" name="slider_title" >
             </div>
             <div class="product-add-page-form-group">
                 <label class="product-add-page-form-label" for="offer">Offer</label>
-                <input class="product-add-page-form-input" type="text" id="offer" name="offer" required>
+                <input class="product-add-page-form-input" type="text" id="offer" name="offer" >
             </div>
             <div class="product-add-page-form-group">
                 <label class="product-add-page-form-label" for="offer-description">Offer Description</label>
-                <input class="product-add-page-form-input" type="text" id="offer-description" name="offer_description" required>
+                <input class="product-add-page-form-input" type="text" id="offer-description" name="offer_description" >
             </div>
             <div class="product-add-page-form-group">
                 <label class="product-add-page-form-label" for="starting-price">Starting Price</label>
-                <input class="product-add-page-form-input" type="text" id="starting-price" name="starting_price" pattern="[0-9]+(\.[0-9]+)?" title="Please enter a valid decimal number (e.g., 30.33)" required>
+                <input class="product-add-page-form-input" type="text" id="starting-price" name="starting_price" pattern="[0-9]+(\.[0-9]+)?" title="Please enter a valid decimal number (e.g., 30.33)" >
+            </div> 
+            <div class="product-add-page-form-group">
+                <label class="product-add-page-form-label" for="product-category">Slider Product Category</label>
+                <select class="product-add-page-form-select" id="product-category" name="category_id" required>
+                    <option value="" disabled selected>Select Category</option>
+                    {% for category in categories %}
+                    <option value="{{ category.id }}" required>{{ category.name }}--{{ category.main_category }}</option>
+                    {% endfor %}
+                </select>
             </div>            
             <div class="product-add-page-form-group-submit-btn">
                 <button class="product-add-page-form-add-product-btn" type="submit">Add</button>
