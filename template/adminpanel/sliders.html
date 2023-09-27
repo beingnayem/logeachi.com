@@ -32,6 +32,8 @@
                         <thead>
                             <tr class="team-member-list-table-container-table-row">
                                 <th class="team-member-info-head">ID</th>
+                                <th class="team-member-info-head">Category</th>
+                                <th class="team-member-info-head">Created</th>
                                 <th class="team-member-info-head">Ttile</th>
                                 <th class="team-member-info-head">Offer</th>
                                 <th class="team-member-info-head">Offer Description</th>
@@ -44,6 +46,8 @@
                             {% for slider in sliders %}
                                 <tr class="team-member-list-table-container-table-row">
                                     <td class="team-member-info">{{slider.id}}</td>
+                                    <td class="team-member-info">{{slider.slider_product_category}}</td>
+                                    <td class="team-member-info">{{slider.created_at}}</td>
                                     <td class="team-member-info">{{slider.slider_offer_title}}</td>
                                     <td class="team-member-info">{{slider.slider_offer}}</td>
                                     <td class="team-member-info">{{slider.slider_offer_description}}</td>

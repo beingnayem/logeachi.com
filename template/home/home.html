@@ -179,8 +179,9 @@
             </div>
             <!--====== End - Section 2 ======-->
 
-
-            <!--====== Section 3 ======-->
+            
+            {% if deal_of_the_day %}
+                <!--====== Section 3 ======-->
             <div class="u-s-p-b-60">
 
                 <!--====== Section Intro ======-->
@@ -206,100 +207,64 @@
                 <div class="section__content">
                     <div class="container">
                         <div class="row">
-                            <div class="col-lg-6 col-md-6 u-s-m-b-30">
-                                <div class="product-o product-o--radius product-o--hover-off u-h-100">
-                                    <div class="product-o__wrap">
+                            
+                            {% for deal in deal_of_the_day %}
+                                <div class="col-lg-6 col-md-6 u-s-m-b-30">
+                                    <div class="product-o product-o--radius product-o--hover-off u-h-100">
+                                        <div class="product-o__wrap">
 
-                                        <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
-
-                                            <img class="aspect__img" src="images/product/electronic/product11.jpg" alt=""></a>
-                                        <div class="product-o__special-count-wrap">
-                                            <div class="countdown countdown--style-special" data-countdown="2020/05/01"></div>
+                                            <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
+                                                <img class="aspect__img" src="{{deal.product.product_image.url}}" alt="">
+                                            </a>
+                                            <div class="product-o__special-count-wrap">
+                                                <div class="countdown countdown--style-special" data-countdown="{{deal.formatted_deadline}}"></div>
+                                            </div>
+                                            <div class="product-o__action-wrap">
+                                                <ul class="product-o__action-list">
+                                                    <li>
+                                                        <a href="{% url 'add_to_cart' deal.product.pk %}" data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="{% url 'add_wishlist_item' deal.product.pk %}" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
-                                        <div class="product-o__action-wrap">
-                                            <ul class="product-o__action-list">
-                                                <li>
 
-                                                    <a data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick View"><i class="fas fa-search-plus"></i></a></li>
-                                                <li>
+                                        <span class="product-o__category">
 
-                                                    <a data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a></li>
-                                                <li>
+                                            <a href="{% url 'sub_category_products' deal.product.product_category.id %}">{{deal.product.product_category}}</a></span>
 
-                                                    <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                                                <li>
+                                        <span class="product-o__name">
 
-                                                    <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Email me When the price drops"><i class="fas fa-envelope"></i></a></li>
-                                            </ul>
+                                            <a href="{% url 'single_product_page' deal.product.pk %}">{{deal.product.product_name}}</a></span>
+                                        <div class="product-o__rating gl-rating-style">
+                                            {% for i in "12345" %}
+                                                {% if i|add:"0" <= deal.product.average_rating %}
+                                                    <i class="fas fa-star"></i> 
+                                                    {% else %}
+                                                        <i class="far fa-star"></i>
+                                                {% endif %}
+                                            {% endfor %}
+                                            <span class="product-o__review">({{deal.product.total_reviews}})</span>
                                         </div>
+
+                                        <span class="product-o__price">${{deal.product.product_price}}</span>
+                                            <span class="product-o__discount">${{deal.offer_price}}</span>
+                                        </span>
                                     </div>
-
-                                    <span class="product-o__category">
-
-                                        <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                    <span class="product-o__name">
-
-                                        <a href="product-detail.html">DJI Phantom Drone 4k</a></span>
-                                    <div class="product-o__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-
-                                        <span class="product-o__review">(2)</span></div>
-
-                                    <span class="product-o__price">$125.00
-
-                                        <span class="product-o__discount">$160.00</span></span>
                                 </div>
-                            </div>
-                            <div class="col-lg-6 col-md-6 u-s-m-b-30">
-                                <div class="product-o product-o--radius product-o--hover-off u-h-100">
-                                    <div class="product-o__wrap">
-
-                                        <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
-
-                                            <img class="aspect__img" src="images/product/electronic/product12.jpg" alt=""></a>
-                                        <div class="product-o__special-count-wrap">
-                                            <div class="countdown countdown--style-special" data-countdown="2020/05/01"></div>
-                                        </div>
-                                        <div class="product-o__action-wrap">
-                                            <ul class="product-o__action-list">
-                                                <li>
-
-                                                    <a data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick View"><i class="fas fa-search-plus"></i></a></li>
-                                                <li>
-
-                                                    <a data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a></li>
-                                                <li>
-
-                                                    <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                                                <li>
-
-                                                    <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Email me When the price drops"><i class="fas fa-envelope"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                    <span class="product-o__category">
-
-                                        <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                    <span class="product-o__name">
-
-                                        <a href="product-detail.html">DJI Phantom Drone 2k</a></span>
-                                    <div class="product-o__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-
-                                        <span class="product-o__review">(2)</span></div>
-
-                                    <span class="product-o__price">$125.00
-
-                                        <span class="product-o__discount">$160.00</span></span>
-                                </div>
-                            </div>
+                            {% endfor %}
+  
                         </div>
                     </div>
                 </div>
                 <!--====== End - Section Content ======-->
             </div>
             <!--====== End - Section 3 ======-->
+            {% endif %}
+                
+            
 
 
             <!--====== Section 4 ======-->
@@ -338,24 +303,18 @@
                                             <div class="product-o__action-wrap">
                                                 <ul class="product-o__action-list">
                                                     <li>
-
-                                                        <a data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick View"><i class="fas fa-search-plus"></i></a></li>
+                                                        <a href="{% url 'add_to_cart' product.pk %}" data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a>
+                                                    </li>
                                                     <li>
-
-                                                        <a href="{% url 'add_to_cart' product.pk %}" data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a></li>
-                                                    <li>
-
-                                                        <a href="{% url 'add_wishlist_item' product.pk %}" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                                                    <li>
-
-                                                        <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Email me When the price drops"><i class="fas fa-envelope"></i></a></li>
+                                                        <a href="{% url 'add_wishlist_item' product.pk %}" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a>
+                                                    </li>
                                                 </ul>
                                             </div>
                                         </div>
 
                                         <span class="product-o__category">
 
-                                            <a href="shop-side-version-2.html">{{product.product_category}}</a></span>
+                                            <a href="{% url 'sub_category_products' product.product_category.id %}">{{product.product_category}}</a></span>
 
                                         <span class="product-o__name">
 
@@ -398,22 +357,33 @@
                                         <div class="countdown countdown--style-banner" data-countdown="{{ event.0.formatted_deadline }}"> </div>
                                     </div>
                                     <div class="banner-bg__wrap">
-                                        <div class="banner-bg__text-1">
-                                            <span class="u-c-white">{{event.0.event_title}}</span>
-                                            <!-- <span class="u-c-secondary">Offers</span> -->
-                                        </div>
-                                        <div class="banner-bg__text-2">
-                                            <span class="u-c-white">{{event.0.event_offer_title}}</span>
-                                            <!-- <span class="u-c-white">Don't Miss!</span> -->
-                                        </div>
-                                        <span class="banner-bg__text-block banner-bg__text-3 u-c-white">{{event.0.event_offer}}</span>
 
-                                    
-                                    {% if event.0.is_event_over %}
-                                        <a class="banner-bg__shop-now btn--e-secondary">Offer Date Ended</a>
-                                            {% else %}
-                                                <a class="banner-bg__shop-now btn--e-secondary" href="{% url 'sub_category_products' event.0.event_product_category.id %}">Shop Now</a>
-                                    {% endif %}
+                                        
+                                        {% if event.0.event_title %}
+                                            <div class="banner-bg__text-1">
+                                                <span class="u-c-white">{{event.0.event_title}}</span>
+                                                <!-- <span class="u-c-secondary">Offers</span> -->
+                                            </div>
+                                        {% endif %}
+                                        
+                                        
+                                        {% if event.0.event_offer_title %}
+                                            <div class="banner-bg__text-2">
+                                                <span class="u-c-white">{{event.0.event_offer_title}}</span>
+                                                <!-- <span class="u-c-white">Don't Miss!</span> -->
+                                            </div>
+                                        {% endif %}
+                                            
+                                       
+                                        {% if event.0.event_offer %}
+                                            <span class="banner-bg__text-block banner-bg__text-3 u-c-white">{{event.0.event_offer}}</span>
+                                        {% endif %}
+
+                                        {% if event.0.is_event_over %}
+                                            <a class="banner-bg__shop-now btn--e-secondary">Offer Date Ended</a>
+                                                {% else %}
+                                                    <a class="banner-bg__shop-now btn--e-secondary" href="{% url 'sub_category_products' event.0.event_product_category.id %}">Shop Now</a>
+                                        {% endif %}
                                         
                                     </div>
                                 </div>
@@ -504,38 +474,67 @@
 
 
             <!--====== Section 7 ======-->
-            <div class="u-s-p-b-60">
+            
+            {% if banners %}
+                <div class="u-s-p-b-60">
 
-                <!--====== Section Content ======-->
-                <div class="section__content">
-                    <div class="container">
-                        <div class="row">
-                            
-                            {% for banner in banners %}
-                                <div class="col-lg-4 col-md-4 col-sm-6 u-s-m-b-30">
-                                    <a class="promotion" href="{% url 'category_products' banner.banner_product_category.id %}">
-                                        <div class="aspect aspect--bg-grey aspect--square">
-                                            <img class="aspect__img promotion__img" src="{{banner.banner_image.url}}" alt="">
-                                        </div>
-                                        <div class="promotion__content">
-                                            <div class="promotion__text-wrap">
-                                                <div class="promotion__text-1">
-                                                    <span class="u-c-secondary">{{banner.banner_title}}</span>
-                                                </div>
-                                                <div class="promotion__text-2">
-                                                    <span class="u-c-brand">{{banner.banner_offer}}</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
+                    <div class="section__intro u-s-m-b-46">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="section__text-wrap">
+                                        <h1 class="section__heading u-c-secondary u-s-m-b-12">Currently Running Offers</h1>
+    
+                                        <span class="section__span u-c-silver">Fit Yourself In Outstanding Offers</span>
+                                    </div>
                                 </div>
-                            {% endfor %}
-
+                            </div>
                         </div>
                     </div>
+
+                    <!--====== Section Content ======-->
+                    <div class="section__content">
+                        <div class="container">
+                            <div class="row">
+                                
+                                {% for banner in banners %}
+                                    <div class="col-lg-4 col-md-4 col-sm-6 u-s-m-b-30">
+                                        <a class="promotion" href="{% url 'category_products' banner.banner_product_category.id %}">
+                                            <div class="aspect aspect--bg-grey aspect--square">
+                                                <img class="aspect__img promotion__img" src="{{banner.banner_image.url}}" alt="">
+                                            </div>
+                                            
+                                            {% if banner.banner_title or banner.banner_offer %}
+                                                <div class="promotion__content">
+                                                    <div class="promotion__text-wrap">
+                                                        
+                                                        {% if  banner.banner_title %}
+                                                            <div class="promotion__text-1">
+                                                                <span class="u-c-secondary">{{banner.banner_title}}</span>
+                                                            </div>
+                                                        {% endif %}
+                                                        
+                                                        {% if  banner.banner_offer %}
+                                                            <div class="promotion__text-2">
+                                                                <span class="u-c-brand">{{banner.banner_offer}}</span>
+                                                            </div>
+                                                        {% endif %}
+
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+
+                                        </a>
+                                    </div>
+                                {% endfor %}
+
+                            </div>
+                        </div>
+                    </div>
+                    <!--====== End - Section Content ======-->
                 </div>
-                <!--====== End - Section Content ======-->
-            </div>
+            {% endif %}
+                
             <!--====== End - Section 7 ======-->
 
 
@@ -870,7 +869,7 @@
                                             {% if feedback.user.user_image %}
                                                 <img class="testimonial__img" src="{{ feedback.user.user_image.url }}" alt="Feedback Customer">
                                                 {% else %}
-                                                    {% if user.gender == 'male' %}
+                                                    {% if feedback.user.gender == 'male' or feedback.user.gender == 'Male' %}
                                                         <img class="testimonial__img" src="{% static 'assets/images/male.png' %}" alt="Default Image">
                                                         {% else %}
                                                             <img class="testimonial__img" src="{% static 'assets/images/female.png' %}" alt="Default Image">

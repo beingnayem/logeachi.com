@@ -8,12 +8,11 @@
             <h1 class="dash__h1 u-s-m-b-14">My Orders</h1>
 
             <span class="dash__text u-s-m-b-30">Here you can see all products that have been delivered.</span>
-            <form class="m-order u-s-m-b-30">
+            <div class="m-order u-s-m-b-30">
                 <div class="m-order__select-wrapper">
-
                     <label class="u-s-m-r-8" for="my-order-sort">Show: {{user.order_count}} orders</label>
                 </div>
-            </form>
+            </div>
             <div class="m-order__list">
                 {% with orders=user.get_order %}
                 {% for order in orders %}
@@ -35,8 +34,8 @@
                     <div class="manage-o__description">
                         <div class="description__container">
                             <div class="description__img-wrap">
-
-                                <img class="u-img-fluid" src="{{order_item.product.product_image.url}}" alt=""></div>
+                                <img class="u-img-fluid" src="{{order_item.product.product_image.url}}" alt="">
+                            </div>
                             <div class="description-title">{{order_item.product.product_name}}</div>
                         </div>
                         <div class="description__info-wrap">

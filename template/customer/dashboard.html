@@ -5,21 +5,18 @@
     
 <div class="col-lg-9 col-md-12">
     <div class="dash__box dash__box--shadow dash__box--radius dash__box--bg-white u-s-m-b-30">
-
-        <div  style="display: flex; justify-content:center;">
-            <div class="dash__box dash__box--bg-grey dash__box--shadow-2 u-h-100" style="display:block; margin-top: 20px; max-height: 200px; max-width: 200px; border-radius: 100%;">
-                <div class="dash__pad-3" >
-
+        <div class="dash__pad-3" >
+            <div class="testimonial">
+                <div class="testimonial__img-wrap">
                     {% if user.user_image %}
-                        <img style="max-height: 150px; max-width: 150px; border-radius: 100%;" src="{{user.user_image.url}}" alt="User Image">
+                        <img class="testimonial__img" src="{{ user.user_image.url }}" alt="Feedback Customer">
                         {% else %}
                             {% if user.gender == 'male' or user.gender == 'Male' %}
-                                <img style="max-height: 150px; max-width: 150px;" src="{% static 'assets/images/male.png' %}" alt="Default Image">
+                                <img class="testimonial__img" src="{% static 'assets/images/male.png' %}" alt="Default Image">
                                 {% else %}
-                                    <img style="max-height: 150px; max-width: 150px;" src="{% static 'assets/images/female.png' %}" alt="Default Image">
-                            {% endif %}  
+                                    <img class="testimonial__img" src="{% static 'assets/images/female.png' %}" alt="Default Image">
+                            {% endif %}
                     {% endif %}
-
                 </div>
             </div>
         </div>

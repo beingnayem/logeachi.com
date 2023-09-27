@@ -88,7 +88,6 @@ def single_product_page(request, pk):
     return render(request, 'products/single_product_page.html', context)
 
 
-
 @login_required
 def add_review_rating(request):
    
@@ -117,24 +116,3 @@ def add_review_rating(request):
     else:
         # Handle GET requests or other methods as needed
         return JsonResponse({"error": "Invalid request method"}, status=400)
-
-
-
-
-
-
-
-
-
-
-
-
-# def add_review(request, pk):
-#     get_method =  request.GET.copy()
-#     review = get_method.get('review')
-#     name = get_method.get('name')
-#     email = get_method.get('email')
-#     product = Product.objects.get(id=pk)
-#     if review is not None and name is not None and email is not None and product is not None:
-#         Product_Reviews.objects.create(product=product, user_name=name, user_email=email, review=review)
-#     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

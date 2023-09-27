@@ -3,6 +3,7 @@ from customer.models import Address
 from accounts.models import User
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from UTILS.image_resizer import resize_image
 
 # Create your views here.
 @login_required
@@ -174,6 +175,7 @@ def delete_address(request):
         
     return redirect(request.META.get('HTTP_REFERER'))
 
+
 @login_required
 def default_shipping(request):
     if request.method == 'POST':
@@ -194,6 +196,7 @@ def default_shipping(request):
     
     addresses = Address.objects.all()
     return render(request, 'customer/make_default_shipping_address.html', {'addresses': addresses})
+
 
 @login_required
 def deafult_billing(request):
@@ -221,6 +224,7 @@ def deafult_billing(request):
 def profileView(request):
     return render(request, 'customer/profile.html')
 
+
 @login_required
 def edit_profile(request):
     
@@ -233,6 +237,7 @@ def edit_profile(request):
             gender = request.POST.get('gender')
             birthdate = request.POST.get('birthdate')
             phone_number = request.POST.get('phone_number')
+            user_image =  request.FILES.get('user_image')
             
             # get user by email address
             user = User.objects.get(email=email)
@@ -245,6 +250,10 @@ def edit_profile(request):
                 user.birthdate = birthdate
             if phone_number:
                 user.phone_number = phone_number
+            if user_image:
+                # print('===============================================================', user_image)
+                resized_user_image = resize_image(user_image, 165, 165)
+                user.user_image = resized_user_image
             user.save()
             
             messages.success(request, 'Profile Updated Successfully')

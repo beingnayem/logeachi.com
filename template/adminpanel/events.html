@@ -32,9 +32,10 @@
                         <thead>
                             <tr class="team-member-list-table-container-table-row">
                                 <th class="team-member-info-head">ID</th>
-                                <th class="team-member-info-head">Event Title</th>
                                 <th class="team-member-info-head">Event Product Category</th>
+                                <th class="team-member-info-head">Created</th>
                                 <th class="team-member-info-head">Event Deadline</th>
+                                <th class="team-member-info-head">Event Title</th>
                                 <th class="team-member-info-head" style="display: flex; justify-content:center;">Action</th>
                             </tr>
                         </thead>
@@ -43,9 +44,10 @@
                             {% for event in events %}
                                 <tr class="team-member-list-table-container-table-row">
                                     <td class="team-member-info">{{event.id}}</td>
-                                    <td class="team-member-info">{{event.event_title}}</td>
-                                    <td class="team-member-info">{{event.event_product_category}}</td>
+                                    <td class="team-member-info">{{event.event_product_category}}--{{event.event_product_category.category}}--{{event.event_product_category.category.main_category}}</td>
                                     <td class="team-member-info">{{event.event_deadline}}</td>
+                                    <td class="team-member-info">{{event.created_at}}</td>
+                                    <td class="team-member-info">{{event.event_title}}</td>
                                     <td class="team-member-action-buttons" style="justify-content: center;">
                                         <form action="{% url 'edit_event' %}" method="GET">
                                             {% csrf_token %}

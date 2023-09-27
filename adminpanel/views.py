@@ -13,8 +13,9 @@ from django.utils.encoding import force_bytes, force_str, DjangoUnicodeDecodeErr
 from django.utils import timezone
 from datetime import datetime, timedelta
 from accounts.utils import TokenGenerator, generate_token
-from home.models import Queries, Home_Slider, Banner, Event, Feedback
+from home.models import Queries, Home_Slider, Banner, Event, Feedback, Deal_of_the_day
 from blog.models import Blog
+from UTILS.image_resizer import resize_image
 
 # emails
 from django.core.mail import send_mail, EmailMultiAlternatives, EmailMessage, BadHeaderError
@@ -241,13 +242,17 @@ def add_product(request):
             product_return = request.POST.get('product_return')
             product_featured = request.POST.get('product_featured')
             
+            # resize the product_image to match our requirements
+            if product_image:
+                resized_product_image = resize_image(product_image, 600, 600)
+            
             # Get the Subcategory instance by name
             product_category = Subcategory.objects.get(id=product_category_id)
             
             # Create product
             Product.objects.create(
                 product_name=product_name,
-                product_image=product_image,
+                product_image=resized_product_image,
                 product_brand=product_brand,
                 product_category=product_category,
                 product_price=product_price,
@@ -308,7 +313,8 @@ def edit_product(request):
             # Update product details and save the object in the database
             product.product_name = product_name
             if product_image:
-                product.product_image = product_image
+                resized_product_image = resize_image(product_image, 600, 600)
+                product.product_image = resized_product_image
             product.product_brand = product_brand
             if product_category_id:
                 product_category = get_object_or_404(Subcategory, id=product_category_id)
@@ -325,7 +331,8 @@ def edit_product(request):
                 product.product_online_payment = product_online_payment
             if product_return:
                 product.product_return = product_return
-            product.product_featured = product_featured
+            if product_featured:
+                product.product_featured = product_featured
             product.save()
             
             messages.success(request, 'Product edited successfully.')
@@ -912,18 +919,32 @@ def add_slider(request):
             offer = request.POST.get('offer')
             offer_description = request.POST.get('offer_description')
             starting_price = request.POST.get('starting_price')
-
-            Home_Slider.objects.create(slider_banner=slider_banner, slider_offer_title=slider_title, slider_offer=offer, slider_offer_description=offer_description, slider_offer_starting_price=starting_price)       
+            category_id = request.POST.get('category_id')
+            
+            category = Category.objects.get(id=category_id)
+            
+            slider = Home_Slider.objects.create(slider_banner=slider_banner, slider_product_category=category)    
+            
+            if slider_title:
+                slider.slider_offer_title = slider_title
+            if offer:
+                slider.slider_offer = offer
+            if offer_description:
+                slider.slider_offer_description = offer_description
+            if starting_price:
+                slider.slider_offer_starting_price = starting_price
+            slider.save()
 
             messages.success(request, 'Slider added successfully')
             return redirect('sliders')
 
         except Exception as e:
             # print(f"Error adding slider: {e}")
-            messages.error(request, 'An error occurred while adding Slider.')
+            messages.error(request, f'{e}')
             return redirect('sliders')
             
-    return render(request, 'adminpanel/add_slider.html')
+    categories = Category.objects.all()
+    return render(request, 'adminpanel/add_slider.html', {'categories': categories})
 
 
 @login_required
@@ -968,6 +989,7 @@ def edit_slider(request):
             offer = request.POST.get('offer')
             offer_description = request.POST.get('offer_description')
             starting_price = request.POST.get('starting_price')
+            category_id = request.POST.get('category_id')
 
             # Fetch the slider object
             slider = Home_Slider.objects.get(id=slider_id)
@@ -976,27 +998,33 @@ def edit_slider(request):
                 # Update slider attributes, including 'slider_banner' if a new file is provided
                 if slider_banner:
                     slider.slider_banner = slider_banner
-
-                slider.slider_offer_title = slider_title
-                slider.slider_offer = offer
-                slider.slider_offer_description = offer_description
-                slider.slider_offer_starting_price = starting_price
+                if category_id:
+                    category = Category.objects.get(id=category_id)
+                    slider.slider_product_category = category
+                if slider_title:
+                    slider.slider_offer_title = slider_title
+                if offer:
+                    slider.slider_offer = offer
+                if offer_description:
+                    slider.slider_offer_description = offer_description
+                if starting_price:
+                    slider.slider_offer_starting_price = starting_price
                 slider.save()
 
                 messages.success(request, 'Slider edited successfully.')
                 return redirect('sliders')
 
         except Exception as e:
-            print(f"Error editing slider: {e}")
-            messages.error(request, 'An error occurred while editing the slider.')
+            # print(f"Error editing slider: {e}")
+            messages.error(request, f"Error editing slider: {e}")
             return redirect('sliders')
 
     
     # If it's a GET request, fetch the list of slider and render the edit form
     slider_id = request.GET.get('slider_id')
     slider = Home_Slider.objects.get(id=slider_id)
-    
-    return render(request, 'adminpanel/edit_slider.html', {'slider': slider})
+    categories = Category.objects.all()
+    return render(request, 'adminpanel/edit_slider.html', {'slider': slider, 'categories': categories})
 
 
 @login_required
@@ -1036,14 +1064,20 @@ def add_banner(request):
             # get the category object from the category model
             banner_product_category = Category.objects.get(id=category_id)
 
-            Banner.objects.create(banner_image=banner_image, banner_title=banner_title, banner_offer=banner_offer, banner_product_category=banner_product_category)      
+            banner = Banner.objects.create(banner_image=banner_image, banner_product_category=banner_product_category)   
+            
+            if banner_title:
+                banner.banner_title=banner_title
+            if banner_offer:
+                banner.banner_offer=banner_offer
+            banner.save
 
             messages.success(request, 'Banner added successfully')
             return redirect('banners')
 
         except Exception as e:
             # print(f"Error adding slider: {e}")
-            messages.error(request, 'An error occurred while adding Banner.')
+            messages.error(request, f"Error adding slider: {e}")
             return redirect('banners')
         
     else:
@@ -1092,7 +1126,7 @@ def edit_banner(request):
             banner_title = request.POST.get('banner_title')
             banner_offer = request.POST.get('banner_offer')
             category_id = request.POST.get('category_id')
-            # print("============================================================", category_id)
+            
             # get the banner object
             banner = Banner.objects.get(id=banner_id)
 
@@ -1100,11 +1134,12 @@ def edit_banner(request):
                 # Update slider attributes, including 'banner image' if a new file is provided
                 if banner_image:
                     banner.banner_image = banner_image
-                banner.slider_offer_title = banner_title
-                banner.banner_offer = banner_offer
+                if banner_title:
+                    banner.banner_title=banner_title
+                if banner_offer:
+                    banner.banner_offer=banner_offer
                 if category_id:
                     banner_product_category = Category.objects.get(id=category_id)
-                    # print("============================================================", bbname)
                     banner.banner_product_category = banner_product_category
                 banner.save()
 
@@ -1113,7 +1148,7 @@ def edit_banner(request):
 
         except Exception as e:
             print(f"Error editing slider: {e}")
-            messages.error(request, 'An error occurred while editing the banner.')
+            messages.error(request, f"Error editing slider: {e}")
             return redirect('banners')
 
     # If it's a GET request, fetch the list of baner, categories and render the edit form
@@ -1272,14 +1307,22 @@ def create_event(request):
             # get the category object from the category model
             event_product_category = Subcategory.objects.get(id=sub_category_id)
 
-            Event.objects.create(event_banner=event_banner, event_title=event_title, event_offer_title=event_offer_title, event_offer=event_offer, event_product_category=event_product_category, event_deadline=event_deadline)      
+            event = Event.objects.create(event_banner=event_banner, event_product_category=event_product_category, event_deadline=event_deadline)      
 
+            if event_title:
+                event.event_title = event_title
+            if event_offer_title:
+                event.event_offer_title = event_offer_title
+            if event_offer:
+                event.event_offer=event_offer
+            event.save()
+            
             messages.success(request, 'Event Created successfully')
             return redirect('events')
 
         except Exception as e:
             # print(f"Error adding slider: {e}")
-            messages.error(request, 'An error occurred while creating Event.')
+            messages.error(request, f"Error adding slider: {e}")
             return redirect('events')
         
     else:
@@ -1343,9 +1386,12 @@ def edit_event(request):
             if event:
                 if event_banner:
                     event.event_banner = event_banner
-                event.event_title = event_title
-                event.event_offer_title = event_offer_title
-                event.event_offer = event_offer
+                if event_title:
+                    event.event_title = event_title
+                if event_offer_title:
+                    event.event_offer_title = event_offer_title
+                if event_offer:
+                    event.event_offer=event_offer
                 if sub_category_id:
                     # get the sub_category object from the sub_category model
                     event_product_category = Subcategory.objects.get(id=sub_category_id)
@@ -1360,8 +1406,8 @@ def edit_event(request):
             return redirect('events')
 
         except Exception as e:
-            print(f"Error editing event: {e}")
-            messages.error(request, 'An error occurred while editing Event.')
+            # print(f"Error editing event: {e}")
+            messages.error(request, f"Error editing event: {e}")
             return redirect('events')
         
     else:
@@ -1446,4 +1492,109 @@ def not_display_feedback(request):
     feedback.save()
     
     messages.success(request, 'Feedback Not Displayed successfully.')
+    return redirect(request.META.get('HTTP_REFERER'))
+
+
+@login_required
+def deal_of_the_dayView(request):
+    if not request.user.is_admin:
+        return render(request, 'accounts/wrong_path.html')
+    
+    deals = Deal_of_the_day.objects.all()
+    return render(request, 'adminpanel/deal_of_the_day_list.html', {'deals': deals})
+
+
+@login_required
+def add_deal_of_the_day(request):
+    if not request.user.is_admin:
+        return render(request, 'accounts/wrong_path.html')
+
+    if request.method == 'POST':
+        try:
+            product_id = request.POST.get('product_id')
+            product = Product.objects.get(id=product_id)
+            offer_price = request.POST.get('offer_price')
+            deadline_str = request.POST.get('deadline')
+        
+            # Convert the date string to a datetime object (assuming 'YYYY-MM-DD' format)
+            deadline = datetime.strptime(deadline_str, '%Y-%m-%d')
+
+            # Creat a new deal object
+            Deal_of_the_day.objects.create(product=product, offer_price=offer_price, deadline=deadline)
+            
+            messages.success(request, 'Deal of the Day added successfully')
+            return redirect('deal_of_the_day')
+            
+        except Exception as e:
+            messages.error(request, f'Error creating deal: {e}')
+            return redirect(request.META.get('HTTP_REFERER'))
+    
+    products = Product.objects.all()
+    return render(request, 'adminpanel/add_deal_of_the_day.html', {'products': products})
+
+
+@login_required
+def edit_deal_of_the_day(request):
+    if not request.user.is_admin:
+        return render(request, 'accounts/wrong_path.html')
+    
+    if 'cancel' in request.POST:
+        # Redirect to the deal of the day list without showing the success message
+        return redirect('deal_of_the_day')
+    
+    if request.method == 'POST':
+        try:
+            deal_id = request.POST.get('id')
+            product_id = request.POST.get('product_id')
+            offer_price = request.POST.get('offer_price')
+            deadline_str = request.POST.get('deadline')
+
+            # Get deal object
+            deal = Deal_of_the_day.objects.get(id=deal_id)
+            
+            if deal:
+                if product_id:
+                    product = Product.objects.get(id=product_id)
+                    deal.product = product
+                if offer_price:
+                    deal.offer_price = offer_price
+                if deadline_str:
+                     # Convert the date string to a datetime object (assuming 'YYYY-MM-DD' format)
+                    deadline = datetime.strptime(deadline_str, '%Y-%m-%d')
+                    deal.deadline = deadline
+                deal.save()
+            
+            messages.success(request, 'Deal of the Day edited successfully')
+            return redirect('deal_of_the_day')
+            
+        except Exception as e:
+            messages.error(request, f'Error editing deal: {e}')
+            return redirect(request.META.get('HTTP_REFERER'))
+    
+
+    deal_id = request.GET.get('id')
+    products = Product.objects.all()
+    deal = Deal_of_the_day.objects.get(id=deal_id)
+    return render(request, 'adminpanel/edit_deal_of_the_day.html', {'products': products, 'deal': deal})
+
+
+@login_required
+def delete_deal_of_the_day(request):
+    if not request.user.is_admin:
+        return render(request, 'accounts/wrong_path.html')
+        
+    if request.method == 'GET':
+        try:
+            # get deal by id
+            deal_id = request.GET.get('id')
+            deal = get_object_or_404(Deal_of_the_day, id=deal_id)
+            deal.delete()
+
+            messages.success(request, 'Deal deleted successfully.')
+            return redirect(request.META.get('HTTP_REFERER'))
+        
+        except Exception as e:
+            messages.error(request, (f"Error deleting deal: {e}"))
+            return redirect(request.META.get('HTTP_REFERER'))
+    
     return redirect(request.META.get('HTTP_REFERER'))

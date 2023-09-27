@@ -20,20 +20,29 @@
             </div>
             <div class="product-add-page-form-group">
                 <label class="product-add-page-form-label" for="slider-title">Slider Title</label>
-                <input class="product-add-page-form-input" value="{{slider.slider_offer_title}}" type="text" id="slider-title" name="slider_title" required>
+                <input class="product-add-page-form-input" value="{{slider.slider_offer_title}}" type="text" id="slider-title" name="slider_title" >
             </div>
             <div class="product-add-page-form-group">
                 <label class="product-add-page-form-label" for="offer">Offer</label>
-                <input class="product-add-page-form-input" value="{{slider.slider_offer}}" type="text" id="offer" name="offer" required>
+                <input class="product-add-page-form-input" value="{{slider.slider_offer}}" type="text" id="offer" name="offer" >
             </div>
             <div class="product-add-page-form-group">
                 <label class="product-add-page-form-label" for="offer-description">Offer Description</label>
-                <input class="product-add-page-form-input" value="{{slider.slider_offer_description}}" type="text" id="offer-description" name="offer_description" required>
+                <input class="product-add-page-form-input" value="{{slider.slider_offer_description}}" type="text" id="offer-description" name="offer_description" >
             </div>
             <div class="product-add-page-form-group">
                 <label class="product-add-page-form-label" for="starting-price">Starting Price</label>
-                <input class="product-add-page-form-input" value="{{slider.slider_offer_starting_price}}" type="text" id="starting-price" name="starting_price" pattern="[0-9]+(\.[0-9]+)?" title="Please enter a valid decimal number (e.g., 30.33)" required>
-            </div>            
+                <input class="product-add-page-form-input" value="{{slider.slider_offer_starting_price}}" type="text" id="starting-price" name="starting_price" pattern="[0-9]+(\.[0-9]+)?" title="Please enter a valid decimal number (e.g., 30.33)" >
+            </div>   
+            <div class="product-add-page-form-group">
+                <label class="product-add-page-form-label" for="product-category">Slider Product Category</label>
+                <select class="product-add-page-form-select" id="product-category" name="category_id" >
+                    <option value="" disabled selected>{{ slider.slider_product_category }}--{{ slider.slider_product_category.main_category }}</option>
+                    {% for category in categories %}
+                    <option value="{{ category.id }}" required>{{ category.name }}--{{ category.main_category }}</option>
+                    {% endfor %}
+                </select>
+            </div>         
             <div class="product-edit-page-form-group-submit-btn">
                 <button class="product-add-page-form-add-product-btn" type="submit">Update</button>
                 <button class="product-add-page-form-cancel-btn" name="cancel">Cancel</button>
