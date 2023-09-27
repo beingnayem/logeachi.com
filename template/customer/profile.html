@@ -9,6 +9,21 @@
             <h1 class="dash__h1 u-s-m-b-14">Profile</h1>
 
             <span class="dash__text u-s-m-b-30">Look all your info, you could customize your profile.</span>
+            <div class="dash__pad-3" >
+                <div class="testimonial">
+                    <div class="testimonial__img-wrap">
+                        {% if user.user_image %}
+                            <img class="testimonial__img" src="{{ user.user_image.url }}" alt="Feedback Customer">
+                            {% else %}
+                                {% if user.gender == 'male' or user.gender == 'Male' %}
+                                    <img class="testimonial__img" src="{% static 'assets/images/male.png' %}" alt="Default Image">
+                                    {% else %}
+                                        <img class="testimonial__img" src="{% static 'assets/images/female.png' %}" alt="Default Image">
+                                {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-lg-4 u-s-m-b-30">
                     <h2 class="dash__h2 u-s-m-b-8">Full Name</h2>

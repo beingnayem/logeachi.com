@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from home.models import Home_Slider, Newsletter, Queries, Banner, Event, Feedback
+from home.models import Home_Slider, Newsletter, Queries, Banner, Event, Feedback, Deal_of_the_day
 from accounts.models import User
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
@@ -64,6 +64,7 @@ def home(request):
     blogs = Blog.objects.all()[:3]
     event = Event.objects.all()[:1]
     feedbacks = Feedback.objects.filter(is_display=True)
+    deal_of_the_day = Deal_of_the_day.objects.all()
     context = {
         'sliders': sliders,
         'main_categories': main_categories,
@@ -75,7 +76,8 @@ def home(request):
         'weekly_products': weekly_products,
         'blogs': blogs,
         'event': event,
-        'feedbacks': feedbacks
+        'feedbacks': feedbacks,
+        'deal_of_the_day': deal_of_the_day
     }
     return render(request, 'home/home.html', context)
 

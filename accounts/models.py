@@ -26,7 +26,7 @@ class User(AbstractBaseUser):
     admin_request=models.CharField(max_length=255, null=True, blank=True, choices=admin_request_choiche)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    user_image = models.ImageField(blank=True, null=True, default=None)
+    user_image = models.ImageField(blank=True, null=True, default=None, upload_to='profile_picture')
     birthdate = models.DateField(null=True, blank=True, default=None)
     phone_number = models.CharField(max_length=14, null=True, blank=True)
 
