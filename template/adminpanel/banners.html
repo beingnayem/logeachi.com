@@ -32,9 +32,10 @@
                         <thead>
                             <tr class="team-member-list-table-container-table-row">
                                 <th class="team-member-info-head">ID</th>
+                                <th class="team-member-info-head">Product Category</th>
+                                <th class="team-member-info-head">Created</th>
                                 <th class="team-member-info-head">Ttile</th>
                                 <th class="team-member-info-head">Offer</th>
-                                <th class="team-member-info-head">Product Category</th>
                                 <th class="team-member-info-head" style="display: flex; justify-content:center;">Action</th>
                             </tr>
                         </thead>
@@ -43,9 +44,10 @@
                             {% for banner in banners %}
                                 <tr class="team-member-list-table-container-table-row">
                                     <td class="team-member-info">{{banner.id}}</td>
+                                    <td class="team-member-info">{{banner.banner_product_category}}--{{banner.banner_product_category.main_category}}</td>
+                                    <td class="team-member-info">{{banner.created_at}}</td>
                                     <td class="team-member-info">{{banner.banner_title}}</td>
                                     <td class="team-member-info">{{banner.banner_offer}}</td>
-                                    <td class="team-member-info">{{banner.banner_product_category}}</td>
                                     <td class="team-member-action-buttons" style="justify-content: center;">
                                         <form action="{% url 'edit_banner' %}" method="GET">
                                             {% csrf_token %}

@@ -194,8 +194,8 @@
                                         {% if feedback.user.user_image %}
                                             <img class="testimonial__img" src="{{ feedback.user.user_image.url }}" alt="Feedback Customer">
                                             {% else %}
-                                                {% if user.gender == 'male' %}
-                                                <img class="testimonial__img" src="{% static 'assets/images/male.png' %}" alt="Default Image">
+                                                {% if feedback.user.gender == 'male' or feedback.user.gender == 'Male' %}
+                                                    <img class="testimonial__img" src="{% static 'assets/images/male.png' %}" alt="Default Image">
                                                     {% else %}
                                                         <img class="testimonial__img" src="{% static 'assets/images/female.png' %}" alt="Default Image">
                                                 {% endif %}

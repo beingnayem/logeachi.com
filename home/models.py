@@ -7,10 +7,12 @@ from accounts.models import User
 
 class Home_Slider(models.Model):
     slider_banner = models.ImageField(upload_to='slider')
-    slider_offer_title = models.CharField(max_length=155)
-    slider_offer = models.CharField(max_length=155)
-    slider_offer_description = models.CharField(max_length=155)
-    slider_offer_starting_price = models.DecimalField(max_digits=15, decimal_places=2)
+    slider_offer_title = models.CharField(max_length=155, blank=True, null=True)
+    slider_offer = models.CharField(max_length=155, blank=True, null=True)
+    slider_offer_description = models.CharField(max_length=155, blank=True, null=True)
+    slider_offer_starting_price = models.DecimalField(max_digits=15, decimal_places=2, blank=True, null=True, default=0.00)
+    slider_product_category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='slider_product_category', blank=True, null=True)
+    created_at = models.DateTimeField(default=datetime.now, editable=False)
 
 class Newsletter(models.Model):
     GenderChoiche=(
@@ -43,18 +45,20 @@ class Queries(models.Model):
 
 class Banner(models.Model):
     banner_image = models.ImageField(upload_to='Banner')
-    banner_title = models.CharField(max_length=155)
-    banner_offer = models.CharField(max_length=155)
+    banner_title = models.CharField(max_length=155, blank=True, null=True)
+    banner_offer = models.CharField(max_length=155, blank=True, null=True)
     banner_product_category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='banner_product_category')
+    created_at = models.DateTimeField(default=datetime.now, editable=False)
 
 
 class Event(models.Model):
     event_banner = models.ImageField(upload_to='Event')
-    event_title = models.CharField(max_length=155)
-    event_offer_title = models.CharField(max_length=155)
-    event_offer = models.CharField(max_length=155)
+    event_title = models.CharField(max_length=155, blank=True, null=True)
+    event_offer_title = models.CharField(max_length=155, blank=True, null=True)
+    event_offer = models.CharField(max_length=155, blank=True, null=True)
     event_product_category = models.ForeignKey(Subcategory, on_delete=models.CASCADE, related_name='event_product_category')
     event_deadline = models.DateTimeField(blank=True, null=True)
+    created_at = models.DateTimeField(default=datetime.now, editable=False)
     
     
     def formatted_deadline(self):
