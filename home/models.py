@@ -2,6 +2,7 @@ from django.db import models
 from products.models import Category, Subcategory
 from datetime import datetime, timedelta
 from accounts.models import User
+from products.models import Product
 
 # Create your models here.
 
@@ -87,3 +88,20 @@ class Feedback(models.Model):
     
     def __str__(self) -> str:
         return self.user.first_name + ' ' + self.user.last_name
+
+
+class Deal_of_the_day(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='deal_of_the_day_product')
+    offer_price = models.DecimalField(max_digits=15, decimal_places=2, default=0.00)
+    created_at = models.DateTimeField(default=datetime.now, editable=False)
+    deadline = models.DateTimeField(blank=True, null=True)
+    
+    def __str__(self) -> str:
+        return self.product.product_name
+    
+    def formatted_deadline(self):
+        # Check if event_deadline is not None
+        if self.deadline:
+            return self.deadline.strftime('%Y/%m/%d')
+        else:
+            return None

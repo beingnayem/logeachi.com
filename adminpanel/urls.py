@@ -57,4 +57,8 @@ urlpatterns = [
     path('display-feedback/', views.display_feedback, name='display_feedback'),
     path('delete-feedback/', views.delete_feedback, name='delete_feedback'),
     path('not-display-feedback/', views.not_display_feedback, name='not_display_feedback'),
+    path('deal-of-the-day-list/', views.deal_of_the_dayView, name='deal_of_the_day'),
+    path('add-deal-of-the-day/', views.add_deal_of_the_day, name='add_deal_of_the_day'),
+    path('edit-deal-of-the-day/', views.edit_deal_of_the_day, name='edit_deal_of_the_day'),
+    path('delete-deal-of-the-day/', views.delete_deal_of_the_day, name='delete_deal_of_the_day'),
 ]

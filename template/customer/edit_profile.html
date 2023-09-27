@@ -9,12 +9,27 @@
             <h1 class="dash__h1 u-s-m-b-14">Edit Profile</h1>
 
             <span class="dash__text u-s-m-b-30">Looks like you haven't update your profile</span>
+            <div class="dash__pad-3" >
+                <div class="testimonial">
+                    <div class="testimonial__img-wrap">
+                        {% if user.user_image %}
+                            <img class="testimonial__img" src="{{ user.user_image.url }}" alt="Feedback Customer">
+                            {% else %}
+                                {% if user.gender == 'male' or user.gender == 'Male' %}
+                                    <img class="testimonial__img" src="{% static 'assets/images/male.png' %}" alt="Default Image">
+                                    {% else %}
+                                        <img class="testimonial__img" src="{% static 'assets/images/female.png' %}" alt="Default Image">
+                                {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
             <div class="dash__link dash__link--secondary u-s-m-b-30">
 
                 <a href="{% url 'join_newsletter' %}" data-modal="modal" data-modal-id="#dash-newsletter">Subscribe Newsletter</a></div>
             <div class="row">
                 <div class="col-lg-12">
-                    <form class="dash-edit-p" action="{% url 'edit_profile' %}" method="POST">
+                    <form class="dash-edit-p" action="{% url 'edit_profile' %}" enctype="multipart/form-data" method="POST">
                         {% csrf_token %}
                         <div class="gl-inline">
                             <div class="u-s-m-b-30">
@@ -55,8 +70,8 @@
                         </div>
                         <div class="gl-inline">
                             <div class="u-s-m-b-30">
-                                <h2 class="dash__h2 u-s-m-b-8">E-mail</h2>
-                                <span class="dash__text">{{user.email}}</span>
+                                <h2 class="dash__h2 u-s-m-b-8">Profile Picture</h2>
+                                <input type="file" id="user-image" name="user_image" accept="image/*">
                             </div>
                             <div class="u-s-m-b-30">
                                 <label class="gl-label" for="address-phone">PHONE</label>
@@ -70,6 +85,12 @@
                                     type="text" id="address-phone" pattern="\+880\d{10}" maxlength="14"
                                 >
                                 <small>Format: +880XXXXXXXXXX</small>
+                            </div>
+                        </div>
+                        <div class="gl-inline">
+                            <div class="u-s-m-b-30">
+                                <h2 class="dash__h2 u-s-m-b-8">E-mail</h2>
+                                <span class="dash__text">{{user.email}}</span>
                             </div>
                         </div>
 

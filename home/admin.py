@@ -1,5 +1,5 @@
 from django.contrib import admin
-from home.models import Newsletter, Queries, Home_Slider, Event, Banner, Feedback
+from home.models import Newsletter, Queries, Home_Slider, Event, Banner, Feedback, Deal_of_the_day
 
 # Register your models here.
 
@@ -53,4 +53,13 @@ class FeedbackAdmin(admin.ModelAdmin):
         'id',
         'user',
         'feedback_date'
+    ]
+    
+@admin.register(Deal_of_the_day)
+class Deal_of_the_dayAdmin(admin.ModelAdmin):
+    list_display = [
+        'id',
+        'product',
+        'created_at',
+        'deadline'
     ]
