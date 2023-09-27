@@ -82,15 +82,18 @@ def add_to_cart(request, id):
         CartItem.objects.create(cart=cart, product=product)
     
     return redirect(request.META.get('HTTP_REFERER'))
+
+
 @login_required
 def show_cart(request):
-    
     user = request.user
-    cart = Cart.objects.get(user=user)
-    if not cart:
-        return render(request, 'cart/empty-cart.html')
+    try:
+        cart = Cart.objects.get(user=user)
+        return render(request, 'cart/show_cart.html')
     
-    return render(request, 'cart/show_cart.html')
+    except Cart.DoesNotExist:
+        return render(request, 'cart/empty-cart.html')
+
 
 @login_required
 def delete_cart(request, id):

@@ -18,22 +18,22 @@
             </div>
             <div class="product-add-page-form-group">
                 <label class="product-add-page-form-label" for="event-title">Event Title</label>
-                <input class="product-add-page-form-input" type="text" id="event-title" name="event_title" required>
+                <input class="product-add-page-form-input" type="text" id="event-title" name="event_title" >
             </div>
             <div class="product-add-page-form-group">
                 <label class="product-add-page-form-label" for="event-offer-title">Event Offer Title</label>
-                <input class="product-add-page-form-input" type="text" id="event-offer-title" name="event_offer_title" required>
+                <input class="product-add-page-form-input" type="text" id="event-offer-title" name="event_offer_title" >
             </div>
             <div class="product-add-page-form-group">
                 <label class="product-add-page-form-label" for="event-offer">Event Offer</label>
-                <input class="product-add-page-form-input" type="text" id="event-offer" name="event_offer" required>
+                <input class="product-add-page-form-input" type="text" id="event-offer" name="event_offer" >
             </div>
             <div class="product-add-page-form-group">
                 <label class="product-add-page-form-label" for="product-category">Event Product Category</label>
                 <select class="product-add-page-form-select" id="product-category" name="sub_category_id" required>
                     <option value="" disabled selected>Select Category</option>
                     {% for sub_category in sub_categories %}
-                    <option value="{{ sub_category.id }}" required>{{ sub_category.name }}</option>
+                    <option value="{{ sub_category.id }}" required>{{ sub_category.name }}--{{ sub_category.category }}--{{ sub_category.category.main_category }}</option>
                     {% endfor %}
                 </select>
             </div>

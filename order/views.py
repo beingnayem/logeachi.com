@@ -42,6 +42,8 @@ def place_order(request):
                     quantity=item.quantity,
                 )
                 item.delete()
+                
+            cart.delete()
             
         elif case_method == 'sslcommerz':
             pass
