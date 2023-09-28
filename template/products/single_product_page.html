@@ -20,16 +20,16 @@
                                 <a href="index.hml">Home</a></li>
                             <li class="has-separator">
 
-                                <a href="shop-side-version-2.html"> {{product.product_category.category.main_category.name}} </a></li>
+                                <a href="{% url 'main_category_products' product.product_category.category.main_category.pk %}"> {{product.product_category.category.main_category.name}} </a></li>
                             <li class="has-separator">
 
-                                <a href="shop-side-version-2.html">{{product.product_category.category.name}}</a></li>
+                                <a href="{% url 'category_products' product.product_category.category.pk %}">{{product.product_category.category.name}}</a></li>
                             <li class="has-separator">
 
-                                <a href="shop-side-version-2.html">{{product.product_category.name}}</a></li>
+                                <a href="{% url 'sub_category_products' product.product_category.pk %}">{{product.product_category.name}}</a></li>
                             <li class="is-marked">
 
-                                <a href="shop-side-version-2.html"> {{product.product_name}} </a></li>
+                                <a> {{product.product_name}} </a></li>
                         </ul>
                     </div>
                     <!--====== End - Product Breadcrumb ======-->
@@ -92,7 +92,7 @@
                         <div>
                             <div class="pd-detail__inline">
 
-                                <span class="pd-detail__price">${{product.product_price}} </span>
+                                <span class="pd-detail__price">&#2547; {{product.product_price}} </span>
                             </div>
                         </div>
                         <div class="u-s-m-b-15">
@@ -158,7 +158,7 @@
                                 <div class="pd-detail-inline-2">
                                     <div class="u-s-m-b-15">
 
-                                        <button class="btn btn--e-brand-b-2" type="submit">Buy Now</button></div>
+                                        <a href="{% url 'add_to_cart' product.pk %}" class="btn btn--e-brand-b-2" type="submit">Add To Cart</a></div>
                                 </div>
                             </form>
                         </div>

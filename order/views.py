@@ -8,9 +8,16 @@ from .ssl import sslcommerz_payment_gateway
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from decimal import Decimal
+from django.contrib import messages
+
 
 # Create your views here.
 def checkout(request):
+    cart = Cart.objects.get(user=request.user)
+    cart_item = CartItem.objects.filter(cart=cart)
+    if not cart_item:
+        return redirect('home')
+    
     addresses = Address.objects.all()
     context = {
         'addresses': addresses
@@ -21,6 +28,10 @@ def checkout(request):
 def place_order(request):
     if request.method == 'POST':
         case_method = request.POST.get('payment')
+        if not case_method:
+            messages.error(request, 'Please select any payment method')
+            return redirect(request.META.get('HTTP_REFERER'))
+            
         user = request.user
         billing_address = Address.objects.get(user=user, is_default_shipping=True) 
         shipping_address = Address.objects.get(user=user, is_default_billing=True)
@@ -69,4 +80,13 @@ def place_order(request):
 
 @method_decorator(csrf_exempt, name='dispatch') # csrf ke disable kore deoya
 def success_view(request):
+    data = request.POST
+    print('================================================================', data)
+    order_id = data['value_a']
+    user = data['value_b']
+    order = Order.objects.get(id=order_id)
+    order.payment_method = 'SSLCOMMERZ'
+    order.payment_status = 'Paid'
+    order.save()
+    print('================================================================', order)
     return redirect('home')

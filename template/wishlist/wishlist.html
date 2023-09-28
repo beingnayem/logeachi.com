@@ -47,10 +47,10 @@
                                             </div>
                                             <div class="w-r__info">
                                                 <span class="w-r__name">
-                                                    <a href="product-detail.html">{{product.product.product_name}}</a>
+                                                    <a href="{% url 'single_product_page' product.product.pk %}">{{product.product.product_name}}</a>
                                                 </span>
                                                 <span class="w-r__category">
-                                                    <a href="shop-side-version-2.html">{{product.product.product_category}}</a>
+                                                    <a href="{% url 'sub_category_products' product.product.product_category.pk %}">{{product.product.product_category}}</a>
                                                 </span>
                                                 <span class="w-r__price">${{product.product.product_price}}
                                                     <!-- <span class="w-r__discount">$160.00</span> -->
@@ -58,8 +58,8 @@
                                             </div>
                                         </div>
                                         <div class="w-r__wrap-2">
-                                            <a class="w-r__link btn--e-brand-b-2" data-modal="modal" data-modal-id="#add-to-cart">ADD TO CART</a>
-                                            <a class="w-r__link btn--e-transparent-platinum-b-2" href="#">VIEW</a>
+                                            <a class="w-r__link btn--e-brand-b-2" data-modal="modal" data-modal-id="#add-to-cart" href="{% url 'add_to_cart' product.product.pk %}">ADD TO CART</a>
+                                            <a class="w-r__link btn--e-transparent-platinum-b-2" href="{% url 'single_product_page' product.product.pk %}">VIEW</a>
                                             <a class="w-r__link btn--e-transparent-platinum-b-2" href="{% url 'delete_wishlist_item' product.id %}">REMOVE</a>
                                         </div>
                                     </div>
