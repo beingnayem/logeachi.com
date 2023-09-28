@@ -4,7 +4,7 @@ from .models import Order, OrderItem, PaymentGateWaySettings
 # Register your models here.
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ['id', 'user', 'order_status', 'payment_status']
+    list_display = ['id', 'user', 'order_status']
     
 @admin.register(OrderItem)
 class OrderItemAdmin(admin.ModelAdmin):
