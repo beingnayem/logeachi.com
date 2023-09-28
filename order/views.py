@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from customer.models import Address
-from .models import Order, OrderItem
+from .models import Order, OrderItem, Payment
 from customer.models import Address
 from products.models import Product
 from cart.models import Cart, CartItem
@@ -9,18 +9,28 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from decimal import Decimal
 from django.contrib import messages
+from accounts.models import User
 
 
 # Create your views here.
 def checkout(request):
     cart = Cart.objects.get(user=request.user)
     cart_item = CartItem.objects.filter(cart=cart)
+    total = 0
+    for item in cart_item:
+        total += item.subtotal
+    tax = (5 * total) / 100
+    shipping_cost = 80
+    grand_total = total + tax + shipping_cost
     if not cart_item:
         return redirect('home')
     
     addresses = Address.objects.all()
     context = {
-        'addresses': addresses
+        'addresses': addresses,
+        'tax': tax,
+        'shipping_cost': shipping_cost,
+        'grand_total': grand_total,
     }
     return render(request, 'order/checkout.html', context)
 
@@ -50,8 +60,6 @@ def place_order(request):
             billing_address=billing_address,
             shipping_address=shipping_address,
             order_status='processing',
-            payment_status='unpaid',
-            payment_method='case_on_delivery',
         )
 
         total = 0
@@ -61,19 +69,19 @@ def place_order(request):
                 product=item.product,
                 quantity=item.quantity,
             )
+            product = Product.objects.get(id=item.product.pk)
+            product.product_quantity -= item.quantity
+            product.save()
+            
             total += item.subtotal
             item.delete()
         # added 2% vat
-        tax = (2*total)/100
-        total = total + tax
-        shipping_cost = 1 # shipping 1 $
-        
-        grand_total = total + shipping_cost
+        tax = (5 * total) / 100
+        shipping_cost = 80
+        grand_total = total + tax + shipping_cost
             
         if case_method == 'sslcommerz':
-            # convert USD to BDT
-            grand_total = (grand_total * 102)
-            return redirect(sslcommerz_payment_gateway(request, order.id, grand_total))
+            return redirect(sslcommerz_payment_gateway(request, order.id, grand_total, billing_address))
         else:
             pass
     return redirect('home')
@@ -81,12 +89,40 @@ def place_order(request):
 @method_decorator(csrf_exempt, name='dispatch') # csrf ke disable kore deoya
 def success_view(request):
     data = request.POST
-    print('================================================================', data)
+    
+    data = request.POST
     order_id = data['value_a']
-    user = data['value_b']
+    user_id = data['value_b']
+    user = User.objects.get(id=user_id)
+    address = data['value_c']
+    
+    billing_address = Address.objects.get(user=user, is_default_shipping=True) 
     order = Order.objects.get(id=order_id)
-    order.payment_method = 'SSLCOMMERZ'
-    order.payment_status = 'Paid'
-    order.save()
-    print('================================================================', order)
-    return redirect('home')
+    order_item = OrderItem.objects.filter(order=order)
+    
+    total = 0
+    for item in order_item:
+        total += item.subtotal
+    tax = (5 * total) / 100
+    shipping_cost = 80
+    grand_total = total + tax + shipping_cost
+    
+    payment = Payment.objects.create(
+        order = order,
+        payment_amount = grand_total,
+        payment_method = 'SSLCOMMERZ',
+        payment_status = 'Paid'
+    ) 
+    
+    context = {
+        'payment': payment,
+        'address': billing_address,
+        'order': order,
+        'order_item': order_item,
+        'sub_total': total,
+        'tax': tax,
+        'shipping_cost': shipping_cost,
+        'grand_total': grand_total,
+    }    
+
+    return render(request, 'order/order_success.html', context)

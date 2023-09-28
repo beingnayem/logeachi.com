@@ -8,24 +8,7 @@ from products.models import Product
 from django.utils.crypto import get_random_string
 import string, random
 
-def unique_transaction_id_generator(size=10, chars=string.ascii_uppercase + string.digits):
-    return ''.join(random.choice(chars) for _ in range(size))
-
 class Order(models.Model):
-    ORDER_STATUS_CHOICES = (
-        ('pending', 'Pending'),
-        ('processing', 'Processing'),
-        ('shipped', 'Shipped'),
-        ('delivered', 'Delivered'),
-        ('canceled', 'Canceled'),
-    )
-
-    PAYMENT_METHOD_CHOICES = (
-        ('case_on_delivery', 'Cash on Delivery'),
-        ('paypal', 'PayPal'),
-        ('sslcommerz', 'SSLCOMMERZ'),
-    )
-
     user = models.ForeignKey('accounts.User', on_delete=models.CASCADE)
     billing_address = models.ForeignKey(
         Address,
@@ -42,8 +25,6 @@ class Order(models.Model):
         blank=True
     )
     order_status = models.CharField(max_length=20)
-    payment_status = models.CharField(max_length=20)
-    payment_method = models.CharField(max_length=20)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -65,6 +46,17 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return f"{self.product.product_name} ({self.quantity})"
+    
+    
+class Payment(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    payment_amount = models.DecimalField(max_digits=10, decimal_places=2)
+    payment_date = models.DateTimeField(auto_now_add=True)
+    payment_method = models.CharField(max_length=20)
+    payment_status = models.CharField(max_length=20, default='Pending')  # Default to 'Pending'
+
+    def __str__(self):
+        return f"Payment for Order #{self.order.id}"
     
 class PaymentGateWaySettings(models.Model):
     store_id = models.CharField(max_length=500, blank=True, null=True)
