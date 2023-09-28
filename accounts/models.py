@@ -4,6 +4,7 @@ from .manager import UserManager
 from cart.models import CartItem
 from customer.models import Address
 from order.models import Order, OrderItem
+from products.models import Main_Category
 
 
 # Create your models here.
@@ -85,3 +86,6 @@ class User(AbstractBaseUser):
     
     def order_count(self):
         return Order.objects.filter(user=self).count()
+    
+    def main_category(self):
+        return Main_Category.objects.all()

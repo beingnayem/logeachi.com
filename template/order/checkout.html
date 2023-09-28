@@ -172,9 +172,9 @@
 
                                                             <a href="{% url 'single_product_page' item.product.pk %}">{{item.product.product_name}} </a></span>
 
-                                                        <span class="o-card__quantity">{{item.quantity}} x ${{item.product.product_price}} </span>
+                                                        <span class="o-card__quantity">{{item.quantity}} x &#2547; {{item.product.product_price}} </span>
 
-                                                        <span class="o-card__price">${{item.subtotal}} </span></div>
+                                                        <span class="o-card__price">&#2547; {{item.subtotal}} </span></div>
                                                 </div>
 
                                                 <a href="{% url 'delete_cart' item.pk %}" class="o-card__del far fa-trash-alt"></a>
@@ -225,19 +225,19 @@
                                                 <tbody>
                                                     <tr>
                                                         <td>SHIPPING</td>
-                                                        <td>$4.00</td>
+                                                        <td>&#2547; 4.00</td>
                                                     </tr>
                                                     <tr>
                                                         <td>TAX</td>
-                                                        <td>$0.00</td>
+                                                        <td>&#2547; 0.00</td>
                                                     </tr>
                                                     <tr>
                                                         <td>SUBTOTAL</td>
-                                                        <td>${{user.calculate_subtotal}} </td>
+                                                        <td>&#2547; {{user.calculate_subtotal}} </td>
                                                     </tr>
                                                     <tr>
                                                         <td>GRAND TOTAL</td>
-                                                        <td>$379.00</td>
+                                                        <td>&#2547; 379.00</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -276,29 +276,15 @@
 
                                                     <span class="gl-text u-s-m-t-6">Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.</span>
                                                 </div>
-                                                <div class="u-s-m-b-10">
-
-                                                    <!--====== Radio Box ======-->
-                                                    <div class="radio-box">
-
-                                                        <input type="radio" id="pay-pal" name="payment", value="paypal">
-                                                        <div class="radio-box__state radio-box__state--primary">
-
-                                                            <label class="radio-box__label" for="pay-pal">Pay Pal</label></div>
-                                                    </div>
-                                                    <!--====== End - Radio Box ======-->
-
-                                                    <span class="gl-text u-s-m-t-6">When you click "Place Order" below we'll take you to Paypal's site to set up your billing information.</span>
-                                                </div>
                                                 <div class="u-s-m-b-15">
 
                                                     <!--====== Check Box ======-->
-                                                    <div class="check-box">
+                                                    <div class="check-box" >
 
-                                                        <input type="checkbox" id="term-and-condition">
+                                                        <input type="checkbox" id="term-and-condition" required>
                                                         <div class="check-box__state check-box__state--primary">
 
-                                                            <label class="check-box__label" for="term-and-condition">I consent to the</label></div>
+                                                            <label class="check-box__label" for="term-and-condition" >I consent to the</label></div>
                                                     </div>
                                                     <!--====== End - Check Box ======-->
 

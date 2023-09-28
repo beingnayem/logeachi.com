@@ -39,7 +39,7 @@ def sslcommerz_payment_gateway(request, order_id, grand_total):
 
     # OPTIONAL PARAMETERS
     post_body['value_a'] = order_id
-    post_body['value_b'] = request.user.id
+    post_body['value_b'] = request.user
     post_body['value_c'] = request.user.email
 
     response = sslcommez.createSession(post_body)
