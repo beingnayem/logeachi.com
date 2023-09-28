@@ -121,12 +121,13 @@
                                                 <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 u-s-m-b-30 filter__item" data-category-id="{{ top_rated_category.category.id }}">
                                                     <div class="product-o product-o--hover-on product-o--radius">
                                                         <div class="product-o__wrap">
-                                                            <a class="aspect aspect--bg-grey aspect--square u-d-block" href="{% url "single_product_page" product.pk %}">
-                                                                <img class="aspect__img" src="{{product.product_image.url}}" alt=""></a>
+                                                            <a class="aspect aspect--bg-grey aspect--square u-d-block" href="{% url 'single_product_page' product.pk %}">
+                                                                <img class="aspect__img" src="{{product.product_image.url}}" alt="">
+                                                            </a>
                                                             <div class="product-o__action-wrap">
                                                                 <ul class="product-o__action-list">
                                                                     <li>
-                                                                        <a data-modal="modal" data-modal-id="#" data-tooltip="tooltip" data-placement="top" title="Quick View"><i class="fas fa-search-plus"></i></a>
+                                                                        <a href="{% url 'single_product_page' product.pk %}" data-modal="modal" data-modal-id="#" data-tooltip="tooltip" data-placement="top" title="Quick View"><i class="fas fa-search-plus"></i></a>
                                                                     </li>
                                                                     <li>
                                                                         <a href="{% url 'add_to_cart' product.pk %}" data-modal="modal" data-modal-id="#" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a>
@@ -142,7 +143,7 @@
                                                         </div>
                             
                                                         <span class="product-o__category">
-                                                            <a href="#">{{product.product_category}} </a>
+                                                            <a href="{% url 'sub_category_products' product.product_category.id %}">{{product.product_category}} </a>
                                                         </span>
                             
                                                         <span class="product-o__name">
@@ -158,7 +159,7 @@
                                                             {% endfor %}
                                                             <span class="product-o__review">({{product.total_reviews}})</span>
                                                         </div>
-                                                        <span class="product-o__price">$ {{product.product_price}} </span>
+                                                        <span class="product-o__price">&#2547; {{product.product_price}} </span>
                                                     </div>
                                                 </div>
                                             {% endfor %}
@@ -249,8 +250,8 @@
                                             <span class="product-o__review">({{deal.product.total_reviews}})</span>
                                         </div>
 
-                                        <span class="product-o__price">${{deal.product.product_price}}</span>
-                                            <span class="product-o__discount">${{deal.offer_price}}</span>
+                                        <span class="product-o__price">&#2547;{{deal.product.product_price}}</span>
+                                            <span class="product-o__discount">&#2547;{{deal.offer_price}}</span>
                                         </span>
                                     </div>
                                 </div>
@@ -303,6 +304,9 @@
                                             <div class="product-o__action-wrap">
                                                 <ul class="product-o__action-list">
                                                     <li>
+                                                        <a href="{% url 'single_product_page' product.pk %}" data-modal="modal" data-modal-id="#" data-tooltip="tooltip" data-placement="top" title="Quick View"><i class="fas fa-search-plus"></i></a>
+                                                    </li>
+                                                    <li>
                                                         <a href="{% url 'add_to_cart' product.pk %}" data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a>
                                                     </li>
                                                     <li>
@@ -331,7 +335,7 @@
                                             <span class="product-o__review">({{product.total_reviews}})</span>
                                         </div>
 
-                                        <span class="product-o__price">$ {{product.product_price}}</span>
+                                        <span class="product-o__price">&#2547; {{product.product_price}}</span>
                                     </div>
                                 </div>
                                 {% endfor %}
@@ -434,7 +438,7 @@
                                             <ul class="product-o__action-list">
                                                 <li>
 
-                                                    <a data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick View"><i class="fas fa-search-plus"></i></a></li>
+                                                    <a href="{% url "single_product_page" product.pk %}" data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick View"><i class="fas fa-search-plus"></i></a></li>
                                                 <li>
 
                                                     <a href="{% url 'add_to_cart' product.pk %}" data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a></li>
@@ -449,7 +453,7 @@
                                     </div>
 
                                     <span class="product-o__category">
-                                        <a href="#">{{product.product_category}}</a></span>
+                                        <a href="{% url 'sub_category_products' product.product_category.id %}">{{product.product_category}}</a></span>
                                     <span class="product-o__name">
                                         <a href="{% url 'single_product_page' product.pk %}">{{product.product_name}}</a></span>
                                     <div class="product-o__rating gl-rating-style">
@@ -461,7 +465,7 @@
                                             {% endif %}
                                         {% endfor %}
                                         <span class="product-o__review">({{product.total_reviews}})</span></div>
-                                    <span class="product-o__price">${{product.product_price}}</span>
+                                    <span class="product-o__price">&#2547;{{product.product_price}}</span>
                                 </div>
                             </div>
                             {% endfor %}
@@ -570,12 +574,12 @@
                                                         ({{product.total_reviews}})
                                                     </div>
                                                     <span class="product-l__category">
-                                                        <a href="shop-side-version-2.html">{{product.product_category}} </a>
+                                                        <a href="{% url 'sub_category_products' product.product_category.id %}">{{product.product_category}} </a>
                                                     </span>
                                                     <span class="product-l__name">
                                                         <a href="{% url 'single_product_page' product.pk %}">{{product.product_name}} </a>
                                                     </span>
-                                                    <span class="product-l__price">${{product.product_price}} </span></div>
+                                                    <span class="product-l__price">&#2547;{{product.product_price}} </span></div>
                                             </div>
                                         </li>
                                         {% endfor %}
@@ -607,12 +611,12 @@
                                                         ({{product.total_reviews}})
                                                     </div>
                                                     <span class="product-l__category">
-                                                        <a href="shop-side-version-2.html">{{product.product_category}} </a>
+                                                        <a href="{% url 'sub_category_products' product.product_category.id %}">{{product.product_category}} </a>
                                                     </span>
                                                     <span class="product-l__name">
                                                         <a href="{% url 'single_product_page' product.pk %}">{{product.product_name}} </a>
                                                     </span>
-                                                    <span class="product-l__price">${{product.product_price}} </span>
+                                                    <span class="product-l__price">&#2547;{{product.product_price}} </span>
                                                 </div>
                                             </div>
                                         </li>
@@ -649,7 +653,7 @@
 
                                                         <a href="product-detail.html">Razor Gear 20 Ultra Ram 16GB</a></span>
 
-                                                    <span class="product-l__price">$125.00</span>
+                                                    <span class="product-l__price">&#2547;125.00</span>
                                                 </div>
                                             </div>
                                         </li>
@@ -674,7 +678,7 @@
 
                                                         <a href="product-detail.html">Razor Gear 11 Ultra Ram 16GB</a></span>
 
-                                                    <span class="product-l__price">$125.00</span>
+                                                    <span class="product-l__price">&#2547;125.00</span>
                                                 </div>
                                             </div>
                                         </li>
@@ -696,7 +700,7 @@
 
                                                         <a href="product-detail.html">Razor Gear 10 Ultra Ram 16GB</a></span>
 
-                                                    <span class="product-l__price">$125.00</span>
+                                                    <span class="product-l__price">&#2547;125.00</span>
                                                 </div>
                                             </div>
                                         </li>
@@ -725,7 +729,7 @@
 
                                         <span class="service__info-text-1">Free Shipping</span>
 
-                                        <span class="service__info-text-2">Free shipping on all US order or order above $200</span></div>
+                                        <span class="service__info-text-2">Free shipping on all US order or order above &#2547;200</span></div>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-6 u-s-m-b-30">

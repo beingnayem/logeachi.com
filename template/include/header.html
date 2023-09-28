@@ -163,10 +163,10 @@
                                 <!--====== End - Dropdown ======-->
                             </li>
                             <li data-tooltip="tooltip" data-placement="left" title="Contact">
-                                <a href="tel:+0900901904"><i class="fas fa-phone-volume"></i></a>
+                                <a href="tel:+8801836938427"><i class="fas fa-phone-volume"></i></a>
                             </li>
                             <li data-tooltip="tooltip" data-placement="left" title="Mail">
-                                <a href="mailto:contact@domain.com"><i class="far fa-envelope"></i></a>
+                                <a href="mailto:antarnath.cse@gmail.com"><i class="far fa-envelope"></i></a>
                             </li>
                         </ul>
                         <!--====== End - List ======-->
@@ -211,7 +211,7 @@
                                     <div class="mega-menu-wrap">
                                         <div class="mega-menu-list">
                                             <ul>
-                                                {% for main_category in main_categories %}
+                                                {% for main_category in user.main_category %}
                                                 <li class="js-active">
 
                                                     <a href="{% url "main_category_products" main_category.pk %}">
@@ -223,7 +223,7 @@
                                                 {% endfor %}
                                             </ul>
                                         </div>
-                                        {% for main_category in main_categories %}
+                                        {% for main_category in user.main_category %}
                                             <div class="mega-menu-content">
                                                 <div class="row">
                                                     {% for category in main_category.main_category.all %}
@@ -363,14 +363,22 @@
 
                                     <!--====== Mini Product Statistics ======-->
                                     <div class="mini-product-stat">
+                                        {% if user.cart_item %}
                                         <div class="mini-total">
                                             <span class="subtotal-text">SUBTOTAL</span>
                                             <span class="subtotal-value">${{user.calculate_subtotal}} </span></div>
                                         <div class="mini-action">
 
-                                            <a class="mini-link btn--e-brand-b-2" href="#">PROCEED TO CHECKOUT</a>
+                                            <a class="mini-link btn--e-brand-b-2" href="{% url 'checkout' %}">PROCEED TO CHECKOUT</a>
 
-                                            <a class="mini-link btn--e-transparent-secondary-b-2" href="{% url 'show_cart' %}">VIEW CART</a></div>
+                                            <a class="mini-link btn--e-transparent-secondary-b-2" href="{% url 'show_cart' %}">VIEW CART</a>
+                                        </div>
+                                        {% else %}
+                                        <div class="mini-action">
+                                            <h4 style="display: flex; justify-content: center;">EMPTY CART</h4>
+                                            <a class="mini-link btn--e-brand-b-2" href="{% url 'home' %}">CONTINUE SHOPPING</a>
+                                        </div>
+                                        {% endif %}
                                     </div>
                                     <!--====== End - Mini Product Statistics ======-->
                                 </div>

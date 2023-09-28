@@ -70,13 +70,13 @@
 
                                             <span>Related Searches:</span>
                                             {% if main_category %}
-                                            <a class="gl-tag btn--e-brand-shadow" href="#"> {{main_category}} </a>
+                                            <a class="gl-tag btn--e-brand-shadow" href="{% url 'main_category_products' main_category.pk %}"> {{main_category}} </a>
                                             {% endif %}
                                             {% if category %}
-                                            <a class="gl-tag btn--e-brand-shadow" href="#"> {{category}} </a>
+                                            <a class="gl-tag btn--e-brand-shadow" href="{% url 'category_products' category.pk %}"> {{category}} </a>
                                             {% endif %}
                                             {% if sub_category %}
-                                            <a class="gl-tag btn--e-brand-shadow" href="#"> {{sub_category}} </a>
+                                            <a class="gl-tag btn--e-brand-shadow" href="{% url 'sub_category_products' sub_category.pk %}"> {{sub_category}} </a>
                                             {% endif %}
                                         </div>
                                     </div>
@@ -93,29 +93,29 @@
                                                         <img class="aspect__img" src=" {{product.product_image.url}} " alt=""></a>
                                                     <div class="product-m__quick-look">
 
-                                                        <a class="fas fa-search" data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick Look"></a></div>
+                                                        <a href="{% url 'single_product_page' product.pk %}" class="fas fa-search" data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick Look"></a></div>
                                                     <div class="product-m__add-cart">
 
-                                                        <a class="btn--e-brand" data-modal="modal" data-modal-id="#add-to-cart">Add to Cart</a></div>
+                                                        <a href="{% url 'add_to_cart' product.pk %}" class="btn--e-brand" data-modal="modal" data-modal-id="#add-to-cart">Add to Cart</a></div>
                                                 </div>
                                                 <div class="product-m__content">
                                                     <div class="product-m__category">
 
-                                                        <a href="shop-side-version-2.html"> {{product.product_category.category.main_category}} </a></div>
+                                                        <a href="{% url 'main_category_products' product.product_category.category.pk %}"> {{product.product_category.category.main_category}} </a></div>
                                                     <div class="product-m__name">
 
                                                         <a href="{% url "single_product_page" product.pk %}"> {{product.product_name}} </a></div>
                                                     <div class="product-m__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i><i class="far fa-star"></i><i class="far fa-star"></i>
 
                                                         <span class="product-m__review">(23)</span></div>
-                                                    <div class="product-m__price">${{product.product_price}} </div>
+                                                    <div class="product-m__price">&#2547; {{product.product_price}} </div>
                                                     <div class="product-m__hover">
                                                         <div class="product-m__preview-description">
 
                                                             <span> {{product.product_description}} </span></div>
                                                         <div class="product-m__wishlist">
 
-                                                            <a class="far fa-heart" href="#" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"></a></div>
+                                                            <a class="far fa-heart" href="{% url 'add_wishlist_item' product.pk %}" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"></a></div>
                                                     </div>
                                                 </div>
                                             </div>
