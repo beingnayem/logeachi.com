@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Order, OrderItem, PaymentGateWaySettings
+from .models import Order, OrderItem, PaymentGateWaySettings, Payment
 
 # Register your models here.
 @admin.register(Order)
@@ -13,3 +13,7 @@ class OrderItemAdmin(admin.ModelAdmin):
 @admin.register(PaymentGateWaySettings)
 class PaymentGatewayAdmin(admin.ModelAdmin):
     list_display = ['id', 'store_id']
+    
+@admin.register(Payment)
+class PaymentAdmin(admin.ModelAdmin):
+    list_display = ['id', 'order', 'payment_amount', 'payment_method', 'payment_status']
