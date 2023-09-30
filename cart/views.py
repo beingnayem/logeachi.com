@@ -4,6 +4,7 @@ from cart.models import Wishlist, Cart, CartItem
 from django.contrib.auth.decorators import login_required 
 from products.models import Category
 from django.http import HttpResponseRedirect
+from django.contrib import messages
 # Create your views here.
 
 @login_required
@@ -68,6 +69,10 @@ def add_to_cart(request, id):
     user = request.user
     cart = Cart.objects.filter(user=user).exists()
     product = Product.objects.get(id=id)
+    if product.product_quantity <= 0:
+        messages.error(request, 'Product are not available, This product in out of stock')
+        return redirect(request.META.get('HTTP_REFERER'))
+    
     if not cart:
         cart = Cart.objects.create(user=user)
     else:
@@ -77,6 +82,11 @@ def add_to_cart(request, id):
     if cart_item_exists:
         cart_Item = CartItem.objects.get(cart=cart, product=product)
         cart_Item.quantity += 1
+        if cart_Item.quantity > product.product_quantity:
+            cart_Item.quantity -= 1
+            cart_Item.save()
+            messages.error(request, 'Maximum Product Added in Cart')
+            return redirect(request.META.get('HTTP_REFERER'))
         cart_Item.save()
     else:
         CartItem.objects.create(cart=cart, product=product)
@@ -122,6 +132,11 @@ def plus_cart(request, id):
     cart_item = CartItem.objects.get(cart=cart, product=product)
     
     cart_item.quantity += 1
+    if cart_item.quantity > product.product_quantity:
+        cart_item.quantity -= 1
+        cart_item.save()
+        messages.error(request, 'Maximum Product Added in Cart')
+        return redirect(request.META.get('HTTP_REFERER'))
     cart_item.save()
     return redirect(request.META.get('HTTP_REFERER'))
 

@@ -10,6 +10,7 @@ from django.utils.decorators import method_decorator
 from decimal import Decimal
 from django.contrib import messages
 from accounts.models import User
+from django.urls import reverse
 
 
 # Create your views here.
@@ -43,14 +44,22 @@ def place_order(request):
             return redirect(request.META.get('HTTP_REFERER'))
             
         user = request.user
-        billing_address = Address.objects.get(user=user, is_default_shipping=True) 
-        shipping_address = Address.objects.get(user=user, is_default_billing=True)
-        
-        cart = Cart.objects.get(user=user)
-        cart_item = CartItem.objects.filter(cart=cart)
+        if Address.objects.filter(user=user, is_default_shipping=True).exists():
+            billing_address = Address.objects.get(user=user, is_default_shipping=True)
+        else:
+            messages.error(request, 'Please select shipping address ')
+            return redirect(request.META.get('HTTP_REFERER'))
+        if Address.objects.filter(user=user, is_default_billing=True).exists():
+            shipping_address = Address.objects.get(user=user, is_default_billing=True)
+        else:
+            messages.error(request, 'Please select billing address')
+            return redirect(request.META.get('HTTP_REFERER'))
         
         if not billing_address or not shipping_address:
             return redirect(request.META.get('HTTP_REFERER'))
+        cart = Cart.objects.get(user=user)
+        cart_item = CartItem.objects.filter(cart=cart)
+        
         
         if not cart_item:
             return redirect('home')
@@ -71,6 +80,7 @@ def place_order(request):
             )
             product = Product.objects.get(id=item.product.pk)
             product.product_quantity -= item.quantity
+            product.product_sold_quantity += item.quantity
             product.save()
             
             total += item.subtotal
@@ -82,8 +92,10 @@ def place_order(request):
             
         if case_method == 'sslcommerz':
             return redirect(sslcommerz_payment_gateway(request, order.id, grand_total, billing_address))
-        else:
-            pass
+        if case_method == 'cash_on_delivery':
+            target_url = reverse('success_view_case_on_delivery', args=(order.id, grand_total)) 
+            return redirect(target_url)
+            
     return redirect('home')
 
 @method_decorator(csrf_exempt, name='dispatch') # csrf ke disable kore deoya
@@ -97,6 +109,7 @@ def success_view(request):
     address = data['value_c']
     
     billing_address = Address.objects.get(user=user, is_default_shipping=True) 
+    shipping_address = Address.objects.get(user=user, is_default_billing=True)
     order = Order.objects.get(id=order_id)
     order_item = OrderItem.objects.filter(order=order)
     
@@ -116,7 +129,8 @@ def success_view(request):
     
     context = {
         'payment': payment,
-        'address': billing_address,
+        'billing_address': billing_address,
+        'shipping_address': shipping_address,
         'order': order,
         'order_item': order_item,
         'sub_total': total,
@@ -126,3 +140,38 @@ def success_view(request):
     }    
 
     return render(request, 'order/order_success.html', context)
+
+def success_view_case_on_delivery(request, order_id, grand_total):
+    user = request.user
+    billing_address = Address.objects.get(user=user, is_default_shipping=True)
+    shipping_address = Address.objects.get(user=user, is_default_billing=True) 
+    order = Order.objects.get(id=order_id)
+    order_item = OrderItem.objects.filter(order=order)
+    
+    total = 0
+    for item in order_item:
+        total += item.subtotal
+    tax = (5 * total) / 100
+    shipping_cost = 80
+    grand_total = total + tax + shipping_cost
+    
+    payment = Payment.objects.create(
+        order = order,
+        payment_amount = grand_total,
+        payment_method = 'CASE ON DELIVERY',
+        payment_status = 'Unpaid'
+    ) 
+    
+    context = {
+        'payment': payment,
+        'billing_address': billing_address,
+        'shipping_address': shipping_address,
+        'order': order,
+        'order_item': order_item,
+        'sub_total': total,
+        'tax': tax,
+        'shipping_cost': shipping_cost,
+        'grand_total': grand_total,
+    }
+    
+    return render(request, 'order/order_case_on_success.html', context)

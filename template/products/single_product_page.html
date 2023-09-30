@@ -1,8 +1,12 @@
 {% extends "base.html" %}
 {% load static %}
+{% block message_content %}
+    {% include 'include/message.html' %}
 
+{% endblock message_content %}
 {% block main_app %}
 {% include "include/header.html" %}
+
 <!--====== App Content ======-->
 <div class="app-content">
 
@@ -109,8 +113,11 @@
                         </div>
                         <div class="u-s-m-b-15">
                             <div class="pd-detail__inline">
-
+                                {% if product.product_quantity %}
                                 <span class="pd-detail__stock"> {{product.product_quantity}} in stock</span>
+                                {% else %}
+                                <span class="pd-detail__stock" > out of stock</span>
+                                {% endif %}
                             </div>
                         </div>
                         <div class="u-s-m-b-15">
@@ -157,8 +164,10 @@
                             <form class="pd-detail__form">
                                 <div class="pd-detail-inline-2">
                                     <div class="u-s-m-b-15">
-
-                                        <a href="{% url 'add_to_cart' product.pk %}" class="btn btn--e-brand-b-2" type="submit">Add To Cart</a></div>
+                                        {% if product.product_quantity %}
+                                        <a href="{% url 'add_to_cart' product.pk %}" class="btn btn--e-brand-b-2" type="submit" >Add To Cart</a>
+                                        {% endif %}
+                                    </div>  
                                 </div>
                             </form>
                         </div>
