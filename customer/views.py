@@ -3,7 +3,7 @@ from customer.models import Address
 from accounts.models import User
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from UTILS.image_resizer import resize_image
+from utils.image_resizer import resize_image
 
 # Create your views here.
 @login_required

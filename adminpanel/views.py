@@ -15,7 +15,7 @@ from datetime import datetime, timedelta
 from accounts.utils import TokenGenerator, generate_token
 from home.models import Queries, Home_Slider, Banner, Event, Feedback, Deal_of_the_day
 from blog.models import Blog
-from UTILS.image_resizer import resize_image
+from utils.image_resizer import resize_image
 
 # emails
 from django.core.mail import send_mail, EmailMultiAlternatives, EmailMessage, BadHeaderError
