@@ -60,7 +60,11 @@ class User(AbstractBaseUser):
         return cart_item_count
     
     def cart_item(self):
-        return CartItem.objects.filter(cart__user=self)
+        cart_item = CartItem.objects.filter(cart__user=self)
+        for item in cart_item:
+            if item.product.product_quantity <= 0:
+                item.delete()
+        return cart_item
     
     def get_default_shipping_address(self):
         try:

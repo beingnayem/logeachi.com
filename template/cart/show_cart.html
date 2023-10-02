@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block message_content %}
+    {% include 'include/message.html' %}
+
+{% endblock message_content %}
 
 {% block main_app %}
 {% include 'include/header.html' %}
@@ -53,10 +57,8 @@
                                                         <ul class="table-p__variant-list">
                                                             <li>
 
-                                                                <span>Size: 22</span></li>
-                                                            <li>
-
-                                                                <span>Color: Red</span></li>
+                                                                <span>quantity: {{item.product.product_quantity}} </span>
+                                                            </li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -81,8 +83,10 @@
                                             </td>
                                             <td>
                                                 <div class="table-p__del-wrap">
-
-                                                    <a class="far fa-trash-alt table-p__delete-link" href="{% url 'delete_cart' item.pk %}"></a></div>
+                                                    {% if item.pk %}
+                                                    <a class="far fa-trash-alt table-p__delete-link" href="{% url 'delete_cart' item.pk %}"></a>
+                                                    {% endif %}
+                                                </div>
                                             </td>
                                         </tr>
                                         {% endfor %}
