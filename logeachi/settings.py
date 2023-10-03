@@ -15,12 +15,12 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, 'template')
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-x+ep(gi+xbg0*-)1mx&cg_-axk84-fmy@yzqfg-y5qz9m^rky)'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY'),
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['logeachi.azurewebsites.net']
+ALLOWED_HOSTS = ['logeachi.azurewebsites.net', '127.0.0.1']
 
 
 # Application definition
@@ -118,12 +118,10 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
+TIME_ZONE = 'Asia/Dhaka'
+# TIME_ZONE = 'UTC'
 
 
 
@@ -157,7 +155,3 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-
-
-TIME_ZONE = 'Asia/Dhaka'
-USE_TZ = True
