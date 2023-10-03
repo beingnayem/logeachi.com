@@ -18,7 +18,7 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, 'template')
 SECRET_KEY = 'django-insecure-x+ep(gi+xbg0*-)1mx&cg_-axk84-fmy@yzqfg-y5qz9m^rky)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['logeachi.azurewebsites.net']
 
