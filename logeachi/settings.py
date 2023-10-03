@@ -20,7 +20,7 @@ SECRET_KEY = 'django-insecure-x+ep(gi+xbg0*-)1mx&cg_-axk84-fmy@yzqfg-y5qz9m^rky)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['logeachi.azurewebsites.net']
+ALLOWED_HOSTS =['*']
 
 
 # Application definition
@@ -125,6 +125,8 @@ USE_I18N = True
 
 USE_TZ = True
 
+SECURE_SSL_REDIRECT = True
+
 
 
 STATIC_URL = 'static/'
@@ -157,7 +159,3 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-
-
-TIME_ZONE = 'Asia/Dhaka'
-USE_TZ = True
