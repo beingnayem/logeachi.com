@@ -1,6 +1,8 @@
 from pathlib import Path
 import os
 from django.contrib.messages import constants as messages
+import django_heroku
+import dj_database_url
 
 MESSAGE_TAGS = {
     messages.ERROR: 'danger',
@@ -20,7 +22,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['logeachi.azurewebsites.net', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -134,6 +136,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Adjust the path as needed
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
+django_heroku.settings(locals())
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
