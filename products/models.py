@@ -1,6 +1,6 @@
 from django.db import models
 from django.db.models import Avg
-
+from django.utils import timezone
 
 class Main_Category(models.Model):
     name = models.CharField(max_length=255)
