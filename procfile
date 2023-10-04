@@ -1,1 +1,0 @@
-web gunicorn logeachi.wsgi:application --log-file -
