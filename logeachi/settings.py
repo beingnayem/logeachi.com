@@ -1,8 +1,8 @@
 from pathlib import Path
 import os
 from django.contrib.messages import constants as messages
-import django_heroku
-import dj_database_url
+# import django_heroku
+# import dj_database_url
 
 MESSAGE_TAGS = {
     messages.ERROR: 'danger',
@@ -136,7 +136,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Adjust the path as needed
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
