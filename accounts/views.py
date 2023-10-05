@@ -66,11 +66,11 @@ def signup(request):
                         Subscribers.objects.create(email=email, gender=gender)
                 
                 # Send Activation link email
-                current_site = get_current_site(request)
+                current_domain = request.META['HTTP_HOST']
                 email_sub = "Active your Logeachi Account"
                 message = render_to_string('accounts/activate.html', {
                     'user': user,
-                    'domain':'127.0.0.1:8000',
+                    'current_domain':current_domain,
                     'uid':urlsafe_base64_encode(force_bytes(user.pk)),
                     'token': generate_token.make_token(user)
                 })
@@ -98,7 +98,7 @@ class ActivateAccountView(View):
             user.save()
             
             # Send Welcome email
-            current_site = get_current_site(request)
+            current_domain = request.META['HTTP_HOST']
             email=user.email
             email_sub = "Welcome to Logeachi.com - Your Ultimate Shopping Destination!"
             message = render_to_string('accounts/welcome_email.html', {
@@ -154,10 +154,10 @@ class RequestResetEmailView(View):
         user = User.objects.filter(email=email)
 
         if user.exists():
-            current_site = get_current_site(request)
+            current_domain = request.META['HTTP_HOST']
             email_sub = 'Reset your Logeachi account Password'
             message = render_to_string('accounts/reset-pass-link.html', {
-                    'domain': '127.0.0.1:8000',
+                    'current_domain': current_domain,
                     'uid': urlsafe_base64_encode(force_bytes(user[0].pk)),
                     'token': PasswordResetTokenGenerator().make_token(user[0])
                 })
@@ -218,74 +218,3 @@ class SetNewPasswordView(View):
         
         return render(request, 'accounts/reset-pass.html', context)
 
-# def showProfile(request):
-#     user = request.user
-#     customer_info = User.objects.filter(email=user)
-#     context = {
-#         'customer'  : customer_info
-#     }
-#     return render(request, 'accounts/profile.html', context)
-
-# def showAddress(request):
-#     user = request.user
-#     address_info = Address.objects.filter(customer=user)
-#     customer_info = User.objects.filter(email=user)
-
-#     context = {
-#         'address' : address_info,
-#         'customer'  : customer_info
-#     }
-#     return render(request, 'accounts/address.html', context)
-
-# def addAddress(request):
-#     if request.method == 'POST':
-#         full_name = request.POST['fullname']
-#         phone = request.POST['phone']
-#         city = request.POST['city']
-#         thana = request.POST['thana']
-#         address = request.POST['address']
-#         postal_code = request.POST['postalcode']
-        
-#         # Get the current user
-#         user = request.user
-        
-#         # Create a new Address object
-#         new_address = Address(customer=user, full_name=full_name, phone=phone, city=city, thana=thana, postal_code=postal_code, detail_address=address)
-#         new_address.save()
-#         messages.success(request, "Your Address has been added")
-#         # Redirect the user to the address list page
-#         return redirect('show-address')
-    
-#     else:
-#         return render(request, 'accounts/addAddress.html')
-
-# def editAddress(request, address_id):
-#     # Get the Address object to be edited
-#     address = get_object_or_404(Address, pk=address_id)
-
-#     if request.method == 'POST':
-#         # Update the address with the new data from the form
-#         address.full_name = request.POST.get('full_name')
-#         address.phone = request.POST.get('phone')
-#         address.city = request.POST.get('city')
-#         address.thana = request.POST.get('thana')
-#         address.detail_address = request.POST.get('detail_address')
-#         address.postal_code = request.POST.get('postal_code')
-#         address.save()
-#         messages.success(request, "Your Address has been Updated")
-#         # Redirect the user to the address list page
-#         return redirect('show-address')
-
-#     # Render the edit address form with the current data from the address object
-#     return render(request, 'accounts/editAddress.html', {'address': address})
-
-# def deleteAddress(request, address_id):
-#     address = get_object_or_404(Address, pk=address_id)
-#     if address:
-#         address.delete()
-#         messages.success(request, "Your Address has been Deleted")
-#         return redirect('show-address')
-    
-#     else:
-#         messages.error(request, "No Address")
-#         return redirect('show-address')
