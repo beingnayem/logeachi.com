@@ -19,7 +19,7 @@ def resize_image(image, width, height):
     resized_image = InMemoryUploadedFile(
         buffer,
         None,
-        f"{image.name}.jpg",  # You can customize the name and format as needed
+        f"{image.name}.jpg",
         'image/jpeg',
         buffer.tell(),
         None
