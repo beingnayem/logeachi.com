@@ -43,31 +43,31 @@
                         <div class="row">
                             <div class="col-lg-5 col-md-5 u-s-m-b-30">
 
-                                <a class="collection" href="shop-side-version-2.html">
+                                <a class="collection" href="{% url 'category_products' shop_by_deal.0.category.pk %}">
                                     <div class="aspect aspect--bg-grey aspect--square">
 
-                                        <img class="aspect__img collection__img" src="images/collection/coll-1.jpg" alt=""></div>
+                                        <img class="aspect__img collection__img" src="{{shop_by_deal.0.delas_image.url}}" alt=""></div>
                                 </a></div>
                             <div class="col-lg-7 col-md-7 u-s-m-b-30">
 
-                                <a class="collection" href="shop-side-version-2.html">
+                                <a class="collection" href="{% url 'category_products' shop_by_deal.1.category.pk %}">
                                     <div class="aspect aspect--bg-grey aspect--1286-890">
 
-                                        <img class="aspect__img collection__img" src="images/collection/coll-2.jpg" alt=""></div>
+                                        <img class="aspect__img collection__img" src="{{shop_by_deal.1.delas_image.url}}" alt=""></div>
                                 </a></div>
                             <div class="col-lg-7 col-md-7 u-s-m-b-30">
 
-                                <a class="collection" href="shop-side-version-2.html">
+                                <a class="collection" href="{% url 'category_products' shop_by_deal.2.category.pk %}">
                                     <div class="aspect aspect--bg-grey aspect--1286-890">
 
-                                        <img class="aspect__img collection__img" src="images/collection/coll-3.jpg" alt=""></div>
+                                        <img class="aspect__img collection__img" src="{{shop_by_deal.2.delas_image.url}}" alt=""></div>
                                 </a></div>
                             <div class="col-lg-5 col-md-5 u-s-m-b-30">
 
-                                <a class="collection" href="shop-side-version-2.html">
+                                <a class="collection" href="{% url 'category_products' shop_by_deal.3.category.pk %}">
                                     <div class="aspect aspect--bg-grey aspect--square">
 
-                                        <img class="aspect__img collection__img" src="images/collection/coll-4.jpg" alt=""></div>
+                                        <img class="aspect__img collection__img" src="{{shop_by_deal.3.delas_image.url}}" alt=""></div>
                                 </a></div>
                         </div>
                     </div>
@@ -621,83 +621,38 @@
                             <div class="col-lg-4 col-md-6 col-sm-6 u-s-m-b-30">
                                 <div class="column-product">
 
-                                    <span class="column-product__title u-c-secondary u-s-m-b-25">FLASH PRODUCTS</span>
+                                    <span class="column-product__title u-c-secondary u-s-m-b-25">FLASH PRODUCTS <i class="fas fa-bolt flashing-icon" style="color: rgb(172, 172, 0);"></i></span>
                                     <ul class="column-product__list">
+                                        {% for product in flash_products %}
                                         <li class="column-product__item">
                                             <div class="product-l">
                                                 <div class="product-l__img-wrap">
 
-                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block product-l__link" href="product-detail.html">
+                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block product-l__link" href="{% url 'single_product_page' product.pk %}">
 
-                                                        <img class="aspect__img" src="images/product/electronic/product29.jpg" alt=""></a></div>
+                                                        <img class="aspect__img" src="{{product.product_image.url}}" alt=""></a></div>
                                                 <div class="product-l__info-wrap">
                                                     <div class="product-l__rating gl-rating-style">
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="far fa-star"></i>
-                                                        <i class="far fa-star"></i>
-                                                    </div>
-
-                                                    <span class="product-l__category">
-
-                                                        <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                                    <span class="product-l__name">
-
-                                                        <a href="product-detail.html">Razor Gear 20 Ultra Ram 16GB</a></span>
-
-                                                    <span class="product-l__price">&#2547;125.00</span>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li class="column-product__item">
-                                            <div class="product-l">
-                                                <div class="product-l__img-wrap">
-
-                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block product-l__link" href="product-detail.html">
-
-                                                        <img class="aspect__img" src="images/product/electronic/product30.jpg" alt=""></a></div>
-                                                <div class="product-l__info-wrap">
-                                                    <div class="product-l__rating gl-rating-style">
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="fas fa-star"></i>
-                                                        <i class="far fa-star"></i>
-                                                        <i class="far fa-star"></i>
+                                                        {% for i in "12345" %}
+                                                            {% if i|add:"0" <= product.average_rating %}
+                                                                <i class="fas fa-star"></i> 
+                                                                {% else %}
+                                                                    <i class="far fa-star"></i>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                        ({{product.total_reviews}})
                                                     </div>
                                                     <span class="product-l__category">
-                                                        <a href="shop-side-version-2.html">Electronics</a></span>
+                                                        <a href="{% url 'sub_category_products' product.product_category.id %}">{{product.product_category}} </a>
+                                                    </span>
                                                     <span class="product-l__name">
-
-                                                        <a href="product-detail.html">Razor Gear 11 Ultra Ram 16GB</a></span>
-
-                                                    <span class="product-l__price">&#2547;125.00</span>
+                                                        <a href="{% url 'single_product_page' product.pk %}">{{product.product_name}} </a>
+                                                    </span>
+                                                    <span class="product-l__price">&#2547;{{product.product_price}} </span>
                                                 </div>
                                             </div>
                                         </li>
-                                        <li class="column-product__item">
-                                            <div class="product-l">
-                                                <div class="product-l__img-wrap">
-
-                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block product-l__link" href="product-detail.html">
-
-                                                        <img class="aspect__img" src="images/product/electronic/product31.jpg" alt=""></a></div>
-                                                <div class="product-l__info-wrap">
-                                                    <div class="product-l__rating gl-rating-style"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i></div>
-
-                                                    <span class="product-l__category">
-
-                                                        <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                                    <span class="product-l__name">
-
-                                                        <a href="product-detail.html">Razor Gear 10 Ultra Ram 16GB</a></span>
-
-                                                    <span class="product-l__price">&#2547;125.00</span>
-                                                </div>
-                                            </div>
-                                        </li>
+                                        {% endfor %}
                                     </ul>
                                 </div>
                             </div>
