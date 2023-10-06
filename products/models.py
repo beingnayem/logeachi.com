@@ -1,6 +1,6 @@
 from django.db import models
 from django.db.models import Avg
-
+from django.utils import timezone
 
 class Main_Category(models.Model):
     name = models.CharField(max_length=255)
@@ -53,6 +53,14 @@ class Product(models.Model):
     product_stock_date = models.DateTimeField(auto_now=True, null=True)  
     
 
+    def save(self, *args, **kwargs):
+        # Use timezone.now() to ensure the datetime is timezone-aware
+        if not self.product_added_date:
+            self.product_added_date = timezone.now()
+        self.product_stock_date = timezone.now()
+
+        super().save(*args, **kwargs)
+
     def str(self) -> str:
         return self.product_name
     
@@ -82,33 +90,3 @@ class Product_Reviews_and_Rating(models.Model):
 
     class Meta:
         verbose_name_plural ="5. Product Review And Rating"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# class Order(models.Model):
-#     customer = models.ForeignKey('accounts.User', on_delete=models.CASCADE)
-#     shipping_address = models.ForeignKey(Address, on_delete=models.SET_NULL, null=True, blank=True)
-#     shipping_cost = models.PositiveIntegerField(default=50)
-#     order_date = models.DateTimeField(auto_now_add=True)
-#     total_cost = models.PositiveIntegerField(default=0)
-
-# class OrderLineItem(models.Model):
-#     order = models.ForeignKey(Order, on_delete=models.CASCADE)
-#     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-#     quantity = models.PositiveIntegerField(default=1)
-
-
-
-
-

@@ -15,7 +15,7 @@ from datetime import datetime, timedelta
 from accounts.utils import TokenGenerator, generate_token
 from home.models import Queries, Home_Slider, Banner, Event, Feedback, Deal_of_the_day
 from blog.models import Blog
-from UTILS.image_resizer import resize_image
+from utils.image_resizer import resize_image
 
 # emails
 from django.core.mail import send_mail, EmailMultiAlternatives, EmailMessage, BadHeaderError
@@ -67,11 +67,12 @@ def admin_request_approve(request):
             user.admin_request='approved'
             user.save()
         # Send approve email
-            current_site = get_current_site(request)
+            current_domain = request.META['HTTP_HOST']
             email_sub = "Welcome Aboard! 🌟 Your Admin Request has been Approved!"
             message = render_to_string('adminpanel/admin_request_approve_email.html', {
                 'user': user,
-                'approve_by': approve_by
+                'approve_by': approve_by,
+                'current_domain': current_domain
             })
             email_message= EmailMessage(email_sub, message, settings.EMAIL_HOST_USER, [email],)
             EmailThread(email_message).start()
@@ -103,10 +104,11 @@ def admin_request_decline(request):
             user.save()
             
             # Send decline email
-            current_site = get_current_site(request)
+            current_domain = request.META['HTTP_HOST']
             email_sub = "Your Application for Admin Position at Logeachi Dot Com"
             message = render_to_string('adminpanel/admin_request_decline_email.html', {
                 'user': user,
+                'current_domain': current_domain
             })
             email_message= EmailMessage(email_sub, message, settings.EMAIL_HOST_USER, [email],)
             EmailThread(email_message).start()
@@ -139,13 +141,14 @@ def remove_admin(request):
                 user.save()
                 
                 # Send termination email
-                current_site = get_current_site(request)
+                current_domain = request.META['HTTP_HOST']
                 email_sub = "Termination of Employment"
                 today = timezone.now()
                 effective_date = today + timedelta(days=7)
                 message = render_to_string('adminpanel/remove_admin_email.html', {
                     'user': user,
-                    'effective_date': effective_date
+                    'effective_date': effective_date,
+                    'currrnt_domain': current_domain
                 })
                 email_message= EmailMessage(email_sub, message, settings.EMAIL_HOST_USER, [email],)
                 EmailThread(email_message).start()
@@ -178,11 +181,12 @@ def remove_user(request):
                 user.delete()
                 
                 # Send Account Deletion Confirmation email
-                current_site = get_current_site(request)
+                current_domain = request.META['HTTP_HOST']
                 user_first_name = user.first_name
                 email_sub = 'Account Deletion Confirmation'
                 message = render_to_string('adminpanel/remove_user_email.html', {
                     'user_first_name': user_first_name,
+                    'current_domain': current_domain
                 })
                 email_message= EmailMessage(email_sub, message, settings.EMAIL_HOST_USER, [email],)
                 EmailThread(email_message).start()
@@ -445,10 +449,10 @@ class admin_signup_requestView(View):
             user.is_active = False
             user.save()
             
-            current_site = get_current_site(request)
+            current_domain = request.META['HTTP_HOST']
             email_sub = "Admin signup request"
             message = render_to_string('adminpanel/admin_signup_email.html', {
-                    'domain': '127.0.0.1:8000',
+                    'current_domain': current_domain,
                     'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                     'token': PasswordResetTokenGenerator().make_token(user)
                 })

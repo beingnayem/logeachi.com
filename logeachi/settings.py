@@ -1,6 +1,8 @@
 from pathlib import Path
 import os
 from django.contrib.messages import constants as messages
+# import django_heroku
+# import dj_database_url
 
 MESSAGE_TAGS = {
     messages.ERROR: 'danger',
@@ -15,12 +17,12 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, 'template')
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-x+ep(gi+xbg0*-)1mx&cg_-axk84-fmy@yzqfg-y5qz9m^rky)'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -118,22 +120,23 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
+TIME_ZONE = 'Asia/Dhaka'
+# TIME_ZONE = 'UTC'
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+# Specify the absolute path to the directory where collectstatic will collect files.
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Adjust the path as needed
+
+# Additional directories where Django will look for static files
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
+    os.path.join(BASE_DIR, 'static'),
 ]
+# django_heroku.settings(locals())
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -155,7 +158,3 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-
-
-TIME_ZONE = 'Asia/Dhaka'
-USE_TZ = True

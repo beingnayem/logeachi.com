@@ -187,34 +187,45 @@
                                             <h1 class="checkout-f__h1">SHIPPING & BILLING</h1>
                                             <div class="ship-b">
                                                 {% with default_shipping_address=user.get_default_shipping_address %}
-                                                {% if default_shipping_address %}
-                                                <span class="ship-b__text">Ship to:</span>
-                                                <div class="ship-b__box u-s-m-b-10">
-                                                    <div class="ship-b__p">
-                                                        <p>{{ default_shipping_address.first_name }} {{ default_shipping_address.last_name }}</p>
-                                                        <p>{{default_shipping_address.details_address}}, {{default_shipping_address.thana}}</p>
-                                                        <p>{{default_shipping_address.zila}}, {{default_shipping_address.postal_code}}, {{default_shipping_address.country}}</p>
-                                                    </div>
+                                                    {% if default_shipping_address %}
+                                                        <span class="ship-b__text">Ship to:</span>
+                                                        <div class="ship-b__box u-s-m-b-10">
+                                                            <div class="ship-b__p">
+                                                                <p>{{ default_shipping_address.first_name }} {{ default_shipping_address.last_name }}</p>
+                                                                <p>{{default_shipping_address.details_address}}, {{default_shipping_address.thana}}</p>
+                                                                <p>{{default_shipping_address.zila}}, {{default_shipping_address.postal_code}}, {{default_shipping_address.country}}</p>
+                                                            </div>
 
-                                                    <a class="ship-b__edit btn--e-transparent-platinum-b-2" data-modal="modal" data-modal-id="#edit-ship-address">Edit</a>
-                                                </div>
-                                                {% endif %}
+                                                            <a class="ship-b__edit btn--e-transparent-platinum-b-2" data-modal="modal" data-modal-id="#edit-ship-address">Edit</a>
+                                                        </div>
+                                                        {% else %}
+                                                            <span class="ship-b__text"> No Default Shipping Address</span>
+                                                            <div class="ship-b__box u-s-m-b-10">
+                                                                <a class="ship-b__edit btn--e-transparent-platinum-b-2" data-modal="modal" data-modal-id="#edit-ship-address">Add</a>
+                                                            </div>
+                                                    {% endif %}
                                                 {% endwith %}
                                             </div>
                                             <div class="ship-b">
                                                 {% with default_billing_address=user.get_default_billing_address %}
-                                                {% if default_billing_address %}
-                                                <span class="ship-b__text">Bill to:</span>
-                                                <div class="ship-b__box u-s-m-b-10">
-                                                    <div class="ship-b__p">
-                                                        <p>{{ default_billing_address.first_name }} {{ default_billing_address.last_name }}</p>
-                                                        <p>{{default_billing_address.details_address}}, {{default_billing_address.thana}}</p>
-                                                        <p>{{default_billing_address.zila}}, {{default_billing_address.postal_code}}, {{default_billing_address.country}}</p>
-                                                    </div>
+                                                    {% if default_billing_address %}
+                                                        <span class="ship-b__text">Bill to:</span>
+                                                        <div class="ship-b__box u-s-m-b-10">
+                                                            <div class="ship-b__p">
+                                                                <p>{{ default_billing_address.first_name }} {{ default_billing_address.last_name }}</p>
+                                                                <p>{{default_billing_address.details_address}}, {{default_billing_address.thana}}</p>
+                                                                <p>{{default_billing_address.zila}}, {{default_billing_address.postal_code}}, {{default_billing_address.country}}</p>
+                                                            </div>
 
-                                                    <a class="ship-b__edit btn--e-transparent-platinum-b-2" data-modal="modal" data-modal-id="#edit-ship-address">Edit</a>
-                                                </div>
-                                                {% endif %}
+                                                            <a class="ship-b__edit btn--e-transparent-platinum-b-2" data-modal="modal" data-modal-id="#edit-ship-address">Edit</a>
+                                                        </div>
+                                                        {% else %}
+                                                            <span class="ship-b__text"> No Default Billing Address</span>
+                                                            <div class="ship-b__box u-s-m-b-10">
+                                                                <a class="ship-b__edit btn--e-transparent-platinum-b-2" data-modal="modal" data-modal-id="#edit-ship-address">Add</a>
+                                                            </div>
+                                                    {% endif %}
+                                                    
                                                 {% endwith %}
                                             </div>
                                         </div>
