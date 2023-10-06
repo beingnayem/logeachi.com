@@ -1,5 +1,5 @@
 from django.contrib import admin
-from home.models import Newsletter, Queries, Home_Slider, Event, Banner, Feedback, Deal_of_the_day
+from home.models import Newsletter, Queries, Home_Slider, Event, Banner, Feedback, Deal_of_the_day, shop_by_deals
 
 # Register your models here.
 
@@ -63,3 +63,8 @@ class Deal_of_the_dayAdmin(admin.ModelAdmin):
         'created_at',
         'deadline'
     ]
+    
+    
+@admin.register(shop_by_deals)
+class ShopBydealsAdmin(admin.ModelAdmin):
+    list_display = ['deals_name']
