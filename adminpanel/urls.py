@@ -61,4 +61,8 @@ urlpatterns = [
     path('add-deal-of-the-day/', views.add_deal_of_the_day, name='add_deal_of_the_day'),
     path('edit-deal-of-the-day/', views.edit_deal_of_the_day, name='edit_deal_of_the_day'),
     path('delete-deal-of-the-day/', views.delete_deal_of_the_day, name='delete_deal_of_the_day'),
+    path('shop-by-deals/', views.shop_by_dealView, name='shop_by_deal'),
+    path('delete-shop-by-deal/', views.delete_shop_by_deal, name='delete_shop_by_deal'),
+    path('add-shop-by-deal/', views.add_shop_by_deal, name='add_shop_by_deal'),
+     path('edit-shop-by-deal/', views.edit_shop_by_deal, name='edit_shop_by_deal'),
 ]

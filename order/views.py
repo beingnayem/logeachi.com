@@ -85,7 +85,7 @@ def place_order(request):
             
             total += item.subtotal
             item.delete()
-        # added 2% vat
+        # added 5% vat
         tax = (5 * total) / 100
         shipping_cost = 80
         grand_total = total + tax + shipping_cost

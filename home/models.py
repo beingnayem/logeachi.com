@@ -105,3 +105,8 @@ class Deal_of_the_day(models.Model):
             return self.deadline.strftime('%Y/%m/%d')
         else:
             return None
+        
+class shop_by_deals(models.Model):
+    deals_name = models.CharField(max_length=155, blank=True, null=True)
+    delas_image = models.ImageField(upload_to='delas')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, null=True)

@@ -33,7 +33,7 @@
                 <select class="product-add-page-form-select" id="product-category" name="sub_category_id" required>
                     <option value="" disabled selected>Select Category</option>
                     {% for sub_category in sub_categories %}
-                    <option value="{{ sub_category.id }}" required>{{ sub_category.name }}--{{ sub_category.category }}--{{ sub_category.category.main_category }}</option>
+                        <option value="{{ sub_category.id }}" required>{{ sub_category.name }}--{{ sub_category.category }}--{{ sub_category.category.main_category }}</option>
                     {% endfor %}
                 </select>
             </div>
