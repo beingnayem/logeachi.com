@@ -120,6 +120,10 @@
                         <option value="False"  >No</option>
                     </select>
                 </div>
+                <div class="product-add-page-form-group">
+                    <label class="product-add-page-form-label" for="product_flash_expiry">Flash Product (YYYY-MM-DD):</label>
+                    <input type="date" id="product-flash-expiry" name="product_flash_expiry" value="{{ product.product_flash_expiry|date:'Y-m-d' }}">
+                </div>
                 <div class="product-edit-page-form-group-submit-btn">
                     <button class="product-add-page-form-add-product-btn" type="submit">Update Product</button>
                     <button class="product-add-page-form-cancel-btn" name="cancel">Cancel</button>

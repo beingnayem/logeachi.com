@@ -9,23 +9,19 @@
 {% block admin-panel-main-content %}
 <div class="adminpanelhome-content">
     <div class="product-add-page-container">
-        <h1 class="product-add-page-container-title">Add Banner</h1>
-        <form class="add-product-form" id="product-form" enctype="multipart/form-data" action="{% url 'add_banner' %}" method="POST">
+        <h1 class="product-add-page-container-title">Add Shop By Deal</h1>
+        <form class="add-product-form" id="product-form" enctype="multipart/form-data" action="{% url 'add_shop_by_deal' %}" method="POST">
             {% csrf_token %}
             <div class="product-add-page-form-group">
-                <label class="product-add-page-form-label" for="banner-image">Banner Image</label>
-                <input class="product-add-page-form-input" type="file" id="banner-image" name="banner_image" accept="image/*" required>
+                <label class="product-add-page-form-label" for="deals_image">Deal Image</label>
+                <input class="product-add-page-form-input" type="file" id="deals-image" name="deals_image" accept="image/*" required>
             </div>
             <div class="product-add-page-form-group">
-                <label class="product-add-page-form-label" for="banner-title">Banner Title</label>
-                <input class="product-add-page-form-input" type="text" id="banner-title" name="banner_title" >
+                <label class="product-add-page-form-label" for="deals_name">Deal Name</label>
+                <input class="product-add-page-form-input" type="text" id="deals-name" name="deals_name" required>
             </div>
             <div class="product-add-page-form-group">
-                <label class="product-add-page-form-label" for="banner-offer">Offer</label>
-                <input class="product-add-page-form-input" type="text" id="banner-offer" name="banner_offer" >
-            </div>
-            <div class="product-add-page-form-group">
-                <label class="product-add-page-form-label" for="product-category">Banner Product Category</label>
+                <label class="product-add-page-form-label" for="product-category">Deal Product Category</label>
                 <select class="product-add-page-form-select" id="product-category" name="category_id" required>
                     <option value="" disabled selected>Select Category</option>
                     {% for category in categories %}
