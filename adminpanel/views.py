@@ -13,7 +13,7 @@ from django.utils.encoding import force_bytes, force_str, DjangoUnicodeDecodeErr
 from django.utils import timezone
 from datetime import datetime, timedelta
 from accounts.utils import TokenGenerator, generate_token
-from home.models import Queries, Home_Slider, Banner, Event, Feedback, Deal_of_the_day
+from home.models import Queries, Home_Slider, Banner, Event, Feedback, Deal_of_the_day, shop_by_deals
 from blog.models import Blog
 from utils.image_resizer import resize_image
 
@@ -245,6 +245,10 @@ def add_product(request):
             product_online_payment = request.POST.get('product_online_payment')
             product_return = request.POST.get('product_return')
             product_featured = request.POST.get('product_featured')
+            product_flash_expiry_str = request.POST.get('product_flash_expiry')
+        
+            # Convert the date string to a datetime object (assuming 'YYYY-MM-DD' format)
+            product_flash_expiry = datetime.strptime(product_flash_expiry_str, '%Y-%m-%d')
             
             # resize the product_image to match our requirements
             if product_image:
@@ -267,15 +271,15 @@ def add_product(request):
                 product_cash_payment=product_cash_payment,
                 product_online_payment=product_online_payment,
                 product_return=product_return,
-                product_featured=product_featured
+                product_featured=product_featured,
+                product_flash_expiry = product_flash_expiry
             )
             
             messages.success(request, 'Product added successfully.')
             return redirect('product_list')
         
         except Exception as e:
-            print(f"Error creating product: {e}")
-            messages.error(request, 'An error occurred while adding the product.')
+            messages.error(request, f"Error creating product: {e}")
             return redirect('add_product')
 
     # If it's a GET request, fetch an empty list of categories
@@ -313,6 +317,7 @@ def edit_product(request):
             product_online_payment = request.POST.get('product_online_payment')
             product_return = request.POST.get('product_return')
             product_featured = request.POST.get('product_featured')
+            product_flash_expiry_str = request.POST.get('product_flash_expiry')
             
             # Update product details and save the object in the database
             product.product_name = product_name
@@ -337,14 +342,17 @@ def edit_product(request):
                 product.product_return = product_return
             if product_featured:
                 product.product_featured = product_featured
+            if product_flash_expiry_str:
+                # Convert the date string to a datetime object (assuming 'YYYY-MM-DD' format)
+                product_flash_expiry = datetime.strptime(product_flash_expiry_str, '%Y-%m-%d')
+                product.product_flash_expiry = product_flash_expiry
             product.save()
             
             messages.success(request, 'Product edited successfully.')
             return redirect('product_list')
         
         except Exception as e:
-            print(f"Error editing product: {e}")
-            messages.error(request, 'An error occurred while editing the product.')
+            messages.error(request, f"Error editing product: {e}")
             return redirect('product_list')
     
     # If it's a GET request, fetch the list of categories and render the edit form
@@ -1342,6 +1350,7 @@ def eventsView(request):
     events = Event.objects.all()
     return render(request, 'adminpanel/events.html', {'events': events})
 
+
 @login_required
 def delete_event(request):
     if not request.user.is_admin:
@@ -1592,6 +1601,106 @@ def delete_deal_of_the_day(request):
             # get deal by id
             deal_id = request.GET.get('id')
             deal = get_object_or_404(Deal_of_the_day, id=deal_id)
+            deal.delete()
+
+            messages.success(request, 'Deal deleted successfully.')
+            return redirect(request.META.get('HTTP_REFERER'))
+        
+        except Exception as e:
+            messages.error(request, (f"Error deleting deal: {e}"))
+            return redirect(request.META.get('HTTP_REFERER'))
+    
+    return redirect(request.META.get('HTTP_REFERER'))
+
+
+@login_required
+def shop_by_dealView(request):
+    if not request.user.is_admin:
+        return render(request, 'accounts/wrong_path.html')
+    
+    deals = shop_by_deals.objects.all()
+    return render(request, 'adminpanel/shop_by_deals_list.html', {'deals': deals})
+
+
+@login_required
+def add_shop_by_deal(request):
+    if not request.user.is_admin:
+        return render(request, 'accounts/wrong_path.html')
+
+    if request.method == 'POST':
+        try:
+            deals_name = request.POST.get('deals_name')
+            deals_image = request.FILES.get('deals_image')
+            category_id = request.POST.get('category_id')
+            category = Category.objects.get(id=category_id)
+        
+            # Creat a new deal object
+            shop_by_deals.objects.create(deals_name=deals_name, delas_image=deals_image, category=category)
+            
+            messages.success(request, 'Deal added successfully')
+            return redirect('shop_by_deal')
+            
+        except Exception as e:
+            messages.error(request, f'Error creating deal: {e}')
+            return redirect(request.META.get('HTTP_REFERER'))
+    
+    categories = Category.objects.all()
+    return render(request, 'adminpanel/add_shop_by_deal.html', {'categories': categories})
+
+
+@login_required
+def edit_shop_by_deal(request):
+    if not request.user.is_admin:
+        return render(request, 'accounts/wrong_path.html')
+    
+    if 'cancel' in request.POST:
+        # Redirect to the deal of the day list without showing the success message
+        return redirect('deal_of_the_day')
+    
+    if request.method == 'POST':
+        try:
+            deal_id = request.POST.get('id')
+            deals_name = request.POST.get('deals_name')
+            deals_image = request.FILES.get('deals_image')
+            category_id = request.POST.get('category_id')
+
+            # Get deal object
+            deal = shop_by_deals.objects.get(id=deal_id)
+            
+            if deal:
+                if deals_name:
+                    deal.deals_name = deals_name
+                if deals_image:
+                    deal.delas_image = deals_image
+                if category_id:
+                    category = Category.objects.get(id=category_id)
+                    deal.category = category
+                deal.save()
+            
+            messages.success(request, 'Deal edited successfully')
+            return redirect('shop_by_deal')
+            
+        except Exception as e:
+            messages.error(request, f'Error editing deal: {e}')
+            return redirect(request.META.get('HTTP_REFERER'))
+    
+
+    deal_id = request.GET.get('id')
+    deal = shop_by_deals.objects.get(id=deal_id)
+    categories = Category.objects.all()
+    return render(request, 'adminpanel/edit_shop_by_deal.html', {'categories': categories, 'deal': deal})
+
+
+@login_required
+def delete_shop_by_deal(request):
+    if not request.user.is_admin:
+        return render(request, 'accounts/wrong_path.html')
+        
+    if request.method == 'GET':
+        try:
+            # get deal by id
+            deal_id = request.GET.get('id')
+            deal = get_object_or_404(shop_by_deals, id=deal_id)
             deal.delete()
 
             messages.success(request, 'Deal deleted successfully.')

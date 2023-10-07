@@ -79,6 +79,16 @@
                         {% endif %}
                     </p>
                 </div>
+                <div class="individual-product-info-data-row">
+                    <p class="individual-product-info-data">
+                        <strong class="product-data-title">Flash Product Exp: </strong>
+                        {% if product.product_flash_expiry  %}
+                            {{ product.product_flash_expiry|date}}
+                            {% else %}
+                                None
+                        {% endif %}
+                    </p>
+                </div>
             </div>
             <div class="product-edit-pencil-btn-container">
                 <form action="{% url 'edit_product' %}" method="GET">
