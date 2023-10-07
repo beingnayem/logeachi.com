@@ -56,33 +56,33 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-lg-5 col-md-5 u-s-m-b-30">
-
                                     <a class="collection" href="{% url 'category_products' shop_by_deal.0.category.pk %}">
                                         <div class="aspect aspect--bg-grey aspect--square">
-
-                                            <img class="aspect__img collection__img" src="{{shop_by_deal.0.delas_image.url}}" alt=""></div>
-                                    </a></div>
+                                            <img class="aspect__img collection__img" src="{{shop_by_deal.0.delas_image.url}}" alt="">
+                                        </div>
+                                    </a>
+                                </div>
                                 <div class="col-lg-7 col-md-7 u-s-m-b-30">
-
                                     <a class="collection" href="{% url 'category_products' shop_by_deal.1.category.pk %}">
                                         <div class="aspect aspect--bg-grey aspect--1286-890">
-
-                                            <img class="aspect__img collection__img" src="{{shop_by_deal.1.delas_image.url}}" alt=""></div>
-                                    </a></div>
+                                            <img class="aspect__img collection__img" src="{{shop_by_deal.1.delas_image.url}}" alt="">
+                                        </div>
+                                    </a>
+                                </div>
                                 <div class="col-lg-7 col-md-7 u-s-m-b-30">
-
                                     <a class="collection" href="{% url 'category_products' shop_by_deal.2.category.pk %}">
                                         <div class="aspect aspect--bg-grey aspect--1286-890">
-
-                                            <img class="aspect__img collection__img" src="{{shop_by_deal.2.delas_image.url}}" alt=""></div>
-                                    </a></div>
+                                            <img class="aspect__img collection__img" src="{{shop_by_deal.2.delas_image.url}}" alt="">
+                                        </div>
+                                    </a>
+                                </div>
                                 <div class="col-lg-5 col-md-5 u-s-m-b-30">
-
                                     <a class="collection" href="{% url 'category_products' shop_by_deal.3.category.pk %}">
                                         <div class="aspect aspect--bg-grey aspect--square">
-
-                                            <img class="aspect__img collection__img" src="{{shop_by_deal.3.delas_image.url}}" alt=""></div>
-                                    </a></div>
+                                            <img class="aspect__img collection__img" src="{{shop_by_deal.3.delas_image.url}}" alt="">
+                                        </div>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -150,9 +150,6 @@
                                                                     </li>
                                                                     <li>
                                                                         <a href="{% url 'add_wishlist_item' product.pk %}" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a href="#" data-tooltip="tooltip" data-placement="top" title="Email me When the price drops"><i class="fas fa-envelope"></i></a>
                                                                     </li>
                                                                 </ul>
                                                             </div>
@@ -441,32 +438,29 @@
                             <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 u-s-m-b-30">
                                 <div class="product-o product-o--hover-on u-h-100">
                                     <div class="product-o__wrap">
-
                                         <a class="aspect aspect--bg-grey aspect--square u-d-block" href="{% url "single_product_page" product.pk %}">
-
-                                            <img class="aspect__img" src="{{product.product_image.url}}" alt=""></a>
+                                            <img class="aspect__img" src="{{product.product_image.url}}" alt="">
+                                        </a>
                                         <div class="product-o__action-wrap">
                                             <ul class="product-o__action-list">
                                                 <li>
-
-                                                    <a href="{% url "single_product_page" product.pk %}" data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick View"><i class="fas fa-search-plus"></i></a></li>
+                                                    <a href="{% url "single_product_page" product.pk %}" data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick View"><i class="fas fa-search-plus"></i></a>
+                                                </li>
                                                 <li>
-
-                                                    <a href="{% url 'add_to_cart' product.pk %}" data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a></li>
+                                                    <a href="{% url 'add_to_cart' product.pk %}" data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a>
+                                                </li>
                                                 <li>
-
-                                                    <a href="{% url 'add_wishlist_item' product.pk %}" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a></li>
-                                                <li>
-
-                                                    <a href="signin.html" data-tooltip="tooltip" data-placement="top" title="Email me When the price drops"><i class="fas fa-envelope"></i></a></li>
+                                                    <a href="{% url 'add_wishlist_item' product.pk %}" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a>
+                                                </li>
                                             </ul>
                                         </div>
                                     </div>
-
                                     <span class="product-o__category">
-                                        <a href="{% url 'sub_category_products' product.product_category.id %}">{{product.product_category}}</a></span>
+                                        <a href="{% url 'sub_category_products' product.product_category.id %}">{{product.product_category}}</a>
+                                    </span>
                                     <span class="product-o__name">
-                                        <a href="{% url 'single_product_page' product.pk %}">{{product.product_name}}</a></span>
+                                        <a href="{% url 'single_product_page' product.pk %}">{{product.product_name}}</a>
+                                    </span>
                                     <div class="product-o__rating gl-rating-style">
                                         {% for i in "12345" %}
                                             {% if i|add:"0" <= product.average_rating %}
@@ -475,7 +469,8 @@
                                                     <i class="far fa-star"></i>
                                             {% endif %}
                                         {% endfor %}
-                                        <span class="product-o__review">({{product.total_reviews}})</span></div>
+                                        <span class="product-o__review">({{product.total_reviews}})</span>
+                                    </div>
                                     <span class="product-o__price">&#2547;{{product.product_price}}</span>
                                 </div>
                             </div>
