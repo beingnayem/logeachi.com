@@ -4,11 +4,16 @@ from accounts.models import User
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from utils.image_resizer import resize_image
+from django.core.paginator import Paginator
 
 # Create your views here.
 @login_required
 def user_dashboard(request):
-    return render(request, 'customer/dashboard.html')
+    orders = orders = request.user.get_order()[:5]
+    context = {
+        'orders': orders,
+    }
+    return render(request, 'customer/dashboard.html', context)
 
 
 @login_required
@@ -268,4 +273,11 @@ def edit_profile(request):
 
 @login_required
 def order(request):
-    return render(request, 'customer/my_order.html')
+    orders = request.user.get_order()
+    paginator = Paginator(orders, 5)
+    page_number = request.GET.get('page')
+    orders = paginator.get_page(page_number)
+    context = {
+        'orders': orders
+    }
+    return render(request, 'customer/my_order.html', context) 

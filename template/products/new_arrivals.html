@@ -55,25 +55,38 @@
                             </div>
                         </div>
                         <div class="u-s-p-y-60">
+                            {% if new_arrivals.has_other_pages %}
+                            
+                            
 
                             <!--====== Pagination ======-->
                             <ul class="shop-p__pagination">
-                                <li class="is-active">
+                                    {% if new_arrivals.has_previous %}
+                                    <li>
+                                        <li class="is-active">
+                                            <a href="?page=1">Fast</a>
+                                        </li>
 
-                                    <a href="shop-list-full.html">1</a></li>
-                                <li>
-
-                                    <a href="shop-list-full.html">2</a></li>
-                                <li>
-
-                                    <a href="shop-list-full.html">3</a></li>
-                                <li>
-
-                                    <a href="shop-list-full.html">4</a></li>
-                                <li>
-
-                                    <a class="fas fa-angle-right" href="shop-list-full.html"></a></li>
+                                    </li>
+                                    <li> 
+                                        <a class="fa-solid fa-angles-left" href="?page={{ new_arrivals.previous_page_number }}"></a>
+                                    </li>
+                                    {% endif %}
+                                    <li>
+                                        <span>{{new_arrivals.number}} </span>
+                                    </li>
+                                    {% if  new_arrivals.has_next %}
+                                    <li>
+                                        
+                                        <a class="fa-solid fa-angles-right" href="?page={{ new_arrivals.next_page_number }}"></a>
+                                        <li class="is-active">
+                                            <a href="?page={{ new_arrivals.paginator.num_pages }}">Last</a>
+                                        </li>
+                                    </li>
+                                    {% endif %}
+                                
                             </ul>
+                            {% endif %}
                             <!--====== End - Pagination ======-->
                         </div>
                     </div>

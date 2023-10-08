@@ -124,25 +124,38 @@
                                     </div>
                                 </div>
                                 <div class="u-s-p-y-60">
-
+                                    {% if products.has_other_pages %}
+                                    
+                                    
+        
                                     <!--====== Pagination ======-->
                                     <ul class="shop-p__pagination">
-                                        <li class="is-active">
-
-                                            <a href="shop-side-version-2.html">1</a></li>
-                                        <li>
-
-                                            <a href="shop-side-version-2.html">2</a></li>
-                                        <li>
-
-                                            <a href="shop-side-version-2.html">3</a></li>
-                                        <li>
-
-                                            <a href="shop-side-version-2.html">4</a></li>
-                                        <li>
-
-                                            <a class="fas fa-angle-right" href="shop-side-version-2.html"></a></li>
+                                            {% if products.has_previous %}
+                                            <li>
+                                                <li class="is-active">
+                                                    <a href="?page=1">Fast</a>
+                                                </li>
+        
+                                            </li>
+                                            <li> 
+                                                <a class="fa-solid fa-angles-left" href="?page={{ products.previous_page_number }}"></a>
+                                            </li>
+                                            {% endif %}
+                                            <li>
+                                                <span>{{products.number}} </span>
+                                            </li>
+                                            {% if  products.has_next %}
+                                            <li>
+                                                
+                                                <a class="fa-solid fa-angles-right" href="?page={{ products.next_page_number }}"></a>
+                                                <li class="is-active">
+                                                    <a href="?page={{ products.paginator.num_pages }}">Last</a>
+                                                </li>
+                                            </li>
+                                            {% endif %}
+                                        
                                     </ul>
+                                    {% endif %}
                                     <!--====== End - Pagination ======-->
                                 </div>
                             </div>

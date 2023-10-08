@@ -14,7 +14,6 @@
                 </div>
             </div>
             <div class="m-order__list">
-                {% with orders=user.get_order %}
                 {% for order in orders %}
                 <div class="m-order__get">
                     <div class="manage-o__header u-s-m-b-30">
@@ -60,7 +59,41 @@
                     <span class="manage-o__text-2 u-c-silver" style="display:flex; justify-content:right;">Total: $50.00</span>
                 </div>
                 {% endfor %}
-                {% endwith %}
+            </div>
+            <div class="u-s-p-y-60">
+                {% if orders.has_other_pages %}
+                
+                
+
+                <!--====== Pagination ======-->
+                <ul class="shop-p__pagination">
+                        {% if orders.has_previous %}
+                        <li>
+                            <li class="is-active">
+                                <a href="?page=1">Fast</a>
+                            </li>
+
+                        </li>
+                        <li> 
+                            <a class="fa-solid fa-angles-left" href="?page={{ orders.previous_page_number }}"></a>
+                        </li>
+                        {% endif %}
+                        <li>
+                            <span>{{orders.number}} </span>
+                        </li>
+                        {% if  orders.has_next %}
+                        <li>
+                            
+                            <a class="fa-solid fa-angles-right" href="?page={{ orders.next_page_number }}"></a>
+                            <li class="is-active">
+                                <a href="?page={{ orders.paginator.num_pages }}">Last</a>
+                            </li>
+                        </li>
+                        {% endif %}
+                    
+                </ul>
+                {% endif %}
+                <!--====== End - Pagination ======-->
             </div>
         </div>
     </div>
