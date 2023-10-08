@@ -21,6 +21,7 @@ from accounts.views import EmailThread
 
 from django.db.models import Avg
 from django.db.models import Count
+from django.core.paginator import Paginator
 
 def home(request):
     sliders = Home_Slider.objects.all()
@@ -50,7 +51,7 @@ def home(request):
     
     products = Product.objects.all() 
     new_arrivals = products.order_by('product_added_date')[:8]
-    special_products = Product.objects.exclude(product_brand="No Brand")
+    special_products = Product.objects.exclude(product_brand="No Brand")[:4]
     banners = Banner.objects.all()
     featured_products = Product.objects.filter(product_featured=True)[:8]
     
@@ -65,7 +66,7 @@ def home(request):
     event = Event.objects.all()[:1]
     feedbacks = Feedback.objects.filter(is_display=True)
     deal_of_the_day = Deal_of_the_day.objects.all()
-    flash_products = Product.get_flash_products()
+    flash_products = Product.get_flash_products()[:4]
     shop_by_deal =  shop_by_deals.objects.all()
     context = {
         'sliders': sliders,
@@ -204,6 +205,10 @@ def new_arrivals(request):
         product_added_date__gte=one_month_ago,
         product_added_date__lte=today
     )   
+    paginator = Paginator(new_arrivals, 20)
+    page_number = request.GET.get('page')
+    new_arrivals = paginator.get_page(page_number)
+    
     context = {
         'new_arrivals': new_arrivals,
         'main_categories': main_categories,

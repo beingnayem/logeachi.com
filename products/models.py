@@ -1,7 +1,7 @@
 from django.db import models
 from django.db.models import Avg
 from django.utils import timezone
-from datetime import datetime
+from datetime import date
 
 class Main_Category(models.Model):
     name = models.CharField(max_length=255)
@@ -52,7 +52,7 @@ class Product(models.Model):
     product_return = models.BooleanField(null=True)
     product_added_date = models.DateTimeField(auto_now_add=True, null=True)
     product_stock_date = models.DateTimeField(auto_now=True, null=True) 
-    product_flash_expiry = models.DateTimeField(null=True, blank=True) 
+    product_flash_expiry = models.DateField(null=True, blank=True) 
     
 
     def save(self, *args, **kwargs):
@@ -80,9 +80,9 @@ class Product(models.Model):
     
     @classmethod
     def get_flash_products(cls):
-        current_time = datetime.now()
+        current_date = date.today()
         flash_products = cls.objects.filter(
-            product_flash_expiry__gte=current_time
+            product_flash_expiry__gte=current_date
         )
         return flash_products
         

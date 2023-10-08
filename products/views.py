@@ -22,6 +22,10 @@ def sub_category_products(request, pk):
     main_category = category.main_category
     product_count = products.count()
     
+    paginator = Paginator(products, 20)
+    page_number = request.GET.get('page')
+    products = paginator.get_page(page_number)
+    
     
     context = {
         'main_categories': main_categories,
@@ -42,6 +46,10 @@ def category_products(request, pk):
     sub_category = None
     main_category = category.main_category
     
+    paginator = Paginator(products, 20)
+    page_number = request.GET.get('page')
+    products = paginator.get_page(page_number)
+    
     context = {
         'main_categories': main_categories,
         'products': products,
@@ -60,6 +68,10 @@ def main_category_products(request, pk):
     product_count = products.count()
     sub_category = None
     category = None
+    
+    paginator = Paginator(products, 20)
+    page_number = request.GET.get('page')
+    products = paginator.get_page(page_number)
     
         
     context = {

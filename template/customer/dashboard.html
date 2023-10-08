@@ -98,83 +98,25 @@
                     <tr>
                         <th>Order #</th>
                         <th>Placed On</th>
-                        <th>Items</th>
                         <th>Total</th>
                     </tr>
                 </thead>
                 <tbody>
+                    {% for order in orders %}
                     <tr>
-                        <td>3054231326</td>
-                        <td>26/13/2016</td>
-                        <td>
-                            <div class="dash__table-img-wrap">
-
-                                <img class="u-img-fluid" src="images/product/electronic/product3.jpg" alt=""></div>
-                        </td>
+                        <td>{{order.id}} </td>
+                        <td>{{order.created_at}} </td>
                         <td>
                             <div class="dash__table-total">
 
-                                <span>$126.00</span>
+                                <span>$ </span>
                                 <div class="dash__link dash__link--brand">
 
                                     <a href="dash-manage-order.html">MANAGE</a></div>
                             </div>
                         </td>
                     </tr>
-                    <tr>
-                        <td>3054231326</td>
-                        <td>26/13/2016</td>
-                        <td>
-                            <div class="dash__table-img-wrap">
-
-                                <img class="u-img-fluid" src="images/product/electronic/product14.jpg" alt=""></div>
-                        </td>
-                        <td>
-                            <div class="dash__table-total">
-
-                                <span>$126.00</span>
-                                <div class="dash__link dash__link--brand">
-
-                                    <a href="dash-manage-order.html">MANAGE</a></div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3054231326</td>
-                        <td>26/13/2016</td>
-                        <td>
-                            <div class="dash__table-img-wrap">
-
-                                <img class="u-img-fluid" src="images/product/men/product8.jpg" alt=""></div>
-                        </td>
-                        <td>
-                            <div class="dash__table-total">
-
-                                <span>$126.00</span>
-                                <div class="dash__link dash__link--brand">
-
-                                    <a href="dash-manage-order.html">MANAGE</a></div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3054231326</td>
-                        <td>26/13/2016</td>
-                        <td>
-                            <div class="dash__table-img-wrap">
-
-                                <img class="u-img-fluid" src="images/product/women/product10.jpg" alt=""></div>
-                        </td>
-                        <td>
-                            <div class="dash__table-total">
-
-                                <span>$126.00</span>
-                                <div class="dash__link dash__link--brand">
-
-                                    <a href="dash-manage-order.html">MANAGE</a></div>
-                            </div>
-                        </td>
-                    </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
