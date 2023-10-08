@@ -31,6 +31,8 @@ class Order(models.Model):
     def calculate_total(self):
         order_items = self.order_items.all()
         total = sum(item.subtotal for item in order_items)
+        total += (5 * total) / 100
+        total += 80
         return total
 
 class OrderItem(models.Model):

@@ -108,11 +108,10 @@
                         <td>{{order.created_at}} </td>
                         <td>
                             <div class="dash__table-total">
-
-                                <span>$ </span>
+                                <span>&#2547; {{order.calculate_total}}</span>
                                 <div class="dash__link dash__link--brand">
 
-                                    <a href="dash-manage-order.html">MANAGE</a></div>
+                                    <a href="{% url 'order_manage' order.id %}">MANAGE</a></div>
                             </div>
                         </td>
                     </tr>
