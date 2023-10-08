@@ -5,11 +5,13 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from utils.image_resizer import resize_image
 from django.core.paginator import Paginator
+from order.models import Order, OrderItem
 
 # Create your views here.
 @login_required
 def user_dashboard(request):
-    orders = orders = request.user.get_order()[:5]
+    orders = orders = request.user.get_order()
+    
     context = {
         'orders': orders,
     }
@@ -281,3 +283,29 @@ def order(request):
         'orders': orders
     }
     return render(request, 'customer/my_order.html', context) 
+
+@login_required
+def order_manage(request, id):
+    order = Order.objects.get(id=id)
+    order_item = OrderItem.objects.filter(order=order)
+    total = 0
+    for item in order_item:
+        total += item.subtotal
+    tax = (5 * total) / 100
+    shipping = 80
+    grand_total = total + tax + shipping
+    try:
+        billing_address = Address.objects.get(user=request.user, is_default_shipping=True)
+        shipping_address = Address.objects.get(user=request.user, is_default_billing=True)
+    except:
+        billing_address = None
+        shipping_address = None  
+    context = {
+        'order': order,
+        'total': total,
+        'order_item': order_item,
+        'tax': tax,
+        'shipping': shipping,
+        'grand_total': grand_total,
+    }
+    return render(request, 'customer/manage_order.html', context)
