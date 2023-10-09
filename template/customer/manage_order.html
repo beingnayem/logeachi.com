@@ -35,48 +35,113 @@
                         <span class="manage-o__text">Standard</span></div>
                 </div>
                 <div class="manage-o__timeline">
-                    <div class="timeline-row">
-                        <div class="col-lg-4 u-s-m-b-30">
-                            
-                            <div class="timeline-step">
-                                {% if order.order_status == "processing" %}
-                                <div class="timeline-l-i timeline-l-i--finish"> 
-                                {% else %}
-                                <div class="timeline-l-i">
-                                {% endif %}
+                    
+                    {% if order.order_status == 'processing' %}
 
-                                    <span class="timeline-circle"></span> </div>
-
-                                <span class="timeline-text">Processing</span>
+                        <div class="timeline-row">
+                            <div class="col-lg-4 u-s-m-b-30">
+                                <div class="timeline-step">
+                                    <div class="timeline-l-i timeline-l-i--finish">
+                                        <span class="timeline-circle"></span> </div>
+                                    <span class="timeline-text">Processing</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 u-s-m-b-30">
+                                <div class="timeline-step">
+                                    <div class="timeline-l-i timeline-l-i"> 
+                                        <span class="timeline-circle"></span></div>
+                                    <span class="timeline-text">Shipped</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 u-s-m-b-30">
+                                <div class="timeline-step">
+                                    <div class="timeline-l-i timeline-l-i">
+                                        <span class="timeline-circle"></span>
+                                    </div>
+                                    <span class="timeline-text">Delivered</span>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-lg-4 u-s-m-b-30">
-                            <div class="timeline-step">
-                                {% if order.order_status == "shipped" %}
-                                <div class="timeline-l-i timeline-l-i--finish"> 
-                                {% else %}
-                                <div class="timeline-l-i">
-                                {% endif %}
-
-                                    <span class="timeline-circle"></span></div>
-
-                                <span class="timeline-text">Shipped</span>
+                    {% elif order.order_status == 'shipped' %}
+                        <div class="timeline-row">
+                            <div class="col-lg-4 u-s-m-b-30">
+                                <div class="timeline-step">
+                                    <div class="timeline-l-i timeline-l-i--finish">
+                                        <span class="timeline-circle"></span> </div>
+                                    <span class="timeline-text">Processing</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 u-s-m-b-30">
+                                <div class="timeline-step">
+                                    <div class="timeline-l-i timeline-l-i--finish"> 
+                                        <span class="timeline-circle"></span></div>
+                                    <span class="timeline-text">Shipped</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 u-s-m-b-30">
+                                <div class="timeline-step">
+                                    <div class="timeline-l-i timeline-l-i">
+                                        <span class="timeline-circle"></span>
+                                    </div>
+                                    <span class="timeline-text">Delivered</span>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-lg-4 u-s-m-b-30">
-                            <div class="timeline-step">
-                                {% if order.order_status == "delivered" %}
-                                <div class="timeline-l-i timeline-l-i--finish"> 
-                                {% else %}
-                                <div class="timeline-l-i">
-                                {% endif %}
-
-                                    <span class="timeline-circle"></span></div>
-
-                                <span class="timeline-text">Delivered</span>
+                    
+                    {% elif order.order_status == 'delivered' %}
+                        <div class="timeline-row">
+                            <div class="col-lg-4 u-s-m-b-30">
+                                <div class="timeline-step">
+                                    <div class="timeline-l-i timeline-l-i--finish">
+                                        <span class="timeline-circle"></span> </div>
+                                    <span class="timeline-text">Processing</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 u-s-m-b-30">
+                                <div class="timeline-step">
+                                    <div class="timeline-l-i timeline-l-i--finish"> 
+                                        <span class="timeline-circle"></span></div>
+                                    <span class="timeline-text">Shipped</span>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 u-s-m-b-30">
+                                <div class="timeline-step">
+                                    <div class="timeline-l-i timeline-l-i--finish">
+                                        <span class="timeline-circle"></span>
+                                    </div>
+                                    <span class="timeline-text">Delivered</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    
+                        {% else %}
+                            <div class="timeline-row">
+                                <div class="col-lg-4 u-s-m-b-30">
+                                    <div class="timeline-step">
+                                        <div class="timeline-l-i timeline-l-i--">
+                                            <span class="timeline-circle"></span> </div>
+                                        <span class="timeline-text">Processing</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 u-s-m-b-30">
+                                    <div class="timeline-step">
+                                        <div class="timeline-l-i timeline-l-i--"> 
+                                            <span class="timeline-circle"></span></div>
+                                        <span class="timeline-text">Shipped</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 u-s-m-b-30">
+                                    <div class="timeline-step">
+                                        <div class="timeline-l-i timeline-l-i--">
+                                            <span class="timeline-circle"></span>
+                                        </div>
+                                        <span class="timeline-text">Delivered</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                    {% endif %}
+                        
                 </div>
                 {% for item in order_item %}
                 <div class="manage-o__description">

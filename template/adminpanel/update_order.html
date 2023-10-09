@@ -1,0 +1,53 @@
+{% extends 'adminpanel/admin_panel.html' %}
+{% load static %}
+
+
+{% block message_content %}
+    {% include 'include/message.html' %}
+{% endblock message_content %}
+
+{% block admin-panel-main-content %}
+<div class="adminpanelhome-content">
+    <div class="product-add-page-container">
+        <h1 class="product-add-page-container-title">Update Order</h1>
+        <form class="add-product-form" id="product-form" enctype="multipart/form-data" action="{% url 'update_order' %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="id" value="{{ order.id }}">
+            <div class="product-add-page-form-group">
+                <p>Order Placed: {{order.created_at}}</p>
+            </div>
+            <div class="product-add-page-form-group">
+                <p>Payment Method: {{order.payment_details.payment_method}}</p>
+            </div>
+            <div class="product-add-page-form-group">
+                <p>Payment Status: {{order.payment_details.payment_status}}</p>
+            </div>
+            <div class="product-add-page-form-group">
+                <p>Payment Amount: {{order.payment_details.payment_amount}} BDT</p>
+            </div>
+            <div class="product-add-page-form-group">
+                <label class="product-add-page-form-label" for="product-category">Banner Product Category</label>
+                <select class="product-add-page-form-select" id="banner-product-category" name="order_status" >
+                    <option value="" disabled selected>{{order.order_status}}</option>
+                    
+                    {% if order.order_status == 'processing' %}
+                        <option value="shipped" >Shipped</option>
+                    {% elif order.order_status == 'shipped' %}
+                        <option value="delivered">Delivered</option>
+                    {% elif not order.order_status == 'delivered' and not order.order_status == 'shipped' %}
+                        <option value="processing">Processing</option>
+                    {% elif order.order_status == 'delivered' %}
+                        <option disabled value="">This Order Already Delivered</option>
+                    {% endif %}
+                </select>
+            </div>
+            <div class="product-edit-page-form-group-submit-btn">
+                <button class="product-add-page-form-add-product-btn" type="submit">Update</button>
+                <button class="product-add-page-form-cancel-btn" name="cancel">Cancel</button>
+            </div>
+        </form>
+        <button class="go-back-btn" onclick="goBack()">Back</button>
+
+    </div>
+</div>
+{% endblock admin-panel-main-content %}

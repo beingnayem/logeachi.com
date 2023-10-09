@@ -1,0 +1,162 @@
+{% extends 'adminpanel/admin_panel.html' %}
+{% load static %}
+
+{% block message_content %}
+    {% include 'include/message.html' %}
+{% endblock message_content %}
+
+
+<title>Order Details</title>
+
+{% block admin-panel-main-content %}
+    <div class="adminpanelhome-content">
+        <div class="order-details-container">
+
+            <style>
+               
+                .order-details-container {
+                  margin: 20px;
+                }
+              
+                h1 {
+                    color: #000000;
+                    display: flex;
+                    justify-content: center;
+                    margin-bottom: 20px;
+                  }
+
+                h2 {
+                  color: #333;
+                }
+              
+                .order-details {
+                  display: flex;
+                  justify-content: space-between;
+                  margin: 20px;
+                }
+
+                .order-details-wrap{
+                    background-color: #bbbbbb;
+                    box-shadow: #5e5c5c;
+                    border-radius: 10px;
+                }
+              
+                .order-info-section {
+                    margin-top: 10px;
+                    width: 48%;
+                }
+                .order-info-1{
+                  display: flex;
+                  flex-direction: column;
+                }
+              
+                .order-info{
+                  margin-bottom: 10px;
+                }
+              
+                .address-section-1, .address-section-2{
+                  margin-bottom: 20px;
+                  display: flex;
+                  flex-direction: column;
+                }
+              
+                .address-info {
+                  margin-left: 10px;
+                }
+              
+                table {
+                  width: 100%;
+                  border-collapse: collapse;
+                  margin-top: 20px;
+                }
+              
+                table, th, td {
+                  border: 1px solid #ddd;
+                }
+              
+                th, td {
+                  padding: 12px;
+                  text-align: left;
+                }
+
+                img {
+                  width: 50px;
+                  height: 50px;
+                }
+              
+                th {
+                  background-color: #f2f2f2;
+                }
+            </style>
+
+
+            <h1>Order Details</h1>
+        
+            <div class="order-details-wrap">
+                <div class="order-details">
+                    <div class="order-info-section">
+                        <div class="order-info-1">
+                        <span class="order-info"><strong >User:</strong> {{order.user.first_name}} {{order.user.last_name}}</span>
+                        <span class="order-info"><strong >User Email:</strong> {{order.user.email}}</span>
+                        <span class="order-info"><strong >Order Placed:</strong> {{order.created_at}}</span>
+                        <span class="order-info"><strong >Payment Status:</strong> {{order.payment_details.payment_status}}</span>
+                        <span class="order-info"><strong >Payment Method:</strong> {{order.payment_details.payment_method}}</span>
+                        <span class="order-info"><strong >Tax:</strong> &#2547; {{order.payment_details.tax}}</span>
+                        <span class="order-info"><strong >Shipping Charge:</strong> &#2547; 80</span>
+                        <span class="order-info"><strong >Total Payment Amount:</strong> &#2547; {{order.payment_details.payment_amount}}</span>
+                        </div>
+                        
+                    </div>
+                    <div class="order-info-section">
+                        <div class="address-section-1">
+                            <strong>Shipping Address:</strong>
+                            <span class="address-info"><strong>Name:</strong> {{order.shipping_address.first_name}} {{order.shipping_address.last_name}}</span>
+                            <span class="address-info"><strong>Phone:</strong> {{order.shipping_address.phone_number}}</span>
+                            <span class="address-info"> 
+                                {{order.shipping_address.details_address}}, {{order.shipping_address.thana}}, 
+                                {{order.shipping_address.zila}}, {{order.shipping_address.postal_code}}, 
+                                {{order.shipping_address.country}}
+                            </span>
+                        </div>
+                        <div class="address-section-2">
+                            <strong>Billing Address:</strong> 
+                            <span class="address-info"><strong>Name:</strong> {{order.billing_address.first_name}} {{order.billing_address.last_name}}</span>
+                            <span class="address-info"><strong>Phone:</strong> {{order.billing_address.phone_number}}</span>
+                            <span class="address-info"> 
+                                {{order.billing_address.details_address}}, {{order.billing_address.thana}}, 
+                                {{order.billing_address.zila}}, {{order.billing_address.postal_code}}, 
+                                {{order.billing_address.country}}
+                            </span>
+                        </div>
+                    
+                    </div>
+                </div>
+            </div>
+          
+            <h2>Order Items</h2>
+          
+            <table>
+              <thead>
+                <tr>
+                  <th>Image</th>
+                  <th>Name</th>
+                  <th>Quantity</th>
+                  <th>Unit Price</th>
+                  <th>Subtotal</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for order_item in order.order_items.all %}
+                    <tr>
+                        <td><img src="{{ order_item.product.product_image.url }}" alt="Item 1"></td>
+                        <td>{{order_item.product.product_name|truncatewords:4}}</td>
+                        <td>{{order_item.quantity}}</td>
+                        <td>{{order_item.product.product_price}}</td>
+                        <td>{{order_item.subtotal}}</td>
+                    </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+    </div>
+{% endblock admin-panel-main-content %}
