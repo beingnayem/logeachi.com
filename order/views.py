@@ -12,6 +12,23 @@ from django.contrib import messages
 from accounts.models import User
 from django.urls import reverse
 
+# Send Mail
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+import threading
+from django.core.mail import BadHeaderError, send_mail
+from django.core import mail
+from django.conf import settings
+
+class EmailThread(threading.Thread):
+    def __init__(self, email_message):
+        self.email_message=email_message
+        threading.Thread.__init__(self)
+
+    def run(self):
+        self.email_message.send()
+
 
 # Create your views here.
 def checkout(request):
@@ -139,6 +156,18 @@ def success_view(request):
         'shipping_cost': shipping_cost,
         'grand_total': grand_total,
     }    
+    email_sub = "Your Order Payment Information"
+    html_content = render_to_string('order/order_success.html', context)
+    text_content = strip_tags(html_content)
+    email = user.email
+    email_message = EmailMultiAlternatives(
+        email_sub,
+        text_content,
+        settings.EMAIL_HOST_USER,
+        [email],
+    )
+    email_message.attach_alternative(html_content, "text/html")
+    EmailThread(email_message).start()
 
     return render(request, 'order/order_success.html', context)
 
@@ -174,5 +203,18 @@ def success_view_case_on_delivery(request, order_id, grand_total):
         'shipping_cost': shipping_cost,
         'grand_total': grand_total,
     }
+    
+    email_sub = "Your Order Payment Information"
+    html_content = render_to_string('order/order_success.html', context)
+    text_content = strip_tags(html_content)
+    email = user.email
+    email_message = EmailMultiAlternatives(
+        email_sub,
+        text_content,
+        settings.EMAIL_HOST_USER,
+        [email],
+    )
+    email_message.attach_alternative(html_content, "text/html")
+    EmailThread(email_message).start()
     
     return render(request, 'order/order_case_on_success.html', context)
