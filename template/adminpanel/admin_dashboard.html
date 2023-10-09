@@ -12,10 +12,10 @@
             <div class="box">
                 <div class="right-side">
                     <div class="box-topic">Total Order</div>
-                    <div class="number">60,876</div>
+                    <div class="number">{{total_orders}}</div>
                     <div class="indicator">
                         <i class='bx bx-up-arrow-alt'></i>
-                        <span class="text">Up from yesterday</span>
+                        <span class="text">Up from now</span>
                     </div>
                 </div>
                 <i class='bx bx-cart-alt cart'></i>
@@ -23,10 +23,10 @@
             <div class="box">
                 <div class="right-side">
                     <div class="box-topic">Total Sales</div>
-                    <div class="number">58,876</div>
+                    <div class="number">&#2547; {{total_sale}}</div>
                     <div class="indicator">
                         <i class='bx bx-up-arrow-alt'></i>
-                        <span class="text">Up from yesterday</span>
+                        <span class="text">Up from now</span>
                     </div>
                 </div>
                 <i class='bx bxs-cart-add cart two'></i>
@@ -34,15 +34,15 @@
             <div class="box">
                 <div class="right-side">
                     <div class="box-topic">Total Profit</div>
-                    <div class="number">$242,876</div>
+                    <div class="number">&#2547; {{total_profit}}</div>
                     <div class="indicator">
                         <i class='bx bx-up-arrow-alt'></i>
-                        <span class="text">Up from yesterday</span>
+                        <span class="text">Up from now</span>
                     </div>
                 </div>
                 <i class='bx bx-cart cart three'></i>
             </div>
-            <div class="box">
+            <!-- <div class="box">
                 <div class="right-side">
                     <div class="box-topic">Total Return</div>
                     <div class="number">21,086</div>
@@ -52,7 +52,7 @@
                     </div>
                 </div>
                 <i class='bx bxs-cart-download cart four'></i>
-            </div>
+            </div> -->
         </div>
 
         <div class="sales-boxes">
@@ -61,113 +61,48 @@
                 <div class="sales-details">
                     <ul class="details">
                         <li class="topic">Date</li>
-                        <li><a href="#">02 Jan 2023</a></li>
-                        <li><a href="#">02 Jan 2023</a></li>
-                        <li><a href="#">02 Jan 2023</a></li>
-                        <li><a href="#">02 Jan 2023</a></li>
-                        <li><a href="#">02 Jan 2023</a></li>
-                        <li><a href="#">02 Jan 2023</a></li>
-                        <li><a href="#">02 Jan 2023</a></li>
+                        {% for order in orders %}
+                            <li>{{order.created_at}}</li>
+                        {% endfor %}
                     </ul>
                     <ul class="details">
                         <li class="topic">Customer</li>
-                        <li><a href="#">Alex Doe</a></li>
-                        <li><a href="#">David Mart</a></li>
-                        <li><a href="#">Roe Parter</a></li>
-                        <li><a href="#">Diana Penty</a></li>
-                        <li><a href="#">Martin Paw</a></li>
-                        <li><a href="#">Doe Alex</a></li>
-                        <li><a href="#">Aiana Lexa</a></li>
-                        <li><a href="#">Rexel Mags</a></li>
-                        <li><a href="#">Tiana Loths</a></li>
+                        <li class="topic">Date</li>
+                        {% for order in orders %}
+                            <li>{{order.user.first_name}}</li>
+                        {% endfor %}
                     </ul>
                     <ul class="details">
                         <li class="topic">Sales</li>
-                        <li><a href="#">Delivered</a></li>
-                        <li><a href="#">Pending</a></li>
-                        <li><a href="#">Returned</a></li>
-                        <li><a href="#">Delivered</a></li>
-                        <li><a href="#">Pending</a></li>
-                        <li><a href="#">Returned</a></li>
-                        <li><a href="#">Delivered</a></li>
-                        <li><a href="#">Pending</a></li>
-                        <li><a href="#">Delivered</a></li>
+                        {% for order in orders %}
+                            <li>{{order.order_status}}</li>
+                        {% endfor %}
                     </ul>
                     <ul class="details">
                         <li class="topic">Total</li>
-                        <li><a href="#">$204.98</a></li>
-                        <li><a href="#">$24.55</a></li>
-                        <li><a href="#">$25.88</a></li>
-                        <li><a href="#">$170.66</a></li>
-                        <li><a href="#">$56.56</a></li>
-                        <li><a href="#">$44.95</a></li>
-                        <li><a href="#">$67.33</a></li>
-                        <li><a href="#">$23.53</a></li>
-                        <li><a href="#">$46.52</a></li>
+                        {% for order in orders %}
+                            <li>&#2547; {{ order.calculate_total }}</li>
+                        {% endfor %}
                     </ul>
                 </div>
                 <div class="button">
-                    <a href="#">See All</a>
+                    <a href="{% url 'orders' %}">See All</a>
                 </div>
             </div>
             <div class="top-sales box">
                 <div class="title">Top Seling Product</div>
                 <ul class="top-sales-details">
-                    <li>
-                        <a href="#">
-                            <img src="images/sunglasses.jpg" alt="">
-                            <span class="product">Vuitton Sunglasses</span>
-                        </a>
-                        <span class="price">$1107</span>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <img src="images/jeans.jpg" alt="">
-                            <span class="product">Hourglass Jeans </span>
-                        </a>
-                        <span class="price">$1567</span>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <img src="images/nike.jpg" alt="">
-                            <span class="product">Nike Sport Shoe</span>
-                        </a>
-                        <span class="price">$1234</span>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <img src="images/scarves.jpg" alt="">
-                            <span class="product">Hermes Silk Scarves.</span>
-                        </a>
-                        <span class="price">$2312</span>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <img src="images/blueBag.jpg" alt="">
-                            <span class="product">Succi Ladies Bag</span>
-                        </a>
-                        <span class="price">$1456</span>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <img src="images/bag.jpg" alt="">
-                            <span class="product">Gucci Womens's Bags</span>
-                        </a>
-                        <span class="price">$2345</span>
-                    <li>
-                        <a href="#">
-                            <img src="images/addidas.jpg" alt="">
-                            <span class="product">Addidas Running Shoe</span>
-                        </a>
-                        <span class="price">$2345</span>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <img src="images/shirt.jpg" alt="">
-                            <span class="product">Bilack Wear's Shirt</span>
-                        </a>
-                        <span class="price">$1245</span>
-                    </li>
+                    
+                    {% for product in top_sold_products %}
+                        <li>
+                            <a href="#">
+                                <img src="{{product.product_image.url}}" alt="">
+                                <span class="product">{{ product.product_name|truncatewords:4 }}</span>
+                            </a>
+                            <span class="price">&#2547; {{product.product_price}}</span>
+                        </li>
+                    {% endfor %}
+                        
                 </ul>
             </div>
         </div>

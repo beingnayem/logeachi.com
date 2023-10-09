@@ -10,22 +10,7 @@
         <div class="team-member-list-container">
             
                 <h1>Feedback List</h1>
-                <div class="admin-request-approve-button-container">
-                    <a href="{% url 'banners' %}">
-                        <button class="admin-request-approve-button">Banners</button>
-                    </a> 
-                    <a href="{% url 'sliders' %}">
-                        <button class="admin-request-approve-button">Sliders</button>
-                    </a>
-                    <a href="{% url 'events' %}">
-                        <button class="admin-request-approve-button">Events</button>
-                    </a>
-                </div>
-                <div class="admin-request-approve-button-container">
-                    <a href="{% url 'create_event' %}">
-                        <button class="admin-request-approve-button">Create Event</button>
-                    </a>
-                </div>
+                
                 {% if feedbacks %}
                 <div class="team-member-list-table-container">
                     <table class="team-member-list-table-container-table">

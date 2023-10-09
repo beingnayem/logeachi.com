@@ -1,6 +1,24 @@
 {% load static %}
-
+<!--====== Main Header ======-->
 <header class="header--style-1">
+
+    <style>
+        /* Add a style block in the head or within your HTML to define the styles */
+        
+        /* CSS for desktop/laptop screens */
+        @media (min-width: 768px) {
+            .toggle-button {
+            display: none; /* Hide the button on larger screens */
+            }
+        }
+        
+        /* CSS for mobile screens */
+        @media (max-width: 767px) {
+            .toggle-button {
+            display: inline-block; /* Make the button visible on smaller screens */
+            }
+        }
+    </style>
 
     <!--====== Nav 1 ======-->
     <nav class="primary-nav primary-nav-wrapper--border">
@@ -12,10 +30,7 @@
                 <!--====== Main Logo ======-->
 
                 <a class="main-logo" href="{% url 'home' %}">
-
-                    <h2>
-                        LOGEACHI
-                    </h2>
+                    <img style="width: 200px; " src="{% static 'assets/images/cover.png' %}" alt="">
                 </a>
                 <!--====== End - Main Logo ======-->
 
@@ -31,11 +46,11 @@
                 </form>
                 <!--====== End - Search Form ======-->
 
-
                 <!--====== Dropdown Main plugin ======-->
                 <div class="menu-init" id="navigation">
 
-                   
+                    <button class="btn btn--icon toggle-button toggle-button--secondary fas fa-bars" type="button"></button>
+
                     <!--====== Menu ======-->
                     <div class="ah-lg-mode">
 
@@ -43,22 +58,24 @@
 
                         <!--====== List ======-->
                         <ul class="ah-list ah-list--design1 ah-list--link-color-secondary">
-                            
                             <li class="has-dropdown" data-tooltip="tooltip" data-placement="left" title="Account">
-                                
-                                {% if user.is_authenticated %}
-                                    {% if user.user_image %}
-                                        <a><img class="user_image" src="{{user.user_image.url}}" alt="User Image"></a>
+
+                                <a>
+                                    {% if user.is_authenticated %}
+                                        {% if user.user_image %}
+                                            <img class="user_image" src="{{user.user_image.url}}" alt="User Image">
+                                            {% else %}
+                                                {% if user.gender == 'male' %}
+                                                    <img class="user_image" src="{% static 'assets/images/male.png' %}" alt="Default Image">
+                                                    {% else %}
+                                                        <img class="user_image" src="{% static 'assets/images/female.png' %}" alt="Default Image">
+                                                {% endif %}
+                                        {% endif %}
                                         {% else %}
-                                            {% if user.gender == 'male' %}
-                                                <a><img class="user_image" src="{% static 'assets/images/male.png' %}" alt="Default Image"></a>
-                                                {% else %}
-                                                    <a><img class="user_image" src="{% static 'assets/images/female.png' %}" alt="Default Image"></a>
-                                            {% endif %}
+                                            <i class="far fa-user-circle"></i>
                                     {% endif %}
-                                    {% else %}
-                                        <a><i class="far fa-user-circle"></i></a>
-                                {% endif %}
+                                </a>
+
                                 <!--====== Dropdown ======-->
 
                                 <span class="js-menu-toggle"></span>
@@ -109,10 +126,10 @@
                                 <!--====== End - Dropdown ======-->
                             </li>
                             <li data-tooltip="tooltip" data-placement="left" title="Contact">
-                                <a href="tel:+8801836938427"><i class="fas fa-phone-volume"></i></a>
+                                <a href="tel:+8801581195268"><i class="fas fa-phone-volume"></i></a>
                             </li>
                             <li data-tooltip="tooltip" data-placement="left" title="Mail">
-                                <a href="mailto:antarnath.cse@gmail.com"><i class="far fa-envelope"></i></a>
+                                <a href="mailto:b.bishadsarwar@gmail.com"><i class="far fa-envelope"></i></a>
                             </li>
                         </ul>
                         <!--====== End - List ======-->
@@ -120,6 +137,7 @@
                     <!--====== End - Menu ======-->
                 </div>
                 <!--====== End - Dropdown Main plugin ======-->
+                
             </div>
             <!--====== End - Primary Nav ======-->
         </div>
@@ -148,49 +166,54 @@
                         <ul class="ah-list">
                             <li class="has-dropdown">
 
-                                <span class="mega-text" >M</span>
+                                <span class="mega-text">M</span>
 
                                 <!--====== Mega Menu ======-->
 
                                 <span class="js-menu-toggle"></span>
                                 <div class="mega-menu">
-                                    <div class="mega-menu-wrap">
-                                        <div class="mega-menu-list">
-                                            <ul>
-                                                {% for main_category in user.main_category %}
-                                                <li class="js-active">
+                                    
+                                    {% if main_categories %}
+                                        <div class="mega-menu-wrap">
+                                            <div class="mega-menu-list">
+                                                <ul>
+                                                    {% for main_category in main_categories %}
+                                                        <li class="js-active">
 
-                                                    <a href="{% url "main_category_products" main_category.pk %}">
+                                                            <a href="{% url "main_category_products" main_category.pk %}">
 
-                                                        <span> {{main_category.name}} </span></a>
+                                                                <span> {{main_category.name}} </span></a>
 
-                                                    <span class="js-menu-toggle js-toggle-mark"></span>
-                                                </li>
-                                                {% endfor %}
-                                            </ul>
-                                        </div>
-                                        {% for main_category in user.main_category %}
-                                            <div class="mega-menu-content">
-                                                <div class="row">
-                                                    {% for category in main_category.main_category.all %}
-                                                        <div class="col-lg-3">
-                                                            <ul>
-                                                                <li class="mega-list-title">
-                                                                    <a href="{% url 'category_products' category.pk %}">{{ category.name }}</a>
-                                                                </li>
-                                                                {% for sub_category in category.category.all %}
-                                                                    <li>
-                                                                        <a href="{% url 'sub_category_products' sub_category.pk %}">{{ sub_category.name }}</a>
-                                                                    </li>
-                                                                {% endfor %}
-                                                            </ul>
-                                                        </div>
+                                                            <span class="js-menu-toggle js-toggle-mark"></span>
+                                                        </li>
                                                     {% endfor %}
-                                                </div>
+                                                </ul>
                                             </div>
-                                        {% endfor %}
+                                            {% for main_category in main_categories %}
+                                                <div class="mega-menu-content">
+                                                    <div class="row">
+                                                        {% for category in main_category.main_category.all %}
+                                                            <div class="col-lg-3">
+                                                                <ul>
+                                                                    <li class="mega-list-title">
+                                                                        <a href="{% url 'category_products' category.pk %}">{{ category.name }}</a>
+                                                                    </li>
+                                                                    {% for sub_category in category.category.all %}
+                                                                        <li>
+                                                                            <a href="{% url 'sub_category_products' sub_category.pk %}">{{ sub_category.name }}</a>
+                                                                        </li>
+                                                                    {% endfor %}
+                                                                </ul>
+                                                            </div>
+                                                        {% endfor %}
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
 
-                                    </div>
+                                        </div>
+                                        {% else %}
+                                            <h1>There is no category yet</h1>
+                                    {% endif %} 
                                 </div>
                                 <!--====== End - Mega Menu ======-->
                             </li>
@@ -204,140 +227,134 @@
 
                 <!--====== Dropdown Main plugin ======-->
                 <div class="menu-init" id="navigation2">
+                    <button class="btn btn--icon toggle-button toggle-button--secondary fas fa-bars" type="button"></button>
+                    <!--====== Menu ======-->
+                   <div class="ah-lg-mode">
 
-                     <!--====== Menu ======-->
-                    <div class="ah-lg-mode">
+                       <span class="ah-close">✕ Close</span>
 
-                        <span class="ah-close">✕ Close</span>
-
-                        <!--====== List ======-->
-                        <ul class="ah-list ah-list--design2 ah-list--link-color-secondary">
-                            <li>
-                                <a href="{% url 'new_arrivals' %}">NEW ARRIVALS</a>
-                            </li>
-                            <li class="has-dropdown">
-                                <a href="{% url 'show_blog' %}">BLOG</a>
-                            </li>
-                            
-                            <li>
-                                <a href="{% url 'FAQ' %}">F&Q</a>
-                            </li>
-                            <li>
-                                <a href="{% url 'about_us' %}">ABOUT US</a>
-                            </li>
-                            <li>
-                                <a href="{% url 'contact_us' %}">CONTACT US</a>
-                            </li>
-                        </ul>
-                        <!--====== End - List ======-->
-                    </div>
-                    <!--====== End - Menu ======-->
-                </div>
-                <!--====== End - Dropdown Main plugin ======-->
+                       <!--====== List ======-->
+                       <ul class="ah-list ah-list--design2 ah-list--link-color-secondary">
+                           <li>
+                               <a href="{% url 'new_arrivals' %}">NEW ARRIVALS</a>
+                           </li>
+                           <li class="has-dropdown">
+                               <a href="{% url 'show_blog' %}">BLOG</a>
+                           </li>
+                           
+                           <li>
+                               <a href="{% url 'FAQ' %}">F&Q</a>
+                           </li>
+                           <li>
+                               <a href="{% url 'about_us' %}">ABOUT US</a>
+                           </li>
+                           <li>
+                               <a href="{% url 'contact_us' %}">CONTACT US</a>
+                           </li>
+                       </ul>
+                       <!--====== End - List ======-->
+                   </div>
+                   <!--====== End - Menu ======-->
+               </div>
+               <!--====== End - Dropdown Main plugin ======-->
 
 
                 <!--====== Dropdown Main plugin ======-->
                 <div class="menu-init" id="navigation3">
-
+                    <button class="btn btn--icon toggle-button toggle-button--secondary fas fa-shopping-bag toggle-button-shop" type="button"></button>
                     <!--====== Menu ======-->
                     <div class="ah-lg-mode">
-
                         <span class="ah-close">✕ Close</span>
-
                         <!--====== List ======-->
                         <ul class="ah-list ah-list--design1 ah-list--link-color-secondary">
                             <li>
-
-                                <a href="index.html"><i class="fas fa-home u-c-brand"></i></a>
+                                <a href="{% url 'home' %}"><i class="fas fa-home u-c-brand"></i></a>
                             </li>
-                            <li>
 
-                                <a href="{% url "wishlist" %}" class="mini-cart-shop-link"><i class="far fa-heart"></i>
-                                    
-                                    {% if user.wishlist_count %}
-                                        <span class="total-item-round"> {{user.wishlist_count}} </span>
-                                    {% endif %}
-
-                                </a>
-                            </li>
-                            <li class="has-dropdown">
-
-                                <a class="mini-cart-shop-link"><i class="fas fa-shopping-bag"></i>
-                                    
-                                    {% if user.cart_count %}
-                                        <span class="total-item-round">{{user.cart_count}} </span></a>
-                                    {% endif %}
-                                <!--====== Dropdown ======-->
-
-                                <span class="js-menu-toggle"></span>
-                                <div class="mini-cart">
-
-                                    <!--====== Mini Product Container ======-->
-                                    <div class="mini-product-container gl-scroll u-s-m-b-15">
-
-                                        {% for item in user.cart_item %}
-                                        <div class="card-mini-product">
-                                            <div class="mini-product">
-                                                <div class="mini-product__image-wrapper">
-
-                                                    <a class="mini-product__link" href="{% url 'single_product_page' item.product.pk%}">
-
-                                                        <img class="u-img-fluid" src="{{item.product.product_image.url}}" alt=""></a></div>
-                                                <div class="mini-product__info-wrapper">
-
-                                                    <span class="mini-product__category">
-
-                                                        <a href="{% url 'sub_category_products' item.product.product_category.pk %}">{{item.product.product_category}} </a></span>
-
-                                                    <span class="mini-product__name">
-
-                                                        <a href="{% url 'single_product_page' item.product.pk%}">{{item.product.product_name}} </a></span>
-
-                                                    <span class="mini-product__quantity">{{item.quantity}} x</span>
-
-                                                    <span class="mini-product__price">${{item.product.product_price}} </span></div>
-                                            </div>
-
-                                            <a href="{% url 'delete_cart' item.pk %}" class="mini-product__delete-link far fa-trash-alt"></a>
-                                        </div>
-                                        {% endfor %}
-                                    </div>
-                                    <!--====== End - Mini Product Container ======-->
-
-
-                                    <!--====== Mini Product Statistics ======-->
-                                    <div class="mini-product-stat">
+                            {% if not user.is_admin %}
+                                <li>
+                                    <a href="{% url "wishlist" %}" class="mini-cart-shop-link"><i class="far fa-heart"></i>
                                         
-                                        {% if user.is_authenticated %}
-                                            {% if user.cart_item %}
-                                                <div class="mini-total">
-                                                    <span class="subtotal-text">SUBTOTAL</span>
-                                                    <span class="subtotal-value">${{user.calculate_subtotal}} </span>
-                                                </div>
-                                                <div class="mini-action">
-
-                                                    <a class="mini-link btn--e-brand-b-2" href="{% url 'checkout' %}">PROCEED TO CHECKOUT</a>
-
-                                                    <a class="mini-link btn--e-transparent-secondary-b-2" href="{% url 'show_cart' %}">VIEW CART</a>
-                                                </div>
-                                                {% else %}
-                                                    <div class="mini-action">
-                                                        <h4 style="display: flex; justify-content: center;">EMPTY CART</h4>
-                                                        <a class="mini-link btn--e-brand-b-2" href="{% url 'home' %}">CONTINUE SHOPPING</a>
-                                                    </div>
-                                            {% endif %}
-                                            {% else %}
-                                            <div class="mini-action">
-                                                <a class="mini-link btn--e-brand-b-2" href="{% url 'signin' %}">Sign In</a>
-                                            </div>
+                                        {% if user.wishlist_count %}
+                                            <span class="total-item-round"> {{user.wishlist_count}} </span>
                                         {% endif %}
-                                            
-                                        
+                                    </a>
+                                </li>
+                                <li class="has-dropdown">
+
+                                    <a class="mini-cart-shop-link"><i class="fas fa-shopping-bag"></i>
+                                        {% if user.cart_count %}
+                                            <span class="total-item-round">{{user.cart_count}} </span>
+                                        {% endif %}
+                                    </a>
+                                    <!--====== Dropdown ======-->
+
+                                    <span class="js-menu-toggle"></span>
+                                    <div class="mini-cart">
+
+                                        <!--====== Mini Product Container ======-->
+                                        <div class="mini-product-container gl-scroll u-s-m-b-15">
+
+                                            {% for item in user.cart_item %}
+                                                <div class="card-mini-product">
+                                                    <div class="mini-product">
+                                                        <div class="mini-product__image-wrapper">
+
+                                                            <a class="mini-product__link" href="{% url 'single_product_page' item.product.pk%}">
+
+                                                                <img class="u-img-fluid" src="{{item.product.product_image.url}}" alt=""></a></div>
+                                                        <div class="mini-product__info-wrapper">
+
+                                                            <span class="mini-product__category">
+
+                                                                <a href="{% url 'sub_category_products' item.product.product_category.pk %}">{{item.product.product_category}} </a></span>
+
+                                                            <span class="mini-product__name">
+
+                                                                <a href="{% url 'single_product_page' item.product.pk%}">{{item.product.product_name}} </a></span>
+
+                                                            <span class="mini-product__quantity">{{item.quantity}} x</span>
+
+                                                            <span class="mini-product__price">${{item.product.product_price}} </span></div>
+                                                    </div>
+
+                                                    <a href="{% url 'delete_cart' item.pk %}" class="mini-product__delete-link far fa-trash-alt"></a>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                        <!--====== End - Mini Product Container ======-->
+
+
+                                        <!--====== Mini Product Statistics ======-->
+                                        <div class="mini-product-stat">
+                                            {% if user.is_authenticated %}
+                                                {% if user.cart_item %}
+                                                    <div class="mini-total">
+                                                        <span class="subtotal-text">SUBTOTAL</span>
+                                                        <span class="subtotal-value">${{user.calculate_subtotal}} </span>
+                                                    </div>
+                                                    <div class="mini-action">
+                                                        <a class="mini-link btn--e-brand-b-2" href="{% url 'checkout' %}">PROCEED TO CHECKOUT</a>
+                                                        <a class="mini-link btn--e-transparent-secondary-b-2" href="{% url 'show_cart' %}">VIEW CART</a>
+                                                    </div>
+                                                    {% else %}
+                                                        <div class="mini-action">
+                                                            <h4 style="display: flex; justify-content: center;">EMPTY CART</h4>
+                                                            <a class="mini-link btn--e-brand-b-2" href="{% url 'home' %}">CONTINUE SHOPPING</a>
+                                                        </div>
+                                                {% endif %}
+                                                {% else %}
+                                                <div class="mini-action">
+                                                    <a class="mini-link btn--e-brand-b-2" href="{% url 'signin' %}">Sign In</a>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                        <!--====== End - Mini Product Statistics ======-->
                                     </div>
-                                    <!--====== End - Mini Product Statistics ======-->
-                                </div>
-                                <!--====== End - Dropdown ======-->
-                            </li>
+                                    <!--====== End - Dropdown ======-->
+                                </li>
+                            {% endif %}
+
                         </ul>
                         <!--====== End - List ======-->
                     </div>

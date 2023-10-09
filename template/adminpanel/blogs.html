@@ -8,14 +8,14 @@
 {% block admin-panel-main-content %}
     <div class="adminpanelhome-content">
         <div class="team-member-list-container">
-            
+            <div class="admin-request-approve-button-container">
+                <a href="{% url 'post_blog' %}">
+                    <button class="admin-request-approve-button">Add Blog</button>
+                </a> 
+            </div>
+            {% if blogs %}
                 <h1>Blog List</h1>
-                <div class="admin-request-approve-button-container">
-                    <a href="{% url 'post_blog' %}">
-                        <button class="admin-request-approve-button">Add Blog</button>
-                    </a> 
-                </div>
-                {% if blogs %}
+                
                 <div class="team-member-list-table-container">
                     <table class="team-member-list-table-container-table">
                         <thead>
@@ -59,9 +59,9 @@
                         </tbody>
                     </table>
                 </div> 
-                    {% else %}
-                        <h2 style="text-align: center; color:rgb(101, 168, 33) ">There is no Blogs yet.</h2>
-                {% endif %}
+                {% else %}
+                    <h2 style="text-align: center; color:rgb(101, 168, 33) ">There is no Blogs yet.</h2>
+            {% endif %}
         </div>
     </div>
 {% endblock admin-panel-main-content %}

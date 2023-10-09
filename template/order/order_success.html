@@ -5,142 +5,146 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
+    <title>Order Slip</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css" integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
     <link rel="stylesheet" href="{% static 'assets/css/success.css' %}">
 </head>
-  <body>
+<body>
 
-    <div class="container">
-        <div class="col-md-12">
-           <div class="invoice">
-              <!-- begin invoice-company -->
-              <div class="invoice-company text-inverse f-w-600" style="display:flex; justify-content:space-between">
-                <div>
-                  <a href="{% url 'home' %}" style="text-decoration: none; color: black;">LOGEACHI.com</a>
-                </div>
-                <div>
-                    <span class="pull-right hidden-print">
-                    <a href="javascript:;" onclick="window.print()" class="btn btn-sm btn-white m-b-10 p-l-5"><i class="fa fa-print t-plus-1 fa-fw fa-lg"></i> Print</a>
-                    </span>
-                </div>
-              </div>
-              <!-- end invoice-company -->
-              <!-- begin invoice-header -->
-              <div class="invoice-header">
-                 <div class="invoice-from">
-                    <small>Billing Address</small>
-                    <address class="m-t-5 m-b-5">
-                       <strong>{{ billing_address.first_name }} {{ billing_address.last_name }}</strong>
-                       <p>{{billing_address.details_address}}, {{billing_address.thana}}</p>
-                       <p>{{billing_address.zila}}, {{billing_address.postal_code}}, {{billing_address.country}}</p>
-                    </address>
-                 </div>
-                 <div class="invoice-to">
-                    <small>Shipping Address</small>
-                    <address class="m-t-5 m-b-5">
-                        <strong>{{ shipping_address.first_name }} {{ shipping_address.last_name }}</strong>
-                        <p>{{shipping_address.details_address}}, {{shipping_address.thana}}</p>
-                        <p>{{shipping_address.zila}}, {{shipping_address.postal_code}}, {{shipping_address.country}}</p>
-                    </address>
-                 </div>
-                 <div class="invoice-date">
-                    <h4 >Invoice #{{payment.id}} <span class="badge bg-success font-size-12 ms-2">{{payment.payment_status}}</span></h4>
-                        
-                    <div class="date text-inverse m-t-5">{{payment.payment_date}}</div>
-                 </div>
-              </div>
-              <!-- end invoice-header -->
-              <!-- begin invoice-content -->
-              <div class="invoice-content">
-                 <!-- begin table-responsive -->
-                 <div class="table-responsive">
-                    <table class="table table-invoice">
-                       <thead>
-                          <tr>
-                             <th>PRODUCT DESCRIPTION</th>
-                             <th class="text-center" width="10%">RATE</th>
-                             <th class="text-center" width="10%">QUANTITY</th>
-                             <th class="text-right" width="20%">LINE TOTAL</th>
-                          </tr>
-                       </thead>
-                       <tbody>
-                        {% for item in order_item %}
-                          <tr>
-                             <td>
-                                <strong class="text-inverse">{{item.product.product_name}} </strong><br>
-                             </td>
-                             <td class="text-center">&#2547; {{item.product.product_price}} </td>
-                             <td class="text-center">{{item.quantity}} </td>
-                             <td class="text-right">&#2547; {{item.subtotal}} </td>
-                          </tr>
-                        {% endfor %}
-                       </tbody>
-                    </table>
-                 </div>
-                 <!-- end table-responsive -->
-                 <!-- begin invoice-price -->
-                 <div class="invoice-price">
+   <div class="container">
+      <div class="col-md-12">
+         <div class="invoice">
+            <!-- begin invoice-company -->
+            <div class="invoice-company text-inverse f-w-600" style="display:flex; justify-content:space-between">
+               <div>
+                  <a class="main-logo" href="{% url 'home' %}">
+                     <img style="width: 200px; " src="{% static 'assets/images/cover.png' %}" alt="">
+                  </a>
+               </div>
+               <div>
+                  <span class="pull-right hidden-print">
+                  <a href="javascript:;" onclick="window.print()" class="btn btn-sm btn-white m-b-10 p-l-5"><i class="fa fa-print t-plus-1 fa-fw fa-lg"></i> Print</a>
+                  </span>
+               </div>
+            </div>
+            <!-- end invoice-company -->
+            <!-- begin invoice-header -->
+            <div class="invoice-header">
+               <div class="invoice-from">
+                  <small>Billing Address</small>
+                  <address class="m-t-5 m-b-5">
+                     <strong>{{ billing_address.first_name }} {{ billing_address.last_name }}</strong>
+                     <p>{{billing_address.details_address}}, {{billing_address.thana}}</p>
+                     <p>{{billing_address.zila}}, {{billing_address.postal_code}}, {{billing_address.country}}</p>
+                  </address>
+               </div>
+               <div class="invoice-to">
+                  <small>Shipping Address</small>
+                  <address class="m-t-5 m-b-5">
+                     <strong>{{ shipping_address.first_name }} {{ shipping_address.last_name }}</strong>
+                     <p>{{shipping_address.details_address}}, {{shipping_address.thana}}</p>
+                     <p>{{shipping_address.zila}}, {{shipping_address.postal_code}}, {{shipping_address.country}}</p>
+                  </address>
+               </div>
+               <div class="invoice-date">
+                  <h4 >Invoice #{{payment.id}} <span class="badge bg-success font-size-12 ms-2">{{payment.payment_status}}</span></h4>
+                     
+                  <div class="date text-inverse m-t-5">{{payment.payment_date}}</div>
+               </div>
+            </div>
+            <!-- end invoice-header -->
+            <!-- begin invoice-content -->
+            <div class="invoice-content">
+               <!-- begin table-responsive -->
+               <div class="table-responsive">
+                  <table class="table table-invoice">
+                     <thead>
+                        <tr>
+                           <th>PRODUCT DESCRIPTION</th>
+                           <th class="text-center" width="10%">RATE</th>
+                           <th class="text-center" width="10%">QUANTITY</th>
+                           <th class="text-right" width="20%">LINE TOTAL</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                     {% for item in order_item %}
+                        <tr>
+                           <td>
+                              <strong class="text-inverse">{{item.product.product_name}} </strong><br>
+                           </td>
+                           <td class="text-center">&#2547; {{item.product.product_price}} </td>
+                           <td class="text-center">{{item.quantity}} </td>
+                           <td class="text-right">&#2547; {{item.subtotal}} </td>
+                        </tr>
+                     {% endfor %}
+                     </tbody>
+                  </table>
+               </div>
+               <!-- end table-responsive -->
+               <!-- begin invoice-price -->
+               <div class="invoice-price">
+               <div class="invoice-price-left">
+                  <div class="invoice-price-row">
+                     <div class="sub-price">
+                        <small>SUBTOTAL</small>
+                        <span class="text-inverse">&#2547; {{sub_total}} </span>
+                     </div>
+                     <div class="sub-price">
+                        <i class="fa fa-plus text-muted"></i>
+                     </div>
+                     <div class="sub-price">
+                        <small>TAX (5%)</small>
+                        <span class="text-inverse">&#2547; {{tax}} </span>
+                     </div>
+                     <div class="sub-price">
+                        <i class="fa fa-plus text-muted"></i>
+                     </div>
+                     <div class="sub-price">
+                        <small>SHIPPING COST</small>
+                        <span class="text-inverse">&#2547; {{shipping_cost}} </span>
+                     </div>
+                  </div>
+               </div>
+               </div>
+               <div class="invoice-price"> 
                   <div class="invoice-price-left">
                      <div class="invoice-price-row">
-                        <div class="sub-price">
-                           <small>SUBTOTAL</small>
-                           <span class="text-inverse">&#2547; {{sub_total}} </span>
-                        </div>
-                        <div class="sub-price">
-                           <i class="fa fa-plus text-muted"></i>
-                        </div>
-                        <div class="sub-price">
-                           <small>TAX (5%)</small>
-                           <span class="text-inverse">&#2547; {{tax}} </span>
-                        </div>
-                        <div class="sub-price">
-                          <i class="fa fa-plus text-muted"></i>
-                       </div>
-                        <div class="sub-price">
-                           <small>SHIPPING COST</small>
-                           <span class="text-inverse">&#2547; {{shipping_cost}} </span>
+                        <div class="invoice-price-right">
+                           <small>TOTAL</small> <span class="f-w-600">&#2547; {{grand_total}} </span>
                         </div>
                      </div>
                   </div>
-                </div>
-                <div class="invoice-price"> 
-                   <div class="invoice-price-left">
-                      <div class="invoice-price-row">
-                         <div class="invoice-price-right">
-                            <small>TOTAL</small> <span class="f-w-600">&#2547; {{grand_total}} </span>
-                         </div>
-                      </div>
-                   </div>
-               </div>
-                 <!-- end invoice-price -->
-              </div>
-              <!-- end invoice-content -->
-              <!-- begin invoice-note -->
-              <div class="invoice-note">
-                 * Make all cheques payable to [Your Company Name]<br>
-                 * Payment is due within 30 days<br>
-                 * If you have any questions concerning this invoice, contact  [Name, Phone Number, Email]
-              </div>
-              <!-- end invoice-note -->
-              <!-- begin invoice-footer -->
-              <div class="invoice-footer">
-                 <p class="text-center m-b-5 f-w-600">
-                    THANK YOU FOR YOUR BUSINESS
-                 </p>
-                 <p class="text-center">
-                    <span class="m-r-10"><i class="fa fa-fw fa-lg fa-globe"></i> logeachi.com</span>
-                    <span class="m-r-10"><i class="fa fa-fw fa-lg fa-phone-volume"></i> T:016-18192302</span>
-                    <span class="m-r-10"><i class="fa fa-fw fa-lg fa-envelope"></i> logeachi@gmail.com</span>
-                    
-                 </p>
-              </div>
-              <!-- end invoice-footer -->
-           </div>
-        </div>
-     </div>
+            </div>
+               <!-- end invoice-price -->
+            </div>
+            <!-- end invoice-content -->
+            <!-- begin invoice-note -->
+            <div class="invoice-note">
+               * Make all cheques payable to [Your Company Name]<br>
+               * Payment is due within 30 days<br>
+               * If you have any questions concerning this invoice, contact  [Name, Phone Number, Email]
+            </div>
+            <!-- end invoice-note -->
+            <!-- begin invoice-footer -->
+            <div class="invoice-footer">
+               <p class="text-center m-b-5 f-w-600">
+                  THANK YOU FOR YOUR BUSINESS
+               </p>
+               <p class="text-center">
+                  <span class="m-r-10"><i class="fa fa-fw fa-lg fa-globe"></i> logeachi.com</span>
+                  <span class="m-r-10"><i class="fa fa-fw fa-lg fa-phone-volume"></i> T:016-18192302</span>
+                  <span class="m-r-10"><i class="fa fa-fw fa-lg fa-envelope"></i> logeachi@gmail.com</span>
+                  
+               </p>
+            </div>
+            <!-- end invoice-footer -->
+         </div>
+      </div>
+   </div>
+   <br>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-  </body>
+
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
 </html>

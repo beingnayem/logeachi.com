@@ -16,6 +16,8 @@ from accounts.utils import TokenGenerator, generate_token
 from home.models import Queries, Home_Slider, Banner, Event, Feedback, Deal_of_the_day, shop_by_deals
 from blog.models import Blog
 from utils.image_resizer import resize_image
+from order.models import Order, OrderItem, Payment
+from django.db.models import Sum
 
 # emails
 from django.core.mail import send_mail, EmailMultiAlternatives, EmailMessage, BadHeaderError
@@ -32,7 +34,23 @@ def adminPanelView(request):
     if not request.user.is_admin:
         return render(request, 'accounts/wrong_path.html')
 
-    return render(request, 'adminpanel/admin_dashboard.html')
+    orders = Order.objects.all()[0:7]
+    
+    # Total number of orders
+    total_orders = Order.objects.all().count()
+
+    # Total sales amount
+    total_sale = Payment.objects.aggregate(Sum('payment_amount'))['payment_amount__sum']
+
+    # Handle the case where total_sale might be None
+    total_sale = total_sale if total_sale is not None else 0
+    
+    total_profit = Payment.objects.aggregate(Sum('raw_profit'))['raw_profit__sum']
+    top_sold_products = Product.objects.order_by('-product_sold_quantity')[:10]
+    
+    context = {'total_orders': total_orders, 'total_sale': total_sale, 'orders': orders , 'total_profit': total_profit, 'top_sold_products': top_sold_products}
+    
+    return render(request, 'adminpanel/admin_dashboard.html', context)
 
 @login_required
 def team_memberView(request):
@@ -1711,3 +1729,56 @@ def delete_shop_by_deal(request):
             return redirect(request.META.get('HTTP_REFERER'))
     
     return redirect(request.META.get('HTTP_REFERER'))
+
+
+@login_required
+def ordersView(request):
+    if not request.user.is_admin:
+        return render(request, 'accounts/wrong_path.html')
+    
+    orders = Order.objects.all()
+    return render(request, 'adminpanel/orders.html', {'orders': orders})
+
+
+@login_required
+def update_order(request):
+    if not request.user.is_admin:
+        return render(request, 'accounts/wrong_path.html')
+    
+    if 'cancel' in request.POST:
+        # Redirect to the deal of the day list without showing the success message
+        return redirect('orders')
+    
+    if request.method == 'POST':
+        try:
+            order_id = request.POST.get('id')
+            order_status = request.POST.get('order_status')
+            order = Order.objects.get(id=order_id)
+            if order_status:
+                order.order_status = order_status
+                order.updated_at = datetime.now()
+                order.save()
+                messages.success(request, 'Order updated successfully')
+                return redirect('orders')
+            
+            messages.error(request, 'Order Staus Empty')
+            return redirect('orders')
+            
+        except Exception as e:
+            messages.error(request, f'Error updating order: {e}')
+            return redirect(request.META.get('HTTP_REFERER'))
+
+    order_id = request.GET.get('id')
+    order = Order.objects.get(id=order_id)
+    return render(request, 'adminpanel/update_order.html', {'order': order})
+
+
+@login_required
+def order_details(request):
+    if not request.user.is_admin:
+        return render(request, 'accounts/wrong_path.html')
+        
+    order = Order.objects.get(id=request.GET.get('id'))
+    return render(request, 'adminpanel/order_details.html', {'order': order})
+
+

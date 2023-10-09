@@ -17,9 +17,11 @@
            <div class="invoice">
               <!-- begin invoice-company -->
               <div class="invoice-company text-inverse f-w-600" style="display:flex; justify-content:space-between">
-                <div>
-                    <a href="{% url 'home' %}" style="text-decoration: none; color: black;">LOGEACHI.com</a>
-                </div>
+                  <div>
+                     <a class="main-logo" href="{% url 'home' %}">
+                        <img style="width: 200px; " src="{% static 'assets/images/cover.png' %}" alt="">
+                     </a>
+                  </div>
                 <div>
                     <span class="pull-right hidden-print">
                     <a href="javascript:;" onclick="window.print()" class="btn btn-sm btn-white m-b-10 p-l-5"><i class="fa fa-print t-plus-1 fa-fw fa-lg"></i> Print</a>

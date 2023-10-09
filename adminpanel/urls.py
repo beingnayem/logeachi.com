@@ -64,5 +64,8 @@ urlpatterns = [
     path('shop-by-deals/', views.shop_by_dealView, name='shop_by_deal'),
     path('delete-shop-by-deal/', views.delete_shop_by_deal, name='delete_shop_by_deal'),
     path('add-shop-by-deal/', views.add_shop_by_deal, name='add_shop_by_deal'),
-     path('edit-shop-by-deal/', views.edit_shop_by_deal, name='edit_shop_by_deal'),
+    path('edit-shop-by-deal/', views.edit_shop_by_deal, name='edit_shop_by_deal'),
+    path('orders/', views.ordersView, name='orders'),
+    path('order-details/', views.order_details, name='order_details'),
+    path('update-order/', views.update_order, name='update_order'),
 ]

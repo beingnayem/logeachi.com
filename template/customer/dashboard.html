@@ -98,23 +98,35 @@
                     <tr>
                         <th>Order #</th>
                         <th>Placed On</th>
+                        <th>Items</th>
                         <th>Total</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for order in orders %}
-                    <tr>
-                        <td>{{order.id}} </td>
-                        <td>{{order.created_at}} </td>
-                        <td>
-                            <div class="dash__table-total">
-                                <span>&#2547; {{order.calculate_total}}</span>
-                                <div class="dash__link dash__link--brand">
-
-                                    <a href="{% url 'order_manage' order.id %}">MANAGE</a></div>
-                            </div>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>{{order.id}} </td>
+                            <td>{{order.created_at}} </td>
+                            <td>
+                                <div class="dash__table-img-wrap">
+                                    {% if order.order_items.all %}
+                                        {% with first_order_item=order.order_items.first %}
+                                            {% with product=first_order_item.product %}
+                                                <img class="u-img-fluid" src="{{ product.product_image.url }}" alt="">
+                                            {% endwith %}
+                                        {% endwith %}
+                                    {% endif %}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="dash__table-total">
+                                    <span>&#2547; {{order.calculate_total}}</span>
+                                    <div class="dash__link dash__link--brand">
+                                        <a href="{% url 'order_manage' order.id %}">MANAGE</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
                     {% endfor %}
                 </tbody>
             </table>

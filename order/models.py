@@ -34,6 +34,25 @@ class Order(models.Model):
         total += (5 * total) / 100
         total += 80
         return total
+    def calculate_raw_total(self):
+        order_items = self.order_items.all()
+        total = sum(item.subtotal for item in order_items)
+        return total
+        
+    def payment_details(self):
+        payment_details = {'payment_amount': None, 'payment_method': None, 'payment_status': None, 'payment_date': None, 'tax': None}
+        if self.order_payment.exists():
+            payment_details['payment_amount'] = self.order_payment.get().payment_amount
+            payment_details['payment_method'] = self.order_payment.get().payment_method
+            payment_details['payment_status'] = self.order_payment.get().payment_status
+            payment_details['payment_date'] = self.order_payment.get().payment_date
+            tax = (5 * self.calculate_raw_total()) / 100
+            payment_details['tax'] = tax
+        return payment_details
+    
+    class Meta:
+        ordering = ['-created_at']  # Ordering by created_at in descending order
+
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, related_name='order_items', on_delete=models.CASCADE)
@@ -48,17 +67,24 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return f"{self.product.product_name} ({self.quantity})"
+        
     
     
 class Payment(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='order_payment')
     payment_amount = models.DecimalField(max_digits=10, decimal_places=2)
     payment_date = models.DateTimeField(auto_now_add=True)
     payment_method = models.CharField(max_length=20)
     payment_status = models.CharField(max_length=20, default='Pending')  # Default to 'Pending'
+    raw_profit = models.DecimalField(max_digits=15, decimal_places=2, null=True, blank=True, default=0.00)
 
     def __str__(self):
         return f"Payment for Order #{self.order.id}"
+    
+    def save(self, *args, **kwargs):
+        # Calculate and update raw_profit before saving
+        self.raw_profit = self.order.calculate_raw_total()
+        super().save(*args, **kwargs)  # Call the save method of the superclass
     
 class PaymentGateWaySettings(models.Model):
     store_id = models.CharField(max_length=500, blank=True, null=True)
