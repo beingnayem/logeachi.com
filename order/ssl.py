@@ -14,7 +14,6 @@ def sslcommerz_payment_gateway(request, order_id, grand_total, billing_address, 
     
     settings = {'store_id': gateway_auth_details.store_id,
                 'store_pass': gateway_auth_details.store_pass, 'issandbox': True}
-    print('==================================================', settings)
     address = Address.objects.get(user=request.user, is_default_shipping=True)
     sslcommez = SSLCOMMERZ(settings)
     post_body = {}
@@ -43,6 +42,5 @@ def sslcommerz_payment_gateway(request, order_id, grand_total, billing_address, 
     post_body['value_c'] = billing_address
 
     response = sslcommez.createSession(post_body)
-    print('================================', response)
     # return JsonResponse(response)
     return 'https://sandbox.sslcommerz.com/gwprocess/v4/gw.php?Q=pay&SESSIONKEY=' + response["sessionkey"]
