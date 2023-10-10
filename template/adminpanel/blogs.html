@@ -33,7 +33,7 @@
                             {% for blog in blogs %}
                                 <tr class="team-member-list-table-container-table-row">
                                     <td class="team-member-info">{{blog.id}}</td>
-                                    <td class="team-member-info">{{blog.blog_title}}</td>
+                                    <td class="team-member-info">{{blog.blog_title|truncatewords:5}}</td>
                                     <td class="team-member-info">{{blog.blog_topic}}</td>
                                     <td class="team-member-info">{{blog.blog_writer}}</td>
                                     <td class="team-member-info">{{blog.blog_date}}</td>

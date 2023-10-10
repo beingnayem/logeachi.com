@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from home.models import Newsletter
+from products.models import Main_Category
 # Reset password token
 from django.contrib.auth.tokens  import PasswordResetTokenGenerator
 # to activate account
@@ -32,6 +33,7 @@ class EmailThread(threading.Thread):
 
     def run(self):
         self.email_message.send()
+
 
 def signup(request):
     
@@ -82,8 +84,9 @@ def signup(request):
             else:
                 messages.error(request, "This e-mail is already taken")
                 return redirect('signup')
-            
-    return render(request, 'accounts/signup.html')   
+    main_categories = Main_Category.objects.all()
+    return render(request, 'accounts/signup.html', {'main_categories': main_categories})   
+
 
 class ActivateAccountView(View):
     def get(self, request, uidb64, token):
@@ -137,7 +140,9 @@ def signin(request):
                 messages.error(request, "Account not found! Incorrect e-mail or password")
                 return redirect('signin')
 
-    return render(request, 'accounts/signin.html')
+    main_categories = Main_Category.objects.all()
+
+    return render(request, 'accounts/signin.html', {'main_categories': main_categories})
 
 
 @login_required
@@ -145,9 +150,12 @@ def signout(request):
     logout(request)
     return redirect('home')
 
+
 class RequestResetEmailView(View):
+    
     def get(self, request):
-        return render(request, 'accounts/reset-pass-request.html')
+        main_categories = Main_Category.objects.all()
+        return render(request, 'accounts/reset-pass-request.html', {'main_categories': main_categories})
 
     def post(self, request):
         email = request.POST['email']
@@ -167,11 +175,14 @@ class RequestResetEmailView(View):
             messages.info(request, "We have sent an e-mail to reset your password")
             return redirect('signin')
 
+
 class SetNewPasswordView(View):
     def get(self, request, uidb64, token):
+        main_categories = Main_Category.objects.all()
         context = {
             'uidb64': uidb64,
-            'token' : token
+            'token' : token,
+            'main_categories': main_categories
         }
          
         try:
@@ -191,10 +202,11 @@ class SetNewPasswordView(View):
         return render(request, 'accounts/reset-pass.html', context)
 
     def post(self, request, uidb64, token):
-        
+        main_categories = Main_Category.objects.all()
         context = {
             'uidb64': uidb64,
-            'token' : token
+            'token' : token,
+            'main_categories': main_categories
         }
         
         password = request.POST['password']
