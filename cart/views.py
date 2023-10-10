@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from products.models import Product
 from cart.models import Wishlist, Cart, CartItem
 from django.contrib.auth.decorators import login_required 
-from products.models import Category
+from products.models import Category, Main_Category
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 # Create your views here.
@@ -27,18 +27,19 @@ def ShowWishlist(request):
         return redirect('signin') 
     
     
+    main_categories = Main_Category.objects.all()
     categories = Category.objects.all()
     wishlist = Wishlist.objects.filter(user=request.user)
     wishlist_count = 0
     if not wishlist:
-        return render(request, 'wishlist/empty-wishlist.html', {'wishlist_count': wishlist_count})
+        return render(request, 'wishlist/empty-wishlist.html', {'wishlist_count': wishlist_count, 'main_categories': main_categories})
     
     wishlist_count = Wishlist.objects.filter(user=request.user).count()
-        
     context = {
         'wishlist': wishlist,
         'wishlist_count': wishlist_count,
         'categories': categories,
+        'main_categories': main_categories
     }
     return render(request, 'wishlist/wishlist.html', context)
 
@@ -96,13 +97,14 @@ def add_to_cart(request, id):
 
 @login_required
 def show_cart(request):
+    main_categories = Main_Category.objects.all()
     user = request.user
     try:
         cart = Cart.objects.get(user=user)
-        return render(request, 'cart/show_cart.html')
+        return render(request, 'cart/show_cart.html', {'main_categories': main_categories})
     
     except Cart.DoesNotExist:
-        return render(request, 'cart/empty-cart.html')
+        return render(request, 'cart/empty-cart.html', {'main_categories': main_categories})
 
 
 @login_required
