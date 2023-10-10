@@ -11,6 +11,7 @@ from decimal import Decimal
 from django.contrib import messages
 from accounts.models import User
 from django.urls import reverse
+from products.models import Main_Category
 
 # Send Mail
 from django.core.mail import EmailMultiAlternatives
@@ -44,11 +45,13 @@ def checkout(request):
         return redirect('home')
     
     addresses = Address.objects.all()
+    main_categories = Main_Category.objects.all()
     context = {
         'addresses': addresses,
         'tax': tax,
         'shipping_cost': shipping_cost,
         'grand_total': grand_total,
+        'main_categories': main_categories
     }
     return render(request, 'order/checkout.html', context)
 
@@ -130,6 +133,10 @@ def success_view(request):
     shipping_address = Address.objects.get(user=user, is_default_billing=True)
     order = Order.objects.get(id=order_id)
     order_item = OrderItem.objects.filter(order=order)
+      
+    payment_exists = Payment.objects.filter(order=order).exists()
+    if payment_exists:
+        return redirect('home') 
     
     total = 0
     for item in order_item:
@@ -177,6 +184,10 @@ def success_view_case_on_delivery(request, order_id, grand_total):
     shipping_address = Address.objects.get(user=user, is_default_billing=True) 
     order = Order.objects.get(id=order_id)
     order_item = OrderItem.objects.filter(order=order)
+    
+    payment_exists = Payment.objects.filter(order=order).exists()
+    if payment_exists:
+        return redirect('home') 
     
     total = 0
     for item in order_item:

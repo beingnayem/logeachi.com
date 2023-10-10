@@ -160,7 +160,7 @@
                                                         </span>
                             
                                                         <span class="product-o__name">
-                                                            <a href="{% url 'single_product_page' product.pk %}"> {{product.product_name}} </a>
+                                                            <a href="{% url 'single_product_page' product.pk %}"> {{product.product_name|truncatewords:3}} </a>
                                                         </span>
                                                         <div class="product-o__rating gl-rating-style">
                                                             {% for i in "12345" %}
@@ -251,7 +251,7 @@
 
                                         <span class="product-o__name">
 
-                                            <a href="{% url 'single_product_page' deal.product.pk %}">{{deal.product.product_name}}</a></span>
+                                            <a href="{% url 'single_product_page' deal.product.pk %}">{{deal.product.product_name|truncatewords:3}}</a></span>
                                         <div class="product-o__rating gl-rating-style">
                                             {% for i in "12345" %}
                                                 {% if i|add:"0" <= deal.product.average_rating %}
@@ -333,7 +333,7 @@
 
                                         <span class="product-o__name">
 
-                                            <a href="{% url 'single_product_page' product.pk %}">{{product.product_name}}</a>
+                                            <a href="{% url 'single_product_page' product.pk %}">{{product.product_name|truncatewords:3}}</a>
                                         </span>
                                         <div class="product-o__rating gl-rating-style">
                                             {% for i in "12345" %}
@@ -459,7 +459,7 @@
                                         <a href="{% url 'sub_category_products' product.product_category.id %}">{{product.product_category}}</a>
                                     </span>
                                     <span class="product-o__name">
-                                        <a href="{% url 'single_product_page' product.pk %}">{{product.product_name}}</a>
+                                        <a href="{% url 'single_product_page' product.pk %}">{{product.product_name|truncatewords:3}}</a>
                                     </span>
                                     <div class="product-o__rating gl-rating-style">
                                         {% for i in "12345" %}
@@ -580,7 +580,7 @@
                                                         <a href="{% url 'sub_category_products' product.product_category.id %}">{{product.product_category}} </a>
                                                     </span>
                                                     <span class="product-l__name">
-                                                        <a href="{% url 'single_product_page' product.pk %}">{{product.product_name}} </a>
+                                                        <a href="{% url 'single_product_page' product.pk %}">{{product.product_name|truncatewords:3}} </a>
                                                     </span>
                                                     <span class="product-l__price">&#2547;{{product.product_price}} </span></div>
                                             </div>
@@ -617,7 +617,7 @@
                                                         <a href="{% url 'sub_category_products' product.product_category.id %}">{{product.product_category}} </a>
                                                     </span>
                                                     <span class="product-l__name">
-                                                        <a href="{% url 'single_product_page' product.pk %}">{{product.product_name}} </a>
+                                                        <a href="{% url 'single_product_page' product.pk %}">{{product.product_name|truncatewords:3}} </a>
                                                     </span>
                                                     <span class="product-l__price">&#2547;{{product.product_price}} </span>
                                                 </div>
@@ -656,7 +656,7 @@
                                                         <a href="{% url 'sub_category_products' product.product_category.id %}">{{product.product_category}} </a>
                                                     </span>
                                                     <span class="product-l__name">
-                                                        <a href="{% url 'single_product_page' product.pk %}">{{product.product_name}} </a>
+                                                        <a href="{% url 'single_product_page' product.pk %}">{{product.product_name|truncatewords:3}} </a>
                                                     </span>
                                                     <span class="product-l__price">&#2547;{{product.product_price}} </span>
                                                 </div>

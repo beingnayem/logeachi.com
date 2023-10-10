@@ -159,7 +159,7 @@ def FAQ(request):
     main_categories = Main_Category.objects.all()
     
     context = {
-    'main_categories': main_categories,
+        'main_categories': main_categories,
     }
     return render(request, 'home/FAQ.html', context=context)
 
@@ -168,7 +168,7 @@ def contact_us(request):
     main_categories = Main_Category.objects.all()
     
     context = {
-    'main_categories': main_categories,
+        'main_categories': main_categories,
     }
     return render(request, 'home/contact_us.html', context=context)
 

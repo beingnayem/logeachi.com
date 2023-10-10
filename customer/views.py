@@ -6,14 +6,17 @@ from django.contrib.auth.decorators import login_required
 from utils.image_resizer import resize_image
 from django.core.paginator import Paginator
 from order.models import Order, OrderItem
+from products.models import Main_Category
 
 # Create your views here.
 @login_required
 def user_dashboard(request):
     orders = orders = request.user.get_order()
+    main_categories = Main_Category.objects.all()
     
     context = {
         'orders': orders,
+        'main_categories': main_categories,
     }
     return render(request, 'customer/dashboard.html', context)
 
@@ -21,7 +24,8 @@ def user_dashboard(request):
 @login_required
 def address_book(request):
     addresses = Address.objects.all()
-    return render(request, 'customer/address_book.html', {'addresses': addresses})
+    main_categories = Main_Category.objects.all()
+    return render(request, 'customer/address_book.html', {'addresses': addresses, 'main_categories': main_categories,})
 
 
 @login_required
@@ -82,8 +86,8 @@ def add_address(request):
         except Exception as e:
             messages.error(request, f'{e}')
             return redirect(request.META.get('HTTP_REFERER'))
-
-    return render(request, 'customer/add_address.html')
+    main_categories = Main_Category.objects.all()
+    return render(request, 'customer/add_address.html', {'main_categories': main_categories})
 
 
 @login_required
@@ -202,7 +206,8 @@ def default_shipping(request):
         return redirect(request.META.get('HTTP_REFERER'))
     
     addresses = Address.objects.all()
-    return render(request, 'customer/make_default_shipping_address.html', {'addresses': addresses})
+    main_categories = Main_Category.objects.all()
+    return render(request, 'customer/make_default_shipping_address.html', {'addresses': addresses, 'main_categories': main_categories})
 
 
 @login_required
@@ -224,12 +229,14 @@ def deafult_billing(request):
         return redirect(request.META.get('HTTP_REFERER'))
     
     addresses = Address.objects.all()
-    return render(request, 'customer/make_default_billing_address.html', {'addresses': addresses})
+    main_categories = Main_Category.objects.all()
+    return render(request, 'customer/make_default_billing_address.html', {'addresses': addresses, 'main_categories': main_categories})
 
 
 @login_required
 def profileView(request):
-    return render(request, 'customer/profile.html')
+    main_categories = Main_Category.objects.all()
+    return render(request, 'customer/profile.html', {'main_categories': main_categories})
 
 
 @login_required
@@ -269,8 +276,8 @@ def edit_profile(request):
             messages.error(request, f'{e}')
             
         return redirect('profile')
-
-    return render(request, 'customer/edit_profile.html')
+    main_categories = Main_Category.objects.all()
+    return render(request, 'customer/edit_profile.html', {'main_categories': main_categories})
 
 
 @login_required
@@ -279,8 +286,10 @@ def order(request):
     paginator = Paginator(orders, 5)
     page_number = request.GET.get('page')
     orders = paginator.get_page(page_number)
+    main_categories = Main_Category.objects.all()
     context = {
-        'orders': orders
+        'orders': orders,
+        'main_categories': main_categories
     }
     return render(request, 'customer/my_order.html', context) 
 
@@ -300,6 +309,7 @@ def order_manage(request, id):
     except:
         billing_address = None
         shipping_address = None  
+    main_categories = Main_Category.objects.all()
     context = {
         'order': order,
         'total': total,
@@ -307,5 +317,6 @@ def order_manage(request, id):
         'tax': tax,
         'shipping': shipping,
         'grand_total': grand_total,
+        'main_categories': main_categories
     }
     return render(request, 'customer/manage_order.html', context)
