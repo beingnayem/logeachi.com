@@ -13,19 +13,19 @@
                             <div class="col-12">
                                 <div class="slider-content slider-content--animation">
                                     
-                                    {% if slider_offer_title %}
+                                    {% if slider.slider_offer_title %}
                                         <span class="content-span-1 u-c-white">{{slider.slider_offer_title}}</span>
                                     {% endif %}
                                     
-                                    {% if slider_offer %}
+                                    {% if slider.slider_offer %}
                                         <span class="content-span-2  u-c-white">{{slider.slider_offer}}</span>
                                     {% endif %}
                                     
-                                    {% if slider_offer_description %}
+                                    {% if slider.slider_offer_description %}
                                         <span class="content-span-3  u-c-white">{{slider.slider_offer_description}}</span>
                                     {% endif %}
                                     
-                                    {% if slider_offer_starting_price %}
+                                    {% if slider.slider_offer_starting_price %}
                                         <span class="content-span-4  u-c-white">Starting At
                                         <span class="u-c-brand">${{slider.slider_offer_starting_price}}</span></span>
                                     {% endif %}

@@ -911,7 +911,6 @@ def delete_category(request):
     return redirect(request.META.get('HTTP_REFERER'))
 
 
-
 @login_required
 def delete_sub_category(request):
     if not request.user.is_admin:
@@ -935,7 +934,6 @@ def delete_sub_category(request):
     return redirect(request.META.get('HTTP_REFERER'))
 
 
-
 @login_required
 def add_slider(request):
     if not request.user.is_admin:
@@ -952,8 +950,10 @@ def add_slider(request):
             category_id = request.POST.get('category_id')
             
             category = Category.objects.get(id=category_id)
+            if slider_banner:
+                resized_slider_banner = resize_image(slider_banner, 1920, 900)
             
-            slider = Home_Slider.objects.create(slider_banner=slider_banner, slider_product_category=category)    
+            slider = Home_Slider.objects.create(slider_banner=resized_slider_banner, slider_product_category=category)    
             
             if slider_title:
                 slider.slider_offer_title = slider_title
@@ -1000,7 +1000,6 @@ def delete_slider(request):
     return redirect(request.META.get('HTTP_REFERER'))
 
 
-
 @login_required
 def edit_slider(request):
     if not request.user.is_admin:
@@ -1027,7 +1026,8 @@ def edit_slider(request):
             if slider:
                 # Update slider attributes, including 'slider_banner' if a new file is provided
                 if slider_banner:
-                    slider.slider_banner = slider_banner
+                    resized_slider_banner = resize_image(slider_banner, 1920, 900)
+                    slider.slider_banner = resized_slider_banner
                 if category_id:
                     category = Category.objects.get(id=category_id)
                     slider.slider_product_category = category
@@ -1093,8 +1093,11 @@ def add_banner(request):
             
             # get the category object from the category model
             banner_product_category = Category.objects.get(id=category_id)
+            
+            if banner_image:
+                resized_banner_image = resize_image(banner_image, 800, 800)
 
-            banner = Banner.objects.create(banner_image=banner_image, banner_product_category=banner_product_category)   
+            banner = Banner.objects.create(banner_image=resized_banner_image, banner_product_category=banner_product_category)   
             
             if banner_title:
                 banner.banner_title=banner_title
@@ -1163,7 +1166,8 @@ def edit_banner(request):
             if banner:
                 # Update slider attributes, including 'banner image' if a new file is provided
                 if banner_image:
-                    banner.banner_image = banner_image
+                    resized_banner_image = resize_image(banner_image, 800, 800)
+                    banner.banner_image = resized_banner_image
                 if banner_title:
                     banner.banner_title=banner_title
                 if banner_offer:
@@ -1235,7 +1239,10 @@ def post_blog(request):
             blog_writer = request.POST.get('blog_writer')
             blog_text = request.POST.get('blog_text')
             
-            Blog.objects.create(blog_image=blog_image, blog_title=blog_title, blog_topic=blog_topic, blog_writer=blog_writer, blog_text=blog_text)
+            if blog_image:
+                resized_blog_image = resize_image(blog_image, 1366, 768)
+            
+            Blog.objects.create(blog_image=resized_blog_image, blog_title=blog_title, blog_topic=blog_topic, blog_writer=blog_writer, blog_text=blog_text)
 
             messages.success(request, 'Blog posted successfully')  # Use messages.success for success messages
             return redirect('blogs')
@@ -1271,7 +1278,8 @@ def edit_blog(request):
             blog = Blog.objects.get(id=blog_id)
 
             if blog_image:
-                blog.blog_image = blog_image
+                resized_blog_image = resize_image(blog_image, 1366, 768)
+                blog.blog_image = resized_blog_image
             blog.blog_title = blog_title
             blog.blog_topic = blog_topic
             blog.blog_writer = blog_writer
@@ -1336,8 +1344,11 @@ def create_event(request):
             
             # get the category object from the category model
             event_product_category = Subcategory.objects.get(id=sub_category_id)
+            
+            if event_banner:
+                resized_event_banner = resize_image(event_banner, 1920, 750)
 
-            event = Event.objects.create(event_banner=event_banner, event_product_category=event_product_category, event_deadline=event_deadline)      
+            event = Event.objects.create(event_banner=resized_event_banner, event_product_category=event_product_category, event_deadline=event_deadline)      
 
             if event_title:
                 event.event_title = event_title
@@ -1416,7 +1427,8 @@ def edit_event(request):
             
             if event:
                 if event_banner:
-                    event.event_banner = event_banner
+                    resized_event_banner = resize_image(event_banner, 1920, 750)
+                    event.event_banner = resized_event_banner
                 if event_title:
                     event.event_title = event_title
                 if event_offer_title:
