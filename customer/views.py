@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, reverse
 from customer.models import Address
 from accounts.models import User
 from django.contrib import messages
@@ -320,3 +320,25 @@ def order_manage(request, id):
         'main_categories': main_categories
     }
     return render(request, 'customer/manage_order.html', context)
+
+def track_order(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        order_id = request.POST.get('order_id')
+        email_exists = User.objects.filter(email=email).exists
+        if not email_exists:
+            messages.error(request, 'Please submit your vaild email address')
+            return redirect(request.META.get('HTTP_REFERER'))
+        order_exists = Order.objects.filter(id=order_id).exists
+        if not order_exists:
+            messages.error(request, 'Please submit your vaild order id')
+            return redirect(request.META.get('HTTP_REFERER'))
+            
+        order = Order.objects.get(id=order_id)
+        if order.user.email != email:
+            messages.error(request, 'Please submit your valid email and order id')
+            return redirect(request.META.get('HTTP_REFERER'))
+        target_url = reverse('order_manage', args=(order_id,))
+        return redirect(target_url)
+        
+    return render(request, 'customer/track_order.html')

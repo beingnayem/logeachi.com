@@ -109,7 +109,7 @@ def place_order(request):
         tax = (5 * total) / 100
         shipping_cost = 80
         grand_total = total + tax + shipping_cost
-        current_domain = request.META['HTTP_HOST']
+        current_domain = request.META['HTTP_HOST'] 
         
         if case_method == 'sslcommerz':
             return redirect(sslcommerz_payment_gateway(request, order.id, grand_total, billing_address, current_domain))

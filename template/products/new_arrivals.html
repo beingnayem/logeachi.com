@@ -24,10 +24,10 @@
                                                 <img class="aspect__img" src=" {{product.product_image.url}} " alt=""></a>
                                             <div class="product-m__quick-look">
 
-                                                <a class="fas fa-search" data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick Look"></a></div>
+                                                <a href="{% url 'single_product_page' product.pk %}" class="fas fa-search" data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick Look"></a></div>
                                             <div class="product-m__add-cart">
 
-                                                <a class="btn--e-brand" data-modal="modal" data-modal-id="#add-to-cart">Add to Cart</a></div>
+                                                <a href="{% url 'add_to_cart' product.pk %}" class="btn--e-brand" data-modal="modal" data-modal-id="#add-to-cart">Add to Cart</a></div>
                                         </div>
                                         <div class="product-m__content">
                                             <div class="product-m__category">
@@ -46,7 +46,7 @@
                                                     <span> {{product.product_description}} </span></div>
                                                 <div class="product-m__wishlist">
 
-                                                    <a class="far fa-heart" href="#" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"></a></div>
+                                                    <a class="far fa-heart" href="{% url 'add_wishlist_item' product.pk %}" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"></a></div>
                                             </div>
                                         </div>
                                     </div>
