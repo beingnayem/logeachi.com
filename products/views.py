@@ -90,12 +90,14 @@ def single_product_page(request, pk):
     avarage_rating = product.average_rating()
     reviews = Product_Reviews_and_Rating.objects.filter(product=product)
     review_count = reviews.count()
+    main_categories = Main_Category.objects.all()
     
     context = {
         'product': product,
         'reviews': reviews,
         'review_count': review_count,
         'avarage_rating': avarage_rating,
+        'main_categories': main_categories
     }
     return render(request, 'products/single_product_page.html', context)
 
