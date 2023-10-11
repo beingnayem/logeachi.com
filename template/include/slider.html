@@ -27,7 +27,7 @@
                                     
                                     {% if slider.slider_offer_starting_price %}
                                         <span class="content-span-4  u-c-white">Starting At
-                                        <span class="u-c-brand">${{slider.slider_offer_starting_price}}</span></span>
+                                        <span class="u-c-brand">&#2547; {{slider.slider_offer_starting_price}}</span></span>
                                     {% endif %}
                                     
                                     <a class="shop-now-link btn--e-brand" href="{% url 'category_products' slider.slider_product_category.id %}">SHOP NOW</a>
