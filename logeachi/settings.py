@@ -49,7 +49,9 @@ AUTH_USER_MODEL = 'accounts.User'
 LOGIN_URL = 'signin'
 
 MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware', 
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -136,8 +138,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Adjust the path as needed
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
-# django_heroku.settings(locals())
 
+# media files
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
