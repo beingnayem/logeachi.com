@@ -22,18 +22,24 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG')
 
+# Allowed Hosts
 ALLOWED_HOSTS = ['*']
 
 
 # Application definition
-
 INSTALLED_APPS = [
+    # Default Django installation
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    # Third Party Apps
+    'storages',
+    
+    # Custome App
     'home',
     'products',
     'accounts',
@@ -44,9 +50,11 @@ INSTALLED_APPS = [
     'order',
 ]
 
+
 ROOT_URLCONF = 'logeachi.urls'
 AUTH_USER_MODEL = 'accounts.User'
 LOGIN_URL = 'signin'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware', 
@@ -59,8 +67,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
-ROOT_URLCONF = 'logeachi.urls'
 
 TEMPLATES = [
     {
@@ -83,25 +89,22 @@ WSGI_APPLICATION = 'logeachi.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ.get('DATABASE_NAME'),
-        'USER': os.environ.get('USER'),
-        'PASSWORD': os.environ.get('PASSWORD'),
-        'HOST': os.environ.get('HOST'),
-        'PORT': '3306',
+        'ENGINE': os.environ.get('MySQL_DATABASE_ENGINE'),
+        'NAME': os.environ.get('MySQL_DATABASE_NAME'),
+        'USER': os.environ.get('MySQL_DATABASE_USER'),
+        'PASSWORD': os.environ.get('MySQL_DATABASE_PASSWORD'),
+        'HOST': os.environ.get('MySQL_DATABASE_HOST'),
+        'PORT': os.environ.get('MySQL_DATABASE_PORT'),
         'OPTIONS': {
             'sql_mode': 'STRICT_TRANS_TABLES',
         },
     }
 }
 
-
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -117,7 +120,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
@@ -125,38 +127,41 @@ LANGUAGE_CODE = 'en-us'
 USE_I18N = True
 USE_TZ = True
 TIME_ZONE = 'Asia/Dhaka'
-# TIME_ZONE = 'UTC'
 
-
-
+# Static files (CSS, JavaScript, Images)
 STATIC_URL = 'static/'
-
 # Specify the absolute path to the directory where collectstatic will collect files.
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Adjust the path as needed
-
 # Additional directories where Django will look for static files
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
-# media files
+# Media files like user uploaded files
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+# Static And Media Files Config For Production
+# https://logeachi-storage.nyc3.digitaloceanspaces.com
+from .cdn.conf import * # Noqa
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
 # naim vai id : mdnaim01303202218@gmail.com pass : yajdslpwwlehfgfq
 # nayem vai id: nayemsarwar12345@gmail.com pass : sylgphsbhsxdxwso
-# bishad vi id: b.bishadsarwar@gmail.com pass: awilfasfrjeduisd
-# antarvai id: antarnathbd@gmailcom pass: kzigdvatschmqyje
+# bishad vai id: b.bishadsarwar@gmail.com pass: awilfasfrjeduisd
+# antar vai id: antarnathbd@gmailcom pass: kzigdvatschmqyje
 
+# Email Configuration
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'halimadelwar1958@gmail.com'
-EMAIL_HOST_PASSWORD = 'tnachavutfneivst'
+EMAIL_HOST_USER =  "halimadelwar1958@gmail.com"
+EMAIL_HOST_PASSWORD = "tnachavutfneivst"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-
