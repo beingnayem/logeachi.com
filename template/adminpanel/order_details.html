@@ -95,16 +95,17 @@
             <div class="order-details-wrap">
                 <div class="order-details">
                     <div class="order-info-section">
-                        <div class="order-info-1">
+                      <div class="order-info-1">
                         <span class="order-info"><strong >User:</strong> {{order.user.first_name}} {{order.user.last_name}}</span>
                         <span class="order-info"><strong >User Email:</strong> {{order.user.email}}</span>
+                        <span class="order-info"><strong >Order ID:</strong> {{order.id}}</span>
                         <span class="order-info"><strong >Order Placed:</strong> {{order.created_at}}</span>
                         <span class="order-info"><strong >Payment Status:</strong> {{order.payment_details.payment_status}}</span>
                         <span class="order-info"><strong >Payment Method:</strong> {{order.payment_details.payment_method}}</span>
                         <span class="order-info"><strong >Tax:</strong> &#2547; {{order.payment_details.tax}}</span>
                         <span class="order-info"><strong >Shipping Charge:</strong> &#2547; 80</span>
                         <span class="order-info"><strong >Total Payment Amount:</strong> &#2547; {{order.payment_details.payment_amount}}</span>
-                        </div>
+                      </div>
                         
                     </div>
                     <div class="order-info-section">

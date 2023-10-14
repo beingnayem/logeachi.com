@@ -199,7 +199,7 @@ def success_view_case_on_delivery(request, order_id, grand_total):
     payment = Payment.objects.create(
         order = order,
         payment_amount = grand_total,
-        payment_method = 'CASE ON DELIVERY',
+        payment_method = 'CASH ON DELIVERY',
         payment_status = 'Unpaid'
     ) 
     
