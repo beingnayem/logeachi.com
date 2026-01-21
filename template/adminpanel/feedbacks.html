@@ -1,0 +1,74 @@
+{% extends 'adminpanel/admin_panel.html' %}
+{% load static %}
+
+{% block message_content %}
+    {% include 'include/message.html' %}
+{% endblock message_content %}
+
+{% block admin-panel-main-content %}
+    <div class="adminpanelhome-content">
+        <div class="team-member-list-container">
+            
+                <h1>Feedback List</h1>
+                
+                {% if feedbacks %}
+                <div class="team-member-list-table-container">
+                    <table class="team-member-list-table-container-table">
+                        <thead>
+                            <tr class="team-member-list-table-container-table-row">
+                                <th class="team-member-info-head">ID</th>
+                                <th class="team-member-info-head">Feedback By</th>
+                                <th class="team-member-info-head">Feedback Date</th>
+                                <th class="team-member-info-head" style="display: flex; justify-content:center;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            {% for feedback in feedbacks %}
+                                <tr class="team-member-list-table-container-table-row">
+                                    <td class="team-member-info">{{feedback.id}}</td>
+                                    <td class="team-member-info">{{feedback.user.first_name}} {{feedback.user.last_name}}</td>
+                                    <td class="team-member-info">{{feedback.feedback_date}}</td>
+                                    <td class="team-member-action-buttons" style="justify-content: center;">
+                                        {% if feedback.is_display %}
+                                            <form action="{% url 'not_display_feedback' %}" method="GET">
+                                                {% csrf_token %}   
+                                                <input type="hidden" name="feedback_id" value="{{ feedback.id }}">
+                                                <button type="submit" class="team-member-remove-button"  title="Decline"><i class="fas fa-times"></i></button>
+                                            </form>
+                                            {% else %}
+                                                <form action="{% url 'display_feedback' %}" method="GET">
+                                                    {% csrf_token %}   
+                                                    <input type="hidden" name="feedback_id" value="{{ feedback.id }}">
+                                                    <button type="submit" class="team-member-remove-button"  title="Approve"><i class="fas fa-check-circle"></i></button>
+                                                </form>
+
+                                        {% endif %}
+                                        
+                                        <form action="{% url 'feedback_details' %}" method="GET">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="feedback_id" value="{{ feedback.id }}">
+                                            <button class="team-member-remove-button"  title="View"><i class="fas fa-eye"></i></button>
+                                        </form>
+                                        <form action="{% url 'delete_feedback' %}" method="GET">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="feedback_id" value="{{ feedback.id }}">
+                                            <button class="team-member-remove-button"  title="Delete"><i class="fas fa-trash"></i></button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                                
+                            
+                        </tbody>
+                    </table>
+                </div> 
+                    {% else %}
+                        <h2 style="text-align: center; color:rgb(101, 168, 33) ">There is no Feedbacks yet.</h2>
+                {% endif %}
+               
+            
+            
+        </div>
+    </div>
+{% endblock admin-panel-main-content %}

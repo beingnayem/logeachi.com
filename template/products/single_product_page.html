@@ -1,0 +1,409 @@
+{% extends "base.html" %}
+{% load static %}
+{% block message_content %}
+    {% include 'include/message.html' %}
+
+{% endblock message_content %}
+{% block main_app %}
+{% include "include/header.html" %}
+
+<!--====== App Content ======-->
+<div class="app-content">
+
+    <!--====== Section 1 ======-->
+    <div class="u-s-p-t-90">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5">
+
+                    <!--====== Product Breadcrumb ======-->
+                    <div class="pd-breadcrumb u-s-m-b-30">
+                        <ul class="pd-breadcrumb__list">
+                            <li class="has-separator">
+
+                                <a href="index.hml">Home</a></li>
+                            <li class="has-separator">
+
+                                <a href="{% url 'main_category_products' product.product_category.category.main_category.pk %}"> {{product.product_category.category.main_category.name}} </a></li>
+                            <li class="has-separator">
+
+                                <a href="{% url 'category_products' product.product_category.category.pk %}">{{product.product_category.category.name}}</a></li>
+                            <li class="has-separator">
+
+                                <a href="{% url 'sub_category_products' product.product_category.pk %}">{{product.product_category.name}}</a></li>
+                            <li class="is-marked">
+
+                                <a> {{product.product_name}} </a></li>
+                        </ul>
+                    </div>
+                    <!--====== End - Product Breadcrumb ======-->
+
+
+                    <!--====== Product Detail Zoom ======-->
+                    <div class="pd u-s-m-b-30">
+                        <div class="slider-fouc pd-wrap">
+                            <div id="pd-o-initiate">
+                                <div class="pd-o-img-wrap" data-src="{{product.product_image.url}}">
+
+                                    <img class="u-img-fluid" src="{{product.product_image.url}}" data-zoom-image="{{product.product_image.url}}" alt=""></div>
+                                <div class="pd-o-img-wrap" data-src="{{product.product_image.url}}">
+
+                                    <img class="u-img-fluid" src="{{product.product_image.url}}" data-zoom-image="{{product.product_image.url}}" alt=""></div>
+                                <div class="pd-o-img-wrap" data-src="{{product.product_image.url}}">
+
+                                    <img class="u-img-fluid" src="{{product.product_image.url}}" data-zoom-image="{{product.product_image.url}}" alt=""></div>
+                                <div class="pd-o-img-wrap" data-src="{{product.product_image.url}}">
+
+                                    <img class="u-img-fluid" src="{{product.product_image.url}}" data-zoom-image="{{product.product_image.url}}" alt=""></div>
+                                <div class="pd-o-img-wrap" data-src="{{product.product_image.url}}">
+
+                                    <img class="u-img-fluid" src="{{product.product_image.url}}" data-zoom-image="{{product.product_image.url}}" alt=""></div>
+                            </div>
+
+                            <span class="pd-text">Click for larger zoom</span>
+                        </div>
+                        <div class="u-s-m-t-15">
+                            <div class="slider-fouc">
+                                <div id="pd-o-thumbnail">
+                                    <div>
+
+                                        <img class="u-img-fluid" src="{{product.product_image.url}}" alt=""></div>
+                                    <div>
+
+                                        <img class="u-img-fluid" src="{{product.product_image.url}}" alt=""></div>
+                                    <div>
+
+                                        <img class="u-img-fluid" src="{{product.product_image.url}}" alt=""></div>
+                                    <div>
+
+                                        <img class="u-img-fluid" src="{{product.product_image.url}}" alt=""></div>
+                                    <div>
+
+                                        <img class="u-img-fluid" src="{{product.product_image.url}}"alt=""></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--====== End - Product Detail Zoom ======-->
+                </div>
+                <div class="col-lg-7">
+
+                    <!--====== Product Right Side Details ======-->
+                    <div class="pd-detail">
+                        <div>
+
+                            <span class="pd-detail__name"> {{product.product_name}} </span></div>
+                        <div>
+                            <div class="pd-detail__inline">
+
+                                <span class="pd-detail__price">&#2547; {{product.product_price}} </span>
+                            </div>
+                        </div>
+                        <div class="u-s-m-b-15">
+                            <div class="pd-detail__rating gl-rating-style">
+                                {% for i in "12345" %}
+                                    {% if i|add:"0" <= avarage_rating %}
+                                        <i class="fas fa-star"></i> <!-- Solid (filled) star -->
+                                        {% else %}
+                                            <i class="far fa-star"></i> <!-- Outline (unfilled) star -->
+                                    {% endif %}
+                                {% endfor %}
+                                <span class="pd-detail__review u-s-m-l-4">
+                                <a data-click-scroll="#view-review">{{review_count}} Reviews</a></span></div>
+                        </div>
+                        <div class="u-s-m-b-15">
+                            <div class="pd-detail__inline">
+                                {% if product.product_quantity %}
+                                <span class="pd-detail__stock"> {{product.product_quantity}} in stock</span>
+                                {% else %}
+                                <span class="pd-detail__stock" > out of stock</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="u-s-m-b-15">
+
+                            <span class="pd-detail__preview-desc"> {{product.product_description}} </span></div>
+                        <div class="u-s-m-b-15">
+                            <div class="pd-detail__inline">
+
+                                <span class="pd-detail__click-wrap"><i class="far fa-heart u-s-m-r-6"></i>
+
+                                    <a href="{% url "add_wishlist_item" product.pk %}">Add to Wishlist</a>
+
+                                    <span class="pd-detail__click-count">(222)</span></span></div>
+                        </div>
+                        <div class="u-s-m-b-15">
+                            <div class="pd-detail__inline">
+
+                                <span class="pd-detail__click-wrap"><i class="far fa-envelope u-s-m-r-6"></i>
+
+                                    <a href="signin.html">Email me When the price drops</a>
+
+                                    <span class="pd-detail__click-count">(20)</span></span></div>
+                        </div>
+                        <div class="u-s-m-b-15">
+                            <ul class="pd-social-list">
+                                <li>
+
+                                    <a class="s-fb--color-hover" href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                <li>
+
+                                    <a class="s-tw--color-hover" href="#"><i class="fab fa-twitter"></i></a></li>
+                                <li>
+
+                                    <a class="s-insta--color-hover" href="#"><i class="fab fa-instagram"></i></a></li>
+                                <li>
+
+                                    <a class="s-wa--color-hover" href="#"><i class="fab fa-whatsapp"></i></a></li>
+                                <li>
+
+                                    <a class="s-gplus--color-hover" href="#"><i class="fab fa-google-plus-g"></i></a></li>
+                            </ul>
+                        </div>
+                        <div class="u-s-m-b-15">
+                            <form class="pd-detail__form">
+                                <div class="pd-detail-inline-2">
+                                    <div class="u-s-m-b-15">
+                                        {% if product.product_quantity %}
+                                        <a href="{% url 'add_to_cart' product.pk %}" class="btn btn--e-brand-b-2" type="submit" >Add To Cart</a>
+                                        {% endif %}
+                                    </div>  
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!--====== End - Product Right Side Details ======-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--====== Product Detail Tab ======-->
+    <div class="u-s-p-y-90">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="pd-tab">
+                        <div class="u-s-m-b-30">
+                            <ul class="nav pd-tab__list">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-toggle="tab" href="#pd-desc">DESCRIPTION</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="view-review" data-toggle="tab" href="#pd-rev">REVIEWS
+                                    <span>{{review_count}} </span></a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tab-content">
+
+                            <!--====== Tab 1 ======-->
+                            <div class="tab-pane fade show active" id="pd-desc">
+                                <div class="pd-tab__desc">
+                                    <div class="u-s-m-b-15">
+                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                                    </div>
+                                    <div class="u-s-m-b-30">
+                                        <ul>
+                                            <li><i class="fas fa-check u-s-m-r-8"></i>
+
+                                                <span>Buyer Protection.</span></li>
+                                            <li><i class="fas fa-check u-s-m-r-8"></i>
+
+                                                <span>Full Refund if you don't receive your order.</span></li>
+                                            <li><i class="fas fa-check u-s-m-r-8"></i>
+
+                                                <span>Returns accepted if product not as described.</span></li>
+                                        </ul>
+                                    </div>
+                                    <div class="u-s-m-b-15">
+                                        <h4>PRODUCT INFORMATION</h4>
+                                    </div>
+                                    <div class="u-s-m-b-15">
+                                        <div class="pd-table gl-scroll">
+                                            <table>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Main Material</td>
+                                                        <td>Cotton</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Color</td>
+                                                        <td>Green, Blue, Red</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Sleeves</td>
+                                                        <td>Long Sleeve</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Top Fit</td>
+                                                        <td>Regular</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Print</td>
+                                                        <td>Not Printed</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Neck</td>
+                                                        <td>Round Neck</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Pieces Count</td>
+                                                        <td>1 Piece</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Occasion</td>
+                                                        <td>Casual</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Shipping Weight (kg)</td>
+                                                        <td>0.5</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--====== End - Tab 1 ======-->
+
+
+                            <!--====== Tab 2 ======-->
+                            <div class="tab-pane" id="pd-tag">
+                                <div class="pd-tab__tag">
+                                    <h2 class="u-s-m-b-15">ASK QUESTIONS</h2>
+                                    <div class="u-s-m-b-15">
+                                        <form>
+
+                                            <input class="input-text input-text--primary-style" type="text">
+
+                                            <button class="btn btn--e-brand-b-2" type="submit">ASK</button></form>
+                                    </div>
+
+                                    <span class="gl-text">Ask question to know about the product.</span>
+                                </div>
+                            </div>
+                            <!--====== End - Tab 2 ======-->
+
+
+                            <!--====== Tab 3 ======-->
+                            <div class="tab-pane" id="pd-rev">
+                                <div class="pd-tab__rev">
+                                    <div class="u-s-m-b-30">
+                                        <div class="pd-tab__rev-score">
+                                            <div class="u-s-m-b-8">
+                                                <h2>{{review_count}} Reviews - {{avarage_rating}} (Overall)</h2>
+                                            </div>
+                                            <div class="gl-rating-style-2 u-s-m-b-8">
+                                                {% for i in "12345" %}
+                                                    {% if i|add:"0" <= avarage_rating %}
+                                                        <i class="fas fa-star"></i> <!-- Solid (filled) star -->
+                                                        {% else %}
+                                                            <i class="far fa-star"></i> <!-- Outline (unfilled) star -->
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </div>
+                                            <div class="u-s-m-b-8">
+                                                <h4>We want to hear from you!</h4>
+                                            </div>
+
+                                            <span class="gl-text">Tell us what you think about this item</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="u-s-m-b-30">
+                                        <form class="pd-tab__rev-f1">
+                                            <div class="rev-f1__group">
+                                                <div class="u-s-m-b-15">
+                                                    <h2>{{review_count}} Review(s) for {{product.product_name}}</h2>
+                                                </div>
+                                                <div class="u-s-m-b-15">
+
+                                                    <label for="sort-review"></label><select class="select-box select-box--primary-style" id="sort-review">
+                                                        <option selected>Sort by: Best Rating</option>
+                                                        <option>Sort by: Worst Rating</option>
+                                                    </select></div>
+                                            </div>
+                                            <div class="rev-f1__review">
+                                                
+                                                {% for review in reviews %}
+                                                    <div class="review-o u-s-m-b-15">
+                                                        <div class="review-o__info u-s-m-b-8">
+                                                            <span class="review-o__name">{{review.user.first_name}} {{review.user.last_name}}</span>
+                                                            <span class="review-o__date">{{review.review_date}}</span>
+                                                        </div>
+                                                        <div class="review-o__rating gl-rating-style u-s-m-b-8">
+                                                            {% for i in "12345" %}
+                                                                {% if i|add:"0" <= review.rating %}
+                                                                    <i class="fas fa-star"></i> <!-- Solid (filled) star -->
+                                                                {% else %}
+                                                                    <i class="far fa-star"></i> <!-- Outline (unfilled) star -->
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                            <span>({{ review.rating }})</span>
+                                                        </div>
+                                                        <p class="review-o__text">{{review.review}}</p>
+                                                    </div>
+                                                {% endfor %}
+                                                    
+                                            </div>
+                                        </form>
+                                    </div>
+                                    
+                                    <div class="u-s-m-b-30">
+                                        <form class="pd-tab__rev-f2" action="{% url 'add_review_rating' %}" method="POST">
+                                            {% csrf_token %}
+                                            <h2 class="u-s-m-b-15">Add a Review</h2>
+                                            <input type="hidden" name="product_id" value="{{product.id}}">
+                                            <div class="rev-f2__group">
+                                                <div class="u-s-m-b-15">
+                                                    <label class="gl-label" for="reviewer-text">YOUR REVIEW *</label>
+                                                    <textarea class="text-area text-area--primary-style" id="reviewer-text" name="review" required></textarea>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="rev-f2__group">
+                                                <label class="gl-label">RATE THE PRODUCT *</label>
+                                                <div class="singel-star-rating">
+                                                    <input type="radio" name="rating" id="star5" value="5">
+                                                    <label for="star5"></label>
+                                                    <input type="radio" name="rating" id="star4" value="4">
+                                                    <label for="star4"></label>
+                                                    <input type="radio" name="rating" id="star3" value="3">
+                                                    <label for="star3"></label>
+                                                    <input type="radio" name="rating" id="star2" value="2">
+                                                    <label for="star2"></label>
+                                                    <input type="radio" name="rating" id="star1" value="1">
+                                                    <label for="star1"></label>
+                                                </div>
+                                            </div>
+                                            
+                                            <div>
+                                                <button class="btn btn--e-brand-shadow" type="submit">SUBMIT</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--====== End - Tab 3 ======-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--====== End - App Content ======-->
+{% include "include/footer.html" %}
+{% endblock main_app %}
+
+
+
+
+
+
+
+
+
+
+

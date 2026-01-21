@@ -1,0 +1,74 @@
+{% extends 'adminpanel/admin_panel.html' %}
+{% load static %}
+
+{% block message_content %}
+    {% include 'include/message.html' %}
+{% endblock message_content %}
+
+{% block admin-panel-main-content %}
+    <div class="adminpanelhome-content">
+        <div class="team-member-list-container">
+            {% if orders %}
+                <h1>Order List</h1>
+                <div class="admin-request-approve-container">
+                <!-- <a href="{% url 'admin_request_list' %}">
+                        <button class="admin-request-approve-button">Approve Admin Request</button>
+                </a>  -->
+                </div>
+                <div class="team-member-list-table-container">
+                    <table class="team-member-list-table-container-table">
+                        <thead>
+                            <tr class="team-member-list-table-container-table-row">
+                                <th class="team-member-info-head">OrderID</th>
+                                <th class="team-member-info-head">Customer Name</th>
+                                <th class="team-member-info-head">Order Placed</th>
+                                <th class="team-member-info-head">Total</th>
+                                <th class="team-member-info-head">Order Status</th>
+                                <th class="team-member-info-head">Payment Status</th>
+                                <th class="team-member-info-head">Payment Method</th>
+                                <th class="team-member-info-head" style="display: flex; justify-content:center;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            {% for order in orders %}
+                                <tr class="team-member-list-table-container-table-row">
+                                    <td class="team-member-info">{{order.id}}</td>
+                                    <td class="team-member-info">{{order.shipping_address.first_name}}</td>
+                                    <td class="team-member-info">{{order.created_at}}</td>
+                                    <td class="team-member-info">{{order.calculate_total}}</td>
+                                    <td class="team-member-info">{{order.order_status}}</td>
+                                    <td class="team-member-info">{{ order.payment_details.payment_status }}</td>
+                                    <td class="team-member-info">{{ order.payment_details.payment_method }}</td>
+                                    
+                                    <td class="team-member-action-buttons">
+                                        <form action="{% url 'order_details' %}" method="GET">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="id" value="{{ order.id }}">
+                                            <button class="team-member-remove-button"  title="View"><i class="fas fa-eye"></i></button>
+                                        </form>
+                                        
+                                        {% if order.order_status == 'delivered' %}
+                                            <button style="background-color: silver;" disabled class="team-member-remove-button" title="Disabled"><i class="fas fa-exchange-alt"></i></i></button>
+                                            {% else %}
+                                            <form action="{% url 'update_order' %}" method="GET">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="id" value="{{ order.id }}">
+                                                <button class="team-member-remove-button" title="Update Status"><i class="fas fa-exchange-alt"></i></i></button>
+                                            </form>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div> 
+                
+                {% else %}
+                    <h2 style="text-align: center; color:rgb(101, 168, 33) ">There is no orders yet.</h2>
+            {% endif %}
+            
+        </div>
+    </div>
+
+{% endblock admin-panel-main-content %}

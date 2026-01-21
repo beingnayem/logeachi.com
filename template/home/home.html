@@ -1,0 +1,900 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block message_content %}
+    {% include 'include/message.html' %}
+{% endblock message_content %}
+
+
+{% block main_app %}
+    <style>
+        @keyframes flash {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        .flashing-icon {
+            animation: flash 1s infinite;
+            color: rgb(231, 231, 4);
+        }
+    </style>
+
+    {% include "include/header.html" %}
+    
+        <!--====== App Content ======-->
+        <div class="app-content">
+
+            <!--====== Primary Slider ======-->
+            {% include "include/slider.html" %}
+            <!--====== End - Primary Slider ======-->
+            
+            <!--====== Section 1 ======-->
+            
+            {% if shop_by_deal %}
+                <div class="u-s-p-y-60">
+
+                    <!--====== Section Intro ======-->
+                    <div class="section__intro u-s-m-b-46">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="section__text-wrap">
+                                        <h1 class="section__heading u-c-secondary u-s-m-b-12">SHOP BY DEALS</h1>
+
+                                        <span class="section__span u-c-silver">BROWSE FAVOURITE DEALS</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--====== End - Section Intro ======-->
+
+
+                    <!--====== Section Content ======-->
+                    <div class="section__content">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-5 col-md-5 u-s-m-b-30">
+                                    <a class="collection" href="{% url 'category_products' shop_by_deal.0.category.pk %}">
+                                        <div class="aspect aspect--bg-grey aspect--square">
+                                            <img class="aspect__img collection__img" src="{{shop_by_deal.0.delas_image.url}}" alt="">
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-lg-7 col-md-7 u-s-m-b-30">
+                                    <a class="collection" href="{% url 'category_products' shop_by_deal.1.category.pk %}">
+                                        <div class="aspect aspect--bg-grey aspect--1286-890">
+                                            <img class="aspect__img collection__img" src="{{shop_by_deal.1.delas_image.url}}" alt="">
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-lg-7 col-md-7 u-s-m-b-30">
+                                    <a class="collection" href="{% url 'category_products' shop_by_deal.2.category.pk %}">
+                                        <div class="aspect aspect--bg-grey aspect--1286-890">
+                                            <img class="aspect__img collection__img" src="{{shop_by_deal.2.delas_image.url}}" alt="">
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-lg-5 col-md-5 u-s-m-b-30">
+                                    <a class="collection" href="{% url 'category_products' shop_by_deal.3.category.pk %}">
+                                        <div class="aspect aspect--bg-grey aspect--square">
+                                            <img class="aspect__img collection__img" src="{{shop_by_deal.3.delas_image.url}}" alt="">
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--====== Section Content ======-->
+                </div>
+            {% endif %}
+
+            <!--====== End - Section 1 ======-->
+
+
+            <!--====== Section 2 ======-->
+            <div class="u-s-p-b-60">
+
+                <!--====== Section Intro ======-->
+                <div class="section__intro u-s-m-b-16">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="section__text-wrap">
+                                    <h1 class="section__heading u-c-secondary u-s-m-b-12">TOP TRENDING</h1>
+
+                                    <span class="section__span u-c-silver">CHOOSE CATEGORY</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--====== End - Section Intro ======-->
+
+
+                <!--====== Section Content ======-->
+                <div class="section__content">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="filter-category-container">
+                                    <div class="filter__category-wrapper">
+                                        <button class="btn filter__btn filter__btn--style-1 js-checked" type="button" data-category-id="all">ALL</button>
+                                    </div>
+                                    
+                                    {% for top_rated_category in top_rated_categories %}
+                                        <div class="filter__category-wrapper">
+                                            <button class="btn filter__btn filter__btn--style-1" type="button" data-category-id="{{ top_rated_category.category.id }}">{{ top_rated_category.category.name }}</button>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                <div class="filter__grid-wrapper u-s-m-t-30">
+                                    <div class="row">
+                                        {% for top_rated_category in top_rated_categories %}
+                                            {% for product in top_rated_category.top_rated_products %}
+                                                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 u-s-m-b-30 filter__item" data-category-id="{{ top_rated_category.category.id }}">
+                                                    <div class="product-o product-o--hover-on product-o--radius">
+                                                        <div class="product-o__wrap">
+                                                            <a class="aspect aspect--bg-grey aspect--square u-d-block" href="{% url 'single_product_page' product.pk %}">
+                                                                <img class="aspect__img" src="{{product.product_image.url}}" alt="">
+                                                            </a>
+                                                            <div class="product-o__action-wrap">
+                                                                <ul class="product-o__action-list">
+                                                                    <li>
+                                                                        <a href="{% url 'single_product_page' product.pk %}" data-modal="modal" data-modal-id="#" data-tooltip="tooltip" data-placement="top" title="Quick View"><i class="fas fa-search-plus"></i></a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="{% url 'add_to_cart' product.pk %}" data-modal="modal" data-modal-id="#" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a>
+                                                                    </li>
+                                                                    <li>
+                                                                        <a href="{% url 'add_wishlist_item' product.pk %}" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                            
+                                                        <span class="product-o__category">
+                                                            <a href="{% url 'sub_category_products' product.product_category.id %}">{{product.product_category}} </a>
+                                                        </span>
+                            
+                                                        <span class="product-o__name">
+                                                            <a href="{% url 'single_product_page' product.pk %}"> {{product.product_name|truncatewords:3}} </a>
+                                                        </span>
+                                                        <div class="product-o__rating gl-rating-style">
+                                                            {% for i in "12345" %}
+                                                                {% if i|add:"0" <= product.average_rating %}
+                                                                    <i class="fas fa-star"></i> <!-- Solid (filled) star -->
+                                                                    {% else %}
+                                                                        <i class="far fa-star"></i> <!-- Outline (unfilled) star -->
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                            <span class="product-o__review">({{product.total_reviews}})</span>
+                                                        </div>
+                                                        <span class="product-o__price">&#2547; {{product.product_price}} </span>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-12">
+                                <div class="load-more">
+                                    <!-- <button class="btn btn--e-brand" type="button">Load More</button> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--====== End - Section Content ======-->
+            </div>
+            <!--====== End - Section 2 ======-->
+
+            
+            {% if deal_of_the_day %}
+                <!--====== Section 3 ======-->
+            <div class="u-s-p-b-60">
+
+                <!--====== Section Intro ======-->
+                <div class="section__intro u-s-m-b-46">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="section__text-wrap">
+                                    <h1 class="section__heading u-c-secondary u-s-m-b-12">DEAL OF THE DAY</h1>
+
+                                    <span class="section__span u-c-silver">BUY DEAL OF THE DAY, HURRY UP! THESE NEW PRODUCTS WILL EXPIRE SOON.</span>
+
+                                    <span class="section__span u-c-silver">ADD THESE ON YOUR CART.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--====== End - Section Intro ======-->
+
+
+                <!--====== Section Content ======-->
+                <div class="section__content">
+                    <div class="container">
+                        <div class="row">
+                            
+                            {% for deal in deal_of_the_day %}
+                                <div class="col-lg-6 col-md-6 u-s-m-b-30">
+                                    <div class="product-o product-o--radius product-o--hover-off u-h-100">
+                                        <div class="product-o__wrap">
+
+                                            <a class="aspect aspect--bg-grey aspect--square u-d-block" href="product-detail.html">
+                                                <img class="aspect__img" src="{{deal.product.product_image.url}}" alt="">
+                                            </a>
+                                            <div class="product-o__special-count-wrap">
+                                                <div class="countdown countdown--style-special" data-countdown="{{deal.formatted_deadline}}"></div>
+                                            </div>
+                                            <div class="product-o__action-wrap">
+                                                <ul class="product-o__action-list">
+                                                    <li>
+                                                        <a href="{% url 'add_to_cart' deal.product.pk %}" data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="{% url 'add_wishlist_item' deal.product.pk %}" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <span class="product-o__category">
+
+                                            <a href="{% url 'sub_category_products' deal.product.product_category.id %}">{{deal.product.product_category}}</a></span>
+
+                                        <span class="product-o__name">
+
+                                            <a href="{% url 'single_product_page' deal.product.pk %}">{{deal.product.product_name|truncatewords:3}}</a></span>
+                                        <div class="product-o__rating gl-rating-style">
+                                            {% for i in "12345" %}
+                                                {% if i|add:"0" <= deal.product.average_rating %}
+                                                    <i class="fas fa-star"></i> 
+                                                    {% else %}
+                                                        <i class="far fa-star"></i>
+                                                {% endif %}
+                                            {% endfor %}
+                                            <span class="product-o__review">({{deal.product.total_reviews}})</span>
+                                        </div>
+
+                                        <span class="product-o__price">&#2547; {{deal.offer_price}}</span>
+                                            <span class="product-o__discount">&#2547; {{deal.product.product_price}}</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            {% endfor %}
+  
+                        </div>
+                    </div>
+                </div>
+                <!--====== End - Section Content ======-->
+            </div>
+            <!--====== End - Section 3 ======-->
+            {% endif %}
+                
+
+            <!--====== Section 4 ======-->
+            <div class="u-s-p-b-60">
+
+                <!--====== Section Intro ======-->
+                <div class="section__intro u-s-m-b-46">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="section__text-wrap">
+                                    <h1 class="section__heading u-c-secondary u-s-m-b-12">NEW ARRIVALS</h1>
+
+                                    <span class="section__span u-c-silver">GET UP FOR NEW ARRIVALS</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--====== End - Section Intro ======-->
+
+
+                <!--====== Section Content ======-->
+                <div class="section__content">
+                    <div class="container">
+                        <div class="slider-fouc">
+                            <div class="owl-carousel product-slider" data-item="4">
+                                {% for product in new_arrivals %}
+                                <div class="u-s-m-b-30">
+                                    <div class="product-o product-o--hover-on">
+                                        <div class="product-o__wrap">
+
+                                            <a class="aspect aspect--bg-grey aspect--square u-d-block" href="{% url "single_product_page" product.pk %}">
+
+                                                <img class="aspect__img" src=" {{product.product_image.url}} " alt=""></a>
+                                            <div class="product-o__action-wrap">
+                                                <ul class="product-o__action-list">
+                                                    <li>
+                                                        <a href="{% url 'single_product_page' product.pk %}" data-modal="modal" data-modal-id="#" data-tooltip="tooltip" data-placement="top" title="Quick View"><i class="fas fa-search-plus"></i></a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="{% url 'add_to_cart' product.pk %}" data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="{% url 'add_wishlist_item' product.pk %}" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <span class="product-o__category">
+
+                                            <a href="{% url 'sub_category_products' product.product_category.id %}">{{product.product_category}}</a></span>
+
+                                        <span class="product-o__name">
+
+                                            <a href="{% url 'single_product_page' product.pk %}">{{product.product_name|truncatewords:3}}</a>
+                                        </span>
+                                        <div class="product-o__rating gl-rating-style">
+                                            {% for i in "12345" %}
+                                                {% if i|add:"0" <= product.average_rating %}
+                                                    <i class="fas fa-star"></i> 
+                                                    {% else %}
+                                                        <i class="far fa-star"></i>
+                                                {% endif %}
+                                            {% endfor %}
+                                            <span class="product-o__review">({{product.total_reviews}})</span>
+                                        </div>
+
+                                        <span class="product-o__price">&#2547; {{product.product_price}}</span>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--====== End - Section Content ======-->
+            </div>
+            <!--====== End - Section 4 ======-->
+
+
+            <!--====== Section 5 ======-->
+            {% if event %}
+                <div class="banner-bg" style="background-image: url('{{ event.0.event_banner.url }}');">
+                    <!--====== Section Content ======-->
+                    <div class="section__content">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="banner-bg__countdown" >
+                                        <div class="countdown countdown--style-banner" data-countdown="{{ event.0.formatted_deadline }}"> </div>
+                                    </div>
+                                    <div class="banner-bg__wrap">
+
+                                        
+                                        {% if event.0.event_title %}
+                                            <div class="banner-bg__text-1">
+                                                <span class="u-c-white">{{event.0.event_title}}</span>
+                                                <!-- <span class="u-c-secondary">Offers</span> -->
+                                            </div>
+                                        {% endif %}
+                                        
+                                        
+                                        {% if event.0.event_offer_title %}
+                                            <div class="banner-bg__text-2">
+                                                <span class="u-c-white">{{event.0.event_offer_title}}</span>
+                                                <!-- <span class="u-c-white">Don't Miss!</span> -->
+                                            </div>
+                                        {% endif %}
+                                            
+                                       
+                                        {% if event.0.event_offer %}
+                                            <span class="banner-bg__text-block banner-bg__text-3 u-c-white">{{event.0.event_offer}}</span>
+                                        {% endif %}
+
+                                        {% if event.0.is_event_over %}
+                                            <a class="banner-bg__shop-now btn--e-secondary">Offer Date Ended</a>
+                                                {% else %}
+                                                    <a class="banner-bg__shop-now btn--e-secondary" href="{% url 'sub_category_products' event.0.event_product_category.id %}">Shop Now</a>
+                                        {% endif %}
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--====== End - Section Content ======-->
+                </div>
+            {% endif %}
+            <!--====== End - Section 5 ======-->
+
+
+            <!--====== Section 6 ======-->
+            <div class="u-s-p-y-60">
+
+                <!--====== Section Intro ======-->
+                <div class="section__intro u-s-m-b-46">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="section__text-wrap">
+                                    <h1 class="section__heading u-c-secondary u-s-m-b-12">FEATURED PRODUCTS</h1>
+
+                                    <span class="section__span u-c-silver">FIND NEW FEATURED PRODUCTS</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--====== End - Section Intro ======-->
+
+
+                <!--====== Section Content ======-->
+                <div class="section__content">
+                    <div class="container">
+                        <div class="row">
+                            {% for product in featured_products %}
+                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 u-s-m-b-30">
+                                <div class="product-o product-o--hover-on u-h-100">
+                                    <div class="product-o__wrap">
+                                        <a class="aspect aspect--bg-grey aspect--square u-d-block" href="{% url "single_product_page" product.pk %}">
+                                            <img class="aspect__img" src="{{product.product_image.url}}" alt="">
+                                        </a>
+                                        <div class="product-o__action-wrap">
+                                            <ul class="product-o__action-list">
+                                                <li>
+                                                    <a href="{% url "single_product_page" product.pk %}" data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick View"><i class="fas fa-search-plus"></i></a>
+                                                </li>
+                                                <li>
+                                                    <a href="{% url 'add_to_cart' product.pk %}" data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Add to Cart"><i class="fas fa-plus-circle"></i></a>
+                                                </li>
+                                                <li>
+                                                    <a href="{% url 'add_wishlist_item' product.pk %}" data-tooltip="tooltip" data-placement="top" title="Add to Wishlist"><i class="fas fa-heart"></i></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <span class="product-o__category">
+                                        <a href="{% url 'sub_category_products' product.product_category.id %}">{{product.product_category}}</a>
+                                    </span>
+                                    <span class="product-o__name">
+                                        <a href="{% url 'single_product_page' product.pk %}">{{product.product_name|truncatewords:3}}</a>
+                                    </span>
+                                    <div class="product-o__rating gl-rating-style">
+                                        {% for i in "12345" %}
+                                            {% if i|add:"0" <= product.average_rating %}
+                                                <i class="fas fa-star"></i> 
+                                                {% else %}
+                                                    <i class="far fa-star"></i>
+                                            {% endif %}
+                                        {% endfor %}
+                                        <span class="product-o__review">({{product.total_reviews}})</span>
+                                    </div>
+                                    <span class="product-o__price">&#2547;{{product.product_price}}</span>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <!--====== End - Section Content ======-->
+            </div>
+            <!--====== End - Section 6 ======-->
+
+
+            <!--====== Section 7 ======-->
+            {% if banners %}
+                <div class="u-s-p-b-60">
+                    <div class="section__intro u-s-m-b-46">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="section__text-wrap">
+                                        <h1 class="section__heading u-c-secondary u-s-m-b-12">Currently Running Offers</h1>
+    
+                                        <span class="section__span u-c-silver">Fit Yourself In Outstanding Offers</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--====== Section Content ======-->
+                    <div class="section__content">
+                        <div class="container">
+                            <div class="row">
+                                
+                                {% for banner in banners %}
+                                    <div class="col-lg-4 col-md-4 col-sm-6 u-s-m-b-30">
+                                        <a class="promotion" href="{% url 'category_products' banner.banner_product_category.id %}">
+                                            <div class="aspect aspect--bg-grey aspect--square">
+                                                <img class="aspect__img promotion__img" src="{{banner.banner_image.url}}" alt="">
+                                            </div>
+                                            
+                                            {% if banner.banner_title or banner.banner_offer %}
+                                                <div class="promotion__content">
+                                                    <div class="promotion__text-wrap">
+                                                        
+                                                        {% if  banner.banner_title %}
+                                                            <div class="promotion__text-1">
+                                                                <span class="u-c-secondary">{{banner.banner_title}}</span>
+                                                            </div>
+                                                        {% endif %}
+                                                        
+                                                        {% if  banner.banner_offer %}
+                                                            <div class="promotion__text-2">
+                                                                <span class="u-c-brand">{{banner.banner_offer}}</span>
+                                                            </div>
+                                                        {% endif %}
+
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+
+                                        </a>
+                                    </div>
+                                {% endfor %}
+
+                            </div>
+                        </div>
+                    </div>
+                    <!--====== End - Section Content ======-->
+                </div>
+            {% endif %}
+            <!--====== End - Section 7 ======-->
+
+
+            <!--====== Section 8 ======-->
+            <div class="u-s-p-b-60">
+
+                <!--====== Section Content ======-->
+                <div class="section__content">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-6 col-sm-6 u-s-m-b-30">
+                                <div class="column-product">
+
+                                    <span class="column-product__title u-c-secondary u-s-m-b-25">SPECIAL PRODUCTS</span>
+                                    <ul class="column-product__list">
+                                        {% for product in special_products %}
+                                        <li class="column-product__item">
+                                            <div class="product-l">
+                                                <div class="product-l__img-wrap">
+                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block product-l__link" href="{% url 'single_product_page' product.pk %}">
+                                                        <img class="aspect__img" src="{{product.product_image.url}}" alt="">
+                                                    </a>
+                                                </div>
+                                                <div class="product-l__info-wrap">
+                                                    <div class="product-l__rating gl-rating-style">
+                                                        {% for i in "12345" %}
+                                                            {% if i|add:"0" <= product.average_rating %}
+                                                                <i class="fas fa-star"></i> 
+                                                                {% else %}
+                                                                    <i class="far fa-star"></i>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                        ({{product.total_reviews}})
+                                                    </div>
+                                                    <span class="product-l__category">
+                                                        <a href="{% url 'sub_category_products' product.product_category.id %}">{{product.product_category}} </a>
+                                                    </span>
+                                                    <span class="product-l__name">
+                                                        <a href="{% url 'single_product_page' product.pk %}">{{product.product_name|truncatewords:3}} </a>
+                                                    </span>
+                                                    <span class="product-l__price">&#2547;{{product.product_price}} </span></div>
+                                            </div>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-sm-6 u-s-m-b-30">
+                                <div class="column-product">
+
+                                    <span class="column-product__title u-c-secondary u-s-m-b-25">WEEKLY PRODUCTS</span>
+                                    <ul class="column-product__list">
+                                        {% for product in weekly_products %}
+                                        <li class="column-product__item">
+                                            <div class="product-l">
+                                                <div class="product-l__img-wrap">
+
+                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block product-l__link" href="{% url 'single_product_page' product.pk %}">
+
+                                                        <img class="aspect__img" src="{{product.product_image.url}}" alt=""></a></div>
+                                                <div class="product-l__info-wrap">
+                                                    <div class="product-l__rating gl-rating-style">
+                                                        {% for i in "12345" %}
+                                                            {% if i|add:"0" <= product.average_rating %}
+                                                                <i class="fas fa-star"></i> 
+                                                                {% else %}
+                                                                    <i class="far fa-star"></i>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                        ({{product.total_reviews}})
+                                                    </div>
+                                                    <span class="product-l__category">
+                                                        <a href="{% url 'sub_category_products' product.product_category.id %}">{{product.product_category}} </a>
+                                                    </span>
+                                                    <span class="product-l__name">
+                                                        <a href="{% url 'single_product_page' product.pk %}">{{product.product_name|truncatewords:3}} </a>
+                                                    </span>
+                                                    <span class="product-l__price">&#2547;{{product.product_price}} </span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-sm-6 u-s-m-b-30">
+                                <div class="column-product">
+
+                                    <span class="column-product__title u-c-secondary u-s-m-b-25">FLASH PRODUCTS  <i class="fas fa-bolt flashing-icon" ></i> </span>
+                                    
+                                    <ul class="column-product__list">
+                                        {% for product in flash_products %}
+                                        <li class="column-product__item">
+                                            <div class="product-l">
+                                                <div class="product-l__img-wrap">
+
+                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block product-l__link" href="{% url 'single_product_page' product.pk %}">
+
+                                                        <img class="aspect__img" src="{{product.product_image.url}}" alt=""></a></div>
+                                                <div class="product-l__info-wrap">
+                                                    <div class="product-l__rating gl-rating-style">
+                                                        {% for i in "12345" %}
+                                                            {% if i|add:"0" <= product.average_rating %}
+                                                                <i class="fas fa-star"></i> 
+                                                                {% else %}
+                                                                    <i class="far fa-star"></i>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                        ({{product.total_reviews}})
+                                                    </div>
+                                                    <span class="product-l__category">
+                                                        <a href="{% url 'sub_category_products' product.product_category.id %}">{{product.product_category}} </a>
+                                                    </span>
+                                                    <span class="product-l__name">
+                                                        <a href="{% url 'single_product_page' product.pk %}">{{product.product_name|truncatewords:3}} </a>
+                                                    </span>
+                                                    <span class="product-l__price">&#2547;{{product.product_price}} </span>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--====== End - Section Content ======-->
+            </div>
+            <!--====== End - Section 8 ======-->
+
+
+            <!--====== Section 9 ======-->
+            <div class="u-s-p-b-60">
+
+                <!--====== Section Content ======-->
+                <div class="section__content">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-6 u-s-m-b-30">
+                                <div class="service u-h-100">
+                                    <div class="service__icon"><i class="fas fa-truck"></i></div>
+                                    <div class="service__info-wrap">
+
+                                        <span class="service__info-text-1">Free Shipping</span>
+
+                                        <span class="service__info-text-2">Free shipping on all US order or order above &#2547;200</span></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 u-s-m-b-30">
+                                <div class="service u-h-100">
+                                    <div class="service__icon"><i class="fas fa-redo"></i></div>
+                                    <div class="service__info-wrap">
+
+                                        <span class="service__info-text-1">Shop with Confidence</span>
+
+                                        <span class="service__info-text-2">Our Protection covers your purchase from click to delivery</span></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 u-s-m-b-30">
+                                <div class="service u-h-100">
+                                    <div class="service__icon"><i class="fas fa-headphones-alt"></i></div>
+                                    <div class="service__info-wrap">
+
+                                        <span class="service__info-text-1">24/7 Help Center</span>
+
+                                        <span class="service__info-text-2">Round-the-clock assistance for a smooth shopping experience</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--====== End - Section Content ======-->
+            </div>
+            <!--====== End - Section 9 ======-->
+
+
+            <!--====== Section 10 ======-->
+            {% if blogs %}
+                <div class="u-s-p-b-60">
+
+                    <!--====== Section Intro ======-->
+                    <div class="section__intro u-s-m-b-46">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="section__text-wrap">
+                                        <h1 class="section__heading u-c-secondary u-s-m-b-12">LATEST FROM BLOG</h1>
+                                        <span class="section__span u-c-silver">START YOU DAY WITH FRESH AND LATEST NEWS</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--====== End - Section Intro ======-->
+
+                    <!--====== Section Content ======-->
+                    <div class="section__content">
+                        <div class="container">
+                            <div class="row">
+                                {% for blog in blogs %}
+                                    <div class="col-lg-4 col-md-6 u-s-m-b-30">
+                                        <div class="bp-mini bp-mini--img u-h-100">
+                                            <div class="bp-mini__thumbnail">
+                                                <!--====== Image Code ======-->
+                                                <a class="aspect aspect--bg-grey aspect--1366-768 u-d-block" href="{% url 'blog_details' blog.pk %}">
+                                                    <img class="aspect__img" src="{{blog.blog_image.url}}" alt="">
+                                                </a>
+                                                <!--====== End - Image Code ======-->
+                                            </div>
+                                            <div class="bp-mini__content">
+                                                <div class="bp-mini__stat">
+                                                    <span class="bp-mini__stat-wrap">
+                                                        <span class="bp-mini__publish-date"><a><span> {{blog.blog_date}} </span></a></span>
+                                                    </span>
+                                                    <span class="bp-mini__stat-wrap">
+                                                        <span class="bp-mini__preposition">By</span>
+                                                        <span class="bp-mini__author"><a href="#"> {{blog.blog_writer}} </a></span>
+                                                    </span>
+                                                </div>
+                                                <div class="bp-mini__category">
+                                                    <a href="{% url 'blog_details' blog.pk %}">{{blog.blog_topic}}</a>
+                                                </div>
+                                                <span class="bp-mini__h1">
+                                                    <a href="{% url 'blog_details' blog.pk %}"> {{block.blog_title}}</a>
+                                                </span>
+                                                <p class="bp-mini__p">{{ blog.blog_text|linebreaksbr|default:""|safe|slice:":200" }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <!--====== End - Section Content ======-->
+                </div>
+            {% endif %}
+            <!--====== End - Section 10 ======-->
+
+
+            <!--====== Section 11 ======-->
+            {% if feedbacks %}
+                <div class="u-s-p-b-90 u-s-m-b-30">
+
+                    <!--====== Section Intro ======-->
+                    <div class="section__intro u-s-m-b-46">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="section__text-wrap">
+                                        <h1 class="section__heading u-c-secondary u-s-m-b-12">CUSTOMER FEEDBACK</h1>
+
+                                        <span class="section__span u-c-silver">WHAT OUR CUSTOMER SAY</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--====== End - Section Intro ======-->
+
+
+                    <!--====== Section Content ======-->
+                    <div class="section__content">
+                        <div class="container">
+
+                            <!--====== Testimonial Slider ======-->
+                            <div class="slider-fouc">
+                                <div class="owl-carousel" id="testimonial-slider">
+                                    {% for feedback in feedbacks %}
+                                        <div class="testimonial">
+                                            <div class="testimonial__img-wrap">
+                                                {% if feedback.user.user_image %}
+                                                    <img class="testimonial__img" src="{{ feedback.user.user_image.url }}" alt="Feedback Customer">
+                                                    {% else %}
+                                                        {% if feedback.user.gender == 'male' or feedback.user.gender == 'Male' %}
+                                                            <img class="testimonial__img" src="{% static 'assets/images/male.png' %}" alt="Default Image">
+                                                            {% else %}
+                                                                <img class="testimonial__img" src="{% static 'assets/images/female.png' %}" alt="Default Image">
+                                                        {% endif %}
+                                                {% endif %}
+                                            </div>
+                                            <div class="testimonial__content-wrap">
+                                                <span class="testimonial__double-quote"><i class="fas fa-quote-right"></i></span>
+                                                <blockquote class="testimonial__block-quote">
+                                                    <p>{{feedback.feedback}}</p>
+                                                </blockquote>
+                                                <span class="testimonial__author">{{feedback.user.first_name}} {{feedback.user.last_name}}</span>
+                                                <span class="testimonial__author">{{feedback.feedback_date}}</span>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <!--====== End - Testimonial Slider ======-->
+                        </div>
+                    </div>
+                    <!--====== End - Section Content ======-->
+                </div>
+            {% endif %}
+            <!--====== End - Section 11 ======-->
+
+
+            <!--====== Section 12 ======-->
+            <div class="u-s-p-b-60">
+
+                <!--====== Section Content ======-->
+                <div class="section__content">
+                    <div class="container">
+
+                        <!--====== Brand Slider ======-->
+                        <div class="slider-fouc">
+                            <div class="owl-carousel" id="brand-slider" data-item="5">
+                                <div class="brand-slide">
+
+                                    <a href="shop-side-version-2.html">
+
+                                        <img src="images/brand/b1.png" alt=""></a></div>
+                                <div class="brand-slide">
+
+                                    <a href="shop-side-version-2.html">
+
+                                        <img src="images/brand/b2.png" alt=""></a></div>
+                                <div class="brand-slide">
+
+                                    <a href="shop-side-version-2.html">
+
+                                        <img src="images/brand/b3.png" alt=""></a></div>
+                                <div class="brand-slide">
+
+                                    <a href="shop-side-version-2.html">
+
+                                        <img src="images/brand/b4.png" alt=""></a></div>
+                                <div class="brand-slide">
+
+                                    <a href="shop-side-version-2.html">
+
+                                        <img src="images/brand/b5.png" alt=""></a></div>
+                                <div class="brand-slide">
+
+                                    <a href="shop-side-version-2.html">
+
+                                        <img src="images/brand/b6.png" alt=""></a></div>
+                            </div>
+                        </div>
+                        <!--====== End - Brand Slider ======-->
+                    </div>
+                </div>
+                <!--====== End - Section Content ======-->
+            </div>
+            <!--====== End - Section 12 ======-->
+        </div>
+        <!--====== End - App Content ======-->
+
+    {% include "include/footer.html" %}
+
+{% endblock main_app %}

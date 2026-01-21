@@ -1,0 +1,35 @@
+{% extends 'adminpanel/admin_panel.html' %}
+{% load static %}
+
+{% block message_content %}
+    {% include 'include/message.html' %}
+{% endblock message_content %}
+
+{% block admin-panel-main-content %}
+    <div class="adminpanelhome-content">
+        <div class="individual-product-details-container">
+            <h1 class="individual-product-details-container-title">Slider Details</h1>
+            <div class="individual-product-image-container">
+                <img class="individual-product-image" src="{{ slider.slider_banner.url }}" alt="Product Image">
+                <p class="image-caption">{{slider.slider_offer_title}}</p>
+            </div>
+            <div class="individual-product-info">
+                <p class="individual-product-info-data"><strong class="product-data-title">Slider Title: </strong>{{slider.slider_offer_title}}</p>
+                <p class="individual-product-info-data"><strong class="product-data-title">Offer: </strong>{{slider.slider_offer}}</p>
+                <p class="individual-product-info-data"><strong class="product-data-title">Starting Price: </strong>{{slider.slider_offer_starting_price}}</p>
+                <p class="individual-product-info-data"><strong class="product-data-title">Offer Description: </strong>{{slider.slider_offer_description}}</p>
+                <p class="individual-product-info-data"><strong class="product-data-title">Product Category: </strong>{{slider.slider_product_category}}</p>
+                <p class="individual-product-info-data"><strong class="product-data-title">Created: </strong>{{slider.created_at}}</p>
+            </div>
+            <div class="product-edit-pencil-btn-container">
+                <form action="{% url 'edit_slider' %}" method="GET">
+                    {% csrf_token %}
+                    <input type="hidden" name="slider_id" value="{{ slider.id }}">
+                    <button type="submit" title="Edit Product" class="product-edit-pencil-btn"><i class="fas fa-pencil-alt"></i></button>
+                </form>
+            </div>
+            <button class="go-back-btn" onclick="goBack()">Back</button>
+           
+        </div>
+    </div>
+{% endblock admin-panel-main-content %}

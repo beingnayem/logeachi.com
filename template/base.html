@@ -1,0 +1,113 @@
+{% load static %}
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" type="image/x-icon">
+  <title>Logeachi online shoping in Bangladesh</title>
+  <!--======jquery link======-->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  
+  <!--
+    - custom css link
+  -->
+
+    <!-- message css -->
+    <link rel="stylesheet" href="{% static 'assets/css/message.css' %}">
+
+    <!-- General CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/app.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/utility.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/vendor.css' %}">
+    <!-- <link rel="stylesheet" href="{% static 'assets/css/order_success.css' %}"> -->
+    
+
+    <!--====== Font Link ======-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.0.7/css/boxicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
+
+</head>
+
+<body>
+
+
+  {% block message_content %}
+    
+  {% endblock message_content %}
+
+  <div class="preloader is-active">
+    <div class="preloader__wrap">
+      <img class="preloader__img" src="{% static 'assets/images/preloader.png' %}" alt="">
+    </div>
+  </div>
+
+  <div id="app">
+
+    {% block main_app %}
+
+    
+    {% endblock main_app %}
+
+  </div>
+  
+
+
+
+  <!-- cart js -->
+  <script src="{% static 'assets/js/cart.js' %}"></script>
+
+  
+  <!--====== Google Analytics: change UA-XXXXX-Y to be your site's ID ======-->
+  <script>
+    window.ga = function() {
+      ga.q.push(arguments)
+    };
+    ga.q = [];
+    ga.l = +new Date;
+    ga('create', 'UA-XXXXX-Y', 'auto');
+    ga('send', 'pageview')
+  </script>
+ 
+  <!--====== Google Analytics link ======-->
+  <!-- <script src="https://www.google-analytics.com/analytics.js" async defer></script> -->
+
+  <!--====== Google Map ======-->
+  <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB-MO9uPLS-ApTqYs0FpYdVG8cFwdq6apw"></script> -->
+  
+  <!--====== Google Map Init ======-->
+  <!-- <script src="{% static '../static/assets//js/map-init.js' %}"></script> -->
+  
+  <!--====== Vendor Js ======-->
+  <script src="{% static 'assets/js/vendor.js' %}"></script>
+
+  <!--====== jQuery Shopnav plugin JS ======-->
+  <script src="{% static 'assets/js/jquery.shopnav.js' %}"></script>
+
+  <!--====== App JS ======-->
+  <script src="{% static 'assets//js/app.js' %}"></script>
+
+
+  <!--====== Noscript ======-->
+  <noscript>
+    <div class="app-setting">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="app-setting__wrap">
+              <h1 class="app-setting__h1">JavaScript is disabled in your browser.</h1>
+              <span class="app-setting__text">Please enable JavaScript in your browser or upgrade to a JavaScript-capable browser.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </noscript>
+
+</body>
+
+</html>

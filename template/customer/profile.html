@@ -1,0 +1,76 @@
+{% extends 'customer/user_dashboard.html' %}
+{% load static %}
+
+{% block user_dashboard_content %}
+    
+<div class="col-lg-9 col-md-12">
+    <div class="dash__box dash__box--shadow dash__box--radius dash__box--bg-white u-s-m-b-30">
+        <div class="dash__pad-2">
+            <h1 class="dash__h1 u-s-m-b-14">Profile</h1>
+
+            <span class="dash__text u-s-m-b-30">Look all your info, you could customize your profile.</span>
+            <div class="dash__pad-3" >
+                <div class="testimonial">
+                    <div class="testimonial__img-wrap">
+                        {% if user.user_image %}
+                            <img class="testimonial__img" src="{{ user.user_image.url }}" alt="Feedback Customer">
+                            {% else %}
+                                {% if user.gender == 'male' or user.gender == 'Male' %}
+                                    <img class="testimonial__img" src="{% static 'assets/images/male.png' %}" alt="Default Image">
+                                    {% else %}
+                                        <img class="testimonial__img" src="{% static 'assets/images/female.png' %}" alt="Default Image">
+                                {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 u-s-m-b-30">
+                    <h2 class="dash__h2 u-s-m-b-8">Full Name</h2>
+
+                    <span class="dash__text">{{user.first_name}} {{user.last_name}}</span>
+                </div>
+                <div class="col-lg-4 u-s-m-b-30">
+                    <h2 class="dash__h2 u-s-m-b-8">E-mail</h2>
+                    <span class="dash__text">{{user.email}}</span>
+                </div>
+                <div class="col-lg-4 u-s-m-b-30">
+                    <h2 class="dash__h2 u-s-m-b-8">Phone</h2>
+                    
+                    {% if user.phone_number %}
+                        <span class="dash__text">{{user.phone_number}}</span>
+                        {% else %}
+                            <span class="dash__text">Please add your mobile</span>
+                    {% endif %}
+                        
+                   
+                </div>
+                <div class="col-lg-4 u-s-m-b-30">
+                    <h2 class="dash__h2 u-s-m-b-8">Birthday</h2>
+                    <span class="dash__text">{{user.birthdate}}</span>
+                </div>
+                <div class="col-lg-4 u-s-m-b-30">
+                    <h2 class="dash__h2 u-s-m-b-8">Gender</h2>
+
+                    <span class="dash__text">{{user.gender}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="dash__link dash__link--secondary u-s-m-b-30">
+                        <a href="{% url 'join_newsletter' %}" data-modal="modal" data-modal-id="#dash-newsletter">Subscribe Newsletter</a>
+                    </div>
+                    <div class="u-s-m-b-16">
+                        <a class="dash__custom-link btn--e-transparent-brand-b-2" href="{% url 'edit_profile' %}">Edit Profile</a>
+                    </div>
+                    <div>
+                        <a class="dash__custom-link btn--e-brand-b-2" href="{% url 'reset-pass-request' %}">Change Password</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock user_dashboard_content %}
+    

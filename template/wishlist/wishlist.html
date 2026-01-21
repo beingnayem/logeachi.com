@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block message_content %}
+    {% include 'include/message.html' %}
+{% endblock message_content %}
+
+{% block main_app %}
+    {% include 'include/header.html' %}
+    <!--====== App Content ======-->
+    <div class="app-content">
+
+        <!--====== Section 2 ======-->
+        <div class="u-s-p-b-60">
+
+            <!--====== Section Intro ======-->
+            <div class="section__intro u-s-m-b-60">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="section__text-wrap">
+                                <h1 class="section__heading u-c-secondary">
+                                    <i class="fas fa-heart heart-icon" style="color: red; font-size:40px;"></i>
+                                    Wishlist
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--====== End - Section Intro ======-->
+
+
+            <!--====== Section Content ======-->
+            <div class="section__content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            
+                            {% for product in wishlist %}
+                                <!--====== Wishlist Product ======-->
+                                <div class="w-r u-s-m-b-30">
+                                    <div class="w-r__container">
+                                        <div class="w-r__wrap-1">
+                                            <div class="w-r__img-wrap">
+                                                <img class="u-img-fluid" src="{{product.product.product_image.url}}" alt="">
+                                            </div>
+                                            <div class="w-r__info">
+                                                <span class="w-r__name">
+                                                    <a href="{% url 'single_product_page' product.product.pk %}">{{product.product.product_name}}</a>
+                                                </span>
+                                                <span class="w-r__category">
+                                                    <a href="{% url 'sub_category_products' product.product.product_category.pk %}">{{product.product.product_category}}</a>
+                                                </span>
+                                                <span class="w-r__price">${{product.product.product_price}}
+                                                    <!-- <span class="w-r__discount">$160.00</span> -->
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="w-r__wrap-2">
+                                            <a class="w-r__link btn--e-brand-b-2" data-modal="modal" data-modal-id="#add-to-cart" href="{% url 'add_to_cart' product.product.pk %}">ADD TO CART</a>
+                                            <a class="w-r__link btn--e-transparent-platinum-b-2" href="{% url 'single_product_page' product.product.pk %}">VIEW</a>
+                                            <a class="w-r__link btn--e-transparent-platinum-b-2" href="{% url 'delete_wishlist_item' product.id %}">REMOVE</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--====== End - Wishlist Product ======-->
+                            {% endfor %}
+
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="route-box">
+                                <div class="route-box__g">
+                                    <a class="route-box__link" href="{% url 'home' %}"><i class="fas fa-long-arrow-alt-left"></i>
+                                        <span>CONTINUE SHOPPING</span>
+                                    </a>
+                                </div>
+                                <div class="route-box__g">
+                                    <a class="route-box__link" href="{% url  'clear_wishlist' %}"><i class="fas fa-trash"></i>
+                                        <span>CLEAR WISHLIST</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--====== End - Section Content ======-->
+        </div>
+        <!--====== End - Section 2 ======-->
+    </div>
+    <!--====== End - App Content ======-->
+    {% include 'include/footer.html' %}
+{% endblock main_app %}
+    

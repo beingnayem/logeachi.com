@@ -1,0 +1,68 @@
+{% extends 'adminpanel/admin_panel.html' %}
+{% load static %}
+
+{% block message_content %}
+    {% include 'include/message.html' %}
+{% endblock message_content %}
+
+
+{% block admin-panel-main-content %}
+    <div class="adminpanelhome-content">
+        <div class="team-member-list-container">
+            {% if queries %}
+                <h1>Query List</h1>
+                <div class="team-member-list-table-container">
+                    <table class="team-member-list-table-container-table">
+                        <thead>
+                            <tr class="team-member-list-table-container-table-row">
+                                <th class="team-member-info-head">Name</th>
+                                <th class="team-member-info-head">Email</th>
+                                <th class="team-member-info-head">Subject</th>
+                                <th class="team-member-info-head">Query Date</th>
+                                <th class="team-member-info-head">Query Status</th>
+                                <th class="team-member-info-head" style="display: flex; justify-content:center;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            {% for query in queries %}
+                                <tr class="team-member-list-table-container-table-row">
+                                    <td class="team-member-info">{{query.name}}</td>
+                                    <td class="team-member-info">{{query.email}}</td>
+                                    <td class="team-member-info">{{query.subject}}</td>
+                                    <td class="team-member-info">{{query.query_date}}</td>
+                                    <td class="team-member-info">{{query.query_status}}</td>
+                                    <td class="team-member-action-buttons">
+                                        <form method="GET" action="{% url 'view_query' %}">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="id" value="{{ query.id }}">
+                                            <button class="team-member-remove-button"  title="View"><i class="fas fa-eye"></i></button>
+                                        </form>
+                                        
+                                        {% if query.query_status == "replyed" %}
+                                        <button disabled type="submit" class="team-member-remove-button" title="Disabled" style="color: rgb(0, 0, 0); background-color: silver"><i class="fa fa-reply"></i></button>
+                                            {% else %}
+                                                <form method="GET" action="{% url 'reply_query' %}">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="id" value="{{ query.id }}">
+                                                    <button type="submit" class="team-member-remove-button" title="Reply"><i class="fa fa-reply"></i></button>
+                                                </form>
+                                        {% endif %}
+                                    
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                                
+                            
+                        </tbody>
+                    </table>
+                </div> 
+                
+                {% else %}
+                    <h2 style="text-align: center; color:rgb(101, 168, 33) ">There is no Query yet.</h2>
+            {% endif %}
+            
+        </div>
+    </div>
+
+{% endblock admin-panel-main-content %}

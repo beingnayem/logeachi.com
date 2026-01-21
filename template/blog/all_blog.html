@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block main_app %}
+{% include 'include/header.html' %}
+<div class="app-content">
+
+    <!--====== Section 1 ======-->
+    <div class="u-s-p-y-90">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    {% for blog in blogs %}
+                    <div class="bp bp--img u-s-m-b-30">
+                        <div class="bp__wrap">
+                            <div class="bp__thumbnail">
+
+                                <!--====== Image Code ======-->
+
+                                <a class="aspect aspect--bg-grey aspect--1366-768 u-d-block" href="blog-detail.html">
+
+                                    <img class="aspect__img" src="{{blog.blog_image.url}}" alt=""></a>
+                                <!--====== End - Image Code ======-->
+                            </div>
+                            <div class="bp__info-wrap">
+                                <div class="bp__stat">
+
+                                    <span class="bp__stat-wrap">
+
+                                        <span class="bp__publish-date">
+
+                                            <a>
+
+                                                <span> {{blog.blog_date}} </span></a></span></span>
+
+                                    <span class="bp__stat-wrap">
+
+                                        <span class="bp__author">
+
+                                            <a> {{blog.blog_writer}} </a></span></span>
+
+
+                                    <span class="bp__stat-wrap">
+
+                                        <span class="bp__category">
+
+                                            <p><h3> {{blog.blog_topic}}</h3> </p>
+                                        </span>
+                                    </span>
+                                </div>
+
+                                <span class="bp__h1">
+
+                                    <a href="{% url 'blog_details' blog.pk %}"> {{block.blog_title}} </a></span>
+
+                                <p class="bp__p">{{ blog.blog_text|linebreaksbr|default:""|safe|slice:":300" }}</p>
+                                <div class="gl-l-r">
+                                    <div>
+
+                                        <span class="bp__read-more">
+
+                                            <a href="{% url 'blog_details' blog.pk %}">READ MORE</a></span></div>
+                                    <ul class="bp__social-list">
+                                        <li>
+
+                                            <a class="s-fb--color" href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                        <li>
+
+                                            <a class="s-tw--color" href="#"><i class="fab fa-twitter"></i></a></li>
+                                        <li>
+
+                                            <a class="s-insta--color" href="#"><i class="fab fa-instagram"></i></a></li>
+                                        <li>
+
+                                            <a class="s-wa--color" href="#"><i class="fab fa-whatsapp"></i></a></li>
+                                        <li>
+
+                                            <a class="s-gplus--color" href="#"><i class="fab fa-google-plus-g"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--====== End - Section 1 ======-->
+</div>
+
+{% include 'include/footer.html' %}
+{% endblock main_app %}

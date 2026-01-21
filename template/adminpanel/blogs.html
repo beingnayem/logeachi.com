@@ -1,0 +1,67 @@
+{% extends 'adminpanel/admin_panel.html' %}
+{% load static %}
+
+{% block message_content %}
+    {% include 'include/message.html' %}
+{% endblock message_content %}
+
+{% block admin-panel-main-content %}
+    <div class="adminpanelhome-content">
+        <div class="team-member-list-container">
+            <div class="admin-request-approve-button-container">
+                <a href="{% url 'post_blog' %}">
+                    <button class="admin-request-approve-button">Add Blog</button>
+                </a> 
+            </div>
+            {% if blogs %}
+                <h1>Blog List</h1>
+                
+                <div class="team-member-list-table-container">
+                    <table class="team-member-list-table-container-table">
+                        <thead>
+                            <tr class="team-member-list-table-container-table-row">
+                                <th class="team-member-info-head">ID</th>
+                                <th class="team-member-info-head">Title</th>
+                                <th class="team-member-info-head">Blog Topic</th>
+                                <th class="team-member-info-head">Writer</th>
+                                <th class="team-member-info-head">Published Date</th>
+                                <th class="team-member-info-head" style="display: flex; justify-content:center;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            {% for blog in blogs %}
+                                <tr class="team-member-list-table-container-table-row">
+                                    <td class="team-member-info">{{blog.id}}</td>
+                                    <td class="team-member-info">{{blog.blog_title|truncatewords:5}}</td>
+                                    <td class="team-member-info">{{blog.blog_topic}}</td>
+                                    <td class="team-member-info">{{blog.blog_writer}}</td>
+                                    <td class="team-member-info">{{blog.blog_date}}</td>
+                                    <td class="team-member-action-buttons" style="justify-content: center;">
+                                        <form action="{% url 'edit_blog' %}" method="GET">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="blog_id" value="{{ blog.id }}">
+                                            <button type="submit" class="team-member-remove-button"  title="Edit"><i class="fas fa-pencil-alt"></i></button>
+                                        </form>
+                                        <a href="{% url 'blog_details' blog.pk %}">
+                                            <input type="hidden" name="banner_id" value="{{ banner.id }}">
+                                            <button class="team-member-remove-button"  title="View"><i class="fas fa-eye"></i></button>
+                                        </a>
+                                        <form action="{% url 'delete_blog' %}" method="GET">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="blog_id" value="{{ blog.id }}">
+                                            <button class="team-member-remove-button"  title="Delete"><i class="fas fa-trash"></i></button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div> 
+                {% else %}
+                    <h2 style="text-align: center; color:rgb(101, 168, 33) ">There is no Blogs yet.</h2>
+            {% endif %}
+        </div>
+    </div>
+{% endblock admin-panel-main-content %}

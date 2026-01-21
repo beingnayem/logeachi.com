@@ -1,0 +1,73 @@
+{% extends 'adminpanel/admin_panel.html' %}
+{% load static %}
+
+{% block message_content %}
+    {% include 'include/message.html' %}
+{% endblock message_content %}
+
+{% block admin-panel-main-content %}
+    <div class="adminpanelhome-content">
+        <div class="team-member-list-container">
+            
+                <h1>Shop By Deals</h1>
+                <div class="admin-request-approve-button-container">
+                    <a href="{% url 'banners' %}">
+                        <button class="admin-request-approve-button">Banners</button>
+                    </a> 
+                    <a href="{% url 'sliders' %}">
+                        <button class="admin-request-approve-button">Sliders</button>
+                    </a>
+                    <a href="{% url 'events' %}">
+                        <button class="admin-request-approve-button">Events</button>
+                    </a>
+                    <a href="{% url 'shop_by_deal' %}">
+                        <button class="admin-request-approve-button">Shop By Deal</button>
+                    </a>
+                </div>
+                <div class="admin-request-approve-button-container">
+                    <a href="{% url 'add_shop_by_deal' %}">
+                        <button class="admin-request-approve-button">Add Deal</button>
+                    </a> 
+                </div>
+                {% if deals %}
+                <div class="team-member-list-table-container">
+                    <table class="team-member-list-table-container-table">
+                        <thead>
+                            <tr class="team-member-list-table-container-table-row">
+                                <th class="team-member-info-head">ID</th>
+                                <th class="team-member-info-head">Deal Name</th>
+                                <th class="team-member-info-head">Deal Product Category</th>
+                                <th class="team-member-info-head" style="display: flex; justify-content:center;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            {% for deal in deals %}
+                                <tr class="team-member-list-table-container-table-row">
+                                    <td class="team-member-info">{{deal.id}}</td>
+                                    <td class="team-member-info">{{deal.deals_name}}</td>
+                                    <td class="team-member-info">{{deal.category}}--{{deal.category.main_category}}</td>
+                                    <td class="team-member-action-buttons" style="justify-content: center;">
+                                        <form action="{% url 'edit_shop_by_deal' %}" method="GET">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="id" value="{{ deal.id }}">
+                                            <button type="submit" class="team-member-remove-button"  title="Edit"><i class="fas fa-pencil-alt"></i></button>
+                                        </form>
+                                        <form action="{% url 'delete_shop_by_deal' %}" method="GET">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="id" value="{{ deal.id }}">
+                                            <button class="team-member-remove-button"  title="Delete"><i class="fas fa-trash"></i></button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div> 
+                    {% else %}
+                        <h2 style="text-align: center; color:rgb(101, 168, 33) ">There Is No Deals Yet.</h2>
+                {% endif %}
+        </div>
+    </div>
+{% endblock admin-panel-main-content %}

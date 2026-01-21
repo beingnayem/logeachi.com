@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block message_content %}
+    {% include 'include/message.html' %}
+{% endblock message_content %}
+
+{% block main_app %}
+    <!--====== App Content ======-->
+        <div class="app-content">
+
+            <!--====== Section 2 ======-->
+            <div class="u-s-p-b-60">
+
+                <!--====== Section Intro ======-->
+                <div class="section__intro u-s-m-b-60">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="section__text-wrap">
+                                    <SIGN class="section__heading u-c-secondary">SIGN UP AS ADMIN</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--====== End - Section Intro ======-->
+
+
+                <!--====== Section Content ======-->
+                <div class="section__content">
+                    <div class="container">
+                        <div class="row row--center">
+                            <div class="col-lg-6 col-md-8 u-s-m-b-30">
+                                <div class="l-f-o">
+                                    <div class="l-f-o__pad-box">
+                                        <h1 class="gl-h1">PERSONAL INFORMATION</h1>
+                                        <form class="l-f-o__form" action="{% url 'admin_signup' uidb64=uidb64 token=token %}" method="POST">
+                                            {% csrf_token %}
+                                            {% include "include/message.html" %}
+                                            <div class="u-s-m-b-30">
+
+                                                <label class="gl-label" for="first_name">FIRST NAME *</label>
+
+                                                <input class="input-text input-text--primary-style" type="text" id="first_name" name="first_name" placeholder="First Name">
+                                            </div>
+                                            <div class="u-s-m-b-30">
+
+                                                <label class="gl-label" for="last_name">LAST NAME *</label>
+
+                                                <input class="input-text input-text--primary-style" type="text" id="last_name" name="last_name" placeholder="Last Name">
+                                            </div>
+                                    
+                                            <div class="u-s-m-b-30">
+
+                                                <label class="gl-label" for="gender">GENDER</label>
+                                                <select class="select-box select-box--primary-style u-w-100" id="gender" name="gender">
+                                                    <option selected>Select</option>
+                                                    <option value="male">Male</option>
+                                                    <option value="male">Female</option>
+                                                </select>
+                                            </div>
+                                            <div class="u-s-m-b-30">
+
+                                                <label class="gl-label" for="email">E-MAIL *</label>
+
+                                                <input class="input-text input-text--primary-style" type="text" id="email" name="email" placeholder="Enter E-mail">
+                                            </div>
+                                            <div class="u-s-m-b-30">
+
+                                                <label class="gl-label" for="password">PASSWORD *</label>
+
+                                                <input class="input-text input-text--primary-style" type="password" id="password" name="password" placeholder="Enter Password">
+                                            </div>
+                                            <div class="u-s-m-b-30">
+
+                                                <label class="gl-label" for="password">CONFIRM PASSWORD *</label>
+
+                                                <input class="input-text input-text--primary-style" type="password" id="confirmpassword" name="confirmpassword" placeholder="Enter Password">
+                                            </div>
+                                            <div class="u-s-m-b-15">
+                                                <button class="btn btn--e-transparent-brand-b-2" type="submit">CREATE</button>
+                                            </div>
+                                            <a class="gl-link" href="{% url 'signin' %}">Sign in</a>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--====== End - Section Content ======-->
+            </div>
+            <!--====== End - Section 2 ======-->
+        </div>
+    <!--====== End - App Content ======-->
+{% endblock main_app %}
+
+    

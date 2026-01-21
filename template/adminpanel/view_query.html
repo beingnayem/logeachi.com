@@ -1,0 +1,68 @@
+{% extends 'adminpanel/admin_panel.html' %}
+{% load static %}
+
+{% block message_content %}
+    {% include 'include/message.html' %}
+{% endblock message_content %}
+
+
+{% block admin-panel-main-content %}
+    <div class="adminpanelhome-content">
+        <div class="query-reply-container">
+            <h1 class="query-reply-container-title">Customer Query</h1>
+            <form class="query-reply-form" method="GET" action="{% url 'reply_query' %}">
+                <input type="hidden" name="id" value="{{ query.id }}">
+                <div class="query-reply-form-row">
+                    <label class="query-reply-form-label" for="name">Name</label>
+                    <input class="query-reply-form-input" value="{{query.name}}" type="text" id="name" name="name" disabled>
+                </div>
+                <div class="query-reply-form-row">
+                    <label class="query-reply-form-label" for="email">Email</label>
+                    <input class="query-reply-form-input" value="{{query.email}}" type="email" id="email" name="email" disabled>
+                </div>
+                <div class="query-reply-form-row">
+                    <label class="query-reply-form-label" for="email">Subject</label>
+                    <input class="query-reply-form-input" value="{{query.subject}}" type="email" id="subject" name="subject" disabled>
+                </div>
+                <div class="query-form-date-status-row">
+                    <div class="query-form-col">
+                        <label class="query-reply-form-label" for="query-date">Query Date</label>
+                        <input class="query-reply-form-input-extra" value="{{ formatted_query_date }}" type="date" id="query-date" name="query_date" disabled>
+                    </div>                    
+                    <div class="query-form-col">
+                        <label class="query-reply-form-label" for="query-status">Reply Date</label>
+                        <input class="query-reply-form-input-extra" value="{{ formatted_reply_date }}" type="date" id="reply-date" name="reply_date" disabled>
+                    </div>
+                </div>
+                <div class="query-reply-form-row">
+                    <label class="query-reply-form-label" for="query-status">Query Status</label>
+                    <input class="query-reply-form-input-extra" value="{{query.query_status}}" type="text" id="query-status" name="query_status" disabled>
+                </div>
+                <div class="query-reply-form-textarea-row">
+                    <label class="query-reply-form-label" for="message">Query</label>
+                    <textarea class="query-reply-form-input-textarea" id="query-message" name="query_message"  disabled>
+                        {{query.query_message}}
+                    </textarea>
+                </div>
+                <div class="query-reply-form-textarea-row">
+                    <label class="query-reply-form-label" for="query-reply">Query Reply <span class="reply-note">(Required)</span></label>
+                    <textarea class="query-reply-form-input-textarea" id="query-reply" name="query_reply" disabled>
+                        {{query.query_reply}}
+                    </textarea>
+                </div>
+                {% if query.query_status == "recived" %}
+                    <div class="query-reply-form-btn-container">
+                        <button type="submit" class="query-reply-form-submit-button">Reply</button>
+                    </div>
+                {% endif %}
+            </form>
+            <div class="query-reply-form-btn-container" style="margin: 20px; display: flex; justify-content:space-between;">
+                <button class="go-back-btn" onclick="goBack()">Back</button>
+                <a href="{% url 'queries' %}">
+                    <button class="go-back-btn" onclick="goBack()">Queries</button>
+                </a>
+            </div>
+        </div>
+    </div>
+
+{% endblock admin-panel-main-content %}

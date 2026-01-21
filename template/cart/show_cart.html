@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block message_content %}
+    {% include 'include/message.html' %}
+
+{% endblock message_content %}
+
+{% block main_app %}
+{% include 'include/header.html' %}
+<div id="app">
+
+    <!--====== App Content ======-->
+    <div class="app-content">
+        <!--====== Section 2 ======-->
+        <div class="u-s-p-b-60">
+
+            <!--====== Section Intro ======-->
+            <div class="section__intro u-s-m-b-60">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="section__text-wrap">
+                                <h1 class="section__heading u-c-secondary">SHOPPING CART</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--====== End - Section Intro ======-->
+
+
+            <!--====== Section Content ======-->
+            <div class="section__content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 u-s-m-b-30">
+                            <div class="table-responsive">
+                                <table class="table-p">
+                                    <tbody>
+
+                                        {% for item in user.cart_item %}
+                                        <tr>
+                                            <td>
+                                                <div class="table-p__box">
+                                                    <div class="table-p__img-wrap">
+
+                                                        <img class="u-img-fluid" src="{{item.product.product_image.url}}" alt=""></div>
+                                                    <div class="table-p__info">
+
+                                                        <span class="table-p__name">
+
+                                                            <a href="{% url 'single_product_page' item.product.pk %}"> {{item.product.product_name}} </a></span>
+
+                                                        <span class="table-p__category">
+
+                                                            <a href="{% url 'sub_category_products' item.product.product_category.pk %}">{{item.product.product_category}}</a></span>
+                                                        <ul class="table-p__variant-list">
+                                                            <li>
+
+                                                                <span>quantity: {{item.product.product_quantity}} </span>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+
+                                                <span class="table-p__price">&#2547; {{item.product.product_price}}</span></td>
+                                            <td>
+                                                <div class="table-p__input-counter-wrap">
+
+                                                    <!--====== Input Counter ======-->
+                                                    <div class="input-counter" >
+
+                                                        <a href="{% url 'minus_cart' item.product.pk %}"><span style="line-height: 5;" class="input-counter__minus fas fa-minus"></span></a>
+
+                                                        <input class="input-counter__text input-counter--text-primary-style" type="text" value="{{item.quantity}}" data-min="0" data-max="1000">
+
+                                                        <a href="{% url 'plus_cart' item.product.pk %}"><span style="line-height: 5;" class="input-counter__plus fas fa-plus"></span></a>
+                                                    </div>
+                                                    <!--====== End - Input Counter ======-->
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="table-p__del-wrap">
+                                                    {% if item.pk %}
+                                                    <a class="far fa-trash-alt table-p__delete-link" href="{% url 'delete_cart' item.pk %}"></a>
+                                                    {% endif %}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="route-box">
+                                <div class="route-box__g1">
+
+                                    <a class="route-box__link" href="{% url 'home' %}"><i class="fas fa-long-arrow-alt-left"></i>
+
+                                        <span>CONTINUE SHOPPING</span></a></div>
+                                <div class="route-box__g2">
+
+                                    <a class="route-box__link" href="{% url 'clear_cart' %}"><i class="fas fa-trash"></i>
+
+                                        <span>CLEAR CART</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--====== End - Section Content ======-->
+        </div>
+        <!--====== End - Section 2 ======-->
+
+
+        <!--====== Section 3 ======-->
+        <div class="u-s-p-b-60">
+
+            <!--====== Section Content ======-->
+            <div class="section__content">
+                <div class="container">
+                    <div class="row">
+                        
+                        <div class="col-lg-12 col-md-12 col-sm-12 u-s-m-b-30">
+                            <form class="f-cart">
+                                <div class="row" style="display: flex; justify-content: right">
+                                    <div class="col-lg-4 col-md-6 u-s-m-b-30" >
+                                        <div class="f-cart__pad-box">
+                                            <div class="u-s-m-b-30">
+                                                <table class="f-cart__table">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>SUBTOTAL</td>
+                                                            <td>&#2547; {{user.calculate_subtotal}} </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div>
+
+                                                <a href="{% url 'checkout' %}" class="btn btn--e-brand-b-2" type="submit"> PROCEED TO CHECKOUT</a></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--====== End - Section Content ======-->
+        </div>
+        <!--====== End - Section 3 ======-->
+    </div>
+    <!--====== End - App Content ======-->
+
+</div>
+
+{% include 'include/footer.html' %}
+{% endblock main_app %}

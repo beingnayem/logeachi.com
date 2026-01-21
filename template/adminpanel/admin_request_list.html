@@ -1,0 +1,67 @@
+{% extends 'adminpanel/admin_panel.html' %}
+{% load static %}
+
+{% block message_content %}
+    {% include 'include/message.html' %}
+{% endblock message_content %}
+
+{% block admin-panel-main-content %}
+    <div class="adminpanelhome-content">
+        <div class="team-member-list-container">
+            {% if admin_requests %}
+                <h1>Admin Aprove Request</h1>
+                <div class="team-member-list-table-container">
+                    <table class="team-member-list-table-container-table">
+                        <thead>
+                            <tr class="team-member-list-table-container-table-row">
+                                <th class="team-member-info-head">ID</th>
+                                <th class="team-member-info-head">Name</th>
+                                <th class="team-member-info-head">Email</th>
+                                <th class="team-member-info-head" >Gender</th>
+                                <th class="team-member-info-head">Request Status</th>
+                                <th class="team-member-info-head">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            {% for admin_request in admin_requests %}
+                                <tr class="team-member-list-table-container-table-row">
+                                    <td class="team-member-info">{{admin_request.id}}</td>
+                                    <td class="team-member-info">{{admin_request.first_name}} {{admin_requests.last_name}}</td>
+                                    <td class="team-member-info">{{admin_request.email}}</td>
+                                    <td class="team-member-info">{{admin_request.gender}}</td>
+                                    <td class="team-member-info">{{admin_request.admin_request}}</td>
+                                    <td class="team-member-action-buttons">
+                                        <form action="{% url 'admin_request_approve' %}" method="POST">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="id" value="{{ admin_request.id }}">
+                                            <input type="hidden" name="email" value="{{ admin_request.email }}">
+                                            <button type="submit" class="admin-request-approve-button">
+                                                <i class="fa fa-check"></i>
+                                            </button>
+                                        </form>
+
+                                        <form action="{% url 'admin_request_decline' %}" method="POST">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="id" value="{{ admin_request.id }}">
+                                            <input type="hidden" name="email" value="{{ admin_request.email }}">
+                                            <button type="submit" class="admin-request-decline-button">
+                                                <i class="fa fa-times"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                                
+                            
+                        </tbody>
+                    </table> 
+                </div>
+                {% else %}
+                    <h2 style="text-align: center; color:rgb(101, 168, 33) ">There is no admin aproval request pending.</h2>
+
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock admin-panel-main-content %}

@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block message_content %}
+    {% include 'include/message.html' %}
+{% endblock message_content %}
+
+{% block main_app %}
+    {% include 'include/header.html' %}
+    <!--====== App Content ======-->
+    <div class="app-content">
+
+        <br><br><br>
+
+        <!--====== Section 2 ======-->
+        <div class="u-s-p-b-60">
+
+            <!--====== Section Content ======-->
+            <div class="section__content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="faq">
+                                <h3 class="faq__heading">FREQUENTLY QUESTIONS</h3>
+                                <h3 class="faq__heading">Below are frequently asked questions, you may find the answer for yourself.</h3>
+                                <p class="faq__text">Welcome to our platform! We understand that you may have questions about our services and offerings. To make your experience as seamless as possible, we've compiled a list of frequently asked questions (FAQs) below. These FAQs cover a wide range of topics, and you might just find the answer you're looking for without the need to reach out to us directly. Feel free to explore the information provided here to enhance your understanding of our platform.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--====== End - Section Content ======-->
+        </div>
+        <!--====== End - Section 2 ======-->
+
+
+        <!--====== Section 3 ======-->
+        <div class="u-s-p-b-60">
+
+            <!--====== Section Content ======-->
+            <div class="section__content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div id="faq-accordion-group">
+                                <div class="faq__list">
+
+                                    <a class="faq__question collapsed" href="#faq-1" data-toggle="collapse">How can I get discount coupon ?</a>
+                                    <div class="faq__answer collapse" id="faq-1" data-parent="#faq-accordion-group">
+                                        <p class="faq__text">
+                                            Keep an eye on our promotions and newsletters for exclusive discount coupons. You can also earn rewards and discounts through our loyalty program.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="faq__list">
+
+                                    <a class="faq__question collapsed" href="#faq-2" data-toggle="collapse">Do I need to create account for buy products ?</a>
+                                    <div class="faq__answer collapse" id="faq-2" data-parent="#faq-accordion-group">
+                                        <p class="faq__text">
+                                            Creating an account is a necessary step to place an order. It ensures a seamless shopping experience, enabling features like easy order tracking and a quicker checkout process.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="faq__list">
+
+                                    <a class="faq__question collapsed" href="#faq-3" data-toggle="collapse">How can I track my order ?</a>
+                                    <div class="faq__answer collapse" id="faq-3" data-parent="#faq-accordion-group">
+                                        <p class="faq__text">
+                                            Tracking your order is simple. Just log in to your account, visit the 'Order History' section, and you'll find real-time updates on your shipment's status
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="faq__list">
+
+                                    <a class="faq__question collapsed" href="#faq-4" data-toggle="collapse">What is the payment security system ?</a>
+                                    <div class="faq__answer collapse" id="faq-4" data-parent="#faq-accordion-group">
+                                        <p class="faq__text">
+                                            Your security is paramount. We use state-of-the-art encryption and security protocols to protect your payment information. Shop with confidence.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="faq__list">
+
+                                    <a class="faq__question collapsed" href="#faq-5" data-toggle="collapse">What policy do you have for product sell ?</a>
+                                    <div class="faq__answer collapse" id="faq-5" data-parent="#faq-accordion-group">
+                                        <p class="faq__text">
+                                            We adhere to a strict quality assurance policy. Our products meet industry standards, and we offer a hassle-free return policy if you're not satisfied.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="faq__list">
+
+                                    <a class="faq__question collapsed" href="#faq-6" data-toggle="collapse">How I Return back my product ?</a>
+                                    <div class="faq__answer collapse" id="faq-6" data-parent="#faq-accordion-group">
+                                        <p class="faq__text">
+                                            Returning a product is easy. Visit our 'Returns' page, follow the simple steps, and our team will guide you through the process.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="faq__list">
+
+                                    <a class="faq__question collapsed" href="#faq-7" data-toggle="collapse">What Payment Methods are Available ?</a>
+                                    <div class="faq__answer collapse" id="faq-7" data-parent="#faq-accordion-group">
+                                        <p class="faq__text">
+                                            We offer a variety of payment options, including credit/debit cards, PayPal, and more. Choose the one that suits you best.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="faq__list">
+
+                                    <a class="faq__question collapsed" href="#faq-8" data-toggle="collapse">What Shipping Methods are Available ?</a>
+                                    <div class="faq__answer collapse" id="faq-8" data-parent="#faq-accordion-group">
+                                        <p class="faq__text">
+                                            We provide multiple shipping options, from standard to express, ensuring your order reaches you in a way that fits your schedule. Check our 'Shipping' page for details.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--====== End - Section Content ======-->
+        </div>
+        <!--====== End - Section 3 ======-->
+    </div>
+    <!--====== End - App Content ======-->
+    {% include 'include/footer.html' %}
+{% endblock main_app %}
+    

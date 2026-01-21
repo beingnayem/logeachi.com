@@ -1,0 +1,191 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+  }
+  
+  /* Style the individual product container */
+  .individual-product-details-container {
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: #fff;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 5px;
+  }
+  
+  /* Style the title */
+  .individual-product-details-container-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #000000;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+  }
+  
+  /* Style the image container */
+  .individual-product-image-container {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+  }
+  
+  /* Style the image */
+  .individual-product-image {
+    max-width: 40%;
+    height: auto;
+    display: block;
+    transition: opacity 0.3s;
+  }
+  
+  /* Style the caption */
+  .image-caption {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 5px;
+    transition: opacity 0.3s;
+  }
+  
+  /* Show the caption on hover */
+  .individual-product-image-container:hover .individual-product-image {
+    opacity: 0.7;
+  }
+  
+  .individual-product-image-container:hover .image-caption {
+    opacity: 1;
+  }
+  
+  
+  .individual-product-info{
+    margin-top: 20px;
+  }
+  
+  
+  .individual-product-info-data-row{
+    display: flex;
+    flex-direction: row;
+    text-align: left;
+    /* margin: 10px; */
+    
+  }
+  
+  .product-data-title{
+    font-size: 20px;
+    font-weight: 700;
+    color: #000000;
+  }
+  
+  .individual-product-payment-list{
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    text-align: center;
+    width: 100%;
+  
+  }
+  
+  /* Style the individual product info */
+  .individual-product-info-data {
+    font-size: 16px;
+    margin: 10px;
+    color: #666;
+    width: 50%;
+  }
+  
+  /* Style the product details section */
+  .individual-product-details {
+    margin-top: 20px;
+    padding: 20px;
+    background: linear-gradient(135deg, #3498db, #e74c3c);
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    color: #fff;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Style the product details title */
+  .individual-product-details-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  /* Style the product details textarea */
+  .individual-product-details-info {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    resize: none;
+  }
+  
+  /* Style a decorative element for the product details */
+  .individual-product-details::before {
+    content: "";
+    position: absolute;
+    top: -20px;
+    left: 0;
+    right: 0;
+    height: 20px;
+    background: linear-gradient(135deg, transparent 50%, #e74c3c 50%);
+    background-size: 200% 100%;
+    transition: background-position 0.5s;
+  }
+  
+  /* Hover effect for the decorative element */
+  .individual-product-details:hover::before {
+    background-position: -100% 0;
+  }
+  /* Style the toggle button */
+  .toggle-button {
+    display: block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  /* Hover effect for the toggle button */
+  .toggle-button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Hide the product details by default */
+  .individual-product-details {
+    display: none;
+  }
+  
+  .product-edit-pencil-btn-container{
+    display: flex;
+    justify-content: right;
+    width: 100%;
+  }
+  
+  .product-edit-pencil-btn{
+    font-size: 30px;
+    color: #ff1900;
+    border-radius: 3px;
+    width: 100%;
+  }
+  
+  .product-edit-pencil-btn:hover{
+    color: #500000;
+  }

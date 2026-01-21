@@ -1,0 +1,110 @@
+{% extends 'adminpanel/admin_panel.html' %}
+{% load static %}
+
+{% block message_content %}
+    {% include 'include/message.html' %}
+{% endblock message_content %}
+
+
+{% block admin-panel-main-content %}
+    <div class="adminpanelhome-content">
+        <div class="overview-boxes">
+            <div class="box">
+                <div class="right-side">
+                    <div class="box-topic">Total Order</div>
+                    <div class="number">{{total_orders}}</div>
+                    <div class="indicator">
+                        <i class='bx bx-up-arrow-alt'></i>
+                        <span class="text">Up from now</span>
+                    </div>
+                </div>
+                <i class='bx bx-cart-alt cart'></i>
+            </div>
+            <div class="box">
+                <div class="right-side">
+                    <div class="box-topic">Total Sales</div>
+                    <div class="number">&#2547; {{total_sale}}</div>
+                    <div class="indicator">
+                        <i class='bx bx-up-arrow-alt'></i>
+                        <span class="text">Up from now</span>
+                    </div>
+                </div>
+                <i class='bx bxs-cart-add cart two'></i>
+            </div>
+            <div class="box">
+                <div class="right-side">
+                    <div class="box-topic">Total Profit</div>
+                    <div class="number">&#2547; {{total_profit}}</div>
+                    <div class="indicator">
+                        <i class='bx bx-up-arrow-alt'></i>
+                        <span class="text">Up from now</span>
+                    </div>
+                </div>
+                <i class='bx bx-cart cart three'></i>
+            </div>
+            <!-- <div class="box">
+                <div class="right-side">
+                    <div class="box-topic">Total Return</div>
+                    <div class="number">21,086</div>
+                    <div class="indicator">
+                        <i class='bx bx-down-arrow-alt down'></i>
+                        <span class="text">Down From Today</span>
+                    </div>
+                </div>
+                <i class='bx bxs-cart-download cart four'></i>
+            </div> -->
+        </div>
+
+        <div class="sales-boxes">
+            <div class="recent-sales box">
+                <div class="title">Recent Sales</div>
+                <div class="sales-details">
+                    <ul class="details">
+                        <li class="topic">Date</li>
+                        {% for order in orders %}
+                            <li>{{order.created_at}}</li>
+                        {% endfor %}
+                    </ul>
+                    <ul class="details">
+                        <li class="topic">Customer</li>
+                        <li class="topic">Date</li>
+                        {% for order in orders %}
+                            <li>{{order.user.first_name}}</li>
+                        {% endfor %}
+                    </ul>
+                    <ul class="details">
+                        <li class="topic">Sales</li>
+                        {% for order in orders %}
+                            <li>{{order.order_status}}</li>
+                        {% endfor %}
+                    </ul>
+                    <ul class="details">
+                        <li class="topic">Total</li>
+                        {% for order in orders %}
+                            <li>&#2547; {{ order.calculate_total }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="button">
+                    <a href="{% url 'orders' %}">See All</a>
+                </div>
+            </div>
+            <div class="top-sales box">
+                <div class="title">Top Seling Product</div>
+                <ul class="top-sales-details">
+                    
+                    {% for product in top_sold_products %}
+                        <li>
+                            <a href="#">
+                                <img src="{{product.product_image.url}}" alt="">
+                                <span class="product">{{ product.product_name|truncatewords:4 }}</span>
+                            </a>
+                            <span class="price">&#2547; {{product.product_price}}</span>
+                        </li>
+                    {% endfor %}
+                        
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock admin-panel-main-content %}

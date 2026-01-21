@@ -1,0 +1,94 @@
+{% extends 'customer/user_dashboard.html' %}
+
+
+{% block user_dashboard_content %}
+    
+<div class="col-lg-9 col-md-12">
+    {% if addresses %}
+        <div class="dash__box dash__box--shadow dash__box--radius dash__box--bg-white u-s-m-b-30">
+            <div class="dash__pad-2">
+                <div class="dash__address-header">
+                    <h1 class="dash__h1">Address Book</h1>
+                    <div>
+                        <span class="dash__link dash__link--black u-s-m-r-8">
+                            <a href="{% url 'default_shipping' %}">Make default shipping address</a></span>
+                        <span class="dash__link dash__link--black">
+                            <a href="{% url 'deafult_billing' %}">Make default billing address</a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="dash__box dash__box--shadow dash__box--bg-white dash__box--radius u-s-m-b-30">
+            <div class="dash__table-2-wrap gl-scroll">
+
+            
+                    <table class="dash__table-2">
+                        <thead>
+                            <tr>
+                                <th>Action</th>
+                                <th>Full Name</th>
+                                <th>Address</th>
+                                <th>Phone Number</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            {% for address in addresses %}
+                                <tr>
+                                    <td style="display: flex; justify-content:left;">
+                                        <form action="{% url 'edit_address' %}" method="GET">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="address_id" value="{{address.id}}">
+                                            <button class="address-book-edit btn--e-transparent-platinum-b-2" type="submit" style="margin: 3px;">Edit</button>
+                                        </form>
+                                        <form action="{% url 'delete_address' %}" method="GET">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="address_id" value="{{address.id}}">
+                                            <button class="address-book-edit btn--e-transparent-platinum-b-2" type="submit" style="margin: 3px;">Delete</button>
+                                        </form>
+                                    </td>
+                                    <td>{{address.first_name}} {{address.last_name}}</td>
+                                    <td>{{address.details_address}}, {{address.thana}}, {{address.zila}}, {{address.postal_code}}, {{address.country}}</td>
+                                    <td>{{address.phone_number}}</td>
+                                    <td>
+
+                                        {% if address.is_default_shipping %}
+                                            <div class="gl-text">Default Shipping Address</div>
+                                        {% endif %}
+
+                                        {% if address.is_default_billing %}
+                                            <div class="gl-text">Default Billing Address</div>
+                                        {% endif %}
+
+                                    </td>
+                                </tr>
+                            {% endfor %}
+
+                        </tbody>
+                    </table>
+            
+
+            </div>
+        </div>
+        <div>
+            <a class="dash__custom-link btn--e-brand-b-2" href="{% url 'add_address' %}"><i class="fas fa-plus u-s-m-r-8"></i>
+                <span>Add New Address</span>
+            </a>
+        </div>
+
+        {% else %}
+            <h2 style="text-align: center; color:rgb(204, 7, 7); margin-top: 30px; ">There is no Address yet.</h2>
+            <div style="display: flex; justify-content: center; margin-top: 30px;">
+                <a class="dash__custom-link btn--e-brand-b-2" href="{% url 'add_address' %}"><i class="fas fa-plus u-s-m-r-8"></i>
+                    <span>Add New Address</span>
+                </a>
+            </div>
+
+    {% endif %}
+    
+</div>
+
+{% endblock user_dashboard_content %}
+    

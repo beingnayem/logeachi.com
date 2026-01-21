@@ -1,0 +1,86 @@
+{% extends 'adminpanel/admin_panel.html' %}
+{% load static %}
+
+{% block message_content %}
+    {% include 'include/message.html' %}
+{% endblock message_content %}
+
+{% block admin-panel-main-content %}
+    <div class="adminpanelhome-content">
+        <div class="team-member-list-container">
+            
+                <h1>Main Category List</h1>
+                <div class="admin-request-approve-button-container">
+                    <a href="{% url 'banners' %}">
+                        <button class="admin-request-approve-button">Banners</button>
+                    </a> 
+                    <a href="{% url 'sliders' %}">
+                        <button class="admin-request-approve-button">Sliders</button>
+                    </a>
+                    <a href="{% url 'events' %}">
+                        <button class="admin-request-approve-button">Events</button>
+                    </a>
+                    <a href="{% url 'shop_by_deal' %}">
+                        <button class="admin-request-approve-button">Shop By Deal</button>
+                    </a>
+                </div>
+                <div class="admin-request-approve-button-container">
+                    <a href="{% url 'create_event' %}">
+                        <button class="admin-request-approve-button">Create Event</button>
+                    </a>
+                </div>
+                {% if events %}
+                <div class="team-member-list-table-container">
+                    <table class="team-member-list-table-container-table">
+                        <thead>
+                            <tr class="team-member-list-table-container-table-row">
+                                <th class="team-member-info-head">ID</th>
+                                <th class="team-member-info-head">Event Product Category</th>
+                                <th class="team-member-info-head">Created</th>
+                                <th class="team-member-info-head">Event Deadline</th>
+                                <th class="team-member-info-head">Event Title</th>
+                                <th class="team-member-info-head" style="display: flex; justify-content:center;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+                            {% for event in events %}
+                                <tr class="team-member-list-table-container-table-row">
+                                    <td class="team-member-info">{{event.id}}</td>
+                                    <td class="team-member-info">{{event.event_product_category}}--{{event.event_product_category.category}}--{{event.event_product_category.category.main_category}}</td>
+                                    <td class="team-member-info">{{event.event_deadline}}</td>
+                                    <td class="team-member-info">{{event.created_at}}</td>
+                                    <td class="team-member-info">{{event.event_title}}</td>
+                                    <td class="team-member-action-buttons" style="justify-content: center;">
+                                        <form action="{% url 'edit_event' %}" method="GET">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="event_id" value="{{ event.id }}">
+                                            <button type="submit" class="team-member-remove-button"  title="Edit"><i class="fas fa-pencil-alt"></i></button>
+                                        </form>
+                                        <form action="{% url 'event_details' %}" method="GET">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="event_id" value="{{ event.id }}">
+                                            <button class="team-member-remove-button"  title="View"><i class="fas fa-eye"></i></button>
+                                        </form>
+                                        <form action="{% url 'delete_event' %}" method="GET">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="event_id" value="{{ event.id }}">
+                                            <button class="team-member-remove-button"  title="Delete"><i class="fas fa-trash"></i></button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                                
+                            
+                        </tbody>
+                    </table>
+                </div> 
+                    {% else %}
+                        <h2 style="text-align: center; color:rgb(101, 168, 33) ">There is no Events yet.</h2>
+                {% endif %}
+               
+            
+            
+        </div>
+    </div>
+{% endblock admin-panel-main-content %}
